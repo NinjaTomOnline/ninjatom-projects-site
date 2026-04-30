@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "owner": "NinjaTomOnline",
-  "generatedAt": "2026-04-30T20:01:16.554Z",
+  "generatedAt": "2026-04-30T20:26:22.634Z",
   "includeRules": {
     "repoNameSuffix": "-site",
     "topics": [
@@ -251,17 +251,17 @@
       "updatedAt": "2026-04-30T19:50:53Z"
     },
     {
-      "name": "Ashtag",
-      "tagline": "A compact project site for tag-driven organization.",
-      "category": "Tool",
+      "name": "QuitGentle",
+      "tagline": "A gentle quit-smoking companion for cravings, rescue moments, and progress.",
+      "category": "iOS App",
       "status": "Live",
       "website": "https://quitgentle.com/",
       "supportUrl": "",
       "privacyUrl": "",
       "appStoreUrl": "",
-      "icon": "https://raw.githubusercontent.com/NinjaTomOnline/ashtag-site/main/assets/ashtag-icon.svg",
+      "icon": "https://raw.githubusercontent.com/NinjaTomOnline/ashtag-site/main/assets/quitgentle-icon.svg",
       "previewImage": "https://raw.githubusercontent.com/NinjaTomOnline/ashtag-site/main/assets/screenshots/ashtag-today-marketing.png",
-      "previewImageAlt": "Ashtag project preview",
+      "previewImageAlt": "QuitGentle project preview",
       "accent": "#FF6FA8",
       "featured": false,
       "sortOrder": 230,
@@ -272,7 +272,7 @@
         "ninjatom-project-site"
       ],
       "manifestFound": true,
-      "updatedAt": "2026-04-30T19:50:54Z"
+      "updatedAt": "2026-04-30T20:26:11Z"
     },
     {
       "name": "Dreamspell",
