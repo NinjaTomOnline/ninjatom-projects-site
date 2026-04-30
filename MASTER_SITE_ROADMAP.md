@@ -21,11 +21,15 @@
 - [x] Add custom preview image support to the manifest schema, discovery script, project data, and cards.
 - [x] Add optional Launch Board sections for featured launches and newest project site updates.
 - [x] Add a visual smoke workflow for desktop/mobile homepage screenshots.
+- [x] Enable GitHub Pages from `main` `/` and verify the public site loads project data.
 
 ## Future
 
 - [ ] Add explicit icon URLs to every project repo `site-manifest.json` after each site repo has a source icon or mark.
 - [ ] Add missing App Store links to project homepages as each remaining app launches.
-- [ ] Add analytics after deciding on a privacy-friendly provider.
-- [ ] Add a custom domain after GitHub Pages is stable.
 - [ ] Add a stricter pixel-baseline visual regression check after the public design settles.
+
+## Blocked / Needs Owner Choice
+
+- [ ] Choose a privacy-friendly analytics provider and account before adding analytics.
+- [ ] Choose and configure DNS for `apps.ninjatomonline.com`, `ninjatomapps.com`, or `projects.custom3d.art` before adding a custom domain.

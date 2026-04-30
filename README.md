@@ -4,6 +4,8 @@ Master public website for NinjaTomOnline app, tool, game, and Custom3D.Art proje
 
 The site is static and GitHub Pages-friendly: `index.html`, `styles.css`, and `app.js` render a polished project grid from `projects.json`. A GitHub Action refreshes `projects.json` by discovering public repos under `NinjaTomOnline`.
 
+Live site: `https://ninjatomonline.github.io/ninjatom-projects-site/`
+
 ## How Automatic Discovery Works
 
 The workflow in `.github/workflows/discover-projects.yml` runs:
@@ -102,7 +104,14 @@ GITHUB_TOKEN="$(gh auth token)" node scripts/discover-projects.js
 
 ## GitHub Pages Setup
 
-In the `ninjatom-projects-site` GitHub repo:
+GitHub Pages is currently configured for this repo:
+
+- Source: `Deploy from a branch`
+- Branch: `main`
+- Folder: `/ (root)`
+- Live URL: `https://ninjatomonline.github.io/ninjatom-projects-site/`
+
+If the Pages configuration ever needs to be recreated, use:
 
 1. Go to `Settings` -> `Pages`.
 2. Set source to `Deploy from a branch`.
