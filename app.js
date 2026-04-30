@@ -219,17 +219,16 @@ function renderHeroShowcase(projects) {
 
     const media = document.createElement("span");
     media.className = "hero-product-media";
+    media.appendChild(createDefaultPreview(project, true));
     if (project.previewImage) {
       const image = document.createElement("img");
       image.src = project.previewImage;
       image.alt = "";
       image.decoding = "async";
       image.addEventListener("error", () => {
-        media.replaceChildren(createDefaultPreview(project, true));
+        image.remove();
       });
       media.appendChild(image);
-    } else {
-      media.appendChild(createDefaultPreview(project, true));
     }
 
     card.append(copy, media);
@@ -334,6 +333,8 @@ function createProjectCard(project) {
   preview.rel = "noopener noreferrer";
 
   if (project.previewImage) {
+    preview.appendChild(createDefaultPreview(project));
+
     const image = document.createElement("img");
     image.src = project.previewImage;
     image.alt = project.previewImageAlt;
@@ -341,7 +342,7 @@ function createProjectCard(project) {
     image.decoding = "async";
     image.addEventListener("error", () => {
       preview.classList.add("fallback-preview");
-      preview.replaceChildren(createDefaultPreview(project));
+      image.remove();
     });
     preview.appendChild(image);
   } else {
