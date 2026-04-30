@@ -15,14 +15,17 @@
 - [x] Add `site-manifest.schema.json`.
 - [x] Add example manifests for DoorCodes Vault, SwiftTerm, Zen Wisdom, DontSpeed, and FlowGuru.
 - [x] Add GitHub Pages setup documentation.
+- [x] Add automatic real icon discovery from project manifests, web app manifests, HTML icon links, CNAME-backed sites, and common icon paths.
+- [x] Add automatic App Store URL discovery from launched project homepage links.
+- [x] Add `ninjatom-project-site` and `app-website` topics to existing public project website repos.
+- [x] Add custom preview image support to the manifest schema, discovery script, project data, and cards.
+- [x] Add optional Launch Board sections for featured launches and newest project site updates.
+- [x] Add a visual smoke workflow for desktop/mobile homepage screenshots.
 
 ## Future
 
-- [ ] Add real app icons to each project repo manifest.
-- [ ] Add final App Store URLs as projects launch.
-- [ ] Add repo topics to every public project website repo.
-- [ ] Add custom preview images or screenshots to the manifest schema.
-- [ ] Add optional sections for featured launches or newest projects.
+- [ ] Add explicit icon URLs to every project repo `site-manifest.json` after each site repo has a source icon or mark.
+- [ ] Add missing App Store links to project homepages as each remaining app launches.
 - [ ] Add analytics after deciding on a privacy-friendly provider.
 - [ ] Add a custom domain after GitHub Pages is stable.
-- [ ] Add a visual regression check for the public homepage.
+- [ ] Add a stricter pixel-baseline visual regression check after the public design settles.

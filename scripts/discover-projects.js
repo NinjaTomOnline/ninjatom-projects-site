@@ -7,6 +7,28 @@ const DEFAULT_OWNER = "NinjaTomOnline";
 const DEFAULT_MASTER_REPO = "ninjatom-projects-site";
 const INCLUDE_TOPICS = ["ninjatom-project-site", "app-website"];
 const DEFAULT_ACCENT = "#42D9FF";
+const COMMON_ICON_PATHS = [
+  "apple-touch-icon.png",
+  "icon-512.png",
+  "icon-192.png",
+  "favicon-512.png",
+  "favicon.png",
+  "assets/apple-touch-icon.png",
+  "assets/app-icon.png",
+  "assets/icon-512.png",
+  "assets/icon-256.png",
+  "assets/doorcodes-favicon-512.png",
+  "screenshots/app-icon.png",
+];
+const COMMON_PREVIEW_PATHS = [
+  "screenshots/social-card.png",
+  "assets/doorcodes-social-preview.png",
+  "screenshots/zenwisdom-social-card.png",
+  "screenshots/web/iphone-dashboard-dark.png",
+  "screenshots/01-onboarding-ready.jpg",
+  "screenshots/ipad-gameplay.png",
+  "screenshots/iphone-dashboard-dark.png",
+];
 const FALLBACK_OVERRIDES = {
   "doorcodes-site": {
     name: "DoorCodes Vault",
@@ -113,6 +135,7 @@ const masterRepo =
   DEFAULT_MASTER_REPO;
 const outputPath = path.resolve(repoRoot, args.output || process.env.PROJECTS_OUTPUT || "projects.json");
 const token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN || "";
+const contentsExistsCache = new Map();
 
 main().catch((error) => {
   console.error(error);
@@ -131,7 +154,8 @@ async function main() {
     if (!shouldIncludeRepo(repo, topics)) continue;
 
     const manifest = await readManifest(repo);
-    projects.push(normalizeProject(repo, topics, manifest));
+    const siteHints = await readSiteHints(repo);
+    projects.push(await normalizeProject(repo, topics, manifest, siteHints));
   }
 
   projects.sort(compareProjects);
@@ -228,14 +252,25 @@ async function readManifest(repo) {
   }
 }
 
-function normalizeProject(repo, topics, manifest) {
+async function normalizeProject(repo, topics, manifest, siteHints = {}) {
   const fallback = FALLBACK_OVERRIDES[repo.name.toLowerCase()] || {};
   const inferredName = humanizeRepoName(repo.name);
   const website = firstValidUrl(
     manifest?.website,
     repo.homepage,
+    siteHints.cnameUrl,
     `https://${owner.toLowerCase()}.github.io/${repo.name}/`,
   );
+  const icon = await firstAvailableIcon(repo, website, [
+    manifest?.icon,
+    ...siteHints.iconCandidates,
+    ...COMMON_ICON_PATHS,
+  ]);
+  const previewImage = await firstAvailableAsset(repo, website, [
+    manifest?.previewImage,
+    ...siteHints.previewCandidates,
+    ...COMMON_PREVIEW_PATHS,
+  ]);
 
   return {
     name: cleanString(manifest?.name) || fallback.name || inferredName,
@@ -249,8 +284,10 @@ function normalizeProject(repo, topics, manifest) {
     website,
     supportUrl: firstValidUrl(manifest?.supportUrl),
     privacyUrl: firstValidUrl(manifest?.privacyUrl),
-    appStoreUrl: firstValidUrl(manifest?.appStoreUrl),
-    icon: firstValidUrl(manifest?.icon),
+    appStoreUrl: firstValidUrl(manifest?.appStoreUrl, ...siteHints.appStoreCandidates),
+    icon,
+    previewImage,
+    previewImageAlt: cleanString(manifest?.previewImageAlt),
     accent: validAccent(manifest?.accent) || fallback.accent || inferredAccent(repo.name),
     featured: manifest?.featured === undefined ? Boolean(fallback.featured) : Boolean(manifest.featured),
     sortOrder: Number.isFinite(Number(manifest?.sortOrder))
@@ -264,6 +301,208 @@ function normalizeProject(repo, topics, manifest) {
     manifestFound: Boolean(manifest),
     updatedAt: repo.pushed_at || repo.updated_at || "",
   };
+}
+
+async function readSiteHints(repo) {
+  const [cname, webManifest, indexHtml] = await Promise.all([
+    readRepoText(repo, "CNAME"),
+    readRepoJson(repo, "site.webmanifest"),
+    readRepoText(repo, "index.html"),
+  ]);
+
+  return {
+    cnameUrl: cnameToUrl(cname),
+    iconCandidates: [
+      ...iconCandidatesFromWebManifest(webManifest),
+      ...iconCandidatesFromHtml(indexHtml),
+    ],
+    appStoreCandidates: appStoreCandidatesFromHtml(indexHtml),
+    previewCandidates: previewCandidatesFromHtml(indexHtml),
+  };
+}
+
+async function firstAvailableIcon(repo, website, candidates) {
+  return firstAvailableAsset(repo, website, candidates);
+}
+
+async function firstAvailableAsset(repo, website, candidates) {
+  const seen = new Set();
+
+  for (const candidate of candidates) {
+    if (typeof candidate !== "string" || !candidate.trim()) continue;
+
+    const trimmed = candidate.trim();
+    const resolved = resolveAgainstWebsite(website, trimmed);
+    if (!resolved || seen.has(resolved)) continue;
+    seen.add(resolved);
+
+    if (isAbsoluteHttpUrl(trimmed)) return resolved;
+    if (await contentsExists(repo, normalizeRepoPath(trimmed))) return resolved;
+  }
+
+  return "";
+}
+
+function iconCandidatesFromWebManifest(webManifest) {
+  if (!webManifest || !Array.isArray(webManifest.icons)) return [];
+
+  return webManifest.icons
+    .filter((icon) => icon && typeof icon.src === "string")
+    .sort((a, b) => iconSizeScore(b) - iconSizeScore(a))
+    .map((icon) => icon.src);
+}
+
+function iconSizeScore(icon) {
+  const sizes = typeof icon.sizes === "string" ? icon.sizes.match(/\d+/g) : null;
+  if (!sizes) return 0;
+  return Math.max(...sizes.map((size) => Number(size)).filter(Number.isFinite), 0);
+}
+
+function iconCandidatesFromHtml(html) {
+  if (typeof html !== "string" || !html.trim()) return [];
+
+  const candidates = [];
+  for (const tag of html.matchAll(/<link\b[^>]*>/gi)) {
+    const attrs = parseAttributes(tag[0]);
+    const rel = attrs.rel?.toLowerCase() || "";
+    if (attrs.href && rel.includes("icon")) candidates.push(attrs.href);
+  }
+
+  for (const tag of html.matchAll(/<img\b[^>]*>/gi)) {
+    const attrs = parseAttributes(tag[0]);
+    const className = attrs.class?.toLowerCase() || "";
+    if (attrs.src && /\b(app-icon|brand-icon)\b/.test(className)) candidates.push(attrs.src);
+  }
+
+  return candidates;
+}
+
+function appStoreCandidatesFromHtml(html) {
+  if (typeof html !== "string" || !html.trim()) return [];
+
+  return Array.from(
+    new Set(
+      Array.from(html.matchAll(/https:\/\/apps\.apple\.com[^"'<> )]+/gi)).map((match) =>
+        match[0].replace(/[.,;]+$/, ""),
+      ),
+    ),
+  );
+}
+
+function previewCandidatesFromHtml(html) {
+  if (typeof html !== "string" || !html.trim()) return [];
+
+  const candidates = [];
+  for (const tag of html.matchAll(/<meta\b[^>]*>/gi)) {
+    const attrs = parseAttributes(tag[0]);
+    const property = attrs.property?.toLowerCase() || attrs.name?.toLowerCase() || "";
+    if (attrs.content && ["og:image", "twitter:image", "twitter:image:src"].includes(property)) {
+      candidates.push(attrs.content);
+    }
+  }
+
+  return candidates;
+}
+
+function parseAttributes(tag) {
+  const attrs = {};
+  for (const match of tag.matchAll(/([^\s=<>"']+)\s*=\s*("([^"]*)"|'([^']*)')/g)) {
+    attrs[match[1].toLowerCase()] = match[3] ?? match[4] ?? "";
+  }
+  return attrs;
+}
+
+async function readRepoJson(repo, filePath) {
+  const text = await readRepoText(repo, filePath);
+  if (!text) return null;
+  try {
+    return JSON.parse(text);
+  } catch (error) {
+    console.warn(`Invalid ${filePath} in ${repo.name}: ${error.message}`);
+    return null;
+  }
+}
+
+async function readRepoText(repo, filePath) {
+  const ref = repo.default_branch ? `?ref=${encodeURIComponent(repo.default_branch)}` : "";
+  const response = await githubFetch(
+    `https://api.github.com/repos/${owner}/${repo.name}/contents/${encodeURIComponentPath(filePath)}${ref}`,
+    {
+      headers: {
+        Accept: "application/vnd.github.raw+json",
+      },
+    },
+  );
+
+  if (response.status === 404) return "";
+  if (!response.ok) {
+    console.warn(`Could not read ${filePath} from ${repo.name}: ${response.status}`);
+    return "";
+  }
+
+  const text = await response.text();
+  try {
+    const parsed = JSON.parse(text);
+    if (parsed && typeof parsed === "object" && parsed.encoding === "base64" && parsed.content) {
+      return Buffer.from(parsed.content, "base64").toString("utf8");
+    }
+  } catch {
+    // Raw text responses are expected for normal files.
+  }
+  return text;
+}
+
+async function contentsExists(repo, filePath) {
+  if (!filePath) return false;
+  const key = `${repo.name}:${filePath}`;
+  if (contentsExistsCache.has(key)) return contentsExistsCache.get(key);
+
+  const ref = repo.default_branch ? `?ref=${encodeURIComponent(repo.default_branch)}` : "";
+  const response = await githubFetch(
+    `https://api.github.com/repos/${owner}/${repo.name}/contents/${encodeURIComponentPath(filePath)}${ref}`,
+  );
+  const exists = response.ok;
+  contentsExistsCache.set(key, exists);
+  return exists;
+}
+
+function cnameToUrl(cname) {
+  if (typeof cname !== "string") return "";
+  const host = cname.trim().split(/\s+/)[0];
+  if (!host || host.includes("/")) return "";
+  return `https://${host}/`;
+}
+
+function resolveAgainstWebsite(website, candidate) {
+  if (isAbsoluteHttpUrl(candidate)) return firstValidUrl(candidate);
+  if (!website) return "";
+  try {
+    return new URL(candidate.replace(/^\.\//, ""), website).href;
+  } catch {
+    return "";
+  }
+}
+
+function isAbsoluteHttpUrl(value) {
+  try {
+    const url = new URL(value);
+    return ["http:", "https:"].includes(url.protocol);
+  } catch {
+    return false;
+  }
+}
+
+function normalizeRepoPath(value) {
+  return value
+    .trim()
+    .replace(/^https?:\/\/[^/]+\//i, "")
+    .replace(/^\.\//, "")
+    .replace(/^\/+/, "")
+    .split(/[?#]/)[0];
+}
+
+function encodeURIComponentPath(filePath) {
+  return filePath.split("/").map(encodeURIComponent).join("/");
 }
 
 function inferCategory(repo, topics) {

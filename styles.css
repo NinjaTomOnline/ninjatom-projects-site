@@ -443,6 +443,102 @@ input {
   padding: clamp(3rem, 7vw, 6rem) 0;
 }
 
+.spotlight-section {
+  width: min(var(--max), calc(100% - 2rem));
+  margin: 0 auto;
+  padding: clamp(3rem, 7vw, 5rem) 0 0;
+}
+
+.section-heading.compact h2 {
+  font-size: 3.2rem;
+}
+
+.spotlight-layout {
+  display: grid;
+  margin-top: 1.35rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.spotlight-panel {
+  border-top: 1px solid var(--line);
+  padding-top: 1rem;
+}
+
+.spotlight-panel h3 {
+  margin: 0 0 0.75rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.spotlight-list {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.spotlight-card {
+  display: flex;
+  min-height: 74px;
+  align-items: center;
+  gap: 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 0.8rem;
+  background: rgba(255, 255, 255, 0.045);
+  transition:
+    transform 150ms ease,
+    border-color 150ms ease,
+    background 150ms ease;
+}
+
+.spotlight-card:hover,
+.spotlight-card:focus-visible {
+  border-color: var(--line-strong);
+  background: rgba(255, 255, 255, 0.075);
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.spotlight-icon {
+  display: grid;
+  width: 46px;
+  height: 46px;
+  flex: 0 0 auto;
+  place-items: center;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  color: #061018;
+  background: linear-gradient(135deg, var(--accent, var(--cyan)), rgba(255, 255, 255, 0.84));
+  font-size: 0.82rem;
+  font-weight: 950;
+}
+
+.spotlight-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.spotlight-body {
+  display: grid;
+  min-width: 0;
+  gap: 0.2rem;
+}
+
+.spotlight-body strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.spotlight-body span {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
 .section-heading {
   display: flex;
   align-items: end;
@@ -620,6 +716,10 @@ input {
     background 170ms ease;
 }
 
+.project-card.has-preview {
+  padding-top: 0;
+}
+
 .project-card::before {
   position: absolute;
   inset: 0 0 auto;
@@ -635,6 +735,27 @@ input {
     linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.045)),
     var(--surface-strong);
   transform: translateY(-3px);
+}
+
+.project-preview {
+  display: block;
+  margin: 0 -1.15rem 1rem;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+  aspect-ratio: 16 / 9;
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.project-preview img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform 240ms ease;
+}
+
+.project-card:hover .project-preview img {
+  transform: scale(1.025);
 }
 
 .card-head {
@@ -849,6 +970,10 @@ input {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .spotlight-layout {
+    grid-template-columns: 1fr;
+  }
+
   .controls,
   .section-heading {
     grid-template-columns: 1fr;
@@ -861,6 +986,10 @@ input {
 
   .section-heading h2 {
     font-size: 3.4rem;
+  }
+
+  .section-heading.compact h2 {
+    font-size: 2.8rem;
   }
 
   .section-heading .data-note {
@@ -944,6 +1073,10 @@ input {
 
   .section-heading h2 {
     font-size: 2.45rem;
+  }
+
+  .section-heading.compact h2 {
+    font-size: 2.25rem;
   }
 
   .studio-strip div {

@@ -76,6 +76,22 @@
       ],
       "description": "Absolute URL for an app icon or project mark."
     },
+    "previewImage": {
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "uri"
+        },
+        {
+          "const": ""
+        }
+      ],
+      "description": "Optional absolute URL for a card preview image or screenshot."
+    },
+    "previewImageAlt": {
+      "type": "string",
+      "description": "Accessible alt text for the preview image."
+    },
     "accent": {
       "type": "string",
       "pattern": "^#[0-9A-Fa-f]{6}$",
@@ -102,6 +118,8 @@
       "privacyUrl": "https://doorcodesapp.com/privacy.html",
       "appStoreUrl": "",
       "icon": "",
+      "previewImage": "",
+      "previewImageAlt": "",
       "accent": "#38BDF8",
       "featured": true,
       "sortOrder": 10

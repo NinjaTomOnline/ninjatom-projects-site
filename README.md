@@ -22,7 +22,17 @@ Repos are included when at least one rule matches:
 
 The master repo, `ninjatom-projects-site`, is excluded.
 
-For each included repo, the script tries to read `site-manifest.json` from the repo default branch. If the manifest exists, its data powers the project card. If it does not exist, the script infers a basic card from the repo name, repo topics, and the default GitHub Pages URL.
+For each included repo, the script tries to read `site-manifest.json` from the repo default branch. If the manifest exists, its data powers the project card. If it does not exist, the script infers a basic card from the repo name, repo topics, the default GitHub Pages URL, and any `CNAME` file.
+
+The script also discovers real project icons automatically. It checks, in order:
+
+- `site-manifest.json` `icon`
+- `site.webmanifest` icons, largest first
+- `index.html` icon links such as `apple-touch-icon` and `favicon`
+- `index.html` images with `app-icon` or `brand-icon` classes
+- common repo paths such as `assets/app-icon.png`, `assets/icon-512.png`, and `screenshots/app-icon.png`
+
+The script also picks up App Store links from each project site's `index.html` when a manifest does not specify `appStoreUrl`. This keeps launched app cards current as long as the public site links to the App Store.
 
 The action commits `projects.json` only when project data changes. Generated commits include `[skip ci]`, and the workflow ignores pushes that only change `projects.json` to avoid update loops.
 
@@ -32,7 +42,7 @@ The action commits `projects.json` only when project data changes. Generated com
 2. Name it with the `-site` suffix, or add one of these GitHub topics:
    - `ninjatom-project-site`
    - `app-website`
-3. Add a `site-manifest.json` file to the root of that repo.
+3. Add a `site-manifest.json` file to the root of that repo, or at minimum expose normal web app icon metadata through `site.webmanifest` or `<link rel="apple-touch-icon">`.
 4. Wait for the daily refresh, push to this repo, or manually run the workflow.
 
 Minimum useful manifest:
@@ -65,8 +75,10 @@ Example manifests live in `examples/site-manifests/`.
 - `website`: primary public site
 - `supportUrl`: optional support page
 - `privacyUrl`: optional privacy page
-- `appStoreUrl`: optional App Store link
-- `icon`: optional absolute icon URL
+- `appStoreUrl`: optional App Store link. If this is blank, the hub attempts to discover an `apps.apple.com` link from the project homepage.
+- `icon`: optional absolute icon URL. If this is blank, the hub attempts to discover a real icon from the project site.
+- `previewImage`: optional absolute card preview image URL. If this is blank, the hub attempts to discover an Open Graph image or common screenshot path.
+- `previewImageAlt`: optional alt text for the preview image
 - `accent`: six-digit hex color
 - `featured`: featured projects appear first
 - `sortOrder`: lower numbers appear earlier within featured/non-featured groups
@@ -112,13 +124,23 @@ python3 -m http.server 8080
 
 Then open `http://localhost:8080`.
 
+Run the screenshot smoke check:
+
+```bash
+node scripts/visual-smoke.mjs
+```
+
+The smoke check starts a temporary static server, captures desktop and mobile Chrome screenshots, verifies PNG dimensions and file size, and writes screenshots to `artifacts/visual-smoke/`.
+
 ## Project Structure
 
 - `index.html`: static page markup
 - `styles.css`: responsive dark-mode visual system
 - `app.js`: project loading, search, filters, rendering, and fallback sample data
+- Launch board: `app.js` automatically renders featured projects and recently updated repos from the same generated project index.
 - `projects.json`: generated project index consumed by the frontend
 - `scripts/discover-projects.js`: GitHub API discovery script
 - `.github/workflows/discover-projects.yml`: scheduled/manual/push refresh automation
+- `.github/workflows/visual-smoke.yml`: desktop/mobile screenshot smoke check
 - `site-manifest.schema.json`: metadata contract
 - `examples/site-manifests/`: copy/paste manifest starters

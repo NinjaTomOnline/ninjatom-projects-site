@@ -6,8 +6,10 @@
   "website": "https://doorcodesapp.com",
   "supportUrl": "https://doorcodesapp.com/support.html",
   "privacyUrl": "https://doorcodesapp.com/privacy.html",
-  "appStoreUrl": "",
-  "icon": "",
+  "appStoreUrl": "https://apps.apple.com/us/app/doorcodes-vault/id6761863570",
+  "icon": "https://doorcodesapp.com/assets/doorcodes-favicon-512.png",
+  "previewImage": "https://doorcodesapp.com/assets/doorcodes-social-preview.png",
+  "previewImageAlt": "DoorCodes website preview art for the privacy-first access-code app.",
   "accent": "#38BDF8",
   "featured": true,
   "sortOrder": 10

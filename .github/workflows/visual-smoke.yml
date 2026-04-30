@@ -1,0 +1,34 @@
+name: Visual smoke
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  visual-smoke:
+    name: Capture static page screenshots
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+
+      - name: Capture screenshots
+        run: node scripts/visual-smoke.mjs
+
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: visual-smoke-screenshots
+          path: artifacts/visual-smoke/*.png
+          if-no-files-found: error
