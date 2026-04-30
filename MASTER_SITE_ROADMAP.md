@@ -22,12 +22,13 @@
 - [x] Add optional Launch Board sections for featured launches and newest project site updates.
 - [x] Add a visual smoke workflow for desktop/mobile homepage screenshots.
 - [x] Enable GitHub Pages from `main` `/` and verify the public site loads project data.
+- [x] Restyle the public hub against the neon portfolio reference with product-wall hero cards, a compact filter/search deck, image-first project cards, mobile polish, and a multi-column footer.
 
 ## Future
 
 - [ ] Add explicit icon URLs to every project repo `site-manifest.json` after each site repo has a source icon or mark.
 - [ ] Add missing App Store links to project homepages as each remaining app launches.
-- [ ] Add a stricter pixel-baseline visual regression check after the public design settles.
+- [ ] Add a stricter pixel-baseline visual regression check now that the public design has a stronger settled target.
 
 ## Blocked / Needs Owner Choice
 

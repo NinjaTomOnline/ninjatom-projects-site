@@ -4,6 +4,8 @@ Master public website for NinjaTomOnline app, tool, game, and Custom3D.Art proje
 
 The site is static and GitHub Pages-friendly: `index.html`, `styles.css`, and `app.js` render a polished project grid from `projects.json`. A GitHub Action refreshes `projects.json` by discovering public repos under `NinjaTomOnline`.
 
+The public UI is designed as a dark, cyberpunk-adjacent indie studio portfolio: a large NinjaTom Apps hero, layered project mockups, a compact filter/search/sort deck, image-first project cards, responsive mobile layouts, and a footer with Custom3D.Art, GitHub, and support links.
+
 Live site: `https://ninjatomonline.github.io/ninjatom-projects-site/`
 
 ## How Automatic Discovery Works
@@ -139,14 +141,14 @@ Run the screenshot smoke check:
 node scripts/visual-smoke.mjs
 ```
 
-The smoke check starts a temporary static server, captures desktop and mobile Chrome screenshots, verifies PNG dimensions and file size, and writes screenshots to `artifacts/visual-smoke/`.
+The smoke check starts a temporary static server, waits for the JavaScript-rendered project UI, captures desktop and mobile Chrome screenshots, verifies PNG dimensions and file size, and writes screenshots to `artifacts/visual-smoke/`.
 
 ## Project Structure
 
 - `index.html`: static page markup
-- `styles.css`: responsive dark-mode visual system
-- `app.js`: project loading, search, filters, rendering, and fallback sample data
-- Launch board: `app.js` automatically renders featured projects and recently updated repos from the same generated project index.
+- `styles.css`: responsive dark-mode visual system for the hero, controls, cards, and footer
+- `app.js`: project loading, hero showcase rendering, search, filters, sorting, load-more behavior, and fallback sample data
+- Project cards: `app.js` uses real preview images when available and falls back to generated code-native preview panels when a project does not expose a screenshot yet.
 - `projects.json`: generated project index consumed by the frontend
 - `scripts/discover-projects.js`: GitHub API discovery script
 - `.github/workflows/discover-projects.yml`: scheduled/manual/push refresh automation

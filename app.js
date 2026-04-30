@@ -8,6 +8,8 @@ const FILTERS = {
     categoryIncludes(project, ["creative", "custom3d", "custom 3d", "3d", "art"]),
 };
 
+const INITIAL_VISIBLE_COUNT = 12;
+
 const FALLBACK_PROJECTS = [
   {
     name: "DoorCodes Vault",
@@ -28,7 +30,7 @@ const FALLBACK_PROJECTS = [
     tagline: "A polished terminal companion for fast command notes and workflows.",
     category: "Tool",
     status: "Live",
-    website: "https://ninjatomonline.github.io/swiftterm-site/",
+    website: "https://swiftterm.app",
     supportUrl: "",
     privacyUrl: "",
     appStoreUrl: "",
@@ -42,7 +44,7 @@ const FALLBACK_PROJECTS = [
     tagline: "Quiet daily reflections designed for calmer routines.",
     category: "iOS App",
     status: "Live",
-    website: "https://ninjatomonline.github.io/zenwisdom-site/",
+    website: "https://zenwisdom.app",
     supportUrl: "",
     privacyUrl: "",
     appStoreUrl: "",
@@ -57,6 +59,8 @@ const state = {
   projects: [],
   filter: "All",
   query: "",
+  sort: "studio",
+  visibleCount: INITIAL_VISIBLE_COUNT,
 };
 
 const elements = {
@@ -64,13 +68,12 @@ const elements = {
   statePanel: document.querySelector("#state-panel"),
   dataNote: document.querySelector("#data-note"),
   search: document.querySelector("#project-search"),
+  sort: document.querySelector("#project-sort"),
   filterTabs: document.querySelector("#filter-tabs"),
-  projectCount: document.querySelector("#project-count"),
-  featuredCount: document.querySelector("#featured-count"),
-  categoryCount: document.querySelector("#category-count"),
-  spotlightSection: document.querySelector("#spotlights"),
-  featuredList: document.querySelector("#featured-list"),
-  newestList: document.querySelector("#newest-list"),
+  resultCount: document.querySelector("#result-count"),
+  loadMoreWrap: document.querySelector("#load-more-wrap"),
+  loadMore: document.querySelector("#load-more"),
+  heroShowcase: document.querySelector("#hero-showcase"),
 };
 
 init();
@@ -81,16 +84,14 @@ async function init() {
 
   try {
     const payload = await loadProjects();
-    state.projects = sortProjects(payload.projects.map(normalizeProject));
-    renderStats(state.projects);
-    renderSpotlights(state.projects);
+    state.projects = payload.projects.map(normalizeProject);
+    renderHeroShowcase(state.projects);
     renderProjects();
     setDataNote(payload);
   } catch (error) {
     console.warn("Falling back to sample project data.", error);
-    state.projects = sortProjects(FALLBACK_PROJECTS.map(normalizeProject));
-    renderStats(state.projects);
-    renderSpotlights(state.projects);
+    state.projects = FALLBACK_PROJECTS.map(normalizeProject);
+    renderHeroShowcase(state.projects);
     renderProjects();
     elements.dataNote.textContent = "Previewing sample data";
   }
@@ -99,6 +100,21 @@ async function init() {
 function bindEvents() {
   elements.search.addEventListener("input", (event) => {
     state.query = event.target.value.trim().toLowerCase();
+    state.visibleCount = INITIAL_VISIBLE_COUNT;
+    renderProjects();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "/" || event.metaKey || event.ctrlKey || event.altKey) return;
+    const tagName = document.activeElement?.tagName;
+    if (tagName === "INPUT" || tagName === "TEXTAREA" || document.activeElement?.isContentEditable) return;
+    event.preventDefault();
+    elements.search.focus();
+  });
+
+  elements.sort.addEventListener("change", (event) => {
+    state.sort = event.target.value;
+    state.visibleCount = INITIAL_VISIBLE_COUNT;
     renderProjects();
   });
 
@@ -107,11 +123,19 @@ function bindEvents() {
     if (!button) return;
 
     state.filter = button.dataset.filter;
+    state.visibleCount = INITIAL_VISIBLE_COUNT;
     for (const tab of elements.filterTabs.querySelectorAll(".filter-tab")) {
       const isActive = tab === button;
       tab.classList.toggle("active", isActive);
       tab.setAttribute("aria-selected", String(isActive));
     }
+    renderProjects();
+  });
+
+  elements.loadMore.addEventListener("click", () => {
+    const filtered = getFilteredProjects();
+    state.visibleCount =
+      state.visibleCount >= filtered.length ? INITIAL_VISIBLE_COUNT : filtered.length;
     renderProjects();
   });
 }
@@ -154,6 +178,7 @@ function normalizeProject(project) {
     repoName: stringOr(project.repoName, ""),
     manifestFound: Boolean(project.manifestFound),
     updatedAt: stringOr(project.updatedAt, ""),
+    topics: Array.isArray(project.topics) ? project.topics : [],
     searchText: [
       name,
       project.tagline,
@@ -168,162 +193,175 @@ function normalizeProject(project) {
   };
 }
 
-function sortProjects(projects) {
+function renderHeroShowcase(projects) {
+  const selected = selectHeroProjects(projects);
+  const positions = ["top", "middle", "side", "bottom"];
+  const fragment = document.createDocumentFragment();
+
+  for (const [index, project] of selected.entries()) {
+    const card = document.createElement("a");
+    card.className = `hero-product hero-product-${positions[index] || "side"}`;
+    card.href = project.website || project.repositoryUrl || "#";
+    card.target = "_blank";
+    card.rel = "noopener noreferrer";
+    card.style.setProperty("--accent", project.accent);
+
+    const copy = document.createElement("span");
+    copy.className = "hero-product-copy";
+
+    const title = document.createElement("strong");
+    title.textContent = project.name;
+
+    const tagline = document.createElement("span");
+    tagline.textContent = shortText(project.tagline, 74);
+
+    copy.append(title, tagline);
+
+    const media = document.createElement("span");
+    media.className = "hero-product-media";
+    if (project.previewImage) {
+      const image = document.createElement("img");
+      image.src = project.previewImage;
+      image.alt = "";
+      image.decoding = "async";
+      image.addEventListener("error", () => {
+        media.replaceChildren(createDefaultPreview(project, true));
+      });
+      media.appendChild(image);
+    } else {
+      media.appendChild(createDefaultPreview(project, true));
+    }
+
+    card.append(copy, media);
+    fragment.appendChild(card);
+  }
+
+  elements.heroShowcase.appendChild(fragment);
+}
+
+function selectHeroProjects(projects) {
+  const sorted = sortProjects([...projects], "studio");
+  const withPreview = sorted.filter((project) => project.previewImage);
+  const creative = sorted.find((project) => FILTERS["Creative / Custom3D"](project));
+  const game = sorted.find((project) => FILTERS.Games(project));
+  const picks = [sorted[0], withPreview[1], creative, game, sorted[1], withPreview[0]].filter(Boolean);
+  const unique = [];
+
+  for (const project of picks) {
+    if (!unique.some((item) => item.name === project.name)) unique.push(project);
+    if (unique.length === 4) break;
+  }
+
+  for (const project of sorted) {
+    if (!unique.some((item) => item.name === project.name)) unique.push(project);
+    if (unique.length === 4) break;
+  }
+
+  return unique;
+}
+
+function renderProjects() {
+  const filteredProjects = getFilteredProjects();
+  elements.grid.replaceChildren();
+
+  if (!state.projects.length) {
+    elements.resultCount.textContent = "0 projects";
+    showState("empty", "No project websites found yet.");
+    updateLoadMore(0);
+    return;
+  }
+
+  if (!filteredProjects.length) {
+    elements.resultCount.textContent = `0 of ${state.projects.length} projects`;
+    showState("empty", "No projects match this search.");
+    updateLoadMore(0);
+    return;
+  }
+
+  hideState();
+  const visibleProjects = filteredProjects.slice(0, state.visibleCount);
+  const fragment = document.createDocumentFragment();
+  for (const project of visibleProjects) {
+    fragment.appendChild(createProjectCard(project));
+  }
+
+  elements.grid.appendChild(fragment);
+  elements.resultCount.textContent =
+    filteredProjects.length === state.projects.length
+      ? `${state.projects.length} projects`
+      : `${filteredProjects.length} of ${state.projects.length} projects`;
+  updateLoadMore(filteredProjects.length);
+}
+
+function getFilteredProjects() {
+  const filterFn = FILTERS[state.filter] || FILTERS.All;
+  return sortProjects(
+    state.projects.filter((project) => {
+      const matchesFilter = filterFn(project);
+      const matchesQuery = !state.query || project.searchText.includes(state.query);
+      return matchesFilter && matchesQuery;
+    }),
+    state.sort,
+  );
+}
+
+function sortProjects(projects, mode = "studio") {
   return projects.sort((a, b) => {
+    if (mode === "updated") {
+      const updatedDelta = dateValue(b.updatedAt) - dateValue(a.updatedAt);
+      if (updatedDelta !== 0) return updatedDelta;
+    }
+
+    if (mode === "name") {
+      return a.name.localeCompare(b.name);
+    }
+
     if (a.featured !== b.featured) return a.featured ? -1 : 1;
     if (a.sortOrder !== b.sortOrder) return a.sortOrder - b.sortOrder;
     return a.name.localeCompare(b.name);
   });
 }
 
-function renderStats(projects) {
-  const categories = new Set(projects.map((project) => project.category).filter(Boolean));
-  elements.projectCount.textContent = String(projects.length);
-  elements.featuredCount.textContent = String(projects.filter((project) => project.featured).length);
-  elements.categoryCount.textContent = String(categories.size);
-}
-
-function renderSpotlights(projects) {
-  const featured = projects.filter((project) => project.featured).slice(0, 3);
-  const newest = [...projects]
-    .filter((project) => project.updatedAt)
-    .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
-    .slice(0, 3);
-
-  elements.featuredList.replaceChildren();
-  elements.newestList.replaceChildren();
-
-  for (const project of featured) {
-    elements.featuredList.appendChild(createSpotlightCard(project));
-  }
-
-  for (const project of newest) {
-    elements.newestList.appendChild(createSpotlightCard(project, true));
-  }
-
-  elements.spotlightSection.hidden = !featured.length && !newest.length;
-}
-
-function createSpotlightCard(project, showUpdated = false) {
-  const card = document.createElement("a");
-  card.className = "spotlight-card";
-  card.href = project.website || project.repositoryUrl || "#";
-  card.target = "_blank";
-  card.rel = "noopener noreferrer";
-  card.style.setProperty("--accent", project.accent);
-
-  const icon = document.createElement("span");
-  icon.className = "spotlight-icon";
-  if (project.icon) {
-    const image = document.createElement("img");
-    image.src = project.icon;
-    image.alt = "";
-    image.loading = "lazy";
-    icon.appendChild(image);
-  } else {
-    icon.textContent = initials(project.name);
-  }
-
-  const body = document.createElement("span");
-  body.className = "spotlight-body";
-
-  const title = document.createElement("strong");
-  title.textContent = project.name;
-
-  const meta = document.createElement("span");
-  meta.textContent = showUpdated && project.updatedAt ? `Updated ${formatDate(project.updatedAt)}` : project.category;
-
-  body.append(title, meta);
-  card.append(icon, body);
-  return card;
-}
-
-function renderProjects() {
-  const filterFn = FILTERS[state.filter] || FILTERS.All;
-  const filteredProjects = state.projects.filter((project) => {
-    const matchesFilter = filterFn(project);
-    const matchesQuery = !state.query || project.searchText.includes(state.query);
-    return matchesFilter && matchesQuery;
-  });
-
-  elements.grid.replaceChildren();
-
-  if (!state.projects.length) {
-    showState("empty", "No project websites found yet.");
-    return;
-  }
-
-  if (!filteredProjects.length) {
-    showState("empty", "No projects match this search.");
-    return;
-  }
-
-  hideState();
-  const fragment = document.createDocumentFragment();
-  for (const project of filteredProjects) {
-    fragment.appendChild(createProjectCard(project));
-  }
-  elements.grid.appendChild(fragment);
-}
-
 function createProjectCard(project) {
   const card = document.createElement("article");
   card.className = "project-card";
-  if (project.previewImage) card.classList.add("has-preview");
   card.style.setProperty("--accent", project.accent);
 
+  const preview = document.createElement("a");
+  preview.className = "project-preview";
+  preview.href = project.website || project.repositoryUrl || "#";
+  preview.target = "_blank";
+  preview.rel = "noopener noreferrer";
+
   if (project.previewImage) {
-    const preview = document.createElement("a");
-    preview.className = "project-preview";
-    preview.href = project.website || project.repositoryUrl || "#";
-    preview.target = "_blank";
-    preview.rel = "noopener noreferrer";
-
-    const previewImage = document.createElement("img");
-    previewImage.src = project.previewImage;
-    previewImage.alt = project.previewImageAlt;
-    previewImage.loading = "lazy";
-    preview.appendChild(previewImage);
-    card.appendChild(preview);
-  }
-
-  const head = document.createElement("div");
-  head.className = "card-head";
-
-  const icon = document.createElement("div");
-  icon.className = "project-icon";
-  if (project.icon) {
     const image = document.createElement("img");
-    image.src = project.icon;
-    image.alt = "";
+    image.src = project.previewImage;
+    image.alt = project.previewImageAlt;
     image.loading = "lazy";
-    icon.appendChild(image);
+    image.decoding = "async";
+    image.addEventListener("error", () => {
+      preview.classList.add("fallback-preview");
+      preview.replaceChildren(createDefaultPreview(project));
+    });
+    preview.appendChild(image);
   } else {
-    icon.textContent = initials(project.name);
+    preview.classList.add("fallback-preview");
+    preview.appendChild(createDefaultPreview(project));
   }
 
-  const titleWrap = document.createElement("div");
-  titleWrap.className = "card-title-wrap";
+  const icon = createProjectIcon(project);
+
+  const body = document.createElement("div");
+  body.className = "card-body";
 
   const titleRow = document.createElement("div");
   titleRow.className = "card-title-row";
+
   const title = document.createElement("h3");
   title.textContent = project.name;
-  titleRow.appendChild(title);
-  if (project.featured) {
-    const featured = document.createElement("span");
-    featured.className = "featured-star";
-    featured.title = "Featured";
-    titleRow.appendChild(featured);
-  }
 
-  const meta = document.createElement("div");
-  meta.className = "meta-row";
-  meta.appendChild(createTag(project.category));
-  meta.appendChild(createTag(project.status, statusClass(project.status)));
-
-  titleWrap.append(titleRow, meta);
-  head.append(icon, titleWrap);
+  const category = createTag(project.category, "category-tag");
+  titleRow.append(title, category);
 
   const tagline = document.createElement("p");
   tagline.className = "card-tagline";
@@ -331,33 +369,129 @@ function createProjectCard(project) {
 
   const links = document.createElement("div");
   links.className = "card-links";
-  appendLink(links, "Website", project.website, true);
   appendLink(links, "App Store", project.appStoreUrl);
   appendLink(links, "Support", project.supportUrl);
   appendLink(links, "Privacy", project.privacyUrl);
   appendLink(links, "Repo", project.repositoryUrl);
 
-  card.append(head, tagline, links);
+  const footer = document.createElement("div");
+  footer.className = "card-footer";
+  appendFooterLink(footer, "Live Site", project.website, "globe");
+  appendFooterMeta(footer, formatRelative(project.updatedAt), "clock");
+
+  body.append(titleRow, tagline);
+  if (links.children.length) body.appendChild(links);
+  body.appendChild(footer);
+  card.append(preview, icon, body);
   return card;
+}
+
+function createProjectIcon(project) {
+  const icon = document.createElement("span");
+  icon.className = "project-icon";
+  icon.style.setProperty("--accent", project.accent);
+
+  if (project.icon) {
+    const image = document.createElement("img");
+    image.src = project.icon;
+    image.alt = "";
+    image.loading = "lazy";
+    image.decoding = "async";
+    image.addEventListener("error", () => {
+      icon.textContent = initials(project.name);
+      icon.classList.add("initials-icon");
+    });
+    icon.appendChild(image);
+  } else {
+    icon.textContent = initials(project.name);
+    icon.classList.add("initials-icon");
+  }
+
+  return icon;
+}
+
+function createDefaultPreview(project, compact = false) {
+  const preview = document.createElement("span");
+  preview.className = `preview-art preview-${categorySlug(project.category)}${compact ? " compact" : ""}`;
+  preview.style.setProperty("--accent", project.accent);
+
+  const chrome = document.createElement("span");
+  chrome.className = "preview-chrome";
+  chrome.append(document.createElement("span"), document.createElement("span"), document.createElement("span"));
+
+  const scene = document.createElement("span");
+  scene.className = "preview-scene";
+
+  const title = document.createElement("strong");
+  title.textContent = project.name;
+
+  const lines = document.createElement("span");
+  lines.className = "preview-lines";
+  for (let index = 0; index < 4; index += 1) {
+    lines.appendChild(document.createElement("span"));
+  }
+
+  const accentShape = document.createElement("span");
+  accentShape.className = "preview-accent";
+
+  scene.append(title, lines, accentShape);
+  preview.append(chrome, scene);
+  return preview;
 }
 
 function createTag(label, className = "") {
   const tag = document.createElement("span");
-  tag.className = `tag ${className}`.trim();
+  tag.className = `tag ${className} ${categorySlug(label)}`.trim();
   tag.textContent = label;
   return tag;
 }
 
-function appendLink(container, label, url, primary = false) {
+function appendLink(container, label, url) {
   if (!url) return;
 
   const link = document.createElement("a");
-  link.className = primary ? "card-link primary" : "card-link";
+  link.className = "card-link";
   link.href = url;
   link.target = "_blank";
   link.rel = "noopener noreferrer";
   link.textContent = label;
   container.appendChild(link);
+}
+
+function appendFooterLink(container, label, url, iconName) {
+  if (!url) return;
+
+  const link = document.createElement("a");
+  link.className = "footer-action";
+  link.href = url;
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+  link.append(createIcon(iconName), document.createTextNode(label));
+  container.appendChild(link);
+}
+
+function appendFooterMeta(container, label, iconName) {
+  if (!label) return;
+  const item = document.createElement("span");
+  item.className = "footer-action muted";
+  item.append(createIcon(iconName), document.createTextNode(label));
+  container.appendChild(item);
+}
+
+function createIcon(name) {
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.setAttribute("aria-hidden", "true");
+  svg.setAttribute("viewBox", "0 0 24 24");
+
+  const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  path.setAttribute(
+    "d",
+    name === "clock"
+      ? "M12 6v6l4 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+      : "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0 0c2-2.2 3-5.2 3-9s-1-6.8-3-9m0 18c-2-2.2-3-5.2-3-9s1-6.8 3-9M3.6 9h16.8M3.6 15h16.8",
+  );
+  svg.appendChild(path);
+  return svg;
 }
 
 function showState(type, message) {
@@ -380,6 +514,16 @@ function hideState() {
   elements.statePanel.classList.remove("visible");
 }
 
+function updateLoadMore(total) {
+  const canCollapse = state.visibleCount >= total && total > INITIAL_VISIBLE_COUNT;
+  const canExpand = total > state.visibleCount;
+  elements.loadMoreWrap.hidden = !(canCollapse || canExpand);
+  elements.loadMore.querySelector("span").textContent = canCollapse
+    ? "Show fewer projects"
+    : "Load more projects";
+  elements.loadMore.classList.toggle("expanded", canCollapse);
+}
+
 function setDataNote(payload) {
   if (payload.generatedAt) {
     const formatted = new Intl.DateTimeFormat(undefined, {
@@ -394,18 +538,32 @@ function setDataNote(payload) {
   elements.dataNote.textContent = `${state.projects.length} projects loaded`;
 }
 
-function formatDate(value) {
+function formatRelative(value) {
   const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return "recently";
-  return new Intl.DateTimeFormat(undefined, {
-    month: "short",
-    day: "numeric",
-  }).format(date);
+  if (Number.isNaN(date.getTime())) return "";
+
+  const delta = Date.now() - date.getTime();
+  const minute = 60 * 1000;
+  const hour = 60 * minute;
+  const day = 24 * hour;
+  const month = 30 * day;
+
+  if (delta < hour) return "Updated now";
+  if (delta < day) return `${Math.max(1, Math.floor(delta / hour))}h ago`;
+  if (delta < month) return `${Math.max(1, Math.floor(delta / day))}d ago`;
+  return `${Math.max(1, Math.floor(delta / month))}mo ago`;
 }
 
 function categoryIncludes(project, terms) {
   const value = `${project.category} ${project.name} ${project.repoName}`.toLowerCase();
   return terms.some((term) => value.includes(term));
+}
+
+function categorySlug(value) {
+  return String(value || "project")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
 }
 
 function initials(name) {
@@ -417,8 +575,14 @@ function initials(name) {
     .join("");
 }
 
-function statusClass(status) {
-  return `status-${status.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`;
+function shortText(value, limit) {
+  const text = stringOr(value, "");
+  return text.length > limit ? `${text.slice(0, limit - 1).trim()}...` : text;
+}
+
+function dateValue(value) {
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? 0 : date.getTime();
 }
 
 function stringOr(value, fallback) {
@@ -438,5 +602,5 @@ function validUrl(value) {
 function validAccent(value) {
   return typeof value === "string" && /^#[0-9a-f]{6}$/i.test(value.trim())
     ? value.trim()
-    : "#42D9FF";
+    : "#9B5CFF";
 }
