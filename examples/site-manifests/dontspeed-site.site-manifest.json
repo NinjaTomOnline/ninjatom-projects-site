@@ -1,0 +1,14 @@
+{
+  "name": "DontSpeed",
+  "tagline": "A speed-awareness app website built for simple, focused driving safety.",
+  "category": "iOS App",
+  "status": "Live",
+  "website": "https://ninjatomonline.github.io/dontspeed-site/",
+  "supportUrl": "https://ninjatomonline.github.io/dontspeed-site/support.html",
+  "privacyUrl": "https://ninjatomonline.github.io/dontspeed-site/privacy.html",
+  "appStoreUrl": "",
+  "icon": "",
+  "accent": "#FF6FA8",
+  "featured": false,
+  "sortOrder": 40
+}

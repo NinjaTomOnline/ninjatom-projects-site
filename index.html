@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NinjaTom Apps | Custom3D.Art Projects</title>
+    <meta
+      name="description"
+      content="A curated hub for NinjaTomOnline apps, tools, games, and Custom3D.Art projects."
+    >
+    <meta name="theme-color" content="#070a12">
+    <meta property="og:title" content="NinjaTom Apps">
+    <meta
+      property="og:description"
+      content="Independent apps, tools, games, and creative software by NinjaTomOnline."
+    >
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#projects">Skip to projects</a>
+
+    <header class="site-header" aria-label="Primary">
+      <nav class="nav-shell">
+        <a class="brand" href="#" aria-label="NinjaTom Apps home">
+          <span class="brand-mark" aria-hidden="true">NT</span>
+          <span>
+            <strong>NinjaTom Apps</strong>
+            <small>Custom3D.Art Projects</small>
+          </span>
+        </a>
+        <div class="nav-links" aria-label="External links">
+          <a href="https://custom3d.art" rel="noopener noreferrer">Custom3D.Art</a>
+          <a href="https://github.com/NinjaTomOnline" rel="noopener noreferrer">GitHub</a>
+          <a class="nav-cta" href="#projects">Browse</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero-section" aria-labelledby="hero-title">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <h1 id="hero-title"><span>NinjaTom</span><span>Apps</span></h1>
+            <p>
+              Independent apps, tools, games, and creative software from NinjaTomOnline and
+              Custom3D.Art, gathered into one living portfolio.
+            </p>
+            <div class="hero-actions" aria-label="Hero actions">
+              <a class="button button-primary" href="#projects">View Projects</a>
+              <a class="button button-secondary" href="https://github.com/NinjaTomOnline" rel="noopener noreferrer">
+                GitHub
+              </a>
+            </div>
+          </div>
+
+          <div class="hero-showcase" aria-hidden="true">
+            <div class="showcase-frame frame-main">
+              <div class="frame-topline">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+              <div class="frame-content">
+                <div class="signal-strip"></div>
+                <div class="preview-list">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </div>
+            </div>
+            <div class="showcase-frame frame-float frame-one">
+              <strong>iOS</strong>
+              <span>Live apps</span>
+            </div>
+            <div class="showcase-frame frame-float frame-two">
+              <strong>3D</strong>
+              <span>Creative tools</span>
+            </div>
+            <div class="showcase-line line-one"></div>
+            <div class="showcase-line line-two"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="studio-strip" aria-label="Studio highlights">
+        <div>
+          <span class="metric" id="project-count">0</span>
+          <span>public project sites</span>
+        </div>
+        <div>
+          <span class="metric" id="featured-count">0</span>
+          <span>featured launches</span>
+        </div>
+        <div>
+          <span class="metric" id="category-count">0</span>
+          <span>categories</span>
+        </div>
+      </section>
+
+      <section class="projects-section" id="projects" aria-labelledby="projects-title">
+        <div class="section-heading">
+          <div>
+            <h2 id="projects-title">Project Websites</h2>
+            <p>Fresh from public GitHub Pages repos and project manifests.</p>
+          </div>
+          <p class="data-note" id="data-note" aria-live="polite">Loading projects...</p>
+        </div>
+
+        <div class="controls" aria-label="Project filters">
+          <label class="search-wrap" for="project-search">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="m21 21-4.4-4.4m1.4-5.1a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0Z"></path>
+            </svg>
+            <input
+              id="project-search"
+              type="search"
+              autocomplete="off"
+              placeholder="Search projects"
+            >
+          </label>
+
+          <div class="filter-tabs" id="filter-tabs" role="tablist" aria-label="Category filters">
+            <button class="filter-tab active" type="button" data-filter="All" role="tab" aria-selected="true">All</button>
+            <button class="filter-tab" type="button" data-filter="iOS Apps" role="tab" aria-selected="false">iOS Apps</button>
+            <button class="filter-tab" type="button" data-filter="Web Apps" role="tab" aria-selected="false">Web Apps</button>
+            <button class="filter-tab" type="button" data-filter="Games" role="tab" aria-selected="false">Games</button>
+            <button class="filter-tab" type="button" data-filter="Tools" role="tab" aria-selected="false">Tools</button>
+            <button class="filter-tab" type="button" data-filter="Creative / Custom3D" role="tab" aria-selected="false">Creative / Custom3D</button>
+          </div>
+        </div>
+
+        <div class="state-panel" id="state-panel" role="status" aria-live="polite">
+          <div class="loader" aria-hidden="true"></div>
+          <span>Loading projects...</span>
+        </div>
+
+        <div class="project-grid" id="project-grid" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div>
+        <strong>NinjaTom Apps</strong>
+        <p>Public project hub for NinjaTomOnline and Custom3D.Art.</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://custom3d.art" rel="noopener noreferrer">Custom3D.Art</a>
+        <a href="https://github.com/NinjaTomOnline" rel="noopener noreferrer">GitHub</a>
+        <a href="mailto:support@ninjatomonline.com">Support</a>
+      </div>
+    </footer>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>

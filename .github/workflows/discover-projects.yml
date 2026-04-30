@@ -1,0 +1,52 @@
+name: Refresh project index
+
+on:
+  push:
+    paths-ignore:
+      - "projects.json"
+  schedule:
+    - cron: "23 9 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-project-index
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    name: Discover public project sites
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Generate projects.json
+        env:
+          # The built-in token is enough for public repository discovery and
+          # for committing the generated file back to this repository.
+          GITHUB_TOKEN: ${{ github.token }}
+          PROJECT_OWNER: NinjaTomOnline
+          MASTER_REPO: ninjatom-projects-site
+        run: node scripts/discover-projects.js
+
+      - name: Commit updated index
+        run: |
+          if git diff --quiet -- projects.json; then
+            echo "projects.json is already current."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add projects.json
+          git commit -m "chore: refresh project index [skip ci]"
+          git push

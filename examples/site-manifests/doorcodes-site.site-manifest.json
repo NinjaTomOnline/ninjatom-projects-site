@@ -1,0 +1,14 @@
+{
+  "name": "DoorCodes Vault",
+  "tagline": "Save door codes and surface them when you arrive.",
+  "category": "iOS App",
+  "status": "Live",
+  "website": "https://doorcodesapp.com",
+  "supportUrl": "https://doorcodesapp.com/support.html",
+  "privacyUrl": "https://doorcodesapp.com/privacy.html",
+  "appStoreUrl": "",
+  "icon": "",
+  "accent": "#38BDF8",
+  "featured": true,
+  "sortOrder": 10
+}

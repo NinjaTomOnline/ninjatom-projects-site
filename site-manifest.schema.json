@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ninjatomonline.github.io/ninjatom-projects-site/site-manifest.schema.json",
+  "title": "NinjaTom Project Site Manifest",
+  "description": "Metadata used by the NinjaTom Apps master site to render a project card.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Public app or project name."
+    },
+    "tagline": {
+      "type": "string",
+      "description": "Short one-sentence summary shown on the project card."
+    },
+    "category": {
+      "type": "string",
+      "description": "Display category, for example iOS App, Web App, Game, Tool, or Creative / Custom3D."
+    },
+    "status": {
+      "type": "string",
+      "description": "Project status badge, for example Live, Beta, TestFlight, Coming Soon, or Archived."
+    },
+    "website": {
+      "type": "string",
+      "format": "uri",
+      "description": "Primary public website URL."
+    },
+    "supportUrl": {
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "uri"
+        },
+        {
+          "const": ""
+        }
+      ],
+      "description": "Support page URL."
+    },
+    "privacyUrl": {
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "uri"
+        },
+        {
+          "const": ""
+        }
+      ],
+      "description": "Privacy policy URL."
+    },
+    "appStoreUrl": {
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "uri"
+        },
+        {
+          "const": ""
+        }
+      ],
+      "description": "App Store URL, when available."
+    },
+    "icon": {
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "uri"
+        },
+        {
+          "const": ""
+        }
+      ],
+      "description": "Absolute URL for an app icon or project mark."
+    },
+    "accent": {
+      "type": "string",
+      "pattern": "^#[0-9A-Fa-f]{6}$",
+      "description": "Six-digit hex accent color for the card."
+    },
+    "featured": {
+      "type": "boolean",
+      "description": "Featured projects are sorted before non-featured projects."
+    },
+    "sortOrder": {
+      "type": "number",
+      "description": "Lower numbers appear first within the featured/non-featured group."
+    }
+  },
+  "required": ["name", "tagline", "category", "status", "website"],
+  "examples": [
+    {
+      "name": "DoorCodes Vault",
+      "tagline": "Save door codes and surface them when you arrive.",
+      "category": "iOS App",
+      "status": "Live",
+      "website": "https://doorcodesapp.com",
+      "supportUrl": "https://doorcodesapp.com/support.html",
+      "privacyUrl": "https://doorcodesapp.com/privacy.html",
+      "appStoreUrl": "",
+      "icon": "",
+      "accent": "#38BDF8",
+      "featured": true,
+      "sortOrder": 10
+    }
+  ]
+}

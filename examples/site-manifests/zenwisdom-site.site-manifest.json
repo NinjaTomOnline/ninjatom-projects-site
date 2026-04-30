@@ -1,0 +1,14 @@
+{
+  "name": "Zen Wisdom",
+  "tagline": "Quiet daily reflections designed for calmer routines.",
+  "category": "iOS App",
+  "status": "Live",
+  "website": "https://ninjatomonline.github.io/zenwisdom-site/",
+  "supportUrl": "https://ninjatomonline.github.io/zenwisdom-site/support.html",
+  "privacyUrl": "https://ninjatomonline.github.io/zenwisdom-site/privacy.html",
+  "appStoreUrl": "",
+  "icon": "",
+  "accent": "#A78BFA",
+  "featured": false,
+  "sortOrder": 30
+}

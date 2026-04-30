@@ -1,0 +1,14 @@
+{
+  "name": "SwiftTerm",
+  "tagline": "A polished terminal companion for fast command notes and workflows.",
+  "category": "Tool",
+  "status": "Live",
+  "website": "https://ninjatomonline.github.io/swiftterm-site/",
+  "supportUrl": "https://ninjatomonline.github.io/swiftterm-site/support.html",
+  "privacyUrl": "https://ninjatomonline.github.io/swiftterm-site/privacy.html",
+  "appStoreUrl": "",
+  "icon": "",
+  "accent": "#59F2C7",
+  "featured": true,
+  "sortOrder": 20
+}
