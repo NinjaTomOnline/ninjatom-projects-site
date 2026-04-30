@@ -155,7 +155,7 @@ When the design intentionally changes, update the committed baselines:
 node scripts/visual-regression.mjs --update-baselines
 ```
 
-The regression check uses `?visual-test=1` to render deterministic code-native previews and stable timestamps, then compares desktop, tablet, mobile, and project-grid screenshots against `tests/visual-baselines/`.
+The regression check uses `?visual-test=1` to render deterministic code-native previews and stable timestamps, then compares desktop, tablet, mobile, and project-grid screenshots against `tests/visual-baselines/`. The default threshold allows normal macOS/Linux font rasterization differences; override with `VISUAL_CHANGED_THRESHOLD` or `VISUAL_AVG_THRESHOLD` when tightening or debugging.
 
 ## Project Structure
 
