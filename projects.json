@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "owner": "NinjaTomOnline",
-  "generatedAt": "2026-04-30T18:04:15.230Z",
+  "generatedAt": "2026-04-30T20:01:16.554Z",
   "includeRules": {
     "repoNameSuffix": "-site",
     "topics": [
@@ -43,9 +43,9 @@
       "supportUrl": "",
       "privacyUrl": "",
       "appStoreUrl": "",
-      "icon": "",
-      "previewImage": "",
-      "previewImageAlt": "",
+      "icon": "https://raw.githubusercontent.com/NinjaTomOnline/swiftterm-site/main/assets/swiftterm-icon.svg",
+      "previewImage": "https://raw.githubusercontent.com/NinjaTomOnline/swiftterm-site/main/screenshots/swiftterm-architecture.png",
+      "previewImageAlt": "SwiftTerm project preview",
       "accent": "#59F2C7",
       "featured": true,
       "sortOrder": 20,
@@ -55,8 +55,8 @@
         "app-website",
         "ninjatom-project-site"
       ],
-      "manifestFound": false,
-      "updatedAt": "2026-04-30T13:04:55Z"
+      "manifestFound": true,
+      "updatedAt": "2026-04-30T19:50:49Z"
     },
     {
       "name": "Zen Wisdom",
@@ -115,9 +115,9 @@
       "supportUrl": "",
       "privacyUrl": "",
       "appStoreUrl": "",
-      "icon": "",
-      "previewImage": "",
-      "previewImageAlt": "",
+      "icon": "https://raw.githubusercontent.com/NinjaTomOnline/flowguru-site/main/assets/flowguru-icon.svg",
+      "previewImage": "https://raw.githubusercontent.com/NinjaTomOnline/flowguru-site/main/assets/flowguru-preview.svg",
+      "previewImageAlt": "FlowGuru project preview",
       "accent": "#FFCF70",
       "featured": false,
       "sortOrder": 50,
@@ -127,8 +127,8 @@
         "app-website",
         "ninjatom-project-site"
       ],
-      "manifestFound": false,
-      "updatedAt": "2026-04-24T05:33:20Z"
+      "manifestFound": true,
+      "updatedAt": "2026-04-30T19:50:50Z"
     },
     {
       "name": "Rooftop Rush",
@@ -139,9 +139,9 @@
       "supportUrl": "",
       "privacyUrl": "",
       "appStoreUrl": "",
-      "icon": "",
-      "previewImage": "https://ninjatomonline.github.io/rooftoprush-site/screenshots/01-onboarding-ready.jpg",
-      "previewImageAlt": "",
+      "icon": "https://raw.githubusercontent.com/NinjaTomOnline/rooftoprush-site/main/assets/rooftoprush-icon.svg",
+      "previewImage": "https://raw.githubusercontent.com/NinjaTomOnline/rooftoprush-site/main/screenshots/01-onboarding-ready.jpg",
+      "previewImageAlt": "Rooftop Rush project preview",
       "accent": "#42D9FF",
       "featured": false,
       "sortOrder": 110,
@@ -151,8 +151,8 @@
         "app-website",
         "ninjatom-project-site"
       ],
-      "manifestFound": false,
-      "updatedAt": "2026-04-30T12:56:18Z"
+      "manifestFound": true,
+      "updatedAt": "2026-04-30T19:50:51Z"
     },
     {
       "name": "Retrocopter",
@@ -187,9 +187,9 @@
       "supportUrl": "",
       "privacyUrl": "",
       "appStoreUrl": "",
-      "icon": "",
-      "previewImage": "",
-      "previewImageAlt": "",
+      "icon": "https://raw.githubusercontent.com/NinjaTomOnline/deadheaddetective-site/main/assets/deadhead-detective-icon.svg",
+      "previewImage": "https://raw.githubusercontent.com/NinjaTomOnline/deadheaddetective-site/main/assets/deadhead-detective-preview.svg",
+      "previewImageAlt": "Deadhead Detective project preview",
       "accent": "#A78BFA",
       "featured": false,
       "sortOrder": 130,
@@ -199,8 +199,8 @@
         "app-website",
         "ninjatom-project-site"
       ],
-      "manifestFound": false,
-      "updatedAt": "2026-04-09T21:13:21Z"
+      "manifestFound": true,
+      "updatedAt": "2026-04-30T19:50:52Z"
     },
     {
       "name": "MasterSpaces",
@@ -211,9 +211,9 @@
       "supportUrl": "",
       "privacyUrl": "",
       "appStoreUrl": "",
-      "icon": "",
-      "previewImage": "",
-      "previewImageAlt": "",
+      "icon": "https://raw.githubusercontent.com/NinjaTomOnline/masterspaces-site/main/assets/masterspaces-icon.svg",
+      "previewImage": "https://raw.githubusercontent.com/NinjaTomOnline/masterspaces-site/main/assets/masterspaces-preview.svg",
+      "previewImageAlt": "MasterSpaces project preview",
       "accent": "#7DD3FC",
       "featured": false,
       "sortOrder": 210,
@@ -223,8 +223,8 @@
         "app-website",
         "ninjatom-project-site"
       ],
-      "manifestFound": false,
-      "updatedAt": "2026-04-24T04:20:04Z"
+      "manifestFound": true,
+      "updatedAt": "2026-04-30T19:50:52Z"
     },
     {
       "name": "CushionOps",
@@ -235,9 +235,9 @@
       "supportUrl": "",
       "privacyUrl": "",
       "appStoreUrl": "",
-      "icon": "",
-      "previewImage": "",
-      "previewImageAlt": "",
+      "icon": "https://raw.githubusercontent.com/NinjaTomOnline/cushionops-site/main/assets/cushionops-icon.svg",
+      "previewImage": "https://raw.githubusercontent.com/NinjaTomOnline/cushionops-site/main/assets/cushionops-preview.svg",
+      "previewImageAlt": "CushionOps project preview",
       "accent": "#FFCF70",
       "featured": false,
       "sortOrder": 220,
@@ -247,8 +247,8 @@
         "app-website",
         "ninjatom-project-site"
       ],
-      "manifestFound": false,
-      "updatedAt": "2026-04-20T22:44:50Z"
+      "manifestFound": true,
+      "updatedAt": "2026-04-30T19:50:53Z"
     },
     {
       "name": "Ashtag",
@@ -259,9 +259,9 @@
       "supportUrl": "",
       "privacyUrl": "",
       "appStoreUrl": "",
-      "icon": "",
-      "previewImage": "",
-      "previewImageAlt": "",
+      "icon": "https://raw.githubusercontent.com/NinjaTomOnline/ashtag-site/main/assets/ashtag-icon.svg",
+      "previewImage": "https://raw.githubusercontent.com/NinjaTomOnline/ashtag-site/main/assets/screenshots/ashtag-today-marketing.png",
+      "previewImageAlt": "Ashtag project preview",
       "accent": "#FF6FA8",
       "featured": false,
       "sortOrder": 230,
@@ -271,8 +271,8 @@
         "app-website",
         "ninjatom-project-site"
       ],
-      "manifestFound": false,
-      "updatedAt": "2026-04-30T08:06:45Z"
+      "manifestFound": true,
+      "updatedAt": "2026-04-30T19:50:54Z"
     },
     {
       "name": "Dreamspell",
@@ -307,9 +307,9 @@
       "supportUrl": "",
       "privacyUrl": "",
       "appStoreUrl": "",
-      "icon": "",
-      "previewImage": "",
-      "previewImageAlt": "",
+      "icon": "https://raw.githubusercontent.com/NinjaTomOnline/shramana-site/main/assets/shramana-icon.svg",
+      "previewImage": "https://raw.githubusercontent.com/NinjaTomOnline/shramana-site/main/assets/shramana-preview.svg",
+      "previewImageAlt": "Shramana project preview",
       "accent": "#59F2C7",
       "featured": false,
       "sortOrder": 320,
@@ -319,8 +319,8 @@
         "app-website",
         "ninjatom-project-site"
       ],
-      "manifestFound": false,
-      "updatedAt": "2026-04-14T09:01:27Z"
+      "manifestFound": true,
+      "updatedAt": "2026-04-30T19:50:55Z"
     }
   ]
 }

@@ -143,6 +143,20 @@ node scripts/visual-smoke.mjs
 
 The smoke check starts a temporary static server, waits for the JavaScript-rendered project UI, captures desktop and mobile Chrome screenshots, verifies PNG dimensions and file size, and writes screenshots to `artifacts/visual-smoke/`.
 
+Run the stricter pixel-baseline visual regression check:
+
+```bash
+node scripts/visual-regression.mjs
+```
+
+When the design intentionally changes, update the committed baselines:
+
+```bash
+node scripts/visual-regression.mjs --update-baselines
+```
+
+The regression check uses `?visual-test=1` to render deterministic code-native previews and stable timestamps, then compares desktop, tablet, mobile, and project-grid screenshots against `tests/visual-baselines/`.
+
 ## Project Structure
 
 - `index.html`: static page markup
@@ -151,7 +165,10 @@ The smoke check starts a temporary static server, waits for the JavaScript-rende
 - Project cards: `app.js` uses real preview images when available and falls back to generated code-native preview panels when a project does not expose a screenshot yet.
 - `projects.json`: generated project index consumed by the frontend
 - `scripts/discover-projects.js`: GitHub API discovery script
+- `scripts/visual-regression.mjs`: pixel-baseline regression check with no npm dependencies
 - `.github/workflows/discover-projects.yml`: scheduled/manual/push refresh automation
-- `.github/workflows/visual-smoke.yml`: desktop/mobile screenshot smoke check
+- `.github/workflows/visual-smoke.yml`: desktop/mobile screenshot smoke check plus pixel-baseline comparison
 - `site-manifest.schema.json`: metadata contract
 - `examples/site-manifests/`: copy/paste manifest starters
+- `tests/visual-baselines/`: committed screenshot baselines for regression checks
+- `NEXT_23_SITE_IDEAS.md`: prioritized ideas for future polish and special effects

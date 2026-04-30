@@ -9,6 +9,15 @@ const FILTERS = {
 };
 
 const INITIAL_VISIBLE_COUNT = 12;
+const urlParams = new URLSearchParams(window.location.search);
+const visualTestMode = urlParams.has("visual-test");
+const visualView = urlParams.get("view");
+const visualScrollTarget = urlParams.get("scroll");
+let didApplyVisualScroll = false;
+
+if (visualTestMode && visualView) {
+  document.body.dataset.visualView = visualView;
+}
 
 const FALLBACK_PROJECTS = [
   {
@@ -220,7 +229,7 @@ function renderHeroShowcase(projects) {
     const media = document.createElement("span");
     media.className = "hero-product-media";
     media.appendChild(createDefaultPreview(project, true));
-    if (project.previewImage) {
+    if (project.previewImage && !visualTestMode) {
       const image = document.createElement("img");
       image.src = project.previewImage;
       image.alt = "";
@@ -290,6 +299,7 @@ function renderProjects() {
       ? `${state.projects.length} projects`
       : `${filteredProjects.length} of ${state.projects.length} projects`;
   updateLoadMore(filteredProjects.length);
+  applyVisualScrollTarget();
 }
 
 function getFilteredProjects() {
@@ -332,7 +342,7 @@ function createProjectCard(project) {
   preview.target = "_blank";
   preview.rel = "noopener noreferrer";
 
-  if (project.previewImage) {
+  if (project.previewImage && !visualTestMode) {
     preview.appendChild(createDefaultPreview(project));
 
     const image = document.createElement("img");
@@ -392,7 +402,7 @@ function createProjectIcon(project) {
   icon.className = "project-icon";
   icon.style.setProperty("--accent", project.accent);
 
-  if (project.icon) {
+  if (project.icon && !visualTestMode) {
     const image = document.createElement("img");
     image.src = project.icon;
     image.alt = "";
@@ -525,6 +535,15 @@ function updateLoadMore(total) {
   elements.loadMore.classList.toggle("expanded", canCollapse);
 }
 
+function applyVisualScrollTarget() {
+  if (!visualTestMode || didApplyVisualScroll || visualScrollTarget !== "projects") return;
+
+  didApplyVisualScroll = true;
+  requestAnimationFrame(() => {
+    document.querySelector("#projects")?.scrollIntoView({ block: "start" });
+  });
+}
+
 function setDataNote(payload) {
   if (payload.generatedAt) {
     const formatted = new Intl.DateTimeFormat(undefined, {
@@ -540,6 +559,8 @@ function setDataNote(payload) {
 }
 
 function formatRelative(value) {
+  if (visualTestMode) return "Updated recently";
+
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return "";
 

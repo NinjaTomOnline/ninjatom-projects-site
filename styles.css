@@ -273,11 +273,13 @@ select {
   font-weight: 900;
   letter-spacing: 0;
   line-height: 0.93;
-  overflow-wrap: break-word;
+  overflow-wrap: normal;
+  word-break: keep-all;
 }
 
 .hero-copy h1 span {
   display: block;
+  white-space: nowrap;
 }
 
 .hero-copy h1 span:last-child {
@@ -534,6 +536,18 @@ select {
   width: min(var(--max), calc(100% - 72px));
   margin: 0 auto;
   padding: 10px 0 64px;
+}
+
+body[data-visual-view="projects"] .site-header {
+  position: relative;
+}
+
+body[data-visual-view="projects"] .hero-section {
+  display: none;
+}
+
+body[data-visual-view="projects"] .projects-section {
+  padding-top: 2rem;
 }
 
 .section-heading {
@@ -1265,7 +1279,7 @@ select {
   }
 
   .hero-copy h1 {
-    font-size: 6.4rem;
+    font-size: 5.6rem;
   }
 
   .hero-lede {
@@ -1295,7 +1309,7 @@ select {
   }
 }
 
-@media (max-width: 980px) {
+@media (max-width: 1120px) {
   .nav-shell,
   .hero-section,
   .projects-section,

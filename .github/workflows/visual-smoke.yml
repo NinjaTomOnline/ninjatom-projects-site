@@ -25,10 +25,15 @@ jobs:
       - name: Capture screenshots
         run: node scripts/visual-smoke.mjs
 
+      - name: Compare visual baselines
+        run: node scripts/visual-regression.mjs
+
       - name: Upload screenshots
         uses: actions/upload-artifact@v7
         if: always()
         with:
           name: visual-smoke-screenshots
-          path: artifacts/visual-smoke/*.png
+          path: |
+            artifacts/visual-smoke/*.png
+            artifacts/visual-regression/*.png
           if-no-files-found: error
