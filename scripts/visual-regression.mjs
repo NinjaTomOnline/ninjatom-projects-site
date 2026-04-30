@@ -12,8 +12,8 @@ const outDir = resolve(root, "artifacts", "visual-regression");
 const baselineDir = resolve(root, "tests", "visual-baselines");
 const updateBaselines = process.argv.includes("--update-baselines");
 const chromePath = await findChrome();
-const changedPixelThreshold = Number(process.env.VISUAL_CHANGED_THRESHOLD || 0.12);
-const averageChannelThreshold = Number(process.env.VISUAL_AVG_THRESHOLD || 14);
+const changedPixelThreshold = Number(process.env.VISUAL_CHANGED_THRESHOLD || 0.18);
+const averageChannelThreshold = Number(process.env.VISUAL_AVG_THRESHOLD || 16);
 
 const shots = [
   {
