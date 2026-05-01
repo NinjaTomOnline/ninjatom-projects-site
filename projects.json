@@ -1,7 +1,7 @@
 {
   "schemaVersion": 3,
   "owner": "NinjaTomOnline",
-  "generatedAt": "2026-05-01T10:53:37.103Z",
+  "generatedAt": "2026-05-01T11:06:40.051Z",
   "includeRules": {
     "repoNameSuffix": "-site",
     "topics": [
@@ -276,32 +276,37 @@
     },
     {
       "name": "FlowGuru",
-      "tagline": "Creative flow tools and focus systems for getting unstuck.",
-      "category": "Tool",
-      "status": "Live",
+      "tagline": "A flow arts home base for profiles, practice prompts, and the first release circle.",
+      "category": "Community",
+      "status": "Private staging",
       "website": "https://ninjatomonline.github.io/flowguru-site/",
-      "supportUrl": "",
-      "privacyUrl": "",
+      "supportUrl": "https://ninjatomonline.github.io/flowguru-site/support.html",
+      "privacyUrl": "https://ninjatomonline.github.io/flowguru-site/privacy.html",
       "appStoreUrl": "",
       "icon": "https://raw.githubusercontent.com/NinjaTomOnline/flowguru-site/main/assets/flowguru-icon.svg",
-      "previewImage": "https://raw.githubusercontent.com/NinjaTomOnline/flowguru-site/main/assets/flowguru-preview.svg",
-      "previewImageAlt": "FlowGuru project preview",
+      "previewImage": "https://raw.githubusercontent.com/NinjaTomOnline/flowguru-site/main/assets/flowguru-social.png",
+      "previewImageAlt": "FlowGuru launch art showing profile, practice prompt, and flow trails",
       "screenshots": [
         {
-          "src": "https://raw.githubusercontent.com/NinjaTomOnline/flowguru-site/main/assets/flowguru-preview.svg",
-          "alt": "FlowGuru project preview",
+          "src": "https://raw.githubusercontent.com/NinjaTomOnline/flowguru-site/main/assets/flowguru-social.png",
+          "alt": "FlowGuru launch art showing profile, practice prompt, and flow trails",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/flowguru-site/assets/flowguru-preview.svg",
+          "alt": "FlowGuru launch art showing profile, practice prompt, and flow trails",
           "caption": ""
         }
       ],
       "launchedAt": "2026-04-24T05:33:19.000Z",
       "version": "",
-      "launchNotes": "FlowGuru is listed as Live in the Tool catalog, refreshed automatically from its site manifest.",
+      "launchNotes": "FlowGuru is listed as Private staging in the Community catalog, refreshed automatically from its site manifest.",
       "versionHighlights": [
-        "Live Tool project website",
+        "Private staging Community project website",
         "Curated by site-manifest.json",
-        "1 gallery image available"
+        "2 gallery images available"
       ],
-      "accent": "#FFCF70",
+      "accent": "#54F2D0",
       "featured": false,
       "sortOrder": 50,
       "repoName": "flowguru-site",
@@ -313,7 +318,7 @@
       "manifestFound": true,
       "stargazersCount": 0,
       "forksCount": 0,
-      "updatedAt": "2026-04-30T19:50:50Z"
+      "updatedAt": "2026-05-01T11:01:02Z"
     },
     {
       "name": "Rooftop Rush",
@@ -505,32 +510,57 @@
     },
     {
       "name": "MasterSpaces",
-      "tagline": "A project site for organizing spaces, ideas, and workflows.",
-      "category": "Tool",
-      "status": "Live",
+      "tagline": "Window layouts that remember the room.",
+      "category": "macOS Utility",
+      "status": "Release Candidate",
       "website": "https://ninjatomonline.github.io/masterspaces-site/",
-      "supportUrl": "",
-      "privacyUrl": "",
+      "supportUrl": "https://ninjatomonline.github.io/masterspaces-site/support.html",
+      "privacyUrl": "https://ninjatomonline.github.io/masterspaces-site/privacy.html",
       "appStoreUrl": "",
-      "icon": "https://raw.githubusercontent.com/NinjaTomOnline/masterspaces-site/main/assets/masterspaces-icon.svg",
-      "previewImage": "https://raw.githubusercontent.com/NinjaTomOnline/masterspaces-site/main/assets/masterspaces-preview.svg",
-      "previewImageAlt": "MasterSpaces project preview",
+      "icon": "https://raw.githubusercontent.com/NinjaTomOnline/masterspaces-site/main/assets/favicon.svg",
+      "previewImage": "https://raw.githubusercontent.com/NinjaTomOnline/masterspaces-site/main/assets/social-preview.png",
+      "previewImageAlt": "MasterSpaces launch preview with monitor topology map",
       "screenshots": [
         {
-          "src": "https://raw.githubusercontent.com/NinjaTomOnline/masterspaces-site/main/assets/masterspaces-preview.svg",
-          "alt": "MasterSpaces project preview",
+          "src": "https://raw.githubusercontent.com/NinjaTomOnline/masterspaces-site/main/assets/social-preview.png",
+          "alt": "MasterSpaces launch preview with monitor topology map",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/masterspaces-site/screenshots/menu-bar-panel.png",
+          "alt": "MasterSpaces launch preview with monitor topology map",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/masterspaces-site/screenshots/onboarding.png",
+          "alt": "MasterSpaces launch preview with monitor topology map",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/masterspaces-site/screenshots/preferences.png",
+          "alt": "MasterSpaces launch preview with monitor topology map",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/masterspaces-site/screenshots/archive/menu-bar-panel-light.svg",
+          "alt": "MasterSpaces launch preview with monitor topology map",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/masterspaces-site/screenshots/archive/onboarding-light.svg",
+          "alt": "MasterSpaces launch preview with monitor topology map",
           "caption": ""
         }
       ],
       "launchedAt": "2026-04-24T04:20:03.000Z",
       "version": "",
-      "launchNotes": "MasterSpaces is listed as Live in the Tool catalog, refreshed automatically from its site manifest.",
+      "launchNotes": "MasterSpaces is listed as Release Candidate in the macOS Utility catalog, refreshed automatically from its site manifest.",
       "versionHighlights": [
-        "Live Tool project website",
+        "Release Candidate macOS Utility project website",
         "Curated by site-manifest.json",
-        "1 gallery image available"
+        "6 gallery images available"
       ],
-      "accent": "#7DD3FC",
+      "accent": "#EF9D2F",
       "featured": false,
       "sortOrder": 210,
       "repoName": "masterspaces-site",
@@ -542,7 +572,7 @@
       "manifestFound": true,
       "stargazersCount": 0,
       "forksCount": 0,
-      "updatedAt": "2026-04-30T19:50:52Z"
+      "updatedAt": "2026-05-01T11:04:38Z"
     },
     {
       "name": "CushionOps",
