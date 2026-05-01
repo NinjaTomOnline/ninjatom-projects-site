@@ -310,7 +310,6 @@ select {
 .drawer-backdrop:focus-visible,
 .latest-update:focus-visible,
 .not-found-console a:focus-visible,
-.command-trigger:focus-visible,
 .command-close:focus-visible,
 .command-backdrop:focus-visible,
 .command-result:focus-visible {
@@ -685,8 +684,9 @@ body[data-visual-view="projects"] .projects-section {
 .controls-panel {
   display: grid;
   min-width: 0;
-  grid-template-columns: minmax(0, 1fr) minmax(320px, 400px);
-  gap: 1.45rem;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 400px);
+  column-gap: 1.2rem;
+  row-gap: 1.05rem;
   align-items: start;
   border: 1px solid rgba(166, 186, 220, 0.2);
   border-radius: var(--radius);
@@ -704,22 +704,22 @@ body[data-visual-view="projects"] .projects-section {
   display: flex;
   min-width: 0;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 0.72rem;
   overflow-x: visible;
   padding-bottom: 0;
   scrollbar-width: thin;
 }
 
 .filter-tab {
-  min-height: 58px;
+  min-height: 50px;
   flex: 0 0 auto;
   border: 1px solid rgba(166, 186, 220, 0.26);
   border-radius: var(--radius);
-  padding: 0 1.24rem;
+  padding: 0 1rem;
   color: #c0c6d2;
   background: rgba(255, 255, 255, 0.032);
   cursor: pointer;
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   font-weight: 720;
   letter-spacing: 0;
   white-space: nowrap;
@@ -752,7 +752,7 @@ body[data-visual-view="projects"] .projects-section {
 
 .search-wrap {
   display: flex;
-  min-height: 58px;
+  min-height: 50px;
   align-items: center;
   gap: 0.8rem;
   border: 1px solid rgba(166, 186, 220, 0.26);
@@ -802,8 +802,8 @@ body[data-visual-view="projects"] .projects-section {
 
 .search-wrap kbd {
   display: grid;
-  width: 31px;
-  height: 28px;
+  width: 29px;
+  height: 26px;
   flex: 0 0 auto;
   place-items: center;
   border: 1px solid rgba(166, 186, 220, 0.14);
@@ -822,57 +822,11 @@ body[data-visual-view="projects"] .projects-section {
   gap: 1rem;
 }
 
-.controls-status {
-  display: inline-flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.7rem;
-}
-
 .controls-meta p {
   margin: 0;
   color: #aeb6c7;
   font-size: 0.95rem;
   font-weight: 560;
-}
-
-.command-trigger {
-  display: inline-flex;
-  min-height: 36px;
-  align-items: center;
-  gap: 0.48rem;
-  border: 1px solid rgba(166, 186, 220, 0.18);
-  border-radius: var(--radius-sm);
-  padding: 0 0.72rem;
-  color: #d4dbeb;
-  background: rgba(255, 255, 255, 0.04);
-  cursor: pointer;
-  font-size: 0.82rem;
-  font-weight: 720;
-  transition:
-    color 150ms ease,
-    border-color 150ms ease,
-    background 150ms ease,
-    transform 150ms ease;
-}
-
-.command-trigger svg {
-  width: 17px;
-  height: 17px;
-  fill: none;
-  stroke: currentColor;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 1.9;
-}
-
-.command-trigger:hover,
-.command-trigger:focus-visible {
-  color: #fff;
-  border-color: rgba(164, 92, 255, 0.52);
-  background: rgba(164, 92, 255, 0.12);
-  outline: none;
-  transform: translateY(-1px);
 }
 
 .sort-wrap {
@@ -3139,11 +3093,6 @@ body[data-visual-view="projects"] .projects-section {
   .controls-meta {
     align-items: flex-start;
     flex-direction: column;
-  }
-
-  .controls-status {
-    width: 100%;
-    justify-content: space-between;
   }
 
   .studio-notes {

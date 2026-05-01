@@ -111,7 +111,6 @@ const elements = {
   dataNote: document.querySelector("#data-note"),
   search: document.querySelector("#project-search"),
   sort: document.querySelector("#project-sort"),
-  commandTrigger: document.querySelector("#command-trigger"),
   filterTabs: document.querySelector("#filter-tabs"),
   resultCount: document.querySelector("#result-count"),
   loadMoreWrap: document.querySelector("#load-more-wrap"),
@@ -201,10 +200,6 @@ function bindEvents() {
     state.sort = event.target.value;
     state.visibleCount = INITIAL_VISIBLE_COUNT;
     renderProjects();
-  });
-
-  elements.commandTrigger?.addEventListener("click", () => {
-    openCommandPalette();
   });
 
   elements.commandInput?.addEventListener("input", () => {
@@ -1096,7 +1091,7 @@ function renderCommandResults() {
   if (!matches.length) {
     const empty = document.createElement("div");
     empty.className = "command-empty";
-    empty.textContent = "No matching projects or commands.";
+    empty.textContent = "No matching projects or shortcuts.";
     fragment.appendChild(empty);
   }
 

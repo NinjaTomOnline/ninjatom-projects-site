@@ -35,7 +35,6 @@
     ".controls-panel",
     ".filter-tab",
     ".search-wrap",
-    ".command-trigger",
     ".latest-strip",
     ".latest-update",
     ".studio-note",
