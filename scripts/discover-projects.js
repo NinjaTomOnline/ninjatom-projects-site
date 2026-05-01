@@ -313,6 +313,7 @@ async function normalizeProject(repo, topics, manifest, siteHints = {}) {
     previewImage,
     cleanString(manifest?.previewImageAlt),
   );
+  const resolvedPreviewImage = previewImage || screenshots[0]?.src || "";
   const name = cleanString(manifest?.name) || fallback.name || inferredName;
   const category = cleanString(manifest?.category) || fallback.category || inferCategory(repo, topics);
   const status = cleanString(manifest?.status) || (repo.archived ? "Archived" : "Live");
@@ -354,7 +355,7 @@ async function normalizeProject(repo, topics, manifest, siteHints = {}) {
     privacyUrl: firstValidUrl(manifest?.privacyUrl),
     appStoreUrl: firstValidUrl(manifest?.appStoreUrl, ...siteHints.appStoreCandidates),
     icon,
-    previewImage,
+    previewImage: resolvedPreviewImage,
     previewImageAlt: cleanString(manifest?.previewImageAlt),
     screenshots,
     launchedAt,

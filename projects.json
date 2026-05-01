@@ -1,7 +1,7 @@
 {
   "schemaVersion": 3,
   "owner": "NinjaTomOnline",
-  "generatedAt": "2026-05-01T10:03:11.601Z",
+  "generatedAt": "2026-05-01T10:20:10.262Z",
   "includeRules": {
     "repoNameSuffix": "-site",
     "topics": [
@@ -83,23 +83,48 @@
       "supportUrl": "",
       "privacyUrl": "",
       "appStoreUrl": "",
-      "icon": "https://raw.githubusercontent.com/NinjaTomOnline/swiftterm-site/main/assets/swiftterm-icon.svg",
-      "previewImage": "https://raw.githubusercontent.com/NinjaTomOnline/swiftterm-site/main/screenshots/swiftterm-architecture.png",
-      "previewImageAlt": "SwiftTerm project preview",
+      "icon": "https://swiftterm.app/screenshots/swiftterm-app-icon.png",
+      "previewImage": "https://swiftterm.app/assets/swiftterm-social-preview.png",
+      "previewImageAlt": "",
       "screenshots": [
         {
-          "src": "https://raw.githubusercontent.com/NinjaTomOnline/swiftterm-site/main/screenshots/swiftterm-architecture.png",
-          "alt": "SwiftTerm project preview",
+          "src": "https://swiftterm.app/screenshots/swiftterm-ipad-workspace.png",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "https://swiftterm.app/screenshots/swiftterm-iphone-terminal.png",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "https://swiftterm.app/screenshots/swiftterm-iphone-files.png",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "https://swiftterm.app/screenshots/swiftterm-architecture.png",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "https://swiftterm.app/assets/swiftterm-social-preview.png",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "https://swiftterm.app/assets/swiftterm-social-preview.svg",
+          "alt": "",
           "caption": ""
         }
       ],
       "launchedAt": "2026-04-20T19:48:00.000Z",
       "version": "",
-      "launchNotes": "SwiftTerm is listed as Live in the Tool catalog, refreshed automatically from its site manifest.",
+      "launchNotes": "SwiftTerm is listed as Live in the Tool catalog, refreshed automatically from public GitHub Pages metadata.",
       "versionHighlights": [
         "Live Tool project website",
-        "Curated by site-manifest.json",
-        "1 gallery image available"
+        "Auto-discovered from public GitHub Pages",
+        "6 gallery images available"
       ],
       "accent": "#59F2C7",
       "featured": true,
@@ -110,8 +135,8 @@
         "app-website",
         "ninjatom-project-site"
       ],
-      "manifestFound": true,
-      "updatedAt": "2026-04-30T19:50:49Z"
+      "manifestFound": false,
+      "updatedAt": "2026-05-01T10:19:24Z"
     },
     {
       "name": "Zen Wisdom",

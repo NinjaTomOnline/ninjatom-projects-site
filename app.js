@@ -112,6 +112,7 @@ const elements = {
   loadMoreWrap: document.querySelector("#load-more-wrap"),
   loadMore: document.querySelector("#load-more"),
   heroShowcase: document.querySelector("#hero-showcase"),
+  latestStrip: document.querySelector("#latest-strip"),
   discoveryStrip: document.querySelector("#discovery-strip"),
   discoveryCount: document.querySelector("#discovery-count"),
   discoveryManifests: document.querySelector("#discovery-manifests"),
@@ -130,6 +131,7 @@ async function init() {
     const payload = await loadProjects();
     state.projects = payload.projects.map(normalizeProject);
     renderHeroShowcase(state.projects);
+    renderLatestUpdates(state.projects);
     renderProjects();
     setDataNote(payload);
     updateDiscoverySummary(payload);
@@ -139,6 +141,7 @@ async function init() {
     console.warn("Falling back to sample project data.", error);
     state.projects = FALLBACK_PROJECTS.map(normalizeProject);
     renderHeroShowcase(state.projects);
+    renderLatestUpdates(state.projects);
     renderProjects();
     elements.dataNote.textContent = "Previewing sample data";
     updateDiscoverySummary({ sample: true });
@@ -235,6 +238,7 @@ function normalizeProject(project) {
     previewImage,
     previewImageAlt,
   });
+  const resolvedPreviewImage = previewImage || screenshots[0]?.src || "";
   const versionHighlights = normalizeTextList(project.versionHighlights, [
     `${status} ${category} project website`,
     project.manifestFound ? "Curated by site-manifest.json" : "Auto-discovered from public GitHub Pages",
@@ -254,7 +258,7 @@ function normalizeProject(project) {
     appStoreUrl: validUrl(project.appStoreUrl),
     repositoryUrl: validUrl(project.repositoryUrl),
     icon: validUrl(project.icon),
-    previewImage,
+    previewImage: resolvedPreviewImage,
     previewImageAlt,
     screenshots,
     accent: validAccent(project.accent),
@@ -355,6 +359,79 @@ function selectHeroProjects(projects) {
   }
 
   return unique;
+}
+
+function renderLatestUpdates(projects) {
+  if (!elements.latestStrip) return;
+
+  const latest = selectLatestUpdates(projects);
+  if (!latest.length) {
+    elements.latestStrip.hidden = true;
+    elements.latestStrip.replaceChildren();
+    return;
+  }
+
+  const header = document.createElement("div");
+  header.className = "latest-strip-heading";
+
+  const label = document.createElement("span");
+  label.textContent = "Latest Updates";
+
+  const summary = document.createElement("strong");
+  summary.textContent = `${latest.length} fresh project signal${latest.length === 1 ? "" : "s"}`;
+  header.append(label, summary);
+
+  const track = document.createElement("div");
+  track.className = "latest-strip-track";
+
+  for (const project of latest) {
+    const item = document.createElement("button");
+    item.className = "latest-update";
+    item.type = "button";
+    item.dataset.projectSlug = project.slug;
+    item.style.setProperty("--accent", project.accent);
+    item.setAttribute("aria-label", `Open ${project.name} details`);
+
+    const icon = createProjectIcon(project);
+    icon.classList.add("latest-icon");
+
+    const copy = document.createElement("span");
+    copy.className = "latest-copy";
+
+    const title = document.createElement("strong");
+    title.textContent = project.name;
+
+    const meta = document.createElement("span");
+    meta.textContent = latestUpdateLabel(project);
+
+    copy.append(title, meta);
+    item.append(icon, copy);
+    track.appendChild(item);
+  }
+
+  elements.latestStrip.replaceChildren(header, track);
+  elements.latestStrip.hidden = false;
+}
+
+function selectLatestUpdates(projects) {
+  return [...projects]
+    .filter((project) => project.updatedAt || project.launchedAt)
+    .sort((a, b) => {
+      const latestDelta = latestProjectDateValue(b) - latestProjectDateValue(a);
+      if (latestDelta !== 0) return latestDelta;
+      if (a.featured !== b.featured) return a.featured ? -1 : 1;
+      return a.name.localeCompare(b.name);
+    })
+    .slice(0, 5);
+}
+
+function latestProjectDateValue(project) {
+  return Math.max(dateValue(project.updatedAt), dateValue(project.launchedAt));
+}
+
+function latestUpdateLabel(project) {
+  if (isRecentlyLaunched(project)) return `Launched ${formatDate(project.launchedAt) || "recently"}`;
+  return formatRelative(project.updatedAt) || formatDate(project.updatedAt) || "Recently refreshed";
 }
 
 function renderProjects() {
@@ -481,6 +558,9 @@ function createProjectCard(project) {
   if (isRecentlyUpdated(project)) {
     preview.appendChild(createFreshBadge());
   }
+  if (project.screenshots.length > 1) {
+    preview.appendChild(createGalleryBadge(project.screenshots.length));
+  }
 
   const icon = createProjectIcon(project);
 
@@ -591,6 +671,13 @@ function createFreshBadge() {
   const badge = document.createElement("span");
   badge.className = "fresh-badge";
   badge.textContent = "Recently updated";
+  return badge;
+}
+
+function createGalleryBadge(count) {
+  const badge = document.createElement("span");
+  badge.className = "gallery-badge";
+  badge.textContent = `${count} shots`;
   return badge;
 }
 
@@ -861,14 +948,46 @@ function renderProjectDrawer(project) {
     topicWrap.appendChild(pill);
   }
 
+  const snapshot = createDrawerSnapshot(project);
   const gallery = createScreenshotGallery(project);
   const launchNotes = createLaunchNotes(project);
 
   content.append(header, tags, actions);
+  if (snapshot) content.appendChild(snapshot);
   if (launchNotes) content.appendChild(launchNotes);
   if (gallery) content.appendChild(gallery);
   content.appendChild(facts);
   if (topicWrap.children.length) content.appendChild(topicWrap);
+}
+
+function createDrawerSnapshot(project) {
+  const galleryCount = project.screenshots.length || (project.previewImage ? 1 : 0);
+  const items = [
+    ["Launch", formatDate(project.launchedAt) || "Indexed"],
+    ["Updated", formatDate(project.updatedAt) || formatRelative(project.updatedAt) || "Auto-refresh"],
+    ["Gallery", galleryCount ? `${galleryCount} image${galleryCount === 1 ? "" : "s"}` : "Pending"],
+    ["Source", project.manifestFound ? "Manifest" : "GitHub scan"],
+  ];
+
+  const section = document.createElement("section");
+  section.className = "drawer-snapshot";
+  section.setAttribute("aria-label", `${project.name} project snapshot`);
+
+  for (const [label, value] of items) {
+    const card = document.createElement("div");
+    card.className = "drawer-snapshot-card";
+
+    const term = document.createElement("span");
+    term.textContent = label;
+
+    const detail = document.createElement("strong");
+    detail.textContent = value;
+
+    card.append(term, detail);
+    section.appendChild(card);
+  }
+
+  return section;
 }
 
 function createLaunchNotes(project) {
@@ -923,43 +1042,51 @@ function createScreenshotGallery(project) {
   count.textContent = `${screenshots.length} image${screenshots.length === 1 ? "" : "s"}`;
   heading.append(title, count);
 
+  const featured = createScreenshotFigure(screenshots[0], project, 0, true);
+
   const track = document.createElement("div");
   track.className = "drawer-gallery-track";
 
-  for (const [index, screenshot] of screenshots.entries()) {
-    const figure = document.createElement("figure");
-    figure.className = "drawer-shot";
-
-    const link = document.createElement("a");
-    link.href = screenshot.src;
-    link.target = "_blank";
-    link.rel = "noopener noreferrer";
-    link.setAttribute("aria-label", `Open ${screenshot.alt || project.name} screenshot`);
-
-    if (screenshot.src && !visualTestMode) {
-      const image = document.createElement("img");
-      image.src = screenshot.src;
-      image.alt = screenshot.alt || `${project.name} screenshot`;
-      image.loading = "lazy";
-      image.decoding = "async";
-      image.addEventListener("error", () => {
-        link.replaceChildren(createDefaultPreview(project, true));
-        figure.classList.add("fallback-shot");
-      });
-      link.appendChild(image);
-    } else {
-      figure.classList.add("fallback-shot");
-      link.appendChild(createDefaultPreview(project, true));
-    }
-
-    const caption = document.createElement("figcaption");
-    caption.textContent = screenshot.caption || `Screenshot ${index + 1}`;
-    figure.append(link, caption);
+  for (const [index, screenshot] of screenshots.slice(1).entries()) {
+    const figure = createScreenshotFigure(screenshot, project, index + 1);
     track.appendChild(figure);
   }
 
-  section.append(heading, track);
+  section.append(heading, featured);
+  if (track.children.length) section.appendChild(track);
   return section;
+}
+
+function createScreenshotFigure(screenshot, project, index, featured = false) {
+  const figure = document.createElement("figure");
+  figure.className = featured ? "drawer-shot drawer-shot-featured" : "drawer-shot";
+
+  const link = document.createElement("a");
+  link.href = screenshot.src || project.website || project.repositoryUrl || "#";
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+  link.setAttribute("aria-label", `Open ${screenshot.alt || project.name} screenshot`);
+
+  if (screenshot.src && !visualTestMode) {
+    const image = document.createElement("img");
+    image.src = screenshot.src;
+    image.alt = screenshot.alt || `${project.name} screenshot`;
+    image.loading = featured ? "eager" : "lazy";
+    image.decoding = "async";
+    image.addEventListener("error", () => {
+      link.replaceChildren(createDefaultPreview(project, true));
+      figure.classList.add("fallback-shot");
+    });
+    link.appendChild(image);
+  } else {
+    figure.classList.add("fallback-shot");
+    link.appendChild(createDefaultPreview(project, true));
+  }
+
+  const caption = document.createElement("figcaption");
+  caption.textContent = screenshot.caption || (featured ? "Featured preview" : `Screenshot ${index + 1}`);
+  figure.append(link, caption);
+  return figure;
 }
 
 function appendDrawerLink(container, label, url, primary = false) {

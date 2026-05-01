@@ -52,6 +52,7 @@
 - [x] Add category hash routes such as `#category/ios-apps` and `#category/games`.
 - [x] Add a downloadable press/media-kit ZIP bundle.
 - [x] Add subtle neon cursor spotlights across cards, controls, and press surfaces.
+- [x] Add a compact Latest Updates strip, richer drawer snapshot stats, stronger gallery previews, media-count card badges, and upgraded 404 recovery shortcuts.
 
 ## Future
 

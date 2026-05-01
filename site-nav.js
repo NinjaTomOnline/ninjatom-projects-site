@@ -35,12 +35,15 @@
     ".controls-panel",
     ".filter-tab",
     ".search-wrap",
+    ".latest-strip",
+    ".latest-update",
     ".button",
     ".card-link",
     ".load-more",
     ".press-card",
     ".asset-row",
     ".press-contact",
+    ".not-found-console",
   ].join(",");
 
   if (!visualTestMode && finePointer.matches && !prefersReducedMotion.matches) {

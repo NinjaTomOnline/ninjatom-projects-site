@@ -1,6 +1,6 @@
 # Next 23 Site Ideas
 
-Recently completed: project-card tilt/parallax, animated neon focus rings, neon cursor spotlights, hero project-wall motion, shareable project detail drawers, screenshot galleries, repo-tree screenshot discovery, launch notes, JSON-LD structured data, RSS feed generation, Recently Launched filtering, category hash routes, public changelog, press/media-kit ZIP, Lighthouse CI, recently-updated ribbons, live discovery status, branded 404 page, and removal of the featured launch carousel.
+Recently completed: project-card tilt/parallax, animated neon focus rings, neon cursor spotlights, hero project-wall motion, compact latest-updates strip, shareable project detail drawers, drawer snapshot stats, richer screenshot galleries, repo-tree screenshot discovery, launch notes, JSON-LD structured data, RSS feed generation, Recently Launched filtering, category hash routes, public changelog, press/media-kit ZIP, Lighthouse CI, recently-updated ribbons, live discovery status, branded 404 recovery shortcuts, and removal of the featured launch carousel.
 
 1. Add a low-motion particle grid behind the hero, with `prefers-reduced-motion` support.
 2. Add a keyboard command palette for search, category jumps, and quick project launch.
