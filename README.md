@@ -134,6 +134,7 @@ Canonical host files are committed in this repo:
 - `sitemap.xml`: lists the canonical homepage
 - `index.html`: includes canonical and Open Graph URL metadata for `https://ninjatomapps.com/`
 - `assets/ninjatomapps-social-preview.png`: Open Graph and Twitter preview image for shared links
+- `press.html`: lightweight press/media kit page with public brand links and downloadable preview assets
 
 Current IONOS DNS points the apex domain at GitHub Pages with the standard four `A` records and four `AAAA` records. `www.ninjatomapps.com` is a `CNAME` to `ninjatomonline.github.io`.
 
@@ -172,6 +173,7 @@ The regression check uses `?visual-test=1` to render deterministic code-native p
 ## Project Structure
 
 - `index.html`: static page markup
+- `press.html`: press/media kit page for the hub
 - `CNAME`: GitHub Pages custom-domain file for `ninjatomapps.com`
 - `robots.txt` and `sitemap.xml`: canonical crawler hints for the public domain
 - `assets/ninjatomapps-social-preview.svg` and `.png`: source and rendered social preview art
