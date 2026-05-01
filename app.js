@@ -112,10 +112,6 @@ const elements = {
   loadMoreWrap: document.querySelector("#load-more-wrap"),
   loadMore: document.querySelector("#load-more"),
   heroShowcase: document.querySelector("#hero-showcase"),
-  featuredRail: document.querySelector("#featured-rail"),
-  featuredTrack: document.querySelector("#featured-track"),
-  featuredPrev: document.querySelector("#featured-prev"),
-  featuredNext: document.querySelector("#featured-next"),
   discoveryStrip: document.querySelector("#discovery-strip"),
   discoveryCount: document.querySelector("#discovery-count"),
   discoveryManifests: document.querySelector("#discovery-manifests"),
@@ -134,7 +130,6 @@ async function init() {
     const payload = await loadProjects();
     state.projects = payload.projects.map(normalizeProject);
     renderHeroShowcase(state.projects);
-    renderFeaturedLaunches(state.projects);
     renderProjects();
     setDataNote(payload);
     updateDiscoverySummary(payload);
@@ -144,7 +139,6 @@ async function init() {
     console.warn("Falling back to sample project data.", error);
     state.projects = FALLBACK_PROJECTS.map(normalizeProject);
     renderHeroShowcase(state.projects);
-    renderFeaturedLaunches(state.projects);
     renderProjects();
     elements.dataNote.textContent = "Previewing sample data";
     updateDiscoverySummary({ sample: true });
@@ -185,10 +179,6 @@ function bindEvents() {
 
     setActiveFilter(button.dataset.filter, { updateHash: true });
   });
-
-  elements.featuredPrev?.addEventListener("click", () => scrollFeatured(-1));
-  elements.featuredNext?.addEventListener("click", () => scrollFeatured(1));
-  elements.featuredTrack?.addEventListener("scroll", updateFeaturedControls, { passive: true });
 
   document.addEventListener("click", (event) => {
     const detailsTrigger = event.target.closest("button[data-project-slug]");
@@ -365,109 +355,6 @@ function selectHeroProjects(projects) {
   }
 
   return unique;
-}
-
-function renderFeaturedLaunches(projects) {
-  if (!elements.featuredRail || !elements.featuredTrack) return;
-
-  const featuredProjects = selectFeaturedLaunches(projects);
-  elements.featuredTrack.replaceChildren();
-
-  if (!featuredProjects.length) {
-    elements.featuredRail.hidden = true;
-    return;
-  }
-
-  const fragment = document.createDocumentFragment();
-  for (const project of featuredProjects) {
-    fragment.appendChild(createFeaturedCard(project));
-  }
-
-  elements.featuredTrack.appendChild(fragment);
-  elements.featuredRail.hidden = false;
-  requestAnimationFrame(updateFeaturedControls);
-}
-
-function selectFeaturedLaunches(projects) {
-  const sorted = sortProjects([...projects], "studio");
-  const primary = sorted.filter((project) => project.featured);
-  const previewed = sorted.filter(
-    (project) => project.previewImage && !primary.some((item) => item.name === project.name),
-  );
-  return [...primary, ...previewed, ...sorted]
-    .filter((project, index, all) => all.findIndex((item) => item.name === project.name) === index)
-    .slice(0, 8);
-}
-
-function createFeaturedCard(project) {
-  const card = document.createElement("article");
-  card.className = "featured-card";
-  card.style.setProperty("--accent", project.accent);
-  attachTilt(card);
-
-  const media = document.createElement("a");
-  media.className = "featured-media";
-  media.href = project.website || project.repositoryUrl || "#";
-  media.target = "_blank";
-  media.rel = "noopener noreferrer";
-  media.setAttribute("aria-label", `Open ${project.name}`);
-  media.appendChild(createDefaultPreview(project, true));
-  if (project.previewImage && !visualTestMode) {
-    const image = document.createElement("img");
-    image.src = project.previewImage;
-    image.alt = "";
-    image.loading = "lazy";
-    image.decoding = "async";
-    image.addEventListener("error", () => image.remove());
-    media.appendChild(image);
-  }
-
-  const copy = document.createElement("span");
-  copy.className = "featured-copy";
-
-  const eyebrow = document.createElement("span");
-  eyebrow.className = "featured-eyebrow";
-  eyebrow.textContent = project.featured ? "Featured launch" : "Fresh project";
-
-  const title = document.createElement("strong");
-  title.textContent = project.name;
-
-  const tagline = document.createElement("span");
-  tagline.className = "featured-tagline";
-  tagline.textContent = shortText(project.tagline, 92);
-
-  const meta = document.createElement("span");
-  meta.className = "featured-meta";
-  meta.append(createTag(project.category, "category-tag"), createStatusBadge(project.status));
-
-  const actions = document.createElement("span");
-  actions.className = "featured-actions";
-  actions.append(createDetailButton(project));
-  appendInlineLink(actions, "Open Site", project.website || project.repositoryUrl);
-
-  copy.append(eyebrow, title, tagline, meta, actions);
-  card.append(media, copy);
-  return card;
-}
-
-function scrollFeatured(direction) {
-  if (!elements.featuredTrack) return;
-
-  const card = elements.featuredTrack.querySelector(".featured-card");
-  const amount = (card?.getBoundingClientRect().width || 360) + 18;
-  elements.featuredTrack.scrollBy({
-    left: direction * amount,
-    behavior: visualTestMode ? "auto" : "smooth",
-  });
-}
-
-function updateFeaturedControls() {
-  if (!elements.featuredTrack || !elements.featuredPrev || !elements.featuredNext) return;
-
-  const maxScroll = elements.featuredTrack.scrollWidth - elements.featuredTrack.clientWidth;
-  const canScroll = maxScroll > 2;
-  elements.featuredPrev.disabled = !canScroll || elements.featuredTrack.scrollLeft <= 2;
-  elements.featuredNext.disabled = !canScroll || elements.featuredTrack.scrollLeft >= maxScroll - 2;
 }
 
 function renderProjects() {

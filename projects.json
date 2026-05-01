@@ -1,7 +1,7 @@
 {
   "schemaVersion": 3,
   "owner": "NinjaTomOnline",
-  "generatedAt": "2026-05-01T09:35:57.089Z",
+  "generatedAt": "2026-05-01T10:03:11.601Z",
   "includeRules": {
     "repoNameSuffix": "-site",
     "topics": [
@@ -685,6 +685,31 @@
           "src": "https://raw.githubusercontent.com/NinjaTomOnline/shramana-site/main/assets/shramana-preview.svg",
           "alt": "Shramana project preview",
           "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/shramana-site/assets/screenshots/level-20.png",
+          "alt": "Shramana project preview",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/shramana-site/assets/monks/monk_static_east.png",
+          "alt": "Shramana project preview",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/shramana-site/assets/monks/levitate_0.png",
+          "alt": "Shramana project preview",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/shramana-site/assets/monks/astralMove_0.png",
+          "alt": "Shramana project preview",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/shramana-site/assets/art/obj_exitGate_active.png",
+          "alt": "Shramana project preview",
+          "caption": ""
         }
       ],
       "launchedAt": "2026-04-14T09:01:27.000Z",
@@ -693,7 +718,7 @@
       "versionHighlights": [
         "Live Creative / Custom3D project website",
         "Curated by site-manifest.json",
-        "1 gallery image available"
+        "6 gallery images available"
       ],
       "accent": "#59F2C7",
       "featured": false,
@@ -705,7 +730,7 @@
         "ninjatom-project-site"
       ],
       "manifestFound": true,
-      "updatedAt": "2026-04-30T19:50:55Z"
+      "updatedAt": "2026-05-01T10:01:37Z"
     }
   ]
 }

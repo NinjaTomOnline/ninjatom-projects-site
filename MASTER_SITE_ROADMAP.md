@@ -32,7 +32,7 @@
 - [x] Add a lightweight press/media kit page with downloadable preview assets.
 - [x] Add accessible mobile navigation so project, press, GitHub, Custom3D.Art, and about links remain reachable on phones.
 - [x] Add favicon, Apple touch icon, install manifest, and branded app icon assets.
-- [x] Add featured launch carousel above the project controls.
+- [x] Remove the featured launch carousel so the project browser starts with the filter/search controls.
 - [x] Add tasteful project-card tilt/parallax, animated neon focus rings, and visible status badges.
 - [x] Update the `ashtag-site` fallback to QuitGentle so fallback data stays current.
 - [x] Add a branded GitHub Pages `404.html` fallback.

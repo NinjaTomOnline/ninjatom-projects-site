@@ -32,14 +32,12 @@
   const visualTestMode = new URLSearchParams(window.location.search).has("visual-test");
   const spotlightSelector = [
     ".project-card",
-    ".featured-card",
     ".controls-panel",
     ".filter-tab",
     ".search-wrap",
     ".button",
     ".card-link",
     ".load-more",
-    ".carousel-button",
     ".press-card",
     ".asset-row",
     ".press-contact",

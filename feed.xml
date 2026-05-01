@@ -6,7 +6,15 @@
     <atom:link href="https://ninjatomapps.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>New and updated NinjaTom Apps, tools, games, and Custom3D.Art project websites.</description>
     <language>en-us</language>
-    <lastBuildDate>Fri, 01 May 2026 03:35:49 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 01 May 2026 10:01:37 GMT</lastBuildDate>
+    <item>
+      <title>Shramana</title>
+      <link>https://ninjatomonline.github.io/shramana-site/</link>
+      <guid isPermaLink="false">https://ninjatomapps.com/#project/shramana-site</guid>
+      <pubDate>Fri, 01 May 2026 10:01:37 GMT</pubDate>
+      <category>Creative / Custom3D</category>
+      <description>A contemplative creative project site. Shramana is listed as Live in the Creative / Custom3D catalog, refreshed automatically from its site manifest.</description>
+    </item>
     <item>
       <title>DontSpeed</title>
       <link>https://dontspeed.app/</link>
@@ -30,14 +38,6 @@
       <pubDate>Fri, 01 May 2026 01:09:14 GMT</pubDate>
       <category>iOS App</category>
       <description>Access codes, ready on arrival with privacy-safe reminders and Secure Reveal. DoorCodes is listed as Live in the iOS App catalog, refreshed automatically from its site manifest.</description>
-    </item>
-    <item>
-      <title>Shramana</title>
-      <link>https://ninjatomonline.github.io/shramana-site/</link>
-      <guid isPermaLink="false">https://ninjatomapps.com/#project/shramana-site</guid>
-      <pubDate>Thu, 30 Apr 2026 19:50:55 GMT</pubDate>
-      <category>Creative / Custom3D</category>
-      <description>A contemplative creative project site. Shramana is listed as Live in the Creative / Custom3D catalog, refreshed automatically from its site manifest.</description>
     </item>
     <item>
       <title>CushionOps</title>
