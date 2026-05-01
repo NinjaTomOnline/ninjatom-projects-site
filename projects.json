@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "owner": "NinjaTomOnline",
-  "generatedAt": "2026-05-01T01:03:46.344Z",
+  "generatedAt": "2026-05-01T08:26:56.371Z",
   "includeRules": {
     "repoNameSuffix": "-site",
     "topics": [
@@ -32,7 +32,7 @@
         "ninjatom-project-site"
       ],
       "manifestFound": true,
-      "updatedAt": "2026-05-01T00:52:45Z"
+      "updatedAt": "2026-05-01T01:09:14Z"
     },
     {
       "name": "SwiftTerm",
@@ -104,7 +104,7 @@
         "ninjatom-project-site"
       ],
       "manifestFound": false,
-      "updatedAt": "2026-04-30T03:56:22Z"
+      "updatedAt": "2026-05-01T03:35:49Z"
     },
     {
       "name": "FlowGuru",
@@ -272,7 +272,7 @@
         "ninjatom-project-site"
       ],
       "manifestFound": true,
-      "updatedAt": "2026-05-01T00:47:31Z"
+      "updatedAt": "2026-05-01T02:12:25Z"
     },
     {
       "name": "Dreamspell",
