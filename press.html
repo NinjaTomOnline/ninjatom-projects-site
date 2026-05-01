@@ -9,6 +9,11 @@
       content="Brand links, project context, and social preview assets for NinjaTom Apps."
     >
     <meta name="theme-color" content="#05070d">
+    <link rel="icon" href="assets/ninjatomapps-icon.svg" type="image/svg+xml">
+    <link rel="alternate icon" href="assets/favicon.ico">
+    <link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
     <link rel="canonical" href="https://ninjatomapps.com/press.html">
     <meta property="og:title" content="NinjaTom Apps Press Kit">
     <meta
@@ -59,9 +64,9 @@
           </span>
         </a>
 
-        <div class="nav-links" aria-label="Primary links">
+        <div class="nav-links" id="primary-nav" aria-label="Primary links">
           <a href="index.html#projects">Projects</a>
-          <a href="https://custom3d.art" rel="noopener noreferrer">
+          <a class="nav-link-secondary" href="https://custom3d.art" rel="noopener noreferrer">
             Custom3D.Art
             <svg aria-hidden="true" viewBox="0 0 24 24">
               <path d="M7 17 17 7M9 7h8v8"></path>
@@ -74,8 +79,15 @@
             </svg>
           </a>
           <a class="active" href="press.html">Press</a>
-          <a href="index.html#about">About</a>
+          <a class="nav-link-secondary" href="index.html#about">About</a>
         </div>
+        <button class="nav-menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" data-nav-toggle>
+          <span class="nav-menu-label">Menu</span>
+          <span class="nav-menu-bars" aria-hidden="true">
+            <span></span>
+            <span></span>
+          </span>
+        </button>
       </nav>
     </header>
 
@@ -235,5 +247,6 @@
         <span>Made with HTML + CSS + JavaScript</span>
       </div>
     </footer>
+    <script src="site-nav.js" defer></script>
   </body>
 </html>

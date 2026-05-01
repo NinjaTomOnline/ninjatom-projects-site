@@ -9,6 +9,11 @@
       content="A curated hub for NinjaTomOnline apps, tools, games, and Custom3D.Art projects."
     >
     <meta name="theme-color" content="#05070d">
+    <link rel="icon" href="assets/ninjatomapps-icon.svg" type="image/svg+xml">
+    <link rel="alternate icon" href="assets/favicon.ico">
+    <link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
     <link rel="canonical" href="https://ninjatomapps.com/">
     <meta property="og:title" content="NinjaTom Apps">
     <meta
@@ -59,9 +64,9 @@
           </span>
         </a>
 
-        <div class="nav-links" aria-label="Primary links">
+        <div class="nav-links" id="primary-nav" aria-label="Primary links">
           <a class="active" href="#projects">Projects</a>
-          <a href="https://custom3d.art" rel="noopener noreferrer">
+          <a class="nav-link-secondary" href="https://custom3d.art" rel="noopener noreferrer">
             Custom3D.Art
             <svg aria-hidden="true" viewBox="0 0 24 24">
               <path d="M7 17 17 7M9 7h8v8"></path>
@@ -74,7 +79,7 @@
             </svg>
           </a>
           <a href="press.html">Press</a>
-          <a href="#about">About</a>
+          <a class="nav-link-secondary" href="#about">About</a>
           <span class="icon-button" aria-hidden="true">
             <svg aria-hidden="true" viewBox="0 0 24 24">
               <path d="M12 3v2.2M12 18.8V21M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M3 12h2.2M18.8 12H21M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"></path>
@@ -82,6 +87,13 @@
             </svg>
           </span>
         </div>
+        <button class="nav-menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" data-nav-toggle>
+          <span class="nav-menu-label">Menu</span>
+          <span class="nav-menu-bars" aria-hidden="true">
+            <span></span>
+            <span></span>
+          </span>
+        </button>
       </nav>
     </header>
 
@@ -124,14 +136,36 @@
       </section>
 
       <section class="projects-section" id="projects" aria-labelledby="projects-title">
+        <section class="featured-rail" id="featured-rail" aria-labelledby="featured-title" hidden>
+          <div class="featured-rail-head">
+            <div>
+              <h2 id="featured-title">Featured Launches</h2>
+              <p>Spotlight projects from the live NinjaTom app index.</p>
+            </div>
+            <div class="carousel-controls" aria-label="Featured launch carousel controls">
+              <button class="carousel-button" id="featured-prev" type="button" aria-label="Previous featured project">
+                <svg aria-hidden="true" viewBox="0 0 24 24">
+                  <path d="m15 18-6-6 6-6"></path>
+                </svg>
+              </button>
+              <button class="carousel-button" id="featured-next" type="button" aria-label="Next featured project">
+                <svg aria-hidden="true" viewBox="0 0 24 24">
+                  <path d="m9 6 6 6-6 6"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="featured-track" id="featured-track" tabindex="0" aria-label="Featured project cards"></div>
+        </section>
+
         <div class="controls-panel" aria-label="Project browser controls">
-          <div class="filter-tabs" id="filter-tabs" role="tablist" aria-label="Category filters">
-            <button class="filter-tab active" type="button" data-filter="All" role="tab" aria-selected="true">All</button>
-            <button class="filter-tab" type="button" data-filter="iOS Apps" role="tab" aria-selected="false">iOS Apps</button>
-            <button class="filter-tab" type="button" data-filter="Web Apps" role="tab" aria-selected="false">Web Apps</button>
-            <button class="filter-tab" type="button" data-filter="Games" role="tab" aria-selected="false">Games</button>
-            <button class="filter-tab" type="button" data-filter="Tools" role="tab" aria-selected="false">Tools</button>
-            <button class="filter-tab" type="button" data-filter="Creative / Custom3D" role="tab" aria-selected="false">Creative / Custom3D</button>
+          <div class="filter-tabs" id="filter-tabs" aria-label="Category filters">
+            <button class="filter-tab active" type="button" data-filter="All" aria-pressed="true">All</button>
+            <button class="filter-tab" type="button" data-filter="iOS Apps" aria-pressed="false">iOS Apps</button>
+            <button class="filter-tab" type="button" data-filter="Web Apps" aria-pressed="false">Web Apps</button>
+            <button class="filter-tab" type="button" data-filter="Games" aria-pressed="false">Games</button>
+            <button class="filter-tab" type="button" data-filter="Tools" aria-pressed="false">Tools</button>
+            <button class="filter-tab" type="button" data-filter="Creative / Custom3D" aria-pressed="false">Creative / Custom3D</button>
           </div>
 
           <label class="search-wrap" for="project-search">
@@ -250,6 +284,7 @@
       </div>
     </footer>
 
+    <script src="site-nav.js" defer></script>
     <script src="app.js" defer></script>
   </body>
 </html>

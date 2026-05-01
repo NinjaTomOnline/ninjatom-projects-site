@@ -30,6 +30,11 @@
 - [x] Add repo-side `CNAME`, canonical URL, sitemap, robots, Open Graph URL, and support email for `ninjatomapps.com`.
 - [x] Add a 1200x630 social preview image and Open Graph/Twitter image metadata for `ninjatomapps.com`.
 - [x] Add a lightweight press/media kit page with downloadable preview assets.
+- [x] Add accessible mobile navigation so project, press, GitHub, Custom3D.Art, and about links remain reachable on phones.
+- [x] Add favicon, Apple touch icon, install manifest, and branded app icon assets.
+- [x] Add featured launch carousel above the project controls.
+- [x] Add tasteful project-card tilt/parallax, animated neon focus rings, and visible status badges.
+- [x] Update the `ashtag-site` fallback to QuitGentle so fallback data stays current.
 
 ## Future
 

@@ -14,6 +14,7 @@ const visualTestMode = urlParams.has("visual-test");
 const visualView = urlParams.get("view");
 const visualScrollTarget = urlParams.get("scroll");
 let didApplyVisualScroll = false;
+let didApplyHashScroll = false;
 
 if (visualTestMode && visualView) {
   document.body.dataset.visualView = visualView;
@@ -85,6 +86,10 @@ const elements = {
   loadMoreWrap: document.querySelector("#load-more-wrap"),
   loadMore: document.querySelector("#load-more"),
   heroShowcase: document.querySelector("#hero-showcase"),
+  featuredRail: document.querySelector("#featured-rail"),
+  featuredTrack: document.querySelector("#featured-track"),
+  featuredPrev: document.querySelector("#featured-prev"),
+  featuredNext: document.querySelector("#featured-next"),
 };
 
 init();
@@ -97,12 +102,14 @@ async function init() {
     const payload = await loadProjects();
     state.projects = payload.projects.map(normalizeProject);
     renderHeroShowcase(state.projects);
+    renderFeaturedLaunches(state.projects);
     renderProjects();
     setDataNote(payload);
   } catch (error) {
     console.warn("Falling back to sample project data.", error);
     state.projects = FALLBACK_PROJECTS.map(normalizeProject);
     renderHeroShowcase(state.projects);
+    renderFeaturedLaunches(state.projects);
     renderProjects();
     elements.dataNote.textContent = "Previewing sample data";
   }
@@ -138,10 +145,14 @@ function bindEvents() {
     for (const tab of elements.filterTabs.querySelectorAll(".filter-tab")) {
       const isActive = tab === button;
       tab.classList.toggle("active", isActive);
-      tab.setAttribute("aria-selected", String(isActive));
+      tab.setAttribute("aria-pressed", String(isActive));
     }
     renderProjects();
   });
+
+  elements.featuredPrev?.addEventListener("click", () => scrollFeatured(-1));
+  elements.featuredNext?.addEventListener("click", () => scrollFeatured(1));
+  elements.featuredTrack?.addEventListener("scroll", updateFeaturedControls, { passive: true });
 
   elements.loadMore.addEventListener("click", () => {
     const filtered = getFilteredProjects();
@@ -270,6 +281,103 @@ function selectHeroProjects(projects) {
   return unique;
 }
 
+function renderFeaturedLaunches(projects) {
+  if (!elements.featuredRail || !elements.featuredTrack) return;
+
+  const featuredProjects = selectFeaturedLaunches(projects);
+  elements.featuredTrack.replaceChildren();
+
+  if (!featuredProjects.length) {
+    elements.featuredRail.hidden = true;
+    return;
+  }
+
+  const fragment = document.createDocumentFragment();
+  for (const project of featuredProjects) {
+    fragment.appendChild(createFeaturedCard(project));
+  }
+
+  elements.featuredTrack.appendChild(fragment);
+  elements.featuredRail.hidden = false;
+  requestAnimationFrame(updateFeaturedControls);
+}
+
+function selectFeaturedLaunches(projects) {
+  const sorted = sortProjects([...projects], "studio");
+  const primary = sorted.filter((project) => project.featured);
+  const previewed = sorted.filter(
+    (project) => project.previewImage && !primary.some((item) => item.name === project.name),
+  );
+  return [...primary, ...previewed, ...sorted]
+    .filter((project, index, all) => all.findIndex((item) => item.name === project.name) === index)
+    .slice(0, 8);
+}
+
+function createFeaturedCard(project) {
+  const card = document.createElement("a");
+  card.className = "featured-card";
+  card.href = project.website || project.repositoryUrl || "#";
+  card.target = "_blank";
+  card.rel = "noopener noreferrer";
+  card.style.setProperty("--accent", project.accent);
+  attachTilt(card);
+
+  const media = document.createElement("span");
+  media.className = "featured-media";
+  media.appendChild(createDefaultPreview(project, true));
+  if (project.previewImage && !visualTestMode) {
+    const image = document.createElement("img");
+    image.src = project.previewImage;
+    image.alt = "";
+    image.loading = "lazy";
+    image.decoding = "async";
+    image.addEventListener("error", () => image.remove());
+    media.appendChild(image);
+  }
+
+  const copy = document.createElement("span");
+  copy.className = "featured-copy";
+
+  const eyebrow = document.createElement("span");
+  eyebrow.className = "featured-eyebrow";
+  eyebrow.textContent = project.featured ? "Featured launch" : "Fresh project";
+
+  const title = document.createElement("strong");
+  title.textContent = project.name;
+
+  const tagline = document.createElement("span");
+  tagline.className = "featured-tagline";
+  tagline.textContent = shortText(project.tagline, 92);
+
+  const meta = document.createElement("span");
+  meta.className = "featured-meta";
+  meta.append(createTag(project.category, "category-tag"), createStatusBadge(project.status));
+
+  copy.append(eyebrow, title, tagline, meta);
+  card.append(media, copy);
+  return card;
+}
+
+function scrollFeatured(direction) {
+  if (!elements.featuredTrack) return;
+
+  const card = elements.featuredTrack.querySelector(".featured-card");
+  const amount = (card?.getBoundingClientRect().width || 360) + 18;
+  elements.featuredTrack.scrollBy({
+    left: direction * amount,
+    behavior: visualTestMode ? "auto" : "smooth",
+  });
+}
+
+function updateFeaturedControls() {
+  if (!elements.featuredTrack || !elements.featuredPrev || !elements.featuredNext) return;
+
+  const maxScroll = elements.featuredTrack.scrollWidth - elements.featuredTrack.clientWidth;
+  const canScroll = maxScroll > 2;
+  elements.featuredPrev.disabled = !canScroll || elements.featuredTrack.scrollLeft <= 2;
+  elements.featuredNext.disabled = !canScroll || elements.featuredTrack.scrollLeft >= maxScroll - 2;
+}
+
 function renderProjects() {
   const filteredProjects = getFilteredProjects();
   elements.grid.replaceChildren();
@@ -301,6 +409,7 @@ function renderProjects() {
       ? `${state.projects.length} projects`
       : `${filteredProjects.length} of ${state.projects.length} projects`;
   updateLoadMore(filteredProjects.length);
+  applyInitialHashScroll();
   applyVisualScrollTarget();
 }
 
@@ -337,6 +446,7 @@ function createProjectCard(project) {
   const card = document.createElement("article");
   card.className = "project-card";
   card.style.setProperty("--accent", project.accent);
+  attachTilt(card);
 
   const preview = document.createElement("a");
   preview.className = "project-preview";
@@ -361,6 +471,7 @@ function createProjectCard(project) {
     preview.classList.add("fallback-preview");
     preview.appendChild(createDefaultPreview(project));
   }
+  preview.appendChild(createStatusBadge(project.status));
 
   const icon = createProjectIcon(project);
 
@@ -459,6 +570,13 @@ function createTag(label, className = "") {
   return tag;
 }
 
+function createStatusBadge(label) {
+  const status = document.createElement("span");
+  status.className = `status-badge ${categorySlug(label)}`;
+  status.textContent = label;
+  return status;
+}
+
 function appendLink(container, label, url) {
   if (!url) return;
 
@@ -537,6 +655,15 @@ function updateLoadMore(total) {
   elements.loadMore.classList.toggle("expanded", canCollapse);
 }
 
+function applyInitialHashScroll() {
+  if (visualTestMode || didApplyHashScroll || window.location.hash !== "#projects") return;
+
+  didApplyHashScroll = true;
+  requestAnimationFrame(() => {
+    document.querySelector("#projects")?.scrollIntoView({ block: "start" });
+  });
+}
+
 function applyVisualScrollTarget() {
   if (!visualTestMode || didApplyVisualScroll || visualScrollTarget !== "projects") return;
 
@@ -544,6 +671,37 @@ function applyVisualScrollTarget() {
   requestAnimationFrame(() => {
     document.querySelector("#projects")?.scrollIntoView({ block: "start" });
   });
+}
+
+function attachTilt(element) {
+  if (!canUseTilt()) return;
+
+  element.addEventListener("pointermove", (event) => {
+    const rect = element.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width;
+    const y = (event.clientY - rect.top) / rect.height;
+    const rotateX = (0.5 - y) * 6;
+    const rotateY = (x - 0.5) * 8;
+    element.style.setProperty("--tilt-x", `${rotateX.toFixed(2)}deg`);
+    element.style.setProperty("--tilt-y", `${rotateY.toFixed(2)}deg`);
+    element.style.setProperty("--glow-x", `${(x * 100).toFixed(1)}%`);
+    element.style.setProperty("--glow-y", `${(y * 100).toFixed(1)}%`);
+  });
+
+  element.addEventListener("pointerleave", () => {
+    element.style.removeProperty("--tilt-x");
+    element.style.removeProperty("--tilt-y");
+    element.style.removeProperty("--glow-x");
+    element.style.removeProperty("--glow-y");
+  });
+}
+
+function canUseTilt() {
+  return (
+    !visualTestMode &&
+    window.matchMedia("(hover: hover) and (pointer: fine)").matches &&
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
 }
 
 function setDataNote(payload) {

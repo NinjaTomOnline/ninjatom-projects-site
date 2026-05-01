@@ -1,11 +1,13 @@
 # Next 23 Site Ideas
 
-1. Add magnetic hover motion to hero project cards with subtle pointer-follow tilt.
+Recently completed: project-card tilt/parallax, animated neon focus rings, and a featured launch carousel.
+
+1. Extend magnetic hover motion to the hero project-wall cards with subtle pointer-follow depth.
 2. Add a neon cursor spotlight that softly lights card borders and the control panel.
 3. Add a low-motion particle grid behind the hero, with `prefers-reduced-motion` support.
 4. Add project detail drawers with screenshots, App Store links, support/privacy links, and repo metadata.
 5. Add a keyboard command palette for search, category jumps, and quick project launch.
-6. Add a featured carousel that rotates through live launches without moving layout.
+6. Add optional carousel autoplay with pause-on-hover and `prefers-reduced-motion` support.
 7. Add a launch timeline showing newest projects and recently refreshed manifests.
 8. Add "Recently Updated" ribbons for projects updated in the last seven days.
 9. Add a Custom3D.Art collection band with creative/3D projects separated from utility apps.

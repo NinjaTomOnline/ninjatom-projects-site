@@ -103,10 +103,10 @@ const FALLBACK_OVERRIDES = {
     sortOrder: 220,
   },
   "ashtag-site": {
-    name: "Ashtag",
-    tagline: "A compact project site for tag-driven organization.",
-    category: "Tool",
-    accent: "#FF6FA8",
+    name: "QuitGentle",
+    tagline: "Gentle quit-tracking support with calm daily check-ins and progress cues.",
+    category: "iOS App",
+    accent: "#A78BFA",
     sortOrder: 230,
   },
   "dreamspell-site": {

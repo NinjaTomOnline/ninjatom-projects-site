@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">NinjaTom Apps icon</title>
+  <desc id="desc">Purple NinjaTom Apps mark on a dark neon background.</desc>
+  <defs>
+    <radialGradient id="bgGlow" cx="30%" cy="24%" r="72%">
+      <stop offset="0" stop-color="#a45cff"/>
+      <stop offset="0.45" stop-color="#111c34"/>
+      <stop offset="1" stop-color="#05070d"/>
+    </radialGradient>
+    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="10" stdDeviation="18" flood-color="#a45cff" flood-opacity="0.48"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="10" flood-color="#2ad4ff" flood-opacity="0.18"/>
+      <feMerge>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="512" height="512" rx="108" fill="url(#bgGlow)"/>
+  <path d="M0 384c132-23 260-145 362-384h150v512H0Z" fill="#2ad4ff" opacity="0.05"/>
+  <g filter="url(#softGlow)" transform="translate(88 88) scale(7)">
+    <path fill="#8b5cf6" d="M6 26.5C9.8 14.9 19.1 7.5 31.2 6.2c5.5-.6 10.3.6 12.8 2.9-1 5-3.8 10.6-8.3 15.6C27.6 33.8 17.6 38.3 6 42V26.5Z"/>
+    <path fill="#f8f7ff" d="M12.6 26.5c4-7 10.4-10.9 19.4-11.6 2.9-.2 5.2.1 6.9.8-1.2 3.4-3.6 6.9-7.1 10.2-5.4 5-11.7 7.2-19.2 7.7v-7.1Z"/>
+    <circle cx="22" cy="25" r="2.3" fill="#05070d"/>
+    <circle cx="31" cy="23.4" r="2.3" fill="#05070d"/>
+  </g>
+</svg>

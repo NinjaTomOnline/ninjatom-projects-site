@@ -4,7 +4,7 @@ Master public website for NinjaTomOnline app, tool, game, and Custom3D.Art proje
 
 The site is static and GitHub Pages-friendly: `index.html`, `styles.css`, and `app.js` render a polished project grid from `projects.json`. A GitHub Action refreshes `projects.json` by discovering public repos under `NinjaTomOnline`.
 
-The public UI is designed as a dark, cyberpunk-adjacent indie studio portfolio: a large NinjaTom Apps hero, layered project mockups, a compact filter/search/sort deck, image-first project cards, responsive mobile layouts, and a footer with Custom3D.Art, GitHub, and support links.
+The public UI is designed as a dark, cyberpunk-adjacent indie studio portfolio: a large NinjaTom Apps hero, layered project mockups, a featured launch carousel, a compact filter/search/sort deck, image-first project cards with tasteful motion, responsive mobile navigation, and a footer with Custom3D.Art, GitHub, and support links.
 
 Live site: `https://ninjatomapps.com/`
 
@@ -134,6 +134,7 @@ Canonical host files are committed in this repo:
 - `sitemap.xml`: lists the canonical homepage
 - `index.html`: includes canonical and Open Graph URL metadata for `https://ninjatomapps.com/`
 - `assets/ninjatomapps-social-preview.png`: Open Graph and Twitter preview image for shared links
+- `assets/ninjatomapps-icon.svg`, favicon PNGs, and `site.webmanifest`: browser tab, bookmark, and mobile home-screen identity
 - `press.html`: lightweight press/media kit page with public brand links and downloadable preview assets
 
 Current IONOS DNS points the apex domain at GitHub Pages with the standard four `A` records and four `AAAA` records. `www.ninjatomapps.com` is a `CNAME` to `ninjatomonline.github.io`.
@@ -177,8 +178,10 @@ The regression check uses `?visual-test=1` to render deterministic code-native p
 - `CNAME`: GitHub Pages custom-domain file for `ninjatomapps.com`
 - `robots.txt` and `sitemap.xml`: canonical crawler hints for the public domain
 - `assets/ninjatomapps-social-preview.svg` and `.png`: source and rendered social preview art
+- `assets/ninjatomapps-icon.svg`, `favicon.ico`, favicon PNGs, and `site.webmanifest`: app icon and install metadata
 - `styles.css`: responsive dark-mode visual system for the hero, controls, cards, and footer
-- `app.js`: project loading, hero showcase rendering, search, filters, sorting, load-more behavior, and fallback sample data
+- `site-nav.js`: accessible mobile navigation toggle shared by the homepage and press kit
+- `app.js`: project loading, hero showcase rendering, featured carousel rendering, search, filters, sorting, load-more behavior, pointer-follow card motion, and fallback sample data
 - Project cards: `app.js` uses real preview images when available and falls back to generated code-native preview panels when a project does not expose a screenshot yet.
 - `projects.json`: generated project index consumed by the frontend
 - `scripts/discover-projects.js`: GitHub API discovery script
