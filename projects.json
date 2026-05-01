@@ -1,7 +1,7 @@
 {
   "schemaVersion": 3,
   "owner": "NinjaTomOnline",
-  "generatedAt": "2026-05-01T11:06:40.051Z",
+  "generatedAt": "2026-05-01T11:13:28.517Z",
   "includeRules": {
     "repoNameSuffix": "-site",
     "topics": [
@@ -329,47 +329,47 @@
       "supportUrl": "",
       "privacyUrl": "",
       "appStoreUrl": "",
-      "icon": "https://raw.githubusercontent.com/NinjaTomOnline/rooftoprush-site/main/assets/rooftoprush-icon.svg",
-      "previewImage": "https://raw.githubusercontent.com/NinjaTomOnline/rooftoprush-site/main/screenshots/01-onboarding-ready.jpg",
-      "previewImageAlt": "Rooftop Rush project preview",
+      "icon": "https://ninjatomonline.github.io/rooftoprush-site/favicon.svg",
+      "previewImage": "https://ninjatomonline.github.io/rooftoprush-site/screenshots/03-wardrobe-restored.jpg",
+      "previewImageAlt": "",
       "screenshots": [
         {
-          "src": "https://raw.githubusercontent.com/NinjaTomOnline/rooftoprush-site/main/screenshots/01-onboarding-ready.jpg",
-          "alt": "Rooftop Rush project preview",
+          "src": "https://ninjatomonline.github.io/rooftoprush-site/screenshots/02-warehouse-evidence.jpg",
+          "alt": "",
           "caption": ""
         },
         {
           "src": "https://ninjatomonline.github.io/rooftoprush-site/screenshots/03-wardrobe-restored.jpg",
-          "alt": "Rooftop Rush project preview",
-          "caption": ""
-        },
-        {
-          "src": "https://ninjatomonline.github.io/rooftoprush-site/screenshots/02-warehouse-evidence.jpg",
-          "alt": "Rooftop Rush project preview",
-          "caption": ""
-        },
-        {
-          "src": "https://ninjatomonline.github.io/rooftoprush-site/screenshots/04-hook-vault.jpg",
-          "alt": "Rooftop Rush project preview",
+          "alt": "",
           "caption": ""
         },
         {
           "src": "https://ninjatomonline.github.io/rooftoprush-site/screenshots/05-elite-encounter.jpg",
-          "alt": "Rooftop Rush project preview",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/rooftoprush-site/screenshots/01-onboarding-ready.jpg",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/rooftoprush-site/screenshots/04-hook-vault.jpg",
+          "alt": "",
           "caption": ""
         },
         {
           "src": "https://ninjatomonline.github.io/rooftoprush-site/screenshots/06-game-over.jpg",
-          "alt": "Rooftop Rush project preview",
+          "alt": "",
           "caption": ""
         }
       ],
       "launchedAt": "2026-04-30T12:51:05.000Z",
       "version": "",
-      "launchNotes": "Rooftop Rush is listed as Live in the Game catalog, refreshed automatically from its site manifest.",
+      "launchNotes": "Rooftop Rush is listed as Live in the Game catalog, refreshed automatically from public GitHub Pages metadata.",
       "versionHighlights": [
         "Live Game project website",
-        "Curated by site-manifest.json",
+        "Auto-discovered from public GitHub Pages",
         "6 gallery images available"
       ],
       "accent": "#42D9FF",
@@ -381,10 +381,10 @@
         "app-website",
         "ninjatom-project-site"
       ],
-      "manifestFound": true,
+      "manifestFound": false,
       "stargazersCount": 0,
       "forksCount": 0,
-      "updatedAt": "2026-04-30T19:50:51Z"
+      "updatedAt": "2026-05-01T11:06:53Z"
     },
     {
       "name": "Retrocopter",

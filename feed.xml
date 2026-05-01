@@ -6,7 +6,15 @@
     <atom:link href="https://ninjatomapps.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>New and updated NinjaTom Apps, tools, games, and Custom3D.Art project websites.</description>
     <language>en-us</language>
-    <lastBuildDate>Fri, 01 May 2026 11:04:38 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 01 May 2026 11:06:53 GMT</lastBuildDate>
+    <item>
+      <title>Rooftop Rush</title>
+      <link>https://ninjatomonline.github.io/rooftoprush-site/</link>
+      <guid isPermaLink="false">https://ninjatomapps.com/#project/rooftoprush-site</guid>
+      <pubDate>Fri, 01 May 2026 11:06:53 GMT</pubDate>
+      <category>Game</category>
+      <description>A fast arcade project site with skyline energy. Rooftop Rush is listed as Live in the Game catalog, refreshed automatically from public GitHub Pages metadata.</description>
+    </item>
     <item>
       <title>MasterSpaces</title>
       <link>https://ninjatomonline.github.io/masterspaces-site/</link>
@@ -78,14 +86,6 @@
       <pubDate>Thu, 30 Apr 2026 19:50:52 GMT</pubDate>
       <category>Game</category>
       <description>A mystery-driven game project site. Deadhead Detective is listed as Live in the Game catalog, refreshed automatically from its site manifest.</description>
-    </item>
-    <item>
-      <title>Rooftop Rush</title>
-      <link>https://ninjatomonline.github.io/rooftoprush-site/</link>
-      <guid isPermaLink="false">https://ninjatomapps.com/#project/rooftoprush-site</guid>
-      <pubDate>Thu, 30 Apr 2026 19:50:51 GMT</pubDate>
-      <category>Game</category>
-      <description>A fast arcade project site with skyline energy. Rooftop Rush is listed as Live in the Game catalog, refreshed automatically from its site manifest.</description>
     </item>
     <item>
       <title>Zen Wisdom</title>
