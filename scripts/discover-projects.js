@@ -149,6 +149,7 @@ const masterRepo =
   process.env.GITHUB_REPOSITORY?.split("/")[1] ||
   DEFAULT_MASTER_REPO;
 const outputPath = path.resolve(repoRoot, args.output || process.env.PROJECTS_OUTPUT || "projects.json");
+const feedOutputPath = path.resolve(repoRoot, args.feed || process.env.PROJECTS_FEED_OUTPUT || "feed.xml");
 const token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN || "";
 const contentsExistsCache = new Map();
 
@@ -176,7 +177,7 @@ async function main() {
   projects.sort(compareProjects);
 
   const nextPayload = {
-    schemaVersion: 2,
+    schemaVersion: 3,
     owner,
     generatedAt: new Date().toISOString(),
     includeRules: {
@@ -185,15 +186,24 @@ async function main() {
     },
     projects,
   };
+  const nextFeed = buildRssFeed(nextPayload);
 
   const existingPayload = await readJsonIfExists(outputPath);
-  if (existingPayload && sameGeneratedContent(existingPayload, nextPayload)) {
-    console.log(`No project changes found. ${path.relative(repoRoot, outputPath)} was left untouched.`);
+  const existingFeed = await readTextIfExists(feedOutputPath);
+  if (existingPayload && sameGeneratedContent(existingPayload, nextPayload) && existingFeed === nextFeed) {
+    console.log(`No project changes found. Generated files were left untouched.`);
     return;
   }
 
-  await fs.writeFile(outputPath, `${JSON.stringify(nextPayload, null, 2)}\n`, "utf8");
-  console.log(`Wrote ${projects.length} projects to ${path.relative(repoRoot, outputPath)}.`);
+  if (!existingPayload || !sameGeneratedContent(existingPayload, nextPayload)) {
+    await fs.writeFile(outputPath, `${JSON.stringify(nextPayload, null, 2)}\n`, "utf8");
+    console.log(`Wrote ${projects.length} projects to ${path.relative(repoRoot, outputPath)}.`);
+  }
+
+  if (existingFeed !== nextFeed) {
+    await fs.writeFile(feedOutputPath, nextFeed, "utf8");
+    console.log(`Wrote RSS feed to ${path.relative(repoRoot, feedOutputPath)}.`);
+  }
 }
 
 async function fetchPublicRepos(account) {
@@ -302,16 +312,42 @@ async function normalizeProject(repo, topics, manifest, siteHints = {}) {
     previewImage,
     cleanString(manifest?.previewImageAlt),
   );
+  const name = cleanString(manifest?.name) || fallback.name || inferredName;
+  const category = cleanString(manifest?.category) || fallback.category || inferCategory(repo, topics);
+  const status = cleanString(manifest?.status) || (repo.archived ? "Archived" : "Live");
+  const launchedAt = cleanDateString(
+    manifest?.launchedAt,
+    manifest?.launchDate,
+    manifest?.publishedAt,
+    manifest?.releaseDate,
+    repo.created_at,
+  );
+  const version = cleanString(manifest?.version);
+  const launchNotes =
+    cleanString(manifest?.launchNotes) ||
+    defaultLaunchNotes({
+      name,
+      category,
+      status,
+      manifestFound: Boolean(manifest),
+    });
+  const versionHighlights = normalizeStringList(manifest?.versionHighlights, [
+    `${status} ${category} project website`,
+    manifest ? "Curated by site-manifest.json" : "Auto-discovered from public GitHub Pages",
+    screenshots.length
+      ? `${screenshots.length} gallery image${screenshots.length === 1 ? "" : "s"} available`
+      : "Project preview available",
+  ]);
 
   return {
-    name: cleanString(manifest?.name) || fallback.name || inferredName,
+    name,
     tagline:
       cleanString(manifest?.tagline) ||
       fallback.tagline ||
       cleanString(repo.description) ||
       `A public project website from ${owner}.`,
-    category: cleanString(manifest?.category) || fallback.category || inferCategory(repo, topics),
-    status: cleanString(manifest?.status) || (repo.archived ? "Archived" : "Live"),
+    category,
+    status,
     website,
     supportUrl: firstValidUrl(manifest?.supportUrl),
     privacyUrl: firstValidUrl(manifest?.privacyUrl),
@@ -320,6 +356,10 @@ async function normalizeProject(repo, topics, manifest, siteHints = {}) {
     previewImage,
     previewImageAlt: cleanString(manifest?.previewImageAlt),
     screenshots,
+    launchedAt,
+    version,
+    launchNotes,
+    versionHighlights,
     accent: validAccent(manifest?.accent) || fallback.accent || inferredAccent(repo.name),
     featured: manifest?.featured === undefined ? Boolean(fallback.featured) : Boolean(manifest.featured),
     sortOrder: Number.isFinite(Number(manifest?.sortOrder))
@@ -729,6 +769,90 @@ function stripVolatile(payload) {
   };
 }
 
+function buildRssFeed(payload) {
+  const siteUrl = "https://ninjatomapps.com/";
+  const sortedProjects = payload.projects
+    .slice()
+    .sort((a, b) => projectDateValue(b) - projectDateValue(a));
+  const lastBuildTimestamp = sortedProjects.reduce(
+    (latest, project) => Math.max(latest, projectDateValue(project)),
+    0,
+  );
+  const items = sortedProjects
+    .map((project) => {
+      const link = project.website || project.repositoryUrl || siteUrl;
+      const guid = `${siteUrl}#project/${encodeURIComponent(project.repoName || project.name)}`;
+      const pubDate = new Date(projectDateValue(project) || lastBuildTimestamp || 0).toUTCString();
+      const description = `${project.tagline || ""} ${project.launchNotes || ""}`.trim();
+
+      return [
+        "    <item>",
+        `      <title>${escapeXml(project.name)}</title>`,
+        `      <link>${escapeXml(link)}</link>`,
+        `      <guid isPermaLink="false">${escapeXml(guid)}</guid>`,
+        `      <pubDate>${escapeXml(pubDate)}</pubDate>`,
+        `      <category>${escapeXml(project.category || "Project")}</category>`,
+        `      <description>${escapeXml(description)}</description>`,
+        "    </item>",
+      ].join("\n");
+    })
+    .join("\n");
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>NinjaTom Apps Project Updates</title>
+    <link>${siteUrl}</link>
+    <atom:link href="${siteUrl}feed.xml" rel="self" type="application/rss+xml"/>
+    <description>New and updated NinjaTom Apps, tools, games, and Custom3D.Art project websites.</description>
+    <language>en-us</language>
+    <lastBuildDate>${new Date(lastBuildTimestamp || 0).toUTCString()}</lastBuildDate>
+${items}
+  </channel>
+</rss>
+`;
+}
+
+function cleanDateString(...values) {
+  for (const value of values) {
+    if (typeof value !== "string" || !value.trim()) continue;
+    const date = new Date(value.trim());
+    if (!Number.isNaN(date.getTime())) return date.toISOString();
+  }
+  return "";
+}
+
+function normalizeStringList(value, fallback = []) {
+  const source = Array.isArray(value) ? value : [];
+  const cleaned = source
+    .map((item) => (typeof item === "string" ? item.trim() : ""))
+    .filter(Boolean);
+  return (cleaned.length ? cleaned : fallback).slice(0, 6);
+}
+
+function defaultLaunchNotes(project) {
+  const source = project.manifestFound ? "its site manifest" : "public GitHub Pages metadata";
+  return `${project.name} is listed as ${project.status} in the ${project.category} catalog, refreshed automatically from ${source}.`;
+}
+
+function dateValue(value) {
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? 0 : date.getTime();
+}
+
+function projectDateValue(project) {
+  return dateValue(project?.updatedAt) || dateValue(project?.launchedAt);
+}
+
+function escapeXml(value) {
+  return String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
+}
+
 async function fetchJson(url) {
   const response = await githubFetch(url);
   if (!response.ok) {
@@ -760,6 +884,16 @@ async function readJsonIfExists(filePath) {
     if (error.code === "ENOENT") return null;
     console.warn(`Could not read existing ${filePath}: ${error.message}`);
     return null;
+  }
+}
+
+async function readTextIfExists(filePath) {
+  try {
+    return await fs.readFile(filePath, "utf8");
+  } catch (error) {
+    if (error.code === "ENOENT") return "";
+    console.warn(`Could not read existing ${filePath}: ${error.message}`);
+    return "";
   }
 }
 

@@ -124,6 +124,31 @@
         ]
       }
     },
+    "launchedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Optional launch date used for Recently Launched filtering and RSS metadata."
+    },
+    "launchDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Alias for launchedAt."
+    },
+    "version": {
+      "type": "string",
+      "description": "Optional public version or launch label shown in the project detail drawer."
+    },
+    "launchNotes": {
+      "type": "string",
+      "description": "Optional launch or release note shown in the project detail drawer and RSS feed."
+    },
+    "versionHighlights": {
+      "type": "array",
+      "description": "Optional short highlights shown under launch notes in the project detail drawer.",
+      "items": {
+        "type": "string"
+      }
+    },
     "accent": {
       "type": "string",
       "pattern": "^#[0-9A-Fa-f]{6}$",
@@ -158,6 +183,14 @@
           "alt": "DoorCodes social preview artwork with the app icon and access-code imagery.",
           "caption": "Launch preview"
         }
+      ],
+      "launchedAt": "2026-04-30T00:00:00Z",
+      "version": "Live",
+      "launchNotes": "DoorCodes is live with App Store, support, privacy, and launch artwork connected.",
+      "versionHighlights": [
+        "App Store listing connected",
+        "Support and privacy pages available",
+        "Premium screenshot gallery ready"
       ],
       "accent": "#38BDF8",
       "featured": true,

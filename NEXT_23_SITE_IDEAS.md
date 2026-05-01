@@ -1,6 +1,6 @@
 # Next 23 Site Ideas
 
-Recently completed: project-card tilt/parallax, animated neon focus rings, featured launch carousel, hero project-wall motion, shareable project detail drawers, screenshot galleries, JSON-LD structured data, recently-updated ribbons, live discovery status, and branded 404 page.
+Recently completed: project-card tilt/parallax, animated neon focus rings, featured launch carousel, hero project-wall motion, shareable project detail drawers, screenshot galleries, launch notes, JSON-LD structured data, RSS feed generation, Recently Launched filtering, Lighthouse CI, recently-updated ribbons, live discovery status, and branded 404 page.
 
 1. Add a neon cursor spotlight that softly lights card borders and the control panel.
 2. Add a low-motion particle grid behind the hero, with `prefers-reduced-motion` support.
@@ -18,10 +18,10 @@ Recently completed: project-card tilt/parallax, animated neon focus rings, featu
 14. Add install/open badges for App Store, web app, GitHub Pages, and docs links.
 15. Add a compact comparison view for apps by status, platform, and category.
 16. Add privacy-friendly analytics after choosing the provider and account.
-17. Add short launch notes and version highlights to `site-manifest.json`.
-18. Add a "Recently Launched" filter powered by repo update dates.
-19. Add an RSS/Atom feed generated from discovered projects.
-20. Add a downloadable mini media kit bundle from the press page.
-21. Add a public changelog section for hub design and discovery automation updates.
-22. Add automated Lighthouse checks for performance, accessibility, SEO, and best practices.
-23. Add a tiny "submit a project" maintainer note that explains the manifest workflow for collaborators.
+17. Add a downloadable mini media kit bundle from the press page.
+18. Add a public changelog section for hub design and discovery automation updates.
+19. Add a tiny "submit a project" maintainer note that explains the manifest workflow for collaborators.
+20. Add per-category landing URLs such as `#category/ios-apps` and `#category/games`.
+21. Add a small "updated by automation" badge in the footer linked to the refresh workflow.
+22. Add a compact project compare mode for category, status, launch date, and platform.
+23. Add Open Graph image generation per project hash route if the hub later moves beyond static GitHub Pages.

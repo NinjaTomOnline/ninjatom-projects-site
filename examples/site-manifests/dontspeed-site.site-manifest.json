@@ -17,6 +17,13 @@
       "caption": "Launch preview"
     }
   ],
+  "launchedAt": "2026-04-30T00:00:00Z",
+  "version": "Launch",
+  "launchNotes": "Don't Speed is live as a focused driving-safety app site with support and privacy pages.",
+  "versionHighlights": [
+    "Driving safety message refined",
+    "Support and privacy pages available"
+  ],
   "accent": "#FF6FA8",
   "featured": false,
   "sortOrder": 40

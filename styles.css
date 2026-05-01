@@ -854,9 +854,10 @@ body[data-visual-view="projects"] .projects-section {
 .filter-tabs {
   display: flex;
   min-width: 0;
+  flex-wrap: wrap;
   gap: 1rem;
-  overflow-x: auto;
-  padding-bottom: 0.25rem;
+  overflow-x: visible;
+  padding-bottom: 0;
   scrollbar-width: thin;
 }
 
@@ -1785,6 +1786,11 @@ body[data-visual-view="projects"] .projects-section {
   background: rgba(255, 200, 77, 0.12);
 }
 
+.launch-tag {
+  color: #cdf7ff;
+  background: rgba(42, 212, 255, 0.12);
+}
+
 .drawer-actions .button {
   min-height: 44px;
   padding: 0 1rem;
@@ -1793,6 +1799,72 @@ body[data-visual-view="projects"] .projects-section {
 
 .drawer-share {
   cursor: pointer;
+}
+
+.drawer-launch {
+  display: grid;
+  gap: 0.72rem;
+  border-top: 1px solid rgba(166, 186, 220, 0.14);
+  padding-top: 1rem;
+}
+
+.drawer-launch-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.drawer-launch-heading h3 {
+  margin: 0;
+  color: #f8f5ef;
+  font-size: 1rem;
+  font-weight: 820;
+  line-height: 1.2;
+}
+
+.drawer-launch-heading span {
+  color: #8f9bad;
+  font-size: 0.78rem;
+  font-weight: 760;
+  text-align: right;
+}
+
+.drawer-launch p {
+  max-width: 58ch;
+  margin: 0;
+  color: #b8c0cf;
+  font-size: 0.94rem;
+  line-height: 1.6;
+}
+
+.drawer-launch ul {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.drawer-launch li {
+  position: relative;
+  padding-left: 1.05rem;
+  color: #d2d8e5;
+  font-size: 0.88rem;
+  font-weight: 620;
+  line-height: 1.45;
+}
+
+.drawer-launch li::before {
+  position: absolute;
+  left: 0;
+  top: 0.58em;
+  width: 0.38rem;
+  height: 0.38rem;
+  border-radius: 50%;
+  content: "";
+  background: var(--cyan);
+  box-shadow: 0 0 14px rgba(42, 212, 255, 0.38);
 }
 
 .drawer-gallery {
@@ -2656,9 +2728,12 @@ body[data-visual-view="projects"] .projects-section {
   }
 
   .filter-tabs {
+    flex-wrap: nowrap;
     gap: 0.58rem;
     margin-right: -1rem;
+    overflow-x: auto;
     padding-right: 1rem;
+    padding-bottom: 0.25rem;
   }
 
   .filter-tab {

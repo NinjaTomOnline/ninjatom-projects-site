@@ -17,6 +17,13 @@
       "caption": "Launch preview"
     }
   ],
+  "launchedAt": "2026-04-30T00:00:00Z",
+  "version": "Live",
+  "launchNotes": "Zen Wisdom is indexed as a calm reflection app with launch artwork and support links.",
+  "versionHighlights": [
+    "Daily reflections positioned",
+    "Screenshot gallery available"
+  ],
   "accent": "#A78BFA",
   "featured": false,
   "sortOrder": 30

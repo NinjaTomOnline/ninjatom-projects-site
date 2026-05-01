@@ -17,6 +17,14 @@
       "caption": "Launch preview"
     }
   ],
+  "launchedAt": "2026-04-30T00:00:00Z",
+  "version": "Live",
+  "launchNotes": "DoorCodes is live with App Store, support, privacy, and launch artwork connected.",
+  "versionHighlights": [
+    "App Store listing connected",
+    "Support and privacy pages available",
+    "Premium screenshot gallery ready"
+  ],
   "accent": "#38BDF8",
   "featured": true,
   "sortOrder": 10

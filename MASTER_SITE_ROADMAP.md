@@ -42,6 +42,11 @@
 - [x] Extend subtle pointer-follow motion to the hero project wall with visual-test and reduced-motion safeguards.
 - [x] Add per-project screenshot galleries inside project detail drawers.
 - [x] Add project-level JSON-LD structured data for the hub catalog.
+- [x] Add launch notes and version highlights to project drawers.
+- [x] Add a Recently Launched project filter.
+- [x] Generate `feed.xml` as an RSS feed from discovered project sites.
+- [x] Add Lighthouse CI for accessibility, SEO, best practices, and performance audits.
+- [x] Add JSON-LD validation notes to the README.
 
 ## Future
 

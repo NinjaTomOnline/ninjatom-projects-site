@@ -6,6 +6,7 @@ const FILTERS = {
   Tools: (project) => categoryIncludes(project, ["tool", "utility", "productivity"]),
   "Creative / Custom3D": (project) =>
     categoryIncludes(project, ["creative", "custom3d", "custom 3d", "3d", "art"]),
+  "Recently Launched": (project) => isRecentlyLaunched(project),
 };
 
 const INITIAL_VISIBLE_COUNT = 12;
@@ -41,6 +42,14 @@ const FALLBACK_PROJECTS = [
     icon: "https://doorcodesapp.com/assets/doorcodes-favicon-512.png",
     previewImage: "https://doorcodesapp.com/assets/doorcodes-social-preview.png",
     previewImageAlt: "DoorCodes website preview for the upgraded access-code app site.",
+    launchedAt: "2026-04-30T00:00:00Z",
+    version: "Live",
+    launchNotes: "DoorCodes is live with a polished project site, App Store link, support, privacy, and launch artwork.",
+    versionHighlights: [
+      "App Store listing connected",
+      "Support and privacy pages available",
+      "Premium screenshot gallery ready",
+    ],
     accent: "#38BDF8",
     featured: true,
     sortOrder: 10,
@@ -55,6 +64,10 @@ const FALLBACK_PROJECTS = [
     privacyUrl: "",
     appStoreUrl: "",
     icon: "",
+    launchedAt: "2026-04-30T00:00:00Z",
+    version: "Preview",
+    launchNotes: "SwiftTerm has a live project site and technical preview material ready for the hub.",
+    versionHighlights: ["Project site indexed", "Technical preview artwork available"],
     accent: "#59F2C7",
     featured: true,
     sortOrder: 20,
@@ -69,6 +82,10 @@ const FALLBACK_PROJECTS = [
     privacyUrl: "",
     appStoreUrl: "",
     icon: "",
+    launchedAt: "2026-04-30T00:00:00Z",
+    version: "Live",
+    launchNotes: "Zen Wisdom is indexed as a calm reflection app with launch artwork and support links.",
+    versionHighlights: ["Daily reflections positioned", "Screenshot gallery available"],
     accent: "#A78BFA",
     featured: false,
     sortOrder: 30,
@@ -231,11 +248,21 @@ function normalizeProject(project) {
   const website = validUrl(project.website);
   const previewImage = validUrl(project.previewImage);
   const previewImageAlt = stringOr(project.previewImageAlt, `${name} preview`);
+  const version = stringOr(project.version, "");
+  const launchedAt = stringOr(project.launchedAt || project.launchDate, "");
+  const launchNotes = stringOr(project.launchNotes, defaultLaunchNotes(project));
   const screenshots = normalizeScreenshots(project.screenshots, {
     name,
     previewImage,
     previewImageAlt,
   });
+  const versionHighlights = normalizeTextList(project.versionHighlights, [
+    `${status} ${category} project website`,
+    project.manifestFound ? "Curated by site-manifest.json" : "Auto-discovered from public GitHub Pages",
+    screenshots.length
+      ? `${screenshots.length} gallery image${screenshots.length === 1 ? "" : "s"} available`
+      : "Project preview available",
+  ]);
 
   return {
     name,
@@ -258,10 +285,17 @@ function normalizeProject(project) {
     slug: categorySlug(repoName || name),
     manifestFound: Boolean(project.manifestFound),
     updatedAt: stringOr(project.updatedAt, ""),
+    launchedAt,
+    version,
+    launchNotes,
+    versionHighlights,
     topics: Array.isArray(project.topics) ? project.topics : [],
     searchText: [
       name,
       project.tagline,
+      launchNotes,
+      version,
+      versionHighlights.join(" "),
       category,
       status,
       project.repoName,
@@ -865,6 +899,12 @@ function renderProjectDrawer(project) {
     featured.textContent = "Featured";
     tags.appendChild(featured);
   }
+  if (isRecentlyLaunched(project)) {
+    const launched = document.createElement("span");
+    launched.className = "tag launch-tag";
+    launched.textContent = "Recently launched";
+    tags.appendChild(launched);
+  }
 
   const actions = document.createElement("div");
   actions.className = "drawer-actions";
@@ -891,6 +931,8 @@ function renderProjectDrawer(project) {
   facts.className = "drawer-facts";
   appendFact(facts, "Category", project.category);
   appendFact(facts, "Status", project.status);
+  appendFact(facts, "Launched", formatDate(project.launchedAt));
+  appendFact(facts, "Version", project.version);
   appendFact(facts, "Updated", formatDate(project.updatedAt) || formatRelative(project.updatedAt));
   appendFact(facts, "Repo", project.repoName);
   appendFact(facts, "Data", project.manifestFound ? "site-manifest.json" : "Inferred from GitHub Pages");
@@ -904,11 +946,47 @@ function renderProjectDrawer(project) {
   }
 
   const gallery = createScreenshotGallery(project);
+  const launchNotes = createLaunchNotes(project);
 
   content.append(header, tags, actions);
+  if (launchNotes) content.appendChild(launchNotes);
   if (gallery) content.appendChild(gallery);
   content.appendChild(facts);
   if (topicWrap.children.length) content.appendChild(topicWrap);
+}
+
+function createLaunchNotes(project) {
+  if (!project.launchNotes && !project.versionHighlights.length && !project.version && !project.launchedAt) return null;
+
+  const section = document.createElement("section");
+  section.className = "drawer-launch";
+  section.setAttribute("aria-label", `${project.name} launch notes`);
+
+  const header = document.createElement("div");
+  header.className = "drawer-launch-heading";
+
+  const title = document.createElement("h3");
+  title.textContent = "Launch Notes";
+
+  const meta = document.createElement("span");
+  const metaItems = [project.version, formatDate(project.launchedAt)].filter(Boolean);
+  meta.textContent = metaItems.join(" / ") || "Current release";
+  header.append(title, meta);
+
+  const body = document.createElement("p");
+  body.textContent = project.launchNotes;
+
+  const list = document.createElement("ul");
+  for (const highlight of project.versionHighlights.slice(0, 5)) {
+    const item = document.createElement("li");
+    item.textContent = highlight;
+    list.appendChild(item);
+  }
+
+  section.append(header);
+  if (project.launchNotes) section.appendChild(body);
+  if (list.children.length) section.appendChild(list);
+  return section;
 }
 
 function createScreenshotGallery(project) {
@@ -1174,7 +1252,10 @@ function projectStructuredData(project) {
     sameAs: [project.repositoryUrl, project.appStoreUrl].filter(Boolean),
     applicationCategory: schemaTypeForProject(project) === "SoftwareApplication" ? project.category : undefined,
     operatingSystem: operatingSystemForProject(project),
+    datePublished: project.launchedAt || undefined,
     dateModified: project.updatedAt || undefined,
+    softwareVersion: project.version || undefined,
+    releaseNotes: project.launchNotes || undefined,
     publisher: { "@id": ORGANIZATION_ID },
     mainEntityOfPage: `${CANONICAL_SITE_URL}#project/${project.slug}`,
   };
@@ -1232,6 +1313,13 @@ function isRecentlyUpdated(project) {
   return days >= 0 && days <= 7;
 }
 
+function isRecentlyLaunched(project) {
+  const launched = dateValue(project.launchedAt);
+  if (!launched) return false;
+  const days = ((visualTestMode ? dateValue("2026-05-01T00:00:00Z") : Date.now()) - launched) / (24 * 60 * 60 * 1000);
+  return days >= 0 && days <= 120;
+}
+
 function normalizeScreenshots(value, fallback = {}) {
   const screenshots = [];
   const seen = new Set();
@@ -1268,6 +1356,21 @@ function normalizeScreenshots(value, fallback = {}) {
   }
 
   return screenshots.slice(0, 6);
+}
+
+function normalizeTextList(value, fallback = []) {
+  const source = Array.isArray(value) ? value : [];
+  const cleaned = source
+    .map((item) => (typeof item === "string" ? item.trim() : ""))
+    .filter(Boolean);
+  return (cleaned.length ? cleaned : fallback).slice(0, 6);
+}
+
+function defaultLaunchNotes(project) {
+  const name = stringOr(project.name, "This project");
+  const status = stringOr(project.status, "Live");
+  const category = stringOr(project.category, "project");
+  return `${name} is listed as ${status} in the ${category} catalog, refreshed automatically from public project metadata.`;
 }
 
 function compactObject(value) {

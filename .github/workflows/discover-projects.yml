@@ -4,6 +4,7 @@ on:
   push:
     paths-ignore:
       - "projects.json"
+      - "feed.xml"
   schedule:
     - cron: "23 9 * * *"
   workflow_dispatch:
@@ -29,7 +30,7 @@ jobs:
         with:
           node-version: "24"
 
-      - name: Generate projects.json
+      - name: Generate project index and RSS feed
         env:
           # The built-in token is enough for public repository discovery and
           # for committing the generated file back to this repository.
@@ -40,13 +41,13 @@ jobs:
 
       - name: Commit updated index
         run: |
-          if git diff --quiet -- projects.json; then
-            echo "projects.json is already current."
+          if git diff --quiet -- projects.json feed.xml; then
+            echo "Generated project files are already current."
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add projects.json
+          git add projects.json feed.xml
           git commit -m "chore: refresh project index [skip ci]"
           git push

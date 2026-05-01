@@ -15,6 +15,13 @@
       "caption": "Project preview"
     }
   ],
+  "launchedAt": "2026-04-30T00:00:00Z",
+  "version": "Preview",
+  "launchNotes": "SwiftTerm has a live project site and technical preview material ready for the hub.",
+  "versionHighlights": [
+    "Project site indexed",
+    "Technical preview artwork available"
+  ],
   "accent": "#59F2C7",
   "featured": true,
   "sortOrder": 20

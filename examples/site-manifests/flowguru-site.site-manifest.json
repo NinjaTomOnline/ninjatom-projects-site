@@ -15,6 +15,13 @@
       "caption": "Project preview"
     }
   ],
+  "launchedAt": "2026-04-30T00:00:00Z",
+  "version": "Preview",
+  "launchNotes": "FlowGuru is indexed as a creative flow and focus tool project site.",
+  "versionHighlights": [
+    "Project preview connected",
+    "Support and privacy URLs documented"
+  ],
   "accent": "#FFCF70",
   "featured": false,
   "sortOrder": 50

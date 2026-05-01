@@ -1,7 +1,7 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "owner": "NinjaTomOnline",
-  "generatedAt": "2026-05-01T08:55:57.285Z",
+  "generatedAt": "2026-05-01T09:26:21.332Z",
   "includeRules": {
     "repoNameSuffix": "-site",
     "topics": [
@@ -54,6 +54,14 @@
           "caption": ""
         }
       ],
+      "launchedAt": "2026-04-08T20:32:05.000Z",
+      "version": "",
+      "launchNotes": "DoorCodes is listed as Live in the iOS App catalog, refreshed automatically from its site manifest.",
+      "versionHighlights": [
+        "Live iOS App project website",
+        "Curated by site-manifest.json",
+        "6 gallery images available"
+      ],
       "accent": "#38BDF8",
       "featured": true,
       "sortOrder": 10,
@@ -84,6 +92,14 @@
           "alt": "SwiftTerm project preview",
           "caption": ""
         }
+      ],
+      "launchedAt": "2026-04-20T19:48:00.000Z",
+      "version": "",
+      "launchNotes": "SwiftTerm is listed as Live in the Tool catalog, refreshed automatically from its site manifest.",
+      "versionHighlights": [
+        "Live Tool project website",
+        "Curated by site-manifest.json",
+        "1 gallery image available"
       ],
       "accent": "#59F2C7",
       "featured": true,
@@ -141,6 +157,14 @@
           "caption": ""
         }
       ],
+      "launchedAt": "2026-04-19T03:32:16.000Z",
+      "version": "",
+      "launchNotes": "Zen Wisdom is listed as Live in the iOS App catalog, refreshed automatically from public GitHub Pages metadata.",
+      "versionHighlights": [
+        "Live iOS App project website",
+        "Auto-discovered from public GitHub Pages",
+        "6 gallery images available"
+      ],
       "accent": "#A78BFA",
       "featured": false,
       "sortOrder": 30,
@@ -197,6 +221,14 @@
           "caption": ""
         }
       ],
+      "launchedAt": "2026-04-30T00:40:59.000Z",
+      "version": "",
+      "launchNotes": "DontSpeed is listed as Live in the iOS App catalog, refreshed automatically from public GitHub Pages metadata.",
+      "versionHighlights": [
+        "Live iOS App project website",
+        "Auto-discovered from public GitHub Pages",
+        "6 gallery images available"
+      ],
       "accent": "#FF6FA8",
       "featured": false,
       "sortOrder": 40,
@@ -227,6 +259,14 @@
           "alt": "FlowGuru project preview",
           "caption": ""
         }
+      ],
+      "launchedAt": "2026-04-24T05:33:19.000Z",
+      "version": "",
+      "launchNotes": "FlowGuru is listed as Live in the Tool catalog, refreshed automatically from its site manifest.",
+      "versionHighlights": [
+        "Live Tool project website",
+        "Curated by site-manifest.json",
+        "1 gallery image available"
       ],
       "accent": "#FFCF70",
       "featured": false,
@@ -284,6 +324,14 @@
           "caption": ""
         }
       ],
+      "launchedAt": "2026-04-30T12:51:05.000Z",
+      "version": "",
+      "launchNotes": "Rooftop Rush is listed as Live in the Game catalog, refreshed automatically from its site manifest.",
+      "versionHighlights": [
+        "Live Game project website",
+        "Curated by site-manifest.json",
+        "6 gallery images available"
+      ],
       "accent": "#42D9FF",
       "featured": false,
       "sortOrder": 110,
@@ -324,6 +372,14 @@
           "alt": "",
           "caption": ""
         }
+      ],
+      "launchedAt": "2026-04-23T10:07:42.000Z",
+      "version": "",
+      "launchNotes": "Retrocopter is listed as Live in the Game catalog, refreshed automatically from public GitHub Pages metadata.",
+      "versionHighlights": [
+        "Live Game project website",
+        "Auto-discovered from public GitHub Pages",
+        "3 gallery images available"
       ],
       "accent": "#59F2C7",
       "featured": false,
@@ -381,6 +437,14 @@
           "caption": ""
         }
       ],
+      "launchedAt": "2026-04-09T20:05:11.000Z",
+      "version": "",
+      "launchNotes": "Deadhead Detective is listed as Live in the Game catalog, refreshed automatically from its site manifest.",
+      "versionHighlights": [
+        "Live Game project website",
+        "Curated by site-manifest.json",
+        "6 gallery images available"
+      ],
       "accent": "#A78BFA",
       "featured": false,
       "sortOrder": 130,
@@ -412,6 +476,14 @@
           "caption": ""
         }
       ],
+      "launchedAt": "2026-04-24T04:20:03.000Z",
+      "version": "",
+      "launchNotes": "MasterSpaces is listed as Live in the Tool catalog, refreshed automatically from its site manifest.",
+      "versionHighlights": [
+        "Live Tool project website",
+        "Curated by site-manifest.json",
+        "1 gallery image available"
+      ],
       "accent": "#7DD3FC",
       "featured": false,
       "sortOrder": 210,
@@ -442,6 +514,14 @@
           "alt": "CushionOps project preview",
           "caption": ""
         }
+      ],
+      "launchedAt": "2026-04-20T22:44:50.000Z",
+      "version": "",
+      "launchNotes": "CushionOps is listed as Live in the Tool catalog, refreshed automatically from its site manifest.",
+      "versionHighlights": [
+        "Live Tool project website",
+        "Curated by site-manifest.json",
+        "1 gallery image available"
       ],
       "accent": "#FFCF70",
       "featured": false,
@@ -499,6 +579,14 @@
           "caption": ""
         }
       ],
+      "launchedAt": "2026-04-09T16:57:11.000Z",
+      "version": "",
+      "launchNotes": "QuitGentle is listed as App Review in the iOS App catalog, refreshed automatically from its site manifest.",
+      "versionHighlights": [
+        "App Review iOS App project website",
+        "Curated by site-manifest.json",
+        "6 gallery images available"
+      ],
       "accent": "#16745d",
       "featured": false,
       "sortOrder": 230,
@@ -555,6 +643,14 @@
           "caption": ""
         }
       ],
+      "launchedAt": "2026-04-11T21:53:18.000Z",
+      "version": "",
+      "launchNotes": "Dreamspell is listed as Live in the Creative / Custom3D catalog, refreshed automatically from public GitHub Pages metadata.",
+      "versionHighlights": [
+        "Live Creative / Custom3D project website",
+        "Auto-discovered from public GitHub Pages",
+        "6 gallery images available"
+      ],
       "accent": "#A78BFA",
       "featured": false,
       "sortOrder": 310,
@@ -585,6 +681,14 @@
           "alt": "Shramana project preview",
           "caption": ""
         }
+      ],
+      "launchedAt": "2026-04-14T09:01:27.000Z",
+      "version": "",
+      "launchNotes": "Shramana is listed as Live in the Creative / Custom3D catalog, refreshed automatically from its site manifest.",
+      "versionHighlights": [
+        "Live Creative / Custom3D project website",
+        "Curated by site-manifest.json",
+        "1 gallery image available"
       ],
       "accent": "#59F2C7",
       "featured": false,
