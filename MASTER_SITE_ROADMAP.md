@@ -53,6 +53,11 @@
 - [x] Add a downloadable press/media-kit ZIP bundle.
 - [x] Add subtle neon cursor spotlights across cards, controls, and press surfaces.
 - [x] Add a compact Latest Updates strip, richer drawer snapshot stats, stronger gallery previews, media-count card badges, and upgraded 404 recovery shortcuts.
+- [x] Add a command palette for category jumps, project details, and quick site launch.
+- [x] Add platform icons to project cards and Studio Notes.
+- [x] Add reduced-motion-safe scroll reveal animations for project cards.
+- [x] Add a compact Studio Notes section with curated launch blurbs.
+- [x] Add GitHub stars/forks metadata to generated project data, cards, and drawers.
 
 ## Future
 

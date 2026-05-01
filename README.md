@@ -4,7 +4,7 @@ Master public website for NinjaTomOnline app, tool, game, and Custom3D.Art proje
 
 The site is static and GitHub Pages-friendly: `index.html`, `styles.css`, and `app.js` render a polished project grid from `projects.json`. A GitHub Action refreshes `projects.json` by discovering public repos under `NinjaTomOnline`.
 
-The public UI is designed as a dark, cyberpunk-adjacent indie studio portfolio: a large NinjaTom Apps hero, layered project mockups, a compact filter/search/sort deck, a slim latest-updates strip, image-first project cards with tasteful motion and neon cursor spotlights, shareable project detail drawers with snapshot stats, screenshot galleries, and launch notes, category hash routes, responsive mobile navigation, JSON-LD project structured data, a branded 404 page, RSS project updates, a public changelog, and a footer with Custom3D.Art, GitHub, and support links.
+The public UI is designed as a dark, cyberpunk-adjacent indie studio portfolio: a large NinjaTom Apps hero, layered project mockups, a compact filter/search/sort deck, a command palette, a slim latest-updates strip, a Studio Notes band, image-first project cards with platform icons, GitHub metadata, tasteful motion, and neon cursor spotlights, shareable project detail drawers with snapshot stats, screenshot galleries, and launch notes, category hash routes, responsive mobile navigation, JSON-LD project structured data, a branded 404 page, RSS project updates, a public changelog, and a footer with Custom3D.Art, GitHub, and support links.
 
 Live site: `https://ninjatomapps.com/`
 
@@ -39,6 +39,8 @@ The script also discovers real project icons automatically. It checks, in order:
 The script also picks up App Store links from each project site's `index.html` when a manifest does not specify `appStoreUrl`. This keeps launched app cards current as long as the public site links to the App Store.
 
 The script also builds each drawer gallery. It prefers `site-manifest.json` `screenshots`, then `site.webmanifest` screenshots, then screenshot-like images from the project homepage, then screenshot/preview files found by scanning the repo tree, then known common screenshot paths. If no explicit gallery exists, the project preview image is still used as a one-image fallback. If a repo has screenshots but no explicit preview image, the first screenshot becomes the card preview so the grid stays visual.
+
+The script includes GitHub repository metadata from the same public API response, including `stargazersCount` and `forksCount`. The frontend shows those compactly on project cards and in drawer metadata.
 
 The script writes both `projects.json` and `feed.xml`. The action commits those generated files only when project data or RSS output changes. Generated commits include `[skip ci]`, and the workflow ignores pushes that only change `projects.json` or `feed.xml` to avoid update loops.
 
@@ -201,7 +203,7 @@ Run the screenshot smoke check:
 node scripts/visual-smoke.mjs
 ```
 
-The smoke check starts a temporary static server, waits for the JavaScript-rendered project UI, captures desktop, mobile, category-route, project-detail, changelog, and 404 Chrome screenshots, verifies PNG dimensions and file size, and writes screenshots to `artifacts/visual-smoke/`.
+The smoke check starts a temporary static server, waits for the JavaScript-rendered project UI, captures desktop, mobile, category-route, project-detail, command palette, changelog, and 404 Chrome screenshots, verifies PNG dimensions and file size, and writes screenshots to `artifacts/visual-smoke/`.
 
 Run the stricter pixel-baseline visual regression check:
 
@@ -215,7 +217,7 @@ When the design intentionally changes, update the committed baselines:
 node scripts/visual-regression.mjs --update-baselines
 ```
 
-The regression check uses `?visual-test=1` to render deterministic code-native previews and stable timestamps, then compares desktop, tablet, mobile, project-grid, category-route, project-detail, changelog, and 404 screenshots against `tests/visual-baselines/`. The default threshold allows normal macOS/Linux font rasterization differences; override with `VISUAL_CHANGED_THRESHOLD` or `VISUAL_AVG_THRESHOLD` when tightening or debugging.
+The regression check uses `?visual-test=1` to render deterministic code-native previews and stable timestamps, then compares desktop, tablet, mobile, project-grid, category-route, project-detail, command-palette, changelog, and 404 screenshots against `tests/visual-baselines/`. The default threshold allows normal macOS/Linux font rasterization differences; override with `VISUAL_CHANGED_THRESHOLD` or `VISUAL_AVG_THRESHOLD` when tightening or debugging.
 
 Run the Lighthouse CI audit locally:
 
@@ -237,9 +239,9 @@ The Lighthouse config starts a local static server and audits the homepage, pres
 - `assets/ninjatomapps-social-preview.svg` and `.png`: source and rendered social preview art
 - `assets/media-kit/README.txt` and `assets/ninjatomapps-media-kit.zip`: downloadable brand/media-kit bundle contents
 - `assets/ninjatomapps-icon.svg`, `favicon.ico`, favicon PNGs, and `site.webmanifest`: app icon and install metadata
-- `styles.css`: responsive dark-mode visual system for the hero, latest-updates strip, controls, cards, detail drawer, 404 page, and footer
+- `styles.css`: responsive dark-mode visual system for the hero, command palette, Studio Notes, latest-updates strip, controls, cards, detail drawer, 404 page, and footer
 - `site-nav.js`: accessible mobile navigation toggle and reduced-motion-safe neon cursor spotlights shared across pages
-- `app.js`: project loading, hero showcase rendering, compact latest updates, discovery status, Recently Launched filtering, category hash routes, shareable project drawers with screenshot galleries and launch notes, JSON-LD structured data, search, filters, sorting, load-more behavior, pointer-follow card motion, and fallback sample data
+- `app.js`: project loading, hero showcase rendering, command palette, compact latest updates, Studio Notes, discovery status, Recently Launched filtering, category hash routes, shareable project drawers with screenshot galleries and launch notes, JSON-LD structured data, search, filters, sorting, load-more behavior, scroll-reveal and pointer-follow card motion, and fallback sample data
 - Project cards: `app.js` uses real preview images when available, promotes the first screenshot to the preview when needed, shows gallery-count badges for media-rich projects, and falls back to generated code-native preview panels when a project does not expose a screenshot yet.
 - Project drawers: use hash routes such as `#project/doorcodes-site`, so individual project panels can be shared without adding per-project HTML files. Category filters use routes such as `#category/ios-apps` and `#category/games`. Drawer galleries are powered by each project's `screenshots` array, with `previewImage` as the fallback, and now include quick snapshot stats plus a larger featured screenshot.
 - `projects.json`: generated project index consumed by the frontend

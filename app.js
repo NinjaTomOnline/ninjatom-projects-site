@@ -18,10 +18,14 @@ const urlParams = new URLSearchParams(window.location.search);
 const visualTestMode = urlParams.has("visual-test");
 const visualView = urlParams.get("view");
 const visualScrollTarget = urlParams.get("scroll");
+const visualCommand = urlParams.get("command");
 let didApplyVisualScroll = false;
 let didApplyHashScroll = false;
 let activeProject = null;
 let lastFocusedElement = null;
+let lastCommandFocusedElement = null;
+let commandItems = [];
+let activeCommandIndex = 0;
 
 if (visualTestMode) {
   document.body.dataset.visualTest = "true";
@@ -107,18 +111,24 @@ const elements = {
   dataNote: document.querySelector("#data-note"),
   search: document.querySelector("#project-search"),
   sort: document.querySelector("#project-sort"),
+  commandTrigger: document.querySelector("#command-trigger"),
   filterTabs: document.querySelector("#filter-tabs"),
   resultCount: document.querySelector("#result-count"),
   loadMoreWrap: document.querySelector("#load-more-wrap"),
   loadMore: document.querySelector("#load-more"),
   heroShowcase: document.querySelector("#hero-showcase"),
   latestStrip: document.querySelector("#latest-strip"),
+  studioNotes: document.querySelector("#studio-notes"),
+  studioNotesGrid: document.querySelector("#studio-notes-grid"),
   discoveryStrip: document.querySelector("#discovery-strip"),
   discoveryCount: document.querySelector("#discovery-count"),
   discoveryManifests: document.querySelector("#discovery-manifests"),
   discoveryGenerated: document.querySelector("#discovery-generated"),
   drawer: document.querySelector("#project-drawer"),
   drawerContent: document.querySelector("#drawer-content"),
+  commandPalette: document.querySelector("#command-palette"),
+  commandInput: document.querySelector("#command-input"),
+  commandResults: document.querySelector("#command-results"),
 };
 
 init();
@@ -132,21 +142,27 @@ async function init() {
     state.projects = payload.projects.map(normalizeProject);
     renderHeroShowcase(state.projects);
     renderLatestUpdates(state.projects);
+    renderStudioNotes(state.projects);
     renderProjects();
+    buildCommandItems();
     setDataNote(payload);
     updateDiscoverySummary(payload);
     renderStructuredData(state.projects);
     applyHashRoute();
+    applyVisualCommandPalette();
   } catch (error) {
     console.warn("Falling back to sample project data.", error);
     state.projects = FALLBACK_PROJECTS.map(normalizeProject);
     renderHeroShowcase(state.projects);
     renderLatestUpdates(state.projects);
+    renderStudioNotes(state.projects);
     renderProjects();
+    buildCommandItems();
     elements.dataNote.textContent = "Previewing sample data";
     updateDiscoverySummary({ sample: true });
     renderStructuredData(state.projects);
     applyHashRoute();
+    applyVisualCommandPalette();
   }
 }
 
@@ -158,6 +174,17 @@ function bindEvents() {
   });
 
   document.addEventListener("keydown", (event) => {
+    if (elements.commandPalette && !elements.commandPalette.hidden) {
+      handleCommandKeydown(event);
+      return;
+    }
+
+    if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+      event.preventDefault();
+      openCommandPalette();
+      return;
+    }
+
     if (event.key === "Escape" && elements.drawer && !elements.drawer.hidden) {
       closeProjectDrawer();
       return;
@@ -174,6 +201,15 @@ function bindEvents() {
     state.sort = event.target.value;
     state.visibleCount = INITIAL_VISIBLE_COUNT;
     renderProjects();
+  });
+
+  elements.commandTrigger?.addEventListener("click", () => {
+    openCommandPalette();
+  });
+
+  elements.commandInput?.addEventListener("input", () => {
+    activeCommandIndex = 0;
+    renderCommandResults();
   });
 
   elements.filterTabs.addEventListener("click", (event) => {
@@ -193,6 +229,11 @@ function bindEvents() {
 
     if (event.target.closest("[data-drawer-close]")) {
       closeProjectDrawer();
+      return;
+    }
+
+    if (event.target.closest("[data-command-close]")) {
+      closeCommandPalette();
     }
   });
 
@@ -267,6 +308,8 @@ function normalizeProject(project) {
     repoName,
     slug: categorySlug(repoName || name),
     manifestFound: Boolean(project.manifestFound),
+    stargazersCount: numberOr(project.stargazersCount ?? project.stars, 0),
+    forksCount: numberOr(project.forksCount ?? project.forks, 0),
     updatedAt: stringOr(project.updatedAt, ""),
     launchedAt,
     version,
@@ -413,6 +456,49 @@ function renderLatestUpdates(projects) {
   elements.latestStrip.hidden = false;
 }
 
+function renderStudioNotes(projects) {
+  if (!elements.studioNotes || !elements.studioNotesGrid) return;
+
+  const notes = selectStudioNotes(projects);
+  if (!notes.length) {
+    elements.studioNotes.hidden = true;
+    elements.studioNotesGrid.replaceChildren();
+    return;
+  }
+
+  const fragment = document.createDocumentFragment();
+  for (const project of notes) {
+    const note = document.createElement("button");
+    note.className = "studio-note";
+    note.type = "button";
+    note.dataset.projectSlug = project.slug;
+    note.style.setProperty("--accent", project.accent);
+    note.setAttribute("aria-label", `Open ${project.name} details`);
+
+    const meta = document.createElement("span");
+    meta.className = "studio-note-meta";
+    meta.append(createPlatformIcon(project), document.createTextNode(`${project.category} / ${project.status}`));
+
+    const title = document.createElement("strong");
+    title.textContent = project.name;
+
+    const copy = document.createElement("p");
+    copy.textContent = shortText(project.launchNotes || project.tagline, 118);
+
+    note.append(meta, title, copy);
+    fragment.appendChild(note);
+  }
+
+  elements.studioNotesGrid.replaceChildren(fragment);
+  elements.studioNotes.hidden = false;
+}
+
+function selectStudioNotes(projects) {
+  return sortProjects([...projects], "studio")
+    .filter((project) => project.launchNotes || project.tagline)
+    .slice(0, 3);
+}
+
 function selectLatestUpdates(projects) {
   return [...projects]
     .filter((project) => project.updatedAt || project.launchedAt)
@@ -455,11 +541,12 @@ function renderProjects() {
   hideState();
   const visibleProjects = filteredProjects.slice(0, state.visibleCount);
   const fragment = document.createDocumentFragment();
-  for (const project of visibleProjects) {
-    fragment.appendChild(createProjectCard(project));
+  for (const [index, project] of visibleProjects.entries()) {
+    fragment.appendChild(createProjectCard(project, index));
   }
 
   elements.grid.appendChild(fragment);
+  initCardReveals();
   elements.resultCount.textContent =
     filteredProjects.length === state.projects.length
       ? `${state.projects.length} projects`
@@ -525,10 +612,11 @@ function sortProjects(projects, mode = "studio") {
   });
 }
 
-function createProjectCard(project) {
+function createProjectCard(project, index = 0) {
   const card = document.createElement("article");
   card.className = "project-card";
   card.style.setProperty("--accent", project.accent);
+  card.style.setProperty("--reveal-delay", `${Math.min(index, 8) * 35}ms`);
   attachTilt(card);
 
   const preview = document.createElement("a");
@@ -591,6 +679,8 @@ function createProjectCard(project) {
   const footer = document.createElement("div");
   footer.className = "card-footer";
   appendFooterLink(footer, "Live Site", project.website, "globe");
+  appendFooterMetric(footer, project.stargazersCount, "star", "stars");
+  appendFooterMetric(footer, project.forksCount, "fork", "forks");
   appendFooterMeta(footer, formatRelative(project.updatedAt), "clock");
 
   body.append(titleRow, tagline);
@@ -656,7 +746,11 @@ function createDefaultPreview(project, compact = false) {
 function createTag(label, className = "") {
   const tag = document.createElement("span");
   tag.className = `tag ${className} ${categorySlug(label)}`.trim();
-  tag.textContent = label;
+  if (className.includes("category-tag")) {
+    tag.append(createPlatformIcon({ category: label }), document.createTextNode(label));
+  } else {
+    tag.textContent = label;
+  }
   return tag;
 }
 
@@ -734,20 +828,62 @@ function appendFooterMeta(container, label, iconName) {
   container.appendChild(item);
 }
 
+function appendFooterMetric(container, value, iconName, label) {
+  if (!Number.isFinite(value)) return;
+  const item = document.createElement("span");
+  item.className = "footer-action muted repo-metric";
+  item.title = `${value} ${label}`;
+  item.append(createIcon(iconName), document.createTextNode(formatCompactNumber(value)));
+  container.appendChild(item);
+}
+
 function createIcon(name) {
   const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   svg.setAttribute("aria-hidden", "true");
   svg.setAttribute("viewBox", "0 0 24 24");
 
   const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-  path.setAttribute(
-    "d",
-    name === "clock"
-      ? "M12 6v6l4 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-      : "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0 0c2-2.2 3-5.2 3-9s-1-6.8-3-9m0 18c-2-2.2-3-5.2-3-9s1-6.8 3-9M3.6 9h16.8M3.6 15h16.8",
-  );
+  path.setAttribute("d", iconPath(name));
   svg.appendChild(path);
   return svg;
+}
+
+function createPlatformIcon(project) {
+  const svg = createIcon(platformIconName(project));
+  svg.classList.add("platform-icon");
+  return svg;
+}
+
+function platformIconName(project) {
+  const value = `${project.category || ""} ${project.name || ""} ${project.repoName || ""}`.toLowerCase();
+  if (/(ios|iphone|ipad|watchos)/.test(value)) return "phone";
+  if (/(game|arcade|rush|detective|copter)/.test(value)) return "gamepad";
+  if (/(creative|custom3d|3d|art|dream|shramana)/.test(value)) return "cube";
+  if (/(web|site|website|browser)/.test(value)) return "browser";
+  return "tool";
+}
+
+function iconPath(name) {
+  switch (name) {
+    case "clock":
+      return "M12 6v6l4 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z";
+    case "star":
+      return "m12 3.5 2.6 5.2 5.8.8-4.2 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8-4.2-4.1 5.8-.8L12 3.5Z";
+    case "fork":
+      return "M7 5a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm10 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM7 9v2a4 4 0 0 0 4 4h2a4 4 0 0 0 4-4V9M12 15v4";
+    case "phone":
+      return "M8 3.5h8a1.5 1.5 0 0 1 1.5 1.5v14a1.5 1.5 0 0 1-1.5 1.5H8A1.5 1.5 0 0 1 6.5 19V5A1.5 1.5 0 0 1 8 3.5Zm2.8 14h2.4";
+    case "gamepad":
+      return "M7.5 9.5h9a4.5 4.5 0 0 1 4.2 6.1l-.7 1.8a2 2 0 0 1-3.2.7l-1.6-1.5H8.8l-1.6 1.5a2 2 0 0 1-3.2-.7l-.7-1.8a4.5 4.5 0 0 1 4.2-6.1ZM8 13h3m-1.5-1.5v3M16 12.5h.1M18 14.5h.1";
+    case "cube":
+      return "m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Zm0 0v9m8-4.5-8 4.5m-8-4.5 8 4.5m0 9v-9";
+    case "browser":
+      return "M4 5.5h16v13H4v-13Zm0 4h16M7 7.5h.1M10 7.5h.1M13 7.5h.1";
+    case "tool":
+      return "M14.7 5.3a4 4 0 0 0 4.9 4.9l-8.8 8.8a2.2 2.2 0 0 1-3.1-3.1l8.8-8.8Z";
+    default:
+      return "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0 0c2-2.2 3-5.2 3-9s-1-6.8-3-9m0 18c-2-2.2-3-5.2-3-9s1-6.8 3-9M3.6 9h16.8M3.6 15h16.8";
+  }
 }
 
 function showState(type, message) {
@@ -778,6 +914,192 @@ function updateLoadMore(total) {
     ? "Show fewer projects"
     : "Load more projects";
   elements.loadMore.classList.toggle("expanded", canCollapse);
+}
+
+function buildCommandItems() {
+  const filterItems = Object.keys(FILTERS).map((filter) => ({
+    type: "Category",
+    label: filter,
+    meta: filter === "All" ? "Show every project" : `Jump to ${filter}`,
+    keywords: `${filter} category filter projects`,
+    icon: createPlatformIcon({ category: filter }),
+    run: () => {
+      setActiveFilter(filter, { updateHash: true, forceRender: true });
+      closeCommandPalette();
+      scrollProjectsIntoView();
+    },
+  }));
+
+  const projectItems = state.projects.map((project) => ({
+    type: "Details",
+    label: project.name,
+    meta: `${project.category} / ${project.status}`,
+    keywords: project.searchText,
+    icon: createPlatformIcon(project),
+    run: () => {
+      const focusReturn = lastCommandFocusedElement;
+      closeCommandPalette({ restoreFocus: false });
+      openProjectBySlug(project.slug, { updateHash: true });
+      if (focusReturn && document.contains(focusReturn)) {
+        lastFocusedElement = focusReturn;
+      }
+    },
+  }));
+
+  const launchItems = state.projects
+    .filter((project) => project.website || project.repositoryUrl)
+    .map((project) => ({
+      type: "Open Site",
+      label: `Launch ${project.name}`,
+      meta: project.website || project.repositoryUrl,
+      keywords: `${project.name} ${project.category} launch open site website ${project.searchText}`,
+      icon: createIcon("globe"),
+      run: () => {
+        closeCommandPalette();
+        window.open(project.website || project.repositoryUrl, "_blank", "noopener,noreferrer");
+      },
+    }));
+
+  commandItems = [...filterItems, ...projectItems, ...launchItems];
+  renderCommandResults();
+}
+
+function openCommandPalette() {
+  if (!elements.commandPalette || !elements.commandInput || !elements.commandResults) return;
+  if (!commandItems.length) buildCommandItems();
+
+  lastCommandFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+  activeCommandIndex = 0;
+  elements.commandInput.value = "";
+  renderCommandResults();
+  elements.commandPalette.hidden = false;
+  document.body.classList.add("command-open");
+  requestAnimationFrame(() => {
+    elements.commandPalette.classList.add("open");
+    elements.commandInput.focus({ preventScroll: true });
+  });
+}
+
+function closeCommandPalette(options = {}) {
+  if (!elements.commandPalette || elements.commandPalette.hidden) return;
+
+  elements.commandPalette.classList.remove("open");
+  document.body.classList.remove("command-open");
+  window.setTimeout(
+    () => {
+      elements.commandPalette.hidden = true;
+    },
+    visualTestMode ? 0 : 160,
+  );
+
+  if (options.restoreFocus !== false && lastCommandFocusedElement && document.contains(lastCommandFocusedElement)) {
+    lastCommandFocusedElement.focus({ preventScroll: true });
+  }
+  lastCommandFocusedElement = null;
+}
+
+function handleCommandKeydown(event) {
+  if (event.key === "Escape") {
+    event.preventDefault();
+    closeCommandPalette();
+    return;
+  }
+
+  const results = getVisibleCommandButtons();
+  if (!results.length) return;
+
+  if (event.key === "ArrowDown") {
+    event.preventDefault();
+    activeCommandIndex = (activeCommandIndex + 1) % results.length;
+    updateActiveCommandResult();
+    return;
+  }
+
+  if (event.key === "ArrowUp") {
+    event.preventDefault();
+    activeCommandIndex = (activeCommandIndex - 1 + results.length) % results.length;
+    updateActiveCommandResult();
+    return;
+  }
+
+  if (event.key === "Enter") {
+    event.preventDefault();
+    results[activeCommandIndex]?.click();
+  }
+}
+
+function renderCommandResults() {
+  if (!elements.commandResults) return;
+
+  const query = elements.commandInput?.value.trim().toLowerCase() || "";
+  const matches = commandItems
+    .filter((item) => commandMatches(item, query))
+    .slice(0, 10);
+
+  if (activeCommandIndex >= matches.length) activeCommandIndex = 0;
+
+  const fragment = document.createDocumentFragment();
+  for (const [index, item] of matches.entries()) {
+    const button = document.createElement("button");
+    button.className = "command-result";
+    button.type = "button";
+    button.setAttribute("role", "option");
+    button.dataset.commandIndex = String(index);
+    button.setAttribute("aria-selected", String(index === activeCommandIndex));
+
+    const iconWrap = document.createElement("span");
+    iconWrap.className = "command-result-icon";
+    iconWrap.appendChild(item.icon.cloneNode(true));
+
+    const copy = document.createElement("span");
+    copy.className = "command-result-copy";
+
+    const label = document.createElement("strong");
+    label.textContent = item.label;
+
+    const meta = document.createElement("span");
+    meta.textContent = `${item.type} / ${item.meta}`;
+
+    copy.append(label, meta);
+    button.append(iconWrap, copy);
+    button.addEventListener("click", item.run);
+    button.addEventListener("mouseenter", () => {
+      activeCommandIndex = index;
+      updateActiveCommandResult();
+    });
+    fragment.appendChild(button);
+  }
+
+  if (!matches.length) {
+    const empty = document.createElement("div");
+    empty.className = "command-empty";
+    empty.textContent = "No matching projects or commands.";
+    fragment.appendChild(empty);
+  }
+
+  elements.commandResults.replaceChildren(fragment);
+  updateActiveCommandResult();
+}
+
+function commandMatches(item, query) {
+  if (!query) return true;
+  return `${item.label} ${item.meta} ${item.type} ${item.keywords}`.toLowerCase().includes(query);
+}
+
+function getVisibleCommandButtons() {
+  return [...(elements.commandResults?.querySelectorAll(".command-result") || [])];
+}
+
+function updateActiveCommandResult() {
+  const results = getVisibleCommandButtons();
+  for (const [index, button] of results.entries()) {
+    const isActive = index === activeCommandIndex;
+    button.classList.toggle("active", isActive);
+    button.setAttribute("aria-selected", String(isActive));
+    if (isActive && elements.commandPalette && !elements.commandPalette.hidden) {
+      button.scrollIntoView({ block: "nearest" });
+    }
+  }
 }
 
 function applyHashRoute() {
@@ -938,6 +1260,8 @@ function renderProjectDrawer(project) {
   appendFact(facts, "Version", project.version);
   appendFact(facts, "Updated", formatDate(project.updatedAt) || formatRelative(project.updatedAt));
   appendFact(facts, "Repo", project.repoName);
+  appendFact(facts, "Stars", formatCompactNumber(project.stargazersCount));
+  appendFact(facts, "Forks", formatCompactNumber(project.forksCount));
   appendFact(facts, "Data", project.manifestFound ? "site-manifest.json" : "Inferred from GitHub Pages");
 
   const topicWrap = document.createElement("div");
@@ -1168,6 +1492,44 @@ function applyVisualScrollTarget() {
   requestAnimationFrame(() => {
     document.querySelector("#projects")?.scrollIntoView({ block: "start" });
   });
+}
+
+function applyVisualCommandPalette() {
+  if (!visualTestMode || visualCommand !== "1") return;
+  requestAnimationFrame(() => {
+    openCommandPalette();
+  });
+}
+
+function initCardReveals() {
+  if (!canUseReveal()) return;
+
+  const cards = [...elements.grid.querySelectorAll(".project-card")];
+  if (!cards.length) return;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        entry.target.classList.add("reveal-visible");
+        observer.unobserve(entry.target);
+      }
+    },
+    { rootMargin: "0px 0px -8% 0px", threshold: 0.12 },
+  );
+
+  for (const card of cards) {
+    card.classList.add("reveal-ready");
+    observer.observe(card);
+  }
+}
+
+function canUseReveal() {
+  return (
+    !visualTestMode &&
+    "IntersectionObserver" in window &&
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
 }
 
 function attachTilt(element) {
@@ -1475,6 +1837,20 @@ function dateValue(value) {
 
 function stringOr(value, fallback) {
   return typeof value === "string" && value.trim() ? value.trim() : fallback;
+}
+
+function numberOr(value, fallback = 0) {
+  const number = Number(value);
+  return Number.isFinite(number) ? number : fallback;
+}
+
+function formatCompactNumber(value) {
+  const number = Number(value);
+  if (!Number.isFinite(number)) return "";
+  return new Intl.NumberFormat(undefined, {
+    notation: "compact",
+    maximumFractionDigits: 1,
+  }).format(number);
 }
 
 function validUrl(value) {

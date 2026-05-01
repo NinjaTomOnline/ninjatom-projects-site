@@ -1,7 +1,7 @@
 {
   "schemaVersion": 3,
   "owner": "NinjaTomOnline",
-  "generatedAt": "2026-05-01T10:26:35.374Z",
+  "generatedAt": "2026-05-01T10:37:55.609Z",
   "includeRules": {
     "repoNameSuffix": "-site",
     "topics": [
@@ -72,6 +72,8 @@
         "ninjatom-project-site"
       ],
       "manifestFound": true,
+      "stargazersCount": 0,
+      "forksCount": 0,
       "updatedAt": "2026-05-01T01:09:14Z"
     },
     {
@@ -98,6 +100,11 @@
           "caption": ""
         },
         {
+          "src": "https://swiftterm.app/assets/swiftterm-hero-console.png",
+          "alt": "",
+          "caption": ""
+        },
+        {
           "src": "https://swiftterm.app/screenshots/swiftterm-iphone-files.png",
           "alt": "",
           "caption": ""
@@ -109,11 +116,6 @@
         },
         {
           "src": "https://swiftterm.app/assets/swiftterm-social-preview.png",
-          "alt": "",
-          "caption": ""
-        },
-        {
-          "src": "https://swiftterm.app/assets/swiftterm-social-preview.svg",
           "alt": "",
           "caption": ""
         }
@@ -136,7 +138,9 @@
         "ninjatom-project-site"
       ],
       "manifestFound": false,
-      "updatedAt": "2026-05-01T10:19:24Z"
+      "stargazersCount": 0,
+      "forksCount": 0,
+      "updatedAt": "2026-05-01T10:34:13Z"
     },
     {
       "name": "Zen Wisdom",
@@ -200,6 +204,8 @@
         "ninjatom-project-site"
       ],
       "manifestFound": false,
+      "stargazersCount": 0,
+      "forksCount": 0,
       "updatedAt": "2026-04-30T14:16:44Z"
     },
     {
@@ -264,6 +270,8 @@
         "ninjatom-project-site"
       ],
       "manifestFound": false,
+      "stargazersCount": 0,
+      "forksCount": 0,
       "updatedAt": "2026-05-01T03:35:49Z"
     },
     {
@@ -303,6 +311,8 @@
         "ninjatom-project-site"
       ],
       "manifestFound": true,
+      "stargazersCount": 0,
+      "forksCount": 0,
       "updatedAt": "2026-04-30T19:50:50Z"
     },
     {
@@ -367,6 +377,8 @@
         "ninjatom-project-site"
       ],
       "manifestFound": true,
+      "stargazersCount": 0,
+      "forksCount": 0,
       "updatedAt": "2026-04-30T19:50:51Z"
     },
     {
@@ -421,6 +433,8 @@
         "ninjatom-project-site"
       ],
       "manifestFound": false,
+      "stargazersCount": 0,
+      "forksCount": 0,
       "updatedAt": "2026-04-23T13:38:26Z"
     },
     {
@@ -485,6 +499,8 @@
         "ninjatom-project-site"
       ],
       "manifestFound": true,
+      "stargazersCount": 0,
+      "forksCount": 0,
       "updatedAt": "2026-04-30T19:50:52Z"
     },
     {
@@ -524,6 +540,8 @@
         "ninjatom-project-site"
       ],
       "manifestFound": true,
+      "stargazersCount": 0,
+      "forksCount": 0,
       "updatedAt": "2026-04-30T19:50:52Z"
     },
     {
@@ -563,6 +581,8 @@
         "ninjatom-project-site"
       ],
       "manifestFound": true,
+      "stargazersCount": 0,
+      "forksCount": 0,
       "updatedAt": "2026-04-30T19:50:53Z"
     },
     {
@@ -627,6 +647,8 @@
         "ninjatom-project-site"
       ],
       "manifestFound": true,
+      "stargazersCount": 0,
+      "forksCount": 0,
       "updatedAt": "2026-05-01T02:12:25Z"
     },
     {
@@ -691,6 +713,8 @@
         "ninjatom-project-site"
       ],
       "manifestFound": false,
+      "stargazersCount": 0,
+      "forksCount": 0,
       "updatedAt": "2026-04-15T05:37:16Z"
     },
     {
@@ -755,6 +779,8 @@
         "ninjatom-project-site"
       ],
       "manifestFound": true,
+      "stargazersCount": 0,
+      "forksCount": 0,
       "updatedAt": "2026-05-01T10:23:15Z"
     }
   ]

@@ -373,6 +373,8 @@ async function normalizeProject(repo, topics, manifest, siteHints = {}) {
     repositoryUrl: repo.html_url,
     topics,
     manifestFound: Boolean(manifest),
+    stargazersCount: Number.isFinite(Number(repo.stargazers_count)) ? Number(repo.stargazers_count) : 0,
+    forksCount: Number.isFinite(Number(repo.forks_count)) ? Number(repo.forks_count) : 0,
     updatedAt: repo.pushed_at || repo.updated_at || "",
   };
 }

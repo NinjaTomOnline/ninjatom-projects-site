@@ -1,17 +1,17 @@
 # Next 23 Site Ideas
 
-Recently completed: project-card tilt/parallax, animated neon focus rings, neon cursor spotlights, hero project-wall motion, compact latest-updates strip, shareable project detail drawers, drawer snapshot stats, richer screenshot galleries, repo-tree screenshot discovery, launch notes, JSON-LD structured data, RSS feed generation, Recently Launched filtering, category hash routes, public changelog, press/media-kit ZIP, Lighthouse CI, recently-updated ribbons, live discovery status, branded 404 recovery shortcuts, and removal of the featured launch carousel.
+Recently completed: command palette, platform icons, reduced-motion-safe card reveal animations, Studio Notes, GitHub stars/forks metadata, project-card tilt/parallax, animated neon focus rings, neon cursor spotlights, hero project-wall motion, compact latest-updates strip, shareable project detail drawers, drawer snapshot stats, richer screenshot galleries, repo-tree screenshot discovery, launch notes, JSON-LD structured data, RSS feed generation, Recently Launched filtering, category hash routes, public changelog, press/media-kit ZIP, Lighthouse CI, recently-updated ribbons, live discovery status, branded 404 recovery shortcuts, and removal of the featured launch carousel.
 
 1. Add a low-motion particle grid behind the hero, with `prefers-reduced-motion` support.
-2. Add a keyboard command palette for search, category jumps, and quick project launch.
-3. Add optional carousel autoplay with pause-on-hover and `prefers-reduced-motion` support.
-4. Add a launch timeline showing newest projects and recently refreshed manifests.
-5. Add a Custom3D.Art collection band with creative/3D projects separated from utility apps.
-6. Add app platform icons for iPhone, iPad, web, macOS, game, and tool categories.
-7. Add stronger empty states with a mini preview of how to tag a new repo.
-8. Add optional GitHub stars/forks metadata if rate limits stay comfortable.
-9. Add a "Studio Notes" section with short release blurbs for major apps.
-10. Add smooth scroll-triggered reveals for cards, tuned to avoid jank.
+2. Add optional carousel autoplay with pause-on-hover and `prefers-reduced-motion` support.
+3. Add a launch timeline showing newest projects and recently refreshed manifests.
+4. Add a Custom3D.Art collection band with creative/3D projects separated from utility apps.
+5. Add stronger empty states with a mini preview of how to tag a new repo.
+6. Add command palette grouping and pinned favorite actions.
+7. Add richer GitHub metadata such as language, license, and last release if rate limits stay comfortable.
+8. Add Studio Notes authoring from optional manifest fields.
+9. Add a low-jank reveal tune-up with route-aware staggered batches.
+10. Add a small status pulse for automation freshness and feed health.
 11. Add a tasteful animated logo mark that settles after page load.
 12. Add accent color extraction from project manifests for richer card theming.
 13. Add install/open badges for App Store, web app, GitHub Pages, and docs links.
