@@ -1,7 +1,7 @@
 {
   "schemaVersion": 3,
   "owner": "NinjaTomOnline",
-  "generatedAt": "2026-05-01T10:20:10.262Z",
+  "generatedAt": "2026-05-01T10:26:35.374Z",
   "includeRules": {
     "repoNameSuffix": "-site",
     "topics": [
@@ -755,7 +755,7 @@
         "ninjatom-project-site"
       ],
       "manifestFound": true,
-      "updatedAt": "2026-05-01T10:01:37Z"
+      "updatedAt": "2026-05-01T10:23:15Z"
     }
   ]
 }
