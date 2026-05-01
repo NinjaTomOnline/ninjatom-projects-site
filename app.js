@@ -15,9 +15,14 @@ const visualView = urlParams.get("view");
 const visualScrollTarget = urlParams.get("scroll");
 let didApplyVisualScroll = false;
 let didApplyHashScroll = false;
+let activeProject = null;
+let lastFocusedElement = null;
 
-if (visualTestMode && visualView) {
-  document.body.dataset.visualView = visualView;
+if (visualTestMode) {
+  document.body.dataset.visualTest = "true";
+  if (visualView) {
+    document.body.dataset.visualView = visualView;
+  }
 }
 
 const FALLBACK_PROJECTS = [
@@ -90,6 +95,12 @@ const elements = {
   featuredTrack: document.querySelector("#featured-track"),
   featuredPrev: document.querySelector("#featured-prev"),
   featuredNext: document.querySelector("#featured-next"),
+  discoveryStrip: document.querySelector("#discovery-strip"),
+  discoveryCount: document.querySelector("#discovery-count"),
+  discoveryManifests: document.querySelector("#discovery-manifests"),
+  discoveryGenerated: document.querySelector("#discovery-generated"),
+  drawer: document.querySelector("#project-drawer"),
+  drawerContent: document.querySelector("#drawer-content"),
 };
 
 init();
@@ -105,6 +116,8 @@ async function init() {
     renderFeaturedLaunches(state.projects);
     renderProjects();
     setDataNote(payload);
+    updateDiscoverySummary(payload);
+    openProjectFromHash();
   } catch (error) {
     console.warn("Falling back to sample project data.", error);
     state.projects = FALLBACK_PROJECTS.map(normalizeProject);
@@ -112,6 +125,8 @@ async function init() {
     renderFeaturedLaunches(state.projects);
     renderProjects();
     elements.dataNote.textContent = "Previewing sample data";
+    updateDiscoverySummary({ sample: true });
+    openProjectFromHash();
   }
 }
 
@@ -123,6 +138,11 @@ function bindEvents() {
   });
 
   document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && elements.drawer && !elements.drawer.hidden) {
+      closeProjectDrawer();
+      return;
+    }
+
     if (event.key !== "/" || event.metaKey || event.ctrlKey || event.altKey) return;
     const tagName = document.activeElement?.tagName;
     if (tagName === "INPUT" || tagName === "TEXTAREA" || document.activeElement?.isContentEditable) return;
@@ -154,6 +174,28 @@ function bindEvents() {
   elements.featuredNext?.addEventListener("click", () => scrollFeatured(1));
   elements.featuredTrack?.addEventListener("scroll", updateFeaturedControls, { passive: true });
 
+  document.addEventListener("click", (event) => {
+    const detailsTrigger = event.target.closest("button[data-project-slug]");
+    if (detailsTrigger) {
+      event.preventDefault();
+      openProjectBySlug(detailsTrigger.dataset.projectSlug, { updateHash: true });
+      return;
+    }
+
+    if (event.target.closest("[data-drawer-close]")) {
+      closeProjectDrawer();
+    }
+  });
+
+  window.addEventListener("hashchange", () => {
+    const slug = projectSlugFromHash();
+    if (slug) {
+      openProjectBySlug(slug);
+    } else if (elements.drawer && !elements.drawer.hidden) {
+      closeProjectDrawer({ updateHash: false });
+    }
+  });
+
   elements.loadMore.addEventListener("click", () => {
     const filtered = getFilteredProjects();
     state.visibleCount =
@@ -180,6 +222,7 @@ function normalizeProject(project) {
   const name = stringOr(project.name, "Untitled Project");
   const category = stringOr(project.category, "Project");
   const status = stringOr(project.status, "Live");
+  const repoName = stringOr(project.repoName, "");
 
   return {
     name,
@@ -197,7 +240,8 @@ function normalizeProject(project) {
     accent: validAccent(project.accent),
     featured: Boolean(project.featured),
     sortOrder: Number.isFinite(Number(project.sortOrder)) ? Number(project.sortOrder) : 1000,
-    repoName: stringOr(project.repoName, ""),
+    repoName,
+    slug: categorySlug(repoName || name),
     manifestFound: Boolean(project.manifestFound),
     updatedAt: stringOr(project.updatedAt, ""),
     topics: Array.isArray(project.topics) ? project.topics : [],
@@ -207,6 +251,7 @@ function normalizeProject(project) {
       category,
       status,
       project.repoName,
+      project.website,
       Array.isArray(project.topics) ? project.topics.join(" ") : "",
     ]
       .filter(Boolean)
@@ -219,6 +264,7 @@ function renderHeroShowcase(projects) {
   const selected = selectHeroProjects(projects);
   const positions = ["top", "middle", "side", "bottom"];
   const fragment = document.createDocumentFragment();
+  elements.heroShowcase.querySelectorAll(".hero-product").forEach((node) => node.remove());
 
   for (const [index, project] of selected.entries()) {
     const card = document.createElement("a");
@@ -226,7 +272,10 @@ function renderHeroShowcase(projects) {
     card.href = project.website || project.repositoryUrl || "#";
     card.target = "_blank";
     card.rel = "noopener noreferrer";
+    card.setAttribute("aria-label", `${project.name} project site`);
     card.style.setProperty("--accent", project.accent);
+    card.style.setProperty("--float-delay", `${index * -1.4}s`);
+    attachHeroMotion(card);
 
     const copy = document.createElement("span");
     copy.className = "hero-product-copy";
@@ -314,16 +363,17 @@ function selectFeaturedLaunches(projects) {
 }
 
 function createFeaturedCard(project) {
-  const card = document.createElement("a");
+  const card = document.createElement("article");
   card.className = "featured-card";
-  card.href = project.website || project.repositoryUrl || "#";
-  card.target = "_blank";
-  card.rel = "noopener noreferrer";
   card.style.setProperty("--accent", project.accent);
   attachTilt(card);
 
-  const media = document.createElement("span");
+  const media = document.createElement("a");
   media.className = "featured-media";
+  media.href = project.website || project.repositoryUrl || "#";
+  media.target = "_blank";
+  media.rel = "noopener noreferrer";
+  media.setAttribute("aria-label", `Open ${project.name}`);
   media.appendChild(createDefaultPreview(project, true));
   if (project.previewImage && !visualTestMode) {
     const image = document.createElement("img");
@@ -353,7 +403,12 @@ function createFeaturedCard(project) {
   meta.className = "featured-meta";
   meta.append(createTag(project.category, "category-tag"), createStatusBadge(project.status));
 
-  copy.append(eyebrow, title, tagline, meta);
+  const actions = document.createElement("span");
+  actions.className = "featured-actions";
+  actions.append(createDetailButton(project));
+  appendInlineLink(actions, "Open Site", project.website || project.repositoryUrl);
+
+  copy.append(eyebrow, title, tagline, meta, actions);
   card.append(media, copy);
   return card;
 }
@@ -472,6 +527,9 @@ function createProjectCard(project) {
     preview.appendChild(createDefaultPreview(project));
   }
   preview.appendChild(createStatusBadge(project.status));
+  if (isRecentlyUpdated(project)) {
+    preview.appendChild(createFreshBadge());
+  }
 
   const icon = createProjectIcon(project);
 
@@ -493,6 +551,7 @@ function createProjectCard(project) {
 
   const links = document.createElement("div");
   links.className = "card-links";
+  links.appendChild(createDetailButton(project, true));
   appendLink(links, "App Store", project.appStoreUrl);
   appendLink(links, "Support", project.supportUrl);
   appendLink(links, "Privacy", project.privacyUrl);
@@ -577,7 +636,35 @@ function createStatusBadge(label) {
   return status;
 }
 
+function createFreshBadge() {
+  const badge = document.createElement("span");
+  badge.className = "fresh-badge";
+  badge.textContent = "Recently updated";
+  return badge;
+}
+
+function createDetailButton(project, compact = false) {
+  const button = document.createElement("button");
+  button.className = compact ? "card-link detail-link" : "card-link detail-link featured-detail";
+  button.type = "button";
+  button.dataset.projectSlug = project.slug;
+  button.textContent = "Details";
+  return button;
+}
+
 function appendLink(container, label, url) {
+  if (!url) return;
+
+  const link = document.createElement("a");
+  link.className = "card-link";
+  link.href = url;
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+  link.textContent = label;
+  container.appendChild(link);
+}
+
+function appendInlineLink(container, label, url) {
   if (!url) return;
 
   const link = document.createElement("a");
@@ -655,6 +742,203 @@ function updateLoadMore(total) {
   elements.loadMore.classList.toggle("expanded", canCollapse);
 }
 
+function openProjectFromHash() {
+  const slug = projectSlugFromHash();
+  if (slug) openProjectBySlug(slug);
+}
+
+function openProjectBySlug(slug, options = {}) {
+  if (!slug || !elements.drawer || !elements.drawerContent) return;
+
+  const project = state.projects.find(
+    (item) => item.slug === slug || item.repoName === slug || categorySlug(item.name) === slug,
+  );
+  if (!project) return;
+
+  activeProject = project;
+  lastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+  renderProjectDrawer(project);
+  elements.drawer.hidden = false;
+  document.body.classList.add("drawer-open");
+  requestAnimationFrame(() => {
+    elements.drawer.classList.add("open");
+    elements.drawer.querySelector(".drawer-close")?.focus({ preventScroll: true });
+  });
+
+  if (options.updateHash && projectSlugFromHash() !== project.slug) {
+    history.pushState(null, "", `#project/${encodeURIComponent(project.slug)}`);
+  }
+}
+
+function closeProjectDrawer(options = {}) {
+  if (!elements.drawer || elements.drawer.hidden) return;
+
+  const updateHash = options.updateHash !== false;
+  elements.drawer.classList.remove("open");
+  document.body.classList.remove("drawer-open");
+  activeProject = null;
+
+  window.setTimeout(
+    () => {
+      if (activeProject) return;
+      elements.drawer.hidden = true;
+      elements.drawerContent?.replaceChildren();
+    },
+    visualTestMode ? 0 : 170,
+  );
+
+  if (updateHash && projectSlugFromHash()) {
+    history.pushState(null, "", `${window.location.pathname}${window.location.search}`);
+  }
+
+  if (lastFocusedElement && document.contains(lastFocusedElement)) {
+    lastFocusedElement.focus({ preventScroll: true });
+  }
+  lastFocusedElement = null;
+}
+
+function renderProjectDrawer(project) {
+  const content = elements.drawerContent;
+  content.replaceChildren();
+
+  const header = document.createElement("div");
+  header.className = "drawer-header";
+
+  const media = document.createElement("div");
+  media.className = "drawer-preview";
+  media.style.setProperty("--accent", project.accent);
+  media.appendChild(createDefaultPreview(project));
+  if (project.previewImage && !visualTestMode) {
+    const image = document.createElement("img");
+    image.src = project.previewImage;
+    image.alt = project.previewImageAlt;
+    image.loading = "eager";
+    image.decoding = "async";
+    image.addEventListener("error", () => image.remove());
+    media.appendChild(image);
+  }
+
+  const titleBlock = document.createElement("div");
+  titleBlock.className = "drawer-title-block";
+
+  const icon = createProjectIcon(project);
+  icon.classList.add("drawer-icon");
+
+  const titleCopy = document.createElement("div");
+  const eyebrow = document.createElement("p");
+  eyebrow.className = "drawer-eyebrow";
+  eyebrow.textContent = project.manifestFound ? "Manifest-powered project" : "Auto-discovered project";
+
+  const title = document.createElement("h2");
+  title.id = "drawer-title";
+  title.textContent = project.name;
+
+  const tagline = document.createElement("p");
+  tagline.id = "drawer-tagline";
+  tagline.textContent = project.tagline;
+
+  titleCopy.append(eyebrow, title, tagline);
+  titleBlock.append(icon, titleCopy);
+  header.append(media, titleBlock);
+
+  const tags = document.createElement("div");
+  tags.className = "drawer-tags";
+  tags.append(createTag(project.category, "category-tag"), createStatusBadge(project.status));
+  if (isRecentlyUpdated(project)) tags.appendChild(createFreshBadge());
+  if (project.featured) {
+    const featured = document.createElement("span");
+    featured.className = "tag featured-tag";
+    featured.textContent = "Featured";
+    tags.appendChild(featured);
+  }
+
+  const actions = document.createElement("div");
+  actions.className = "drawer-actions";
+  appendDrawerLink(actions, "Open Live Site", project.website, true);
+  appendDrawerLink(actions, "App Store", project.appStoreUrl);
+  appendDrawerLink(actions, "Support", project.supportUrl);
+  appendDrawerLink(actions, "Privacy", project.privacyUrl);
+  appendDrawerLink(actions, "GitHub Repo", project.repositoryUrl);
+
+  const shareButton = document.createElement("button");
+  shareButton.className = "button button-secondary drawer-share";
+  shareButton.type = "button";
+  shareButton.textContent = "Copy Project Link";
+  shareButton.addEventListener("click", async () => {
+    await copyProjectLink(project);
+    shareButton.textContent = "Copied";
+    window.setTimeout(() => {
+      shareButton.textContent = "Copy Project Link";
+    }, 1400);
+  });
+  actions.appendChild(shareButton);
+
+  const facts = document.createElement("dl");
+  facts.className = "drawer-facts";
+  appendFact(facts, "Category", project.category);
+  appendFact(facts, "Status", project.status);
+  appendFact(facts, "Updated", formatDate(project.updatedAt) || formatRelative(project.updatedAt));
+  appendFact(facts, "Repo", project.repoName);
+  appendFact(facts, "Data", project.manifestFound ? "site-manifest.json" : "Inferred from GitHub Pages");
+
+  const topicWrap = document.createElement("div");
+  topicWrap.className = "drawer-topics";
+  for (const topic of project.topics.slice(0, 8)) {
+    const pill = document.createElement("span");
+    pill.textContent = topic;
+    topicWrap.appendChild(pill);
+  }
+
+  content.append(header, tags, actions, facts);
+  if (topicWrap.children.length) content.appendChild(topicWrap);
+}
+
+function appendDrawerLink(container, label, url, primary = false) {
+  if (!url) return;
+
+  const link = document.createElement("a");
+  link.className = primary ? "button button-primary" : "button button-secondary";
+  link.href = url;
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+  link.textContent = label;
+  container.appendChild(link);
+}
+
+function appendFact(container, label, value) {
+  if (!value) return;
+
+  const term = document.createElement("dt");
+  term.textContent = label;
+  const description = document.createElement("dd");
+  description.textContent = value;
+  container.append(term, description);
+}
+
+async function copyProjectLink(project) {
+  const url = `${window.location.origin}${window.location.pathname}${window.location.search}#project/${encodeURIComponent(project.slug)}`;
+  if (navigator.clipboard?.writeText) {
+    await navigator.clipboard.writeText(url);
+    return;
+  }
+
+  const input = document.createElement("input");
+  input.value = url;
+  input.setAttribute("readonly", "");
+  input.style.position = "fixed";
+  input.style.opacity = "0";
+  document.body.appendChild(input);
+  input.select();
+  document.execCommand("copy");
+  input.remove();
+}
+
+function projectSlugFromHash() {
+  const hash = window.location.hash || "";
+  if (!hash.startsWith("#project/")) return "";
+  return decodeURIComponent(hash.slice("#project/".length));
+}
+
 function applyInitialHashScroll() {
   if (visualTestMode || didApplyHashScroll || window.location.hash !== "#projects") return;
 
@@ -704,6 +988,23 @@ function canUseTilt() {
   );
 }
 
+function attachHeroMotion(element) {
+  if (!canUseTilt()) return;
+
+  element.addEventListener("pointermove", (event) => {
+    const rect = element.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width - 0.5;
+    const y = (event.clientY - rect.top) / rect.height - 0.5;
+    element.style.setProperty("--hero-shift-x", `${(x * 10).toFixed(2)}px`);
+    element.style.setProperty("--hero-shift-y", `${(y * 8).toFixed(2)}px`);
+  });
+
+  element.addEventListener("pointerleave", () => {
+    element.style.removeProperty("--hero-shift-x");
+    element.style.removeProperty("--hero-shift-y");
+  });
+}
+
 function setDataNote(payload) {
   if (payload.generatedAt) {
     const formatted = new Intl.DateTimeFormat(undefined, {
@@ -716,6 +1017,23 @@ function setDataNote(payload) {
   }
 
   elements.dataNote.textContent = `${state.projects.length} projects loaded`;
+}
+
+function updateDiscoverySummary(payload = {}) {
+  if (!elements.discoveryStrip) return;
+
+  const manifestCount = state.projects.filter((project) => project.manifestFound).length;
+  const latestProject = [...state.projects].sort((a, b) => dateValue(b.updatedAt) - dateValue(a.updatedAt))[0];
+  elements.discoveryCount.textContent = payload.sample
+    ? `${state.projects.length} sample projects loaded`
+    : `${state.projects.length} public project sites indexed`;
+  elements.discoveryManifests.textContent = `${manifestCount} manifest${manifestCount === 1 ? "" : "s"} found`;
+  elements.discoveryGenerated.textContent = payload.generatedAt
+    ? `Refreshed ${formatDate(payload.generatedAt)}`
+    : latestProject?.updatedAt
+      ? `Latest update ${formatRelative(latestProject.updatedAt)}`
+      : "Refresh time unavailable";
+  elements.discoveryStrip.hidden = false;
 }
 
 function formatRelative(value) {
@@ -734,6 +1052,24 @@ function formatRelative(value) {
   if (delta < day) return `${Math.max(1, Math.floor(delta / hour))}h ago`;
   if (delta < month) return `${Math.max(1, Math.floor(delta / day))}d ago`;
   return `${Math.max(1, Math.floor(delta / month))}mo ago`;
+}
+
+function formatDate(value) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
+  return new Intl.DateTimeFormat(undefined, {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  }).format(date);
+}
+
+function isRecentlyUpdated(project) {
+  if (visualTestMode) return false;
+  const updated = dateValue(project.updatedAt);
+  if (!updated) return false;
+  const days = (Date.now() - updated) / (24 * 60 * 60 * 1000);
+  return days >= 0 && days <= 7;
 }
 
 function categoryIncludes(project, terms) {

@@ -35,6 +35,11 @@
 - [x] Add featured launch carousel above the project controls.
 - [x] Add tasteful project-card tilt/parallax, animated neon focus rings, and visible status badges.
 - [x] Update the `ashtag-site` fallback to QuitGentle so fallback data stays current.
+- [x] Add a branded GitHub Pages `404.html` fallback.
+- [x] Add project detail drawers with screenshots, App Store/support/privacy links, repo metadata, and shareable hash routes.
+- [x] Add a live discovery status panel with indexed repo count, manifest count, and refresh timing.
+- [x] Add recently-updated ribbons for fresh project cards.
+- [x] Extend subtle pointer-follow motion to the hero project wall with visual-test and reduced-motion safeguards.
 
 ## Future
 

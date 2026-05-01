@@ -4,7 +4,7 @@ Master public website for NinjaTomOnline app, tool, game, and Custom3D.Art proje
 
 The site is static and GitHub Pages-friendly: `index.html`, `styles.css`, and `app.js` render a polished project grid from `projects.json`. A GitHub Action refreshes `projects.json` by discovering public repos under `NinjaTomOnline`.
 
-The public UI is designed as a dark, cyberpunk-adjacent indie studio portfolio: a large NinjaTom Apps hero, layered project mockups, a featured launch carousel, a compact filter/search/sort deck, image-first project cards with tasteful motion, responsive mobile navigation, and a footer with Custom3D.Art, GitHub, and support links.
+The public UI is designed as a dark, cyberpunk-adjacent indie studio portfolio: a large NinjaTom Apps hero, layered project mockups, a featured launch carousel, a compact filter/search/sort deck, image-first project cards with tasteful motion, shareable project detail drawers, responsive mobile navigation, a branded 404 page, and a footer with Custom3D.Art, GitHub, and support links.
 
 Live site: `https://ninjatomapps.com/`
 
@@ -133,6 +133,7 @@ Canonical host files are committed in this repo:
 - `robots.txt`: points crawlers to `https://ninjatomapps.com/sitemap.xml`
 - `sitemap.xml`: lists the canonical homepage
 - `index.html`: includes canonical and Open Graph URL metadata for `https://ninjatomapps.com/`
+- `404.html`: branded GitHub Pages not-found page that links visitors back to the project hub, press kit, and GitHub profile
 - `assets/ninjatomapps-social-preview.png`: Open Graph and Twitter preview image for shared links
 - `assets/ninjatomapps-icon.svg`, favicon PNGs, and `site.webmanifest`: browser tab, bookmark, and mobile home-screen identity
 - `press.html`: lightweight press/media kit page with public brand links and downloadable preview assets
@@ -155,7 +156,7 @@ Run the screenshot smoke check:
 node scripts/visual-smoke.mjs
 ```
 
-The smoke check starts a temporary static server, waits for the JavaScript-rendered project UI, captures desktop and mobile Chrome screenshots, verifies PNG dimensions and file size, and writes screenshots to `artifacts/visual-smoke/`.
+The smoke check starts a temporary static server, waits for the JavaScript-rendered project UI, captures desktop, mobile, project-detail, and 404 Chrome screenshots, verifies PNG dimensions and file size, and writes screenshots to `artifacts/visual-smoke/`.
 
 Run the stricter pixel-baseline visual regression check:
 
@@ -169,23 +170,26 @@ When the design intentionally changes, update the committed baselines:
 node scripts/visual-regression.mjs --update-baselines
 ```
 
-The regression check uses `?visual-test=1` to render deterministic code-native previews and stable timestamps, then compares desktop, tablet, mobile, and project-grid screenshots against `tests/visual-baselines/`. The default threshold allows normal macOS/Linux font rasterization differences; override with `VISUAL_CHANGED_THRESHOLD` or `VISUAL_AVG_THRESHOLD` when tightening or debugging.
+The regression check uses `?visual-test=1` to render deterministic code-native previews and stable timestamps, then compares desktop, tablet, mobile, project-grid, project-detail, and 404 screenshots against `tests/visual-baselines/`. The default threshold allows normal macOS/Linux font rasterization differences; override with `VISUAL_CHANGED_THRESHOLD` or `VISUAL_AVG_THRESHOLD` when tightening or debugging.
 
 ## Project Structure
 
 - `index.html`: static page markup
 - `press.html`: press/media kit page for the hub
+- `404.html`: branded GitHub Pages fallback page for missing routes
 - `CNAME`: GitHub Pages custom-domain file for `ninjatomapps.com`
 - `robots.txt` and `sitemap.xml`: canonical crawler hints for the public domain
 - `assets/ninjatomapps-social-preview.svg` and `.png`: source and rendered social preview art
 - `assets/ninjatomapps-icon.svg`, `favicon.ico`, favicon PNGs, and `site.webmanifest`: app icon and install metadata
-- `styles.css`: responsive dark-mode visual system for the hero, controls, cards, and footer
+- `styles.css`: responsive dark-mode visual system for the hero, controls, cards, detail drawer, 404 page, and footer
 - `site-nav.js`: accessible mobile navigation toggle shared by the homepage and press kit
-- `app.js`: project loading, hero showcase rendering, featured carousel rendering, search, filters, sorting, load-more behavior, pointer-follow card motion, and fallback sample data
+- `app.js`: project loading, hero showcase rendering, featured carousel rendering, discovery status, shareable project drawers, search, filters, sorting, load-more behavior, pointer-follow card motion, and fallback sample data
 - Project cards: `app.js` uses real preview images when available and falls back to generated code-native preview panels when a project does not expose a screenshot yet.
+- Project drawers: use hash routes such as `#project/doorcodes-site`, so individual project panels can be shared without adding per-project HTML files.
 - `projects.json`: generated project index consumed by the frontend
 - `scripts/discover-projects.js`: GitHub API discovery script
 - `scripts/visual-regression.mjs`: pixel-baseline regression check with no npm dependencies
+- `scripts/visual-smoke.mjs`: screenshot smoke check for homepage, project grid, project drawer, and 404 states
 - `.github/workflows/discover-projects.yml`: scheduled/manual/push refresh automation
 - `.github/workflows/visual-smoke.yml`: desktop/mobile screenshot smoke check plus pixel-baseline comparison
 - `site-manifest.schema.json`: metadata contract
