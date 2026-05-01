@@ -1,7 +1,7 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "owner": "NinjaTomOnline",
-  "generatedAt": "2026-05-01T08:26:56.371Z",
+  "generatedAt": "2026-05-01T08:55:57.285Z",
   "includeRules": {
     "repoNameSuffix": "-site",
     "topics": [
@@ -22,6 +22,38 @@
       "icon": "https://doorcodesapp.com/assets/doorcodes-favicon-512.png",
       "previewImage": "https://doorcodesapp.com/assets/doorcodes-social-preview.png",
       "previewImageAlt": "DoorCodes website preview for the upgraded access-code app site.",
+      "screenshots": [
+        {
+          "src": "https://doorcodesapp.com/assets/doorcodes-social-preview.png",
+          "alt": "DoorCodes website preview for the upgraded access-code app site.",
+          "caption": ""
+        },
+        {
+          "src": "https://doorcodesapp.com/screenshots/iphone/iphone-places-dark.png",
+          "alt": "DoorCodes website preview for the upgraded access-code app site.",
+          "caption": ""
+        },
+        {
+          "src": "https://doorcodesapp.com/screenshots/iphone/iphone-nearby-dark.png",
+          "alt": "DoorCodes website preview for the upgraded access-code app site.",
+          "caption": ""
+        },
+        {
+          "src": "https://doorcodesapp.com/screenshots/iphone/iphone-recents-dark.png",
+          "alt": "DoorCodes website preview for the upgraded access-code app site.",
+          "caption": ""
+        },
+        {
+          "src": "https://doorcodesapp.com/screenshots/iphone/iphone-place-detail-quick-reveal.png",
+          "alt": "DoorCodes website preview for the upgraded access-code app site.",
+          "caption": ""
+        },
+        {
+          "src": "https://doorcodesapp.com/screenshots/iphone/iphone-settings-privacy.png",
+          "alt": "DoorCodes website preview for the upgraded access-code app site.",
+          "caption": ""
+        }
+      ],
       "accent": "#38BDF8",
       "featured": true,
       "sortOrder": 10,
@@ -46,6 +78,13 @@
       "icon": "https://raw.githubusercontent.com/NinjaTomOnline/swiftterm-site/main/assets/swiftterm-icon.svg",
       "previewImage": "https://raw.githubusercontent.com/NinjaTomOnline/swiftterm-site/main/screenshots/swiftterm-architecture.png",
       "previewImageAlt": "SwiftTerm project preview",
+      "screenshots": [
+        {
+          "src": "https://raw.githubusercontent.com/NinjaTomOnline/swiftterm-site/main/screenshots/swiftterm-architecture.png",
+          "alt": "SwiftTerm project preview",
+          "caption": ""
+        }
+      ],
       "accent": "#59F2C7",
       "featured": true,
       "sortOrder": 20,
@@ -70,6 +109,38 @@
       "icon": "https://zenwisdom.app/assets/icon-512.png",
       "previewImage": "https://zenwisdom.app/screenshots/zenwisdom-social-card.png",
       "previewImageAlt": "",
+      "screenshots": [
+        {
+          "src": "https://zenwisdom.app/screenshots/zenwisdom-home.png",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "https://zenwisdom.app/screenshots/zenwisdom-library.png",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "https://zenwisdom.app/screenshots/zenwisdom-meditate.png",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "https://zenwisdom.app/screenshots/zenwisdom-journal.png",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "https://zenwisdom.app/screenshots/zenwisdom-profile.png",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "https://zenwisdom.app/screenshots/zenwisdom-social-card.png",
+          "alt": "",
+          "caption": ""
+        }
+      ],
       "accent": "#A78BFA",
       "featured": false,
       "sortOrder": 30,
@@ -94,6 +165,38 @@
       "icon": "https://dontspeed.app/screenshots/app-icon.png",
       "previewImage": "https://dontspeed.app/screenshots/social-card.png",
       "previewImageAlt": "",
+      "screenshots": [
+        {
+          "src": "https://dontspeed.app/screenshots/6.9-inch/03-drive-alert.png",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "https://dontspeed.app/screenshots/6.9-inch/02-drive-ready.png",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "https://dontspeed.app/screenshots/6.9-inch/01-onboarding.png",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "https://dontspeed.app/screenshots/6.9-inch/04-settings.png",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "https://dontspeed.app/screenshots/6.9-inch/05-log.png",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "https://dontspeed.app/screenshots/social-card.png",
+          "alt": "",
+          "caption": ""
+        }
+      ],
       "accent": "#FF6FA8",
       "featured": false,
       "sortOrder": 40,
@@ -118,6 +221,13 @@
       "icon": "https://raw.githubusercontent.com/NinjaTomOnline/flowguru-site/main/assets/flowguru-icon.svg",
       "previewImage": "https://raw.githubusercontent.com/NinjaTomOnline/flowguru-site/main/assets/flowguru-preview.svg",
       "previewImageAlt": "FlowGuru project preview",
+      "screenshots": [
+        {
+          "src": "https://raw.githubusercontent.com/NinjaTomOnline/flowguru-site/main/assets/flowguru-preview.svg",
+          "alt": "FlowGuru project preview",
+          "caption": ""
+        }
+      ],
       "accent": "#FFCF70",
       "featured": false,
       "sortOrder": 50,
@@ -142,6 +252,38 @@
       "icon": "https://raw.githubusercontent.com/NinjaTomOnline/rooftoprush-site/main/assets/rooftoprush-icon.svg",
       "previewImage": "https://raw.githubusercontent.com/NinjaTomOnline/rooftoprush-site/main/screenshots/01-onboarding-ready.jpg",
       "previewImageAlt": "Rooftop Rush project preview",
+      "screenshots": [
+        {
+          "src": "https://raw.githubusercontent.com/NinjaTomOnline/rooftoprush-site/main/screenshots/01-onboarding-ready.jpg",
+          "alt": "Rooftop Rush project preview",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/rooftoprush-site/screenshots/03-wardrobe-restored.jpg",
+          "alt": "Rooftop Rush project preview",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/rooftoprush-site/screenshots/02-warehouse-evidence.jpg",
+          "alt": "Rooftop Rush project preview",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/rooftoprush-site/screenshots/04-hook-vault.jpg",
+          "alt": "Rooftop Rush project preview",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/rooftoprush-site/screenshots/05-elite-encounter.jpg",
+          "alt": "Rooftop Rush project preview",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/rooftoprush-site/screenshots/06-game-over.jpg",
+          "alt": "Rooftop Rush project preview",
+          "caption": ""
+        }
+      ],
       "accent": "#42D9FF",
       "featured": false,
       "sortOrder": 110,
@@ -166,6 +308,23 @@
       "icon": "https://ninjatomonline.github.io/retrocopter-site/assets/app-icon.png",
       "previewImage": "https://ninjatomonline.github.io/retrocopter-site/screenshots/ipad-gameplay.png",
       "previewImageAlt": "",
+      "screenshots": [
+        {
+          "src": "https://ninjatomonline.github.io/retrocopter-site/screenshots/iphone-title.png",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/retrocopter-site/screenshots/iphone-gameplay.png",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/retrocopter-site/screenshots/ipad-gameplay.png",
+          "alt": "",
+          "caption": ""
+        }
+      ],
       "accent": "#59F2C7",
       "featured": false,
       "sortOrder": 120,
@@ -190,6 +349,38 @@
       "icon": "https://raw.githubusercontent.com/NinjaTomOnline/deadheaddetective-site/main/assets/deadhead-detective-icon.svg",
       "previewImage": "https://raw.githubusercontent.com/NinjaTomOnline/deadheaddetective-site/main/assets/deadhead-detective-preview.svg",
       "previewImageAlt": "Deadhead Detective project preview",
+      "screenshots": [
+        {
+          "src": "https://raw.githubusercontent.com/NinjaTomOnline/deadheaddetective-site/main/assets/deadhead-detective-preview.svg",
+          "alt": "Deadhead Detective project preview",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/deadheaddetective-site/screenshots/iphone/01-dashboard-summary.png",
+          "alt": "Deadhead Detective project preview",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/deadheaddetective-site/screenshots/iphone/02-active-trip-overview.png",
+          "alt": "Deadhead Detective project preview",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/deadheaddetective-site/screenshots/iphone/03-history-sessions.png",
+          "alt": "Deadhead Detective project preview",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/deadheaddetective-site/screenshots/iphone/04-insights-trend.png",
+          "alt": "Deadhead Detective project preview",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/deadheaddetective-site/screenshots/iphone/05-active-trip-route-controls.png",
+          "alt": "Deadhead Detective project preview",
+          "caption": ""
+        }
+      ],
       "accent": "#A78BFA",
       "featured": false,
       "sortOrder": 130,
@@ -214,6 +405,13 @@
       "icon": "https://raw.githubusercontent.com/NinjaTomOnline/masterspaces-site/main/assets/masterspaces-icon.svg",
       "previewImage": "https://raw.githubusercontent.com/NinjaTomOnline/masterspaces-site/main/assets/masterspaces-preview.svg",
       "previewImageAlt": "MasterSpaces project preview",
+      "screenshots": [
+        {
+          "src": "https://raw.githubusercontent.com/NinjaTomOnline/masterspaces-site/main/assets/masterspaces-preview.svg",
+          "alt": "MasterSpaces project preview",
+          "caption": ""
+        }
+      ],
       "accent": "#7DD3FC",
       "featured": false,
       "sortOrder": 210,
@@ -238,6 +436,13 @@
       "icon": "https://raw.githubusercontent.com/NinjaTomOnline/cushionops-site/main/assets/cushionops-icon.svg",
       "previewImage": "https://raw.githubusercontent.com/NinjaTomOnline/cushionops-site/main/assets/cushionops-preview.svg",
       "previewImageAlt": "CushionOps project preview",
+      "screenshots": [
+        {
+          "src": "https://raw.githubusercontent.com/NinjaTomOnline/cushionops-site/main/assets/cushionops-preview.svg",
+          "alt": "CushionOps project preview",
+          "caption": ""
+        }
+      ],
       "accent": "#FFCF70",
       "featured": false,
       "sortOrder": 220,
@@ -262,6 +467,38 @@
       "icon": "https://raw.githubusercontent.com/NinjaTomOnline/ashtag-site/main/assets/icons/quitgentle-app-icon.png",
       "previewImage": "https://raw.githubusercontent.com/NinjaTomOnline/ashtag-site/main/assets/screenshots/quitgentle-today-marketing.png",
       "previewImageAlt": "QuitGentle Today screen preview",
+      "screenshots": [
+        {
+          "src": "https://raw.githubusercontent.com/NinjaTomOnline/ashtag-site/main/assets/screenshots/quitgentle-today-marketing.png",
+          "alt": "QuitGentle Today screen preview",
+          "caption": ""
+        },
+        {
+          "src": "https://quitgentle.com/assets/screenshots/quitgentle-rescue.png",
+          "alt": "QuitGentle Today screen preview",
+          "caption": ""
+        },
+        {
+          "src": "https://quitgentle.com/assets/screenshots/quitgentle-progress.png",
+          "alt": "QuitGentle Today screen preview",
+          "caption": ""
+        },
+        {
+          "src": "https://quitgentle.com/assets/screenshots/quitgentle-history.png",
+          "alt": "QuitGentle Today screen preview",
+          "caption": ""
+        },
+        {
+          "src": "https://quitgentle.com/assets/screenshots/quitgentle-hotspots.png",
+          "alt": "QuitGentle Today screen preview",
+          "caption": ""
+        },
+        {
+          "src": "https://quitgentle.com/assets/screenshots/quitgentle-today-collapsed-sync.png",
+          "alt": "QuitGentle Today screen preview",
+          "caption": ""
+        }
+      ],
       "accent": "#16745d",
       "featured": false,
       "sortOrder": 230,
@@ -286,6 +523,38 @@
       "icon": "https://getdreamspell.com/icon-512.png",
       "previewImage": "https://getdreamspell.com/screenshots/web/iphone-dashboard-dark.png",
       "previewImageAlt": "",
+      "screenshots": [
+        {
+          "src": "https://getdreamspell.com/screenshots/annual-cycle-map.svg",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "https://getdreamspell.com/screenshots/web/iphone-dashboard-dark.png",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "https://getdreamspell.com/screenshots/web/iphone-calendar-dark.png",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "https://getdreamspell.com/screenshots/web/iphone-explorer-selector-dark.png",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "https://getdreamspell.com/screenshots/web/iphone-dreamspell-course-dark.png",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "https://getdreamspell.com/screenshots/web/iphone-tones-reference-dark.png",
+          "alt": "",
+          "caption": ""
+        }
+      ],
       "accent": "#A78BFA",
       "featured": false,
       "sortOrder": 310,
@@ -310,6 +579,13 @@
       "icon": "https://raw.githubusercontent.com/NinjaTomOnline/shramana-site/main/assets/shramana-icon.svg",
       "previewImage": "https://raw.githubusercontent.com/NinjaTomOnline/shramana-site/main/assets/shramana-preview.svg",
       "previewImageAlt": "Shramana project preview",
+      "screenshots": [
+        {
+          "src": "https://raw.githubusercontent.com/NinjaTomOnline/shramana-site/main/assets/shramana-preview.svg",
+          "alt": "Shramana project preview",
+          "caption": ""
+        }
+      ],
       "accent": "#59F2C7",
       "featured": false,
       "sortOrder": 320,

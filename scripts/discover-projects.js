@@ -29,6 +29,21 @@ const COMMON_PREVIEW_PATHS = [
   "screenshots/ipad-gameplay.png",
   "screenshots/iphone-dashboard-dark.png",
 ];
+const COMMON_SCREENSHOT_PATHS = [
+  "screenshots/01.png",
+  "screenshots/02.png",
+  "screenshots/03.png",
+  "screenshots/01-onboarding-ready.jpg",
+  "screenshots/iphone-dashboard-dark.png",
+  "screenshots/web/iphone-dashboard-dark.png",
+  "screenshots/ipad-gameplay.png",
+  "screenshots/app-store-6-7/01.png",
+  "screenshots/app-store-6-7/02.png",
+  "screenshots/app-store-6-7/03.png",
+  "assets/doorcodes-social-preview.png",
+  "screenshots/social-card.png",
+  "screenshots/zenwisdom-social-card.png",
+];
 const FALLBACK_OVERRIDES = {
   "doorcodes-site": {
     name: "DoorCodes",
@@ -161,7 +176,7 @@ async function main() {
   projects.sort(compareProjects);
 
   const nextPayload = {
-    schemaVersion: 1,
+    schemaVersion: 2,
     owner,
     generatedAt: new Date().toISOString(),
     includeRules: {
@@ -271,6 +286,22 @@ async function normalizeProject(repo, topics, manifest, siteHints = {}) {
     ...siteHints.previewCandidates,
     ...COMMON_PREVIEW_PATHS,
   ]);
+  const manifestScreenshots = normalizeManifestScreenshots(manifest?.screenshots);
+  const screenshots = await firstAvailableScreenshots(
+    repo,
+    website,
+    [
+      ...manifestScreenshots.map((screenshot) => screenshot.src),
+      manifest?.previewImage,
+      ...siteHints.screenshotCandidates,
+      ...siteHints.previewCandidates,
+      ...COMMON_SCREENSHOT_PATHS,
+      ...COMMON_PREVIEW_PATHS,
+    ],
+    manifestScreenshots,
+    previewImage,
+    cleanString(manifest?.previewImageAlt),
+  );
 
   return {
     name: cleanString(manifest?.name) || fallback.name || inferredName,
@@ -288,6 +319,7 @@ async function normalizeProject(repo, topics, manifest, siteHints = {}) {
     icon,
     previewImage,
     previewImageAlt: cleanString(manifest?.previewImageAlt),
+    screenshots,
     accent: validAccent(manifest?.accent) || fallback.accent || inferredAccent(repo.name),
     featured: manifest?.featured === undefined ? Boolean(fallback.featured) : Boolean(manifest.featured),
     sortOrder: Number.isFinite(Number(manifest?.sortOrder))
@@ -318,6 +350,10 @@ async function readSiteHints(repo) {
     ],
     appStoreCandidates: appStoreCandidatesFromHtml(indexHtml),
     previewCandidates: previewCandidatesFromHtml(indexHtml),
+    screenshotCandidates: [
+      ...screenshotCandidatesFromWebManifest(webManifest),
+      ...screenshotCandidatesFromHtml(indexHtml),
+    ],
   };
 }
 
@@ -343,6 +379,88 @@ async function firstAvailableAsset(repo, website, candidates) {
   return "";
 }
 
+async function firstAvailableScreenshots(
+  repo,
+  website,
+  candidates,
+  manifestScreenshots = [],
+  fallbackPreview = "",
+  fallbackAlt = "",
+) {
+  const seen = new Set();
+  const seenKeys = new Set();
+  const screenshots = [];
+  const metadataBySource = new Map();
+
+  for (const item of manifestScreenshots) {
+    if (item.src) metadataBySource.set(item.src, item);
+    const resolved = resolveAgainstWebsite(website, item.src);
+    if (resolved) metadataBySource.set(resolved, item);
+  }
+
+  for (const candidate of candidates) {
+    if (typeof candidate !== "string" || !candidate.trim()) continue;
+
+    const trimmed = candidate.trim();
+    if (isNonScreenshotAsset(trimmed)) continue;
+
+    const resolved = resolveAgainstWebsite(website, trimmed);
+    if (!resolved || seen.has(resolved)) continue;
+    const dedupeKey = screenshotDedupeKey(resolved);
+    if (dedupeKey && seenKeys.has(dedupeKey)) continue;
+
+    if (!isAbsoluteHttpUrl(trimmed) && !(await contentsExists(repo, normalizeRepoPath(trimmed)))) {
+      continue;
+    }
+
+    seen.add(resolved);
+    if (dedupeKey) seenKeys.add(dedupeKey);
+    const metadata = metadataBySource.get(trimmed) || metadataBySource.get(resolved) || {};
+    screenshots.push({
+      src: resolved,
+      alt: cleanString(metadata.alt) || fallbackAlt || "",
+      caption: cleanString(metadata.caption),
+    });
+
+    if (screenshots.length >= 6) break;
+  }
+
+  const fallbackKey = screenshotDedupeKey(fallbackPreview);
+  if (fallbackPreview && !seen.has(fallbackPreview) && (!fallbackKey || !seenKeys.has(fallbackKey))) {
+    const dedupeKey = fallbackKey;
+    if (dedupeKey) seenKeys.add(dedupeKey);
+    screenshots.unshift({
+      src: fallbackPreview,
+      alt: fallbackAlt,
+      caption: "Preview",
+    });
+  }
+
+  return screenshots.slice(0, 6);
+}
+
+function normalizeManifestScreenshots(value) {
+  if (!Array.isArray(value)) return [];
+
+  return value
+    .map((item) => {
+      if (typeof item === "string") {
+        return { src: item.trim(), alt: "", caption: "" };
+      }
+
+      if (!item || typeof item !== "object") return null;
+      const src = cleanString(item.src || item.url || item.image);
+      if (!src) return null;
+
+      return {
+        src,
+        alt: cleanString(item.alt),
+        caption: cleanString(item.caption || item.title),
+      };
+    })
+    .filter(Boolean);
+}
+
 function iconCandidatesFromWebManifest(webManifest) {
   if (!webManifest || !Array.isArray(webManifest.icons)) return [];
 
@@ -350,6 +468,14 @@ function iconCandidatesFromWebManifest(webManifest) {
     .filter((icon) => icon && typeof icon.src === "string")
     .sort((a, b) => iconSizeScore(b) - iconSizeScore(a))
     .map((icon) => icon.src);
+}
+
+function screenshotCandidatesFromWebManifest(webManifest) {
+  if (!webManifest || !Array.isArray(webManifest.screenshots)) return [];
+
+  return webManifest.screenshots
+    .filter((screenshot) => screenshot && typeof screenshot.src === "string")
+    .map((screenshot) => screenshot.src);
 }
 
 function iconSizeScore(icon) {
@@ -402,6 +528,43 @@ function previewCandidatesFromHtml(html) {
   }
 
   return candidates;
+}
+
+function screenshotCandidatesFromHtml(html) {
+  if (typeof html !== "string" || !html.trim()) return [];
+
+  const candidates = [];
+  for (const tag of html.matchAll(/<img\b[^>]*>/gi)) {
+    const attrs = parseAttributes(tag[0]);
+    const searchable = `${attrs.class || ""} ${attrs.id || ""} ${attrs.alt || ""} ${attrs.src || ""}`.toLowerCase();
+    if (
+      attrs.src &&
+      !isNonScreenshotAsset(attrs.src) &&
+      /(screenshot|screen|preview|mockup|phone|hero|gallery|social-card)/.test(searchable)
+    ) {
+      candidates.push(attrs.src);
+    }
+  }
+
+  return Array.from(new Set(candidates));
+}
+
+function isNonScreenshotAsset(value) {
+  const normalized = String(value || "").toLowerCase();
+  if (/screenshots\/app-store/.test(normalized)) return false;
+  return /(badge|download-on-app-store|app-store-badge|favicon|apple-touch|app-icon|brand-icon|logo|icon-\d+)/.test(
+    normalized,
+  );
+}
+
+function screenshotDedupeKey(value) {
+  try {
+    const pathname = new URL(value).pathname.toLowerCase();
+    const parts = pathname.split("/").filter(Boolean);
+    return parts.at(-1) || pathname;
+  } catch {
+    return String(value || "").toLowerCase();
+  }
 }
 
 function parseAttributes(tag) {

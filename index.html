@@ -43,6 +43,33 @@
       name="twitter:image:alt"
       content="NinjaTom Apps project hub preview with neon app cards for independent apps, tools, games, and creative software."
     >
+    <script id="structured-data" type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://ninjatomapps.com/#organization",
+            "name": "NinjaTom Apps",
+            "url": "https://ninjatomapps.com/",
+            "logo": "https://ninjatomapps.com/assets/icon-512.png",
+            "sameAs": [
+              "https://github.com/NinjaTomOnline",
+              "https://custom3d.art/"
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://ninjatomapps.com/#website",
+            "name": "NinjaTom Apps",
+            "url": "https://ninjatomapps.com/",
+            "publisher": {
+              "@id": "https://ninjatomapps.com/#organization"
+            }
+          }
+        ]
+      }
+    </script>
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>

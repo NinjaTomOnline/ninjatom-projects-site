@@ -92,6 +92,38 @@
       "type": "string",
       "description": "Accessible alt text for the preview image."
     },
+    "screenshots": {
+      "type": "array",
+      "description": "Optional screenshots displayed in the master site's project detail drawer.",
+      "items": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uri"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "src": {
+                "type": "string",
+                "format": "uri",
+                "description": "Absolute screenshot image URL."
+              },
+              "alt": {
+                "type": "string",
+                "description": "Accessible alt text for the screenshot."
+              },
+              "caption": {
+                "type": "string",
+                "description": "Short visible caption shown below the screenshot."
+              }
+            },
+            "required": ["src"]
+          }
+        ]
+      }
+    },
     "accent": {
       "type": "string",
       "pattern": "^#[0-9A-Fa-f]{6}$",
@@ -120,6 +152,13 @@
       "icon": "https://doorcodesapp.com/assets/doorcodes-favicon-512.png",
       "previewImage": "https://doorcodesapp.com/assets/doorcodes-social-preview.png",
       "previewImageAlt": "DoorCodes website preview for the upgraded access-code app site.",
+      "screenshots": [
+        {
+          "src": "https://doorcodesapp.com/assets/doorcodes-social-preview.png",
+          "alt": "DoorCodes social preview artwork with the app icon and access-code imagery.",
+          "caption": "Launch preview"
+        }
+      ],
       "accent": "#38BDF8",
       "featured": true,
       "sortOrder": 10

@@ -8,6 +8,13 @@
   "privacyUrl": "https://ninjatomonline.github.io/flowguru-site/privacy.html",
   "appStoreUrl": "",
   "icon": "",
+  "screenshots": [
+    {
+      "src": "https://raw.githubusercontent.com/NinjaTomOnline/flowguru-site/main/assets/flowguru-preview.svg",
+      "alt": "FlowGuru project preview artwork.",
+      "caption": "Project preview"
+    }
+  ],
   "accent": "#FFCF70",
   "featured": false,
   "sortOrder": 50

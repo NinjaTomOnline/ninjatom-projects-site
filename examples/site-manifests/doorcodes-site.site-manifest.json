@@ -10,6 +10,13 @@
   "icon": "https://doorcodesapp.com/assets/doorcodes-favicon-512.png",
   "previewImage": "https://doorcodesapp.com/assets/doorcodes-social-preview.png",
   "previewImageAlt": "DoorCodes website preview for the upgraded access-code app site.",
+  "screenshots": [
+    {
+      "src": "https://doorcodesapp.com/assets/doorcodes-social-preview.png",
+      "alt": "DoorCodes social preview artwork with the app icon and access-code imagery.",
+      "caption": "Launch preview"
+    }
+  ],
   "accent": "#38BDF8",
   "featured": true,
   "sortOrder": 10

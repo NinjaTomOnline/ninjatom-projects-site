@@ -10,6 +10,13 @@
   "icon": "https://zenwisdom.app/assets/icon-512.png",
   "previewImage": "https://zenwisdom.app/screenshots/zenwisdom-social-card.png",
   "previewImageAlt": "Zen Wisdom social preview with the app icon, feature highlights, and an iPhone home screenshot.",
+  "screenshots": [
+    {
+      "src": "https://zenwisdom.app/screenshots/zenwisdom-social-card.png",
+      "alt": "Zen Wisdom social preview with the app icon, feature highlights, and an iPhone home screenshot.",
+      "caption": "Launch preview"
+    }
+  ],
   "accent": "#A78BFA",
   "featured": false,
   "sortOrder": 30

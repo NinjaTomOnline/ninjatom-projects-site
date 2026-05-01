@@ -10,6 +10,13 @@
   "icon": "https://dontspeed.app/screenshots/app-icon.png",
   "previewImage": "https://dontspeed.app/screenshots/social-card.png",
   "previewImageAlt": "Don't Speed social preview artwork.",
+  "screenshots": [
+    {
+      "src": "https://dontspeed.app/screenshots/social-card.png",
+      "alt": "Don't Speed social preview artwork.",
+      "caption": "Launch preview"
+    }
+  ],
   "accent": "#FF6FA8",
   "featured": false,
   "sortOrder": 40

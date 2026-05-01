@@ -1,6 +1,6 @@
 # Next 23 Site Ideas
 
-Recently completed: project-card tilt/parallax, animated neon focus rings, featured launch carousel, hero project-wall motion, shareable project detail drawers, recently-updated ribbons, live discovery status, and branded 404 page.
+Recently completed: project-card tilt/parallax, animated neon focus rings, featured launch carousel, hero project-wall motion, shareable project detail drawers, screenshot galleries, JSON-LD structured data, recently-updated ribbons, live discovery status, and branded 404 page.
 
 1. Add a neon cursor spotlight that softly lights card borders and the control panel.
 2. Add a low-motion particle grid behind the hero, with `prefers-reduced-motion` support.
@@ -18,10 +18,10 @@ Recently completed: project-card tilt/parallax, animated neon focus rings, featu
 14. Add install/open badges for App Store, web app, GitHub Pages, and docs links.
 15. Add a compact comparison view for apps by status, platform, and category.
 16. Add privacy-friendly analytics after choosing the provider and account.
-17. Add per-project screenshot galleries inside the detail drawer.
-18. Add short launch notes and version highlights to `site-manifest.json`.
-19. Add a "Recently Launched" filter powered by repo update dates.
-20. Add JSON-LD structured data for the organization and software projects.
-21. Add an RSS/Atom feed generated from discovered projects.
-22. Add a downloadable mini media kit bundle from the press page.
-23. Add a public changelog section for hub design and discovery automation updates.
+17. Add short launch notes and version highlights to `site-manifest.json`.
+18. Add a "Recently Launched" filter powered by repo update dates.
+19. Add an RSS/Atom feed generated from discovered projects.
+20. Add a downloadable mini media kit bundle from the press page.
+21. Add a public changelog section for hub design and discovery automation updates.
+22. Add automated Lighthouse checks for performance, accessibility, SEO, and best practices.
+23. Add a tiny "submit a project" maintainer note that explains the manifest workflow for collaborators.

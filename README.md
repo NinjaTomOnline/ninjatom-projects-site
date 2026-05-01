@@ -4,7 +4,7 @@ Master public website for NinjaTomOnline app, tool, game, and Custom3D.Art proje
 
 The site is static and GitHub Pages-friendly: `index.html`, `styles.css`, and `app.js` render a polished project grid from `projects.json`. A GitHub Action refreshes `projects.json` by discovering public repos under `NinjaTomOnline`.
 
-The public UI is designed as a dark, cyberpunk-adjacent indie studio portfolio: a large NinjaTom Apps hero, layered project mockups, a featured launch carousel, a compact filter/search/sort deck, image-first project cards with tasteful motion, shareable project detail drawers, responsive mobile navigation, a branded 404 page, and a footer with Custom3D.Art, GitHub, and support links.
+The public UI is designed as a dark, cyberpunk-adjacent indie studio portfolio: a large NinjaTom Apps hero, layered project mockups, a featured launch carousel, a compact filter/search/sort deck, image-first project cards with tasteful motion, shareable project detail drawers with screenshot galleries, responsive mobile navigation, JSON-LD project structured data, a branded 404 page, and a footer with Custom3D.Art, GitHub, and support links.
 
 Live site: `https://ninjatomapps.com/`
 
@@ -38,6 +38,8 @@ The script also discovers real project icons automatically. It checks, in order:
 
 The script also picks up App Store links from each project site's `index.html` when a manifest does not specify `appStoreUrl`. This keeps launched app cards current as long as the public site links to the App Store.
 
+The script also builds each drawer gallery. It prefers `site-manifest.json` `screenshots`, then `site.webmanifest` screenshots, then screenshot-like images from the project homepage, then known common screenshot paths. If no explicit gallery exists, the project preview image is still used as a one-image fallback.
+
 The action commits `projects.json` only when project data changes. Generated commits include `[skip ci]`, and the workflow ignores pushes that only change `projects.json` to avoid update loops.
 
 ## Add A New Project
@@ -62,6 +64,13 @@ Minimum useful manifest:
   "privacyUrl": "https://doorcodesapp.com/privacy.html",
   "appStoreUrl": "",
   "icon": "",
+  "screenshots": [
+    {
+      "src": "https://doorcodesapp.com/assets/doorcodes-social-preview.png",
+      "alt": "DoorCodes launch preview artwork.",
+      "caption": "Launch preview"
+    }
+  ],
   "accent": "#38BDF8",
   "featured": true,
   "sortOrder": 10
@@ -83,6 +92,7 @@ Example manifests live in `examples/site-manifests/`.
 - `icon`: optional absolute icon URL. If this is blank, the hub attempts to discover a real icon from the project site.
 - `previewImage`: optional absolute card preview image URL. If this is blank, the hub attempts to discover an Open Graph image or common screenshot path.
 - `previewImageAlt`: optional alt text for the preview image
+- `screenshots`: optional array for the project detail drawer. Each item may be an absolute URL string or an object with `src`, `alt`, and `caption`.
 - `accent`: six-digit hex color
 - `featured`: featured projects appear first
 - `sortOrder`: lower numbers appear earlier within featured/non-featured groups
@@ -137,6 +147,7 @@ Canonical host files are committed in this repo:
 - `assets/ninjatomapps-social-preview.png`: Open Graph and Twitter preview image for shared links
 - `assets/ninjatomapps-icon.svg`, favicon PNGs, and `site.webmanifest`: browser tab, bookmark, and mobile home-screen identity
 - `press.html`: lightweight press/media kit page with public brand links and downloadable preview assets
+- `index.html` plus `app.js`: emits Organization, WebSite, CollectionPage, ItemList, and project-level JSON-LD structured data for the canonical domain
 
 Current IONOS DNS points the apex domain at GitHub Pages with the standard four `A` records and four `AAAA` records. `www.ninjatomapps.com` is a `CNAME` to `ninjatomonline.github.io`.
 
@@ -183,9 +194,9 @@ The regression check uses `?visual-test=1` to render deterministic code-native p
 - `assets/ninjatomapps-icon.svg`, `favicon.ico`, favicon PNGs, and `site.webmanifest`: app icon and install metadata
 - `styles.css`: responsive dark-mode visual system for the hero, controls, cards, detail drawer, 404 page, and footer
 - `site-nav.js`: accessible mobile navigation toggle shared by the homepage and press kit
-- `app.js`: project loading, hero showcase rendering, featured carousel rendering, discovery status, shareable project drawers, search, filters, sorting, load-more behavior, pointer-follow card motion, and fallback sample data
+- `app.js`: project loading, hero showcase rendering, featured carousel rendering, discovery status, shareable project drawers with screenshot galleries, JSON-LD structured data, search, filters, sorting, load-more behavior, pointer-follow card motion, and fallback sample data
 - Project cards: `app.js` uses real preview images when available and falls back to generated code-native preview panels when a project does not expose a screenshot yet.
-- Project drawers: use hash routes such as `#project/doorcodes-site`, so individual project panels can be shared without adding per-project HTML files.
+- Project drawers: use hash routes such as `#project/doorcodes-site`, so individual project panels can be shared without adding per-project HTML files. Drawer galleries are powered by each project's `screenshots` array, with `previewImage` as the fallback.
 - `projects.json`: generated project index consumed by the frontend
 - `scripts/discover-projects.js`: GitHub API discovery script
 - `scripts/visual-regression.mjs`: pixel-baseline regression check with no npm dependencies

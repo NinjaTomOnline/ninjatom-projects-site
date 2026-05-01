@@ -9,6 +9,9 @@ const FILTERS = {
 };
 
 const INITIAL_VISIBLE_COUNT = 12;
+const CANONICAL_SITE_URL = "https://ninjatomapps.com/";
+const ORGANIZATION_ID = `${CANONICAL_SITE_URL}#organization`;
+const WEBSITE_ID = `${CANONICAL_SITE_URL}#website`;
 const urlParams = new URLSearchParams(window.location.search);
 const visualTestMode = urlParams.has("visual-test");
 const visualView = urlParams.get("view");
@@ -117,6 +120,7 @@ async function init() {
     renderProjects();
     setDataNote(payload);
     updateDiscoverySummary(payload);
+    renderStructuredData(state.projects);
     openProjectFromHash();
   } catch (error) {
     console.warn("Falling back to sample project data.", error);
@@ -126,6 +130,7 @@ async function init() {
     renderProjects();
     elements.dataNote.textContent = "Previewing sample data";
     updateDiscoverySummary({ sample: true });
+    renderStructuredData(state.projects);
     openProjectFromHash();
   }
 }
@@ -223,20 +228,29 @@ function normalizeProject(project) {
   const category = stringOr(project.category, "Project");
   const status = stringOr(project.status, "Live");
   const repoName = stringOr(project.repoName, "");
+  const website = validUrl(project.website);
+  const previewImage = validUrl(project.previewImage);
+  const previewImageAlt = stringOr(project.previewImageAlt, `${name} preview`);
+  const screenshots = normalizeScreenshots(project.screenshots, {
+    name,
+    previewImage,
+    previewImageAlt,
+  });
 
   return {
     name,
     tagline: stringOr(project.tagline, "A public NinjaTomOnline project website."),
     category,
     status,
-    website: validUrl(project.website),
+    website,
     supportUrl: validUrl(project.supportUrl),
     privacyUrl: validUrl(project.privacyUrl),
     appStoreUrl: validUrl(project.appStoreUrl),
     repositoryUrl: validUrl(project.repositoryUrl),
     icon: validUrl(project.icon),
-    previewImage: validUrl(project.previewImage),
-    previewImageAlt: stringOr(project.previewImageAlt, `${name} preview`),
+    previewImage,
+    previewImageAlt,
+    screenshots,
     accent: validAccent(project.accent),
     featured: Boolean(project.featured),
     sortOrder: Number.isFinite(Number(project.sortOrder)) ? Number(project.sortOrder) : 1000,
@@ -889,8 +903,69 @@ function renderProjectDrawer(project) {
     topicWrap.appendChild(pill);
   }
 
-  content.append(header, tags, actions, facts);
+  const gallery = createScreenshotGallery(project);
+
+  content.append(header, tags, actions);
+  if (gallery) content.appendChild(gallery);
+  content.appendChild(facts);
   if (topicWrap.children.length) content.appendChild(topicWrap);
+}
+
+function createScreenshotGallery(project) {
+  const screenshots = Array.isArray(project.screenshots) ? project.screenshots : [];
+  if (!screenshots.length) return null;
+
+  const section = document.createElement("section");
+  section.className = "drawer-gallery";
+  section.setAttribute("aria-label", `${project.name} screenshots`);
+
+  const heading = document.createElement("div");
+  heading.className = "drawer-gallery-heading";
+
+  const title = document.createElement("h3");
+  title.textContent = "Screenshots";
+
+  const count = document.createElement("span");
+  count.textContent = `${screenshots.length} image${screenshots.length === 1 ? "" : "s"}`;
+  heading.append(title, count);
+
+  const track = document.createElement("div");
+  track.className = "drawer-gallery-track";
+
+  for (const [index, screenshot] of screenshots.entries()) {
+    const figure = document.createElement("figure");
+    figure.className = "drawer-shot";
+
+    const link = document.createElement("a");
+    link.href = screenshot.src;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.setAttribute("aria-label", `Open ${screenshot.alt || project.name} screenshot`);
+
+    if (screenshot.src && !visualTestMode) {
+      const image = document.createElement("img");
+      image.src = screenshot.src;
+      image.alt = screenshot.alt || `${project.name} screenshot`;
+      image.loading = "lazy";
+      image.decoding = "async";
+      image.addEventListener("error", () => {
+        link.replaceChildren(createDefaultPreview(project, true));
+        figure.classList.add("fallback-shot");
+      });
+      link.appendChild(image);
+    } else {
+      figure.classList.add("fallback-shot");
+      link.appendChild(createDefaultPreview(project, true));
+    }
+
+    const caption = document.createElement("figcaption");
+    caption.textContent = screenshot.caption || `Screenshot ${index + 1}`;
+    figure.append(link, caption);
+    track.appendChild(figure);
+  }
+
+  section.append(heading, track);
+  return section;
 }
 
 function appendDrawerLink(container, label, url, primary = false) {
@@ -1036,6 +1111,91 @@ function updateDiscoverySummary(payload = {}) {
   elements.discoveryStrip.hidden = false;
 }
 
+function renderStructuredData(projects) {
+  const script = document.querySelector("#structured-data");
+  if (!script) return;
+
+  script.textContent = JSON.stringify(buildStructuredData(projects), null, 2);
+}
+
+function buildStructuredData(projects) {
+  const projectItems = projects.map((project, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    item: projectStructuredData(project),
+  }));
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": ORGANIZATION_ID,
+        name: "NinjaTom Apps",
+        url: CANONICAL_SITE_URL,
+        logo: new URL("assets/icon-512.png", CANONICAL_SITE_URL).href,
+        email: "support@ninjatomapps.com",
+        sameAs: ["https://github.com/NinjaTomOnline", "https://custom3d.art/"],
+      },
+      {
+        "@type": "WebSite",
+        "@id": WEBSITE_ID,
+        name: "NinjaTom Apps",
+        url: CANONICAL_SITE_URL,
+        publisher: { "@id": ORGANIZATION_ID },
+      },
+      {
+        "@type": "CollectionPage",
+        "@id": `${CANONICAL_SITE_URL}#projects`,
+        name: "NinjaTom Apps Project Websites",
+        url: CANONICAL_SITE_URL,
+        description: "A curated hub for NinjaTomOnline apps, tools, games, and Custom3D.Art projects.",
+        isPartOf: { "@id": WEBSITE_ID },
+        mainEntity: {
+          "@type": "ItemList",
+          itemListOrder: "https://schema.org/ItemListOrderAscending",
+          numberOfItems: projects.length,
+          itemListElement: projectItems,
+        },
+      },
+    ],
+  };
+}
+
+function projectStructuredData(project) {
+  const images = [project.previewImage, ...project.screenshots.map((screenshot) => screenshot.src)].filter(Boolean);
+  const data = {
+    "@type": schemaTypeForProject(project),
+    "@id": `${CANONICAL_SITE_URL}#project-${project.slug}`,
+    name: project.name,
+    description: project.tagline,
+    url: project.website || project.repositoryUrl,
+    image: Array.from(new Set(images)),
+    sameAs: [project.repositoryUrl, project.appStoreUrl].filter(Boolean),
+    applicationCategory: schemaTypeForProject(project) === "SoftwareApplication" ? project.category : undefined,
+    operatingSystem: operatingSystemForProject(project),
+    dateModified: project.updatedAt || undefined,
+    publisher: { "@id": ORGANIZATION_ID },
+    mainEntityOfPage: `${CANONICAL_SITE_URL}#project/${project.slug}`,
+  };
+
+  return compactObject(data);
+}
+
+function schemaTypeForProject(project) {
+  const category = project.category.toLowerCase();
+  if (category.includes("game")) return "VideoGame";
+  if (/(ios|web|tool|utility|app|software)/.test(category)) return "SoftwareApplication";
+  return "CreativeWork";
+}
+
+function operatingSystemForProject(project) {
+  const category = project.category.toLowerCase();
+  if (category.includes("ios") || category.includes("iphone") || category.includes("ipad")) return "iOS";
+  if (category.includes("web")) return "Web";
+  return undefined;
+}
+
 function formatRelative(value) {
   if (visualTestMode) return "Updated recently";
 
@@ -1070,6 +1230,53 @@ function isRecentlyUpdated(project) {
   if (!updated) return false;
   const days = (Date.now() - updated) / (24 * 60 * 60 * 1000);
   return days >= 0 && days <= 7;
+}
+
+function normalizeScreenshots(value, fallback = {}) {
+  const screenshots = [];
+  const seen = new Set();
+
+  const addScreenshot = (item, fallbackCaption = "") => {
+    const source = typeof item === "string" ? item : item?.src || item?.url || item?.image;
+    const src = validUrl(source);
+    if (!src || seen.has(src)) return;
+
+    seen.add(src);
+    screenshots.push({
+      src,
+      alt: stringOr(
+        typeof item === "string" ? "" : item?.alt,
+        fallback.previewImageAlt || `${fallback.name || "Project"} screenshot`,
+      ),
+      caption: stringOr(typeof item === "string" ? "" : item?.caption || item?.title, fallbackCaption),
+    });
+  };
+
+  if (Array.isArray(value)) {
+    for (const item of value) addScreenshot(item);
+  }
+
+  if (fallback.previewImage) {
+    addScreenshot(
+      {
+        src: fallback.previewImage,
+        alt: fallback.previewImageAlt,
+        caption: "Preview",
+      },
+      "Preview",
+    );
+  }
+
+  return screenshots.slice(0, 6);
+}
+
+function compactObject(value) {
+  return Object.fromEntries(
+    Object.entries(value).filter(([, item]) => {
+      if (Array.isArray(item)) return item.length > 0;
+      return item !== undefined && item !== null && item !== "";
+    }),
+  );
 }
 
 function categoryIncludes(project, terms) {

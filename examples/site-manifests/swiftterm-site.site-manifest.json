@@ -8,6 +8,13 @@
   "privacyUrl": "https://swiftterm.app/privacy.html",
   "appStoreUrl": "",
   "icon": "",
+  "screenshots": [
+    {
+      "src": "https://swiftterm.app/screenshots/social-card.png",
+      "alt": "SwiftTerm project preview artwork.",
+      "caption": "Project preview"
+    }
+  ],
   "accent": "#59F2C7",
   "featured": true,
   "sortOrder": 20

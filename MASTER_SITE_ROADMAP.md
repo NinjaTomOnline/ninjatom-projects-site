@@ -40,6 +40,8 @@
 - [x] Add a live discovery status panel with indexed repo count, manifest count, and refresh timing.
 - [x] Add recently-updated ribbons for fresh project cards.
 - [x] Extend subtle pointer-follow motion to the hero project wall with visual-test and reduced-motion safeguards.
+- [x] Add per-project screenshot galleries inside project detail drawers.
+- [x] Add project-level JSON-LD structured data for the hub catalog.
 
 ## Future
 
