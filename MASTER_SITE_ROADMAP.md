@@ -28,6 +28,7 @@
 - [x] Add deterministic pixel-baseline visual regression for desktop, tablet, mobile, and project-grid views.
 - [x] Choose and configure DNS for `ninjatomapps.com`.
 - [x] Add repo-side `CNAME`, canonical URL, sitemap, robots, Open Graph URL, and support email for `ninjatomapps.com`.
+- [x] Add a 1200x630 social preview image and Open Graph/Twitter image metadata for `ninjatomapps.com`.
 
 ## Future
 

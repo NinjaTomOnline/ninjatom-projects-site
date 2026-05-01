@@ -133,6 +133,7 @@ Canonical host files are committed in this repo:
 - `robots.txt`: points crawlers to `https://ninjatomapps.com/sitemap.xml`
 - `sitemap.xml`: lists the canonical homepage
 - `index.html`: includes canonical and Open Graph URL metadata for `https://ninjatomapps.com/`
+- `assets/ninjatomapps-social-preview.png`: Open Graph and Twitter preview image for shared links
 
 Current IONOS DNS points the apex domain at GitHub Pages with the standard four `A` records and four `AAAA` records. `www.ninjatomapps.com` is a `CNAME` to `ninjatomonline.github.io`.
 
@@ -173,6 +174,7 @@ The regression check uses `?visual-test=1` to render deterministic code-native p
 - `index.html`: static page markup
 - `CNAME`: GitHub Pages custom-domain file for `ninjatomapps.com`
 - `robots.txt` and `sitemap.xml`: canonical crawler hints for the public domain
+- `assets/ninjatomapps-social-preview.svg` and `.png`: source and rendered social preview art
 - `styles.css`: responsive dark-mode visual system for the hero, controls, cards, and footer
 - `app.js`: project loading, hero showcase rendering, search, filters, sorting, load-more behavior, and fallback sample data
 - Project cards: `app.js` uses real preview images when available and falls back to generated code-native preview panels when a project does not expose a screenshot yet.
