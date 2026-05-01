@@ -152,6 +152,7 @@ const outputPath = path.resolve(repoRoot, args.output || process.env.PROJECTS_OU
 const feedOutputPath = path.resolve(repoRoot, args.feed || process.env.PROJECTS_FEED_OUTPUT || "feed.xml");
 const token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN || "";
 const contentsExistsCache = new Map();
+const repoTreeCache = new Map();
 
 main().catch((error) => {
   console.error(error);
@@ -376,10 +377,11 @@ async function normalizeProject(repo, topics, manifest, siteHints = {}) {
 }
 
 async function readSiteHints(repo) {
-  const [cname, webManifest, indexHtml] = await Promise.all([
+  const [cname, webManifest, indexHtml, repoImageHints] = await Promise.all([
     readRepoText(repo, "CNAME"),
     readRepoJson(repo, "site.webmanifest"),
     readRepoText(repo, "index.html"),
+    readRepoImageHints(repo),
   ]);
 
   return {
@@ -387,14 +389,90 @@ async function readSiteHints(repo) {
     iconCandidates: [
       ...iconCandidatesFromWebManifest(webManifest),
       ...iconCandidatesFromHtml(indexHtml),
+      ...repoImageHints.iconCandidates,
     ],
     appStoreCandidates: appStoreCandidatesFromHtml(indexHtml),
-    previewCandidates: previewCandidatesFromHtml(indexHtml),
+    previewCandidates: [
+      ...previewCandidatesFromHtml(indexHtml),
+      ...repoImageHints.previewCandidates,
+    ],
     screenshotCandidates: [
       ...screenshotCandidatesFromWebManifest(webManifest),
       ...screenshotCandidatesFromHtml(indexHtml),
+      ...repoImageHints.screenshotCandidates,
     ],
   };
+}
+
+async function readRepoImageHints(repo) {
+  const paths = await readRepoTreePaths(repo);
+  return {
+    iconCandidates: rankedRepoImageCandidates(paths, "icon"),
+    previewCandidates: rankedRepoImageCandidates(paths, "preview"),
+    screenshotCandidates: rankedRepoImageCandidates(paths, "screenshot"),
+  };
+}
+
+async function readRepoTreePaths(repo) {
+  const branch = repo.default_branch || "main";
+  const cacheKey = `${repo.name}@${branch}`;
+  if (repoTreeCache.has(cacheKey)) return repoTreeCache.get(cacheKey);
+
+  try {
+    const payload = await fetchJson(
+      `https://api.github.com/repos/${owner}/${repo.name}/git/trees/${encodeURIComponent(branch)}?recursive=1`,
+    );
+    const paths = Array.isArray(payload.tree)
+      ? payload.tree
+          .filter((item) => item?.type === "blob" && typeof item.path === "string")
+          .map((item) => item.path)
+      : [];
+    repoTreeCache.set(cacheKey, paths);
+    return paths;
+  } catch (error) {
+    console.warn(`Could not scan image assets for ${repo.name}: ${error.message}`);
+    repoTreeCache.set(cacheKey, []);
+    return [];
+  }
+}
+
+function rankedRepoImageCandidates(paths, kind) {
+  return paths
+    .map((assetPath, index) => ({
+      assetPath,
+      index,
+      score: repoImageScore(assetPath, kind),
+    }))
+    .filter((item) => item.score > 0)
+    .sort((a, b) => b.score - a.score || a.index - b.index)
+    .map((item) => item.assetPath)
+    .slice(0, kind === "screenshot" ? 24 : 10);
+}
+
+function repoImageScore(assetPath, kind) {
+  const normalized = String(assetPath || "").toLowerCase();
+  if (!/\.(avif|webp|png|jpe?g|svg)$/.test(normalized)) return 0;
+  if (/(^|\/)(node_modules|vendor|dist|build)\//.test(normalized)) return 0;
+
+  if (kind === "icon") {
+    if (/(app-icon|brand-icon|apple-touch|icon-(192|256|512)|favicon)/.test(normalized)) return 100;
+    return 0;
+  }
+
+  if (kind === "preview") {
+    if (/(social-card|social-preview|preview)/.test(normalized)) return 120;
+    if (/(hero|og-image|twitter-card)/.test(normalized)) return 100;
+    if (/screenshots\/(web\/)?(iphone|ipad|desktop|storefront)/.test(normalized)) return 72;
+    return 0;
+  }
+
+  if (isNonScreenshotAsset(normalized)) return 0;
+  if (/screenshots\/(app-store|6\.9-inch|6-7|web)/.test(normalized)) return 150;
+  if (/screenshots\/(iphone|ipad|desktop|storefront)/.test(normalized)) return 138;
+  if (/screenshots\//.test(normalized)) return 126;
+  if (/(screen|mockup|gallery|capture)/.test(normalized)) return 92;
+  if (/(social-card|social-preview|preview|hero)/.test(normalized)) return 48;
+  return 0;
 }
 
 async function firstAvailableIcon(repo, website, candidates) {

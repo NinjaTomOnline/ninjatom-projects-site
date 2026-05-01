@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Page Not Found | NinjaTom Apps</title>
+    <title>Changelog | NinjaTom Apps</title>
     <meta
       name="description"
-      content="The requested NinjaTom Apps project page was not found. Return to the project hub, press kit, or GitHub profile."
+      content="Public launch notes and project-hub updates for NinjaTom Apps."
     >
     <meta name="theme-color" content="#05070d">
     <link rel="icon" href="assets/ninjatomapps-icon.svg" type="image/svg+xml">
@@ -14,31 +14,61 @@
     <link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
     <link rel="manifest" href="site.webmanifest">
-    <link rel="canonical" href="https://ninjatomapps.com/404.html">
-    <meta property="og:title" content="NinjaTom Apps">
+    <link rel="canonical" href="https://ninjatomapps.com/changelog.html">
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="NinjaTom Apps project updates"
+      href="https://ninjatomapps.com/feed.xml"
+    >
+    <meta property="og:title" content="NinjaTom Apps Changelog">
     <meta
       property="og:description"
-      content="Independent apps, tools, games, and creative software by NinjaTomOnline."
+      content="Public launch notes and project-hub updates for NinjaTom Apps."
     >
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://ninjatomapps.com/404.html">
+    <meta property="og:url" content="https://ninjatomapps.com/changelog.html">
     <meta property="og:site_name" content="NinjaTom Apps">
     <meta property="og:image" content="https://ninjatomapps.com/assets/ninjatomapps-social-preview.png">
     <meta property="og:image:secure_url" content="https://ninjatomapps.com/assets/ninjatomapps-social-preview.png">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+    <meta
+      property="og:image:alt"
+      content="NinjaTom Apps project hub preview with neon app cards for independent apps, tools, games, and creative software."
+    >
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="NinjaTom Apps">
+    <meta name="twitter:title" content="NinjaTom Apps Changelog">
     <meta
       name="twitter:description"
-      content="Independent apps, tools, games, and creative software by NinjaTomOnline."
+      content="Public launch notes and project-hub updates for NinjaTom Apps."
     >
     <meta name="twitter:image" content="https://ninjatomapps.com/assets/ninjatomapps-social-preview.png">
+    <meta
+      name="twitter:image:alt"
+      content="NinjaTom Apps project hub preview with neon app cards for independent apps, tools, games, and creative software."
+    >
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "@id": "https://ninjatomapps.com/changelog.html",
+        "name": "NinjaTom Apps Changelog",
+        "url": "https://ninjatomapps.com/changelog.html",
+        "description": "Public launch notes and project-hub updates for NinjaTom Apps.",
+        "isPartOf": {
+          "@type": "WebSite",
+          "@id": "https://ninjatomapps.com/#website",
+          "name": "NinjaTom Apps",
+          "url": "https://ninjatomapps.com/"
+        }
+      }
+    </script>
     <link rel="stylesheet" href="styles.css">
   </head>
-  <body>
-    <a class="skip-link" href="#not-found">Skip to content</a>
+  <body class="press-page changelog-page">
+    <a class="skip-link" href="#changelog">Skip to changelog</a>
 
     <header class="site-header" aria-label="Primary">
       <nav class="nav-shell">
@@ -71,7 +101,7 @@
             </svg>
           </a>
           <a href="press.html">Press</a>
-          <a href="changelog.html">Changelog</a>
+          <a class="active" href="changelog.html">Changelog</a>
           <a class="nav-link-secondary" href="index.html#about">About</a>
         </div>
         <button class="nav-menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" data-nav-toggle>
@@ -84,28 +114,83 @@
       </nav>
     </header>
 
-    <main class="not-found-main" id="not-found">
-      <section class="not-found-hero" aria-labelledby="not-found-title">
-        <div class="not-found-copy">
-          <p class="press-kicker">404 / Project route missing</p>
-          <h1 id="not-found-title">This link drifted off the launch board.</h1>
+    <main class="press-main" id="changelog">
+      <section class="press-hero changelog-hero" aria-labelledby="changelog-title">
+        <div class="press-copy">
+          <p class="press-kicker">NinjaTom Apps Changelog</p>
+          <h1 id="changelog-title">
+            <span>Launch notes for</span>
+            <span>the living hub.</span>
+          </h1>
           <p>
-            The app hub is still here. Jump back to the project grid, browse the press kit,
-            or open the NinjaTomOnline GitHub profile.
+            <span>Public updates for the master project site,</span>
+            <span>discovery automation, launch assets,</span>
+            <span>and the project catalog.</span>
           </p>
-          <div class="not-found-actions">
-            <a class="button button-primary" href="index.html#projects">Explore Projects</a>
-            <a class="button button-secondary" href="press.html">Open Press Kit</a>
-            <a class="button button-secondary" href="changelog.html">Changelog</a>
-            <a class="button button-secondary" href="https://github.com/NinjaTomOnline" rel="noopener noreferrer">GitHub</a>
+          <div class="hero-actions" aria-label="Changelog actions">
+            <a class="button button-primary" href="index.html#projects">
+              <svg aria-hidden="true" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="m15.8 8.2-2.3 5.3-5.3 2.3 2.3-5.3 5.3-2.3Z"></path>
+              </svg>
+              View Projects
+            </a>
+            <a class="button button-secondary" href="feed.xml">
+              <svg aria-hidden="true" viewBox="0 0 24 24">
+                <path d="M5 5.5a13.5 13.5 0 0 1 13.5 13.5M5 11a8 8 0 0 1 8 8M6 18.4h.1"></path>
+              </svg>
+              RSS Feed
+            </a>
           </div>
         </div>
-        <div class="not-found-card" aria-hidden="true">
-          <span class="not-found-code">404</span>
-          <span class="not-found-grid"></span>
-          <span class="not-found-node node-one"></span>
-          <span class="not-found-node node-two"></span>
-          <span class="not-found-node node-three"></span>
+        <figure class="press-preview changelog-preview">
+          <img src="assets/ninjatomapps-social-preview.png" alt="NinjaTom Apps social preview art">
+        </figure>
+      </section>
+
+      <section class="press-section" aria-labelledby="latest-title">
+        <div class="press-section-heading">
+          <h2 id="latest-title">Latest Updates</h2>
+          <p>Human-readable release notes for the public hub. Project-specific launches also appear in RSS.</p>
+        </div>
+
+        <div class="changelog-list">
+          <article class="changelog-entry">
+            <time datetime="2026-05-01">May 1, 2026</time>
+            <div>
+              <h3>Project discovery, gallery, and polish pass</h3>
+              <ul>
+                <li>Added repository-tree image scanning so screenshot folders in public project repos are discovered automatically.</li>
+                <li>Added category hash routes such as <code>#category/ios-apps</code>, <code>#category/games</code>, and <code>#category/creative-custom3d</code>.</li>
+                <li>Added a downloadable press/media-kit bundle and this public changelog page.</li>
+                <li>Added subtle neon pointer spotlights across cards, controls, buttons, and press surfaces.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="changelog-entry">
+            <time datetime="2026-05-01">May 1, 2026</time>
+            <div>
+              <h3>Launch metadata, RSS, and audit automation</h3>
+              <ul>
+                <li>Added launch notes, version highlights, and Recently Launched filtering to the project drawer experience.</li>
+                <li>Generated <code>feed.xml</code> from discovered public project sites.</li>
+                <li>Added Lighthouse CI for accessibility, SEO, best practices, and performance checks.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="changelog-entry">
+            <time datetime="2026-04-30">April 30, 2026</time>
+            <div>
+              <h3>Custom domain and brand launch prep</h3>
+              <ul>
+                <li>Connected the public hub to <code>ninjatomapps.com</code> through GitHub Pages.</li>
+                <li>Added the social preview image, icons, favicon pack, press page, and branded 404 page.</li>
+                <li>Updated footer and support links around <code>support@ninjatomapps.com</code>.</li>
+              </ul>
+            </div>
+          </article>
         </div>
       </section>
     </main>
@@ -139,6 +224,7 @@
           <a href="press.html">Press Kit</a>
           <a href="changelog.html">Changelog</a>
           <a href="https://github.com/NinjaTomOnline" rel="noopener noreferrer">GitHub</a>
+          <a href="index.html#about">About</a>
         </div>
 
         <div class="footer-column">
@@ -173,7 +259,6 @@
         <span>Made with HTML + CSS + JavaScript</span>
       </div>
     </footer>
-
     <script src="site-nav.js" defer></script>
   </body>
 </html>

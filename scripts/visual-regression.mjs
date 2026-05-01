@@ -45,11 +45,25 @@ const shots = [
     height: 1200,
   },
   {
+    name: "desktop-category-games",
+    path: "./?visual-test=1#category/games",
+    windowSize: "1440,1000",
+    width: 1440,
+    height: 1000,
+  },
+  {
     name: "desktop-project-detail",
     path: "./?visual-test=1#project/doorcodes-site",
     windowSize: "1440,1000",
     width: 1440,
     height: 1000,
+  },
+  {
+    name: "changelog",
+    path: "./changelog.html?visual-test=1",
+    windowSize: "1440,900",
+    width: 1440,
+    height: 900,
   },
   {
     name: "not-found",

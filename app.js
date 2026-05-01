@@ -8,6 +8,7 @@ const FILTERS = {
     categoryIncludes(project, ["creative", "custom3d", "custom 3d", "3d", "art"]),
   "Recently Launched": (project) => isRecentlyLaunched(project),
 };
+const FILTERS_BY_SLUG = Object.fromEntries(Object.keys(FILTERS).map((filter) => [categorySlug(filter), filter]));
 
 const INITIAL_VISIBLE_COUNT = 12;
 const CANONICAL_SITE_URL = "https://ninjatomapps.com/";
@@ -138,7 +139,7 @@ async function init() {
     setDataNote(payload);
     updateDiscoverySummary(payload);
     renderStructuredData(state.projects);
-    openProjectFromHash();
+    applyHashRoute();
   } catch (error) {
     console.warn("Falling back to sample project data.", error);
     state.projects = FALLBACK_PROJECTS.map(normalizeProject);
@@ -148,7 +149,7 @@ async function init() {
     elements.dataNote.textContent = "Previewing sample data";
     updateDiscoverySummary({ sample: true });
     renderStructuredData(state.projects);
-    openProjectFromHash();
+    applyHashRoute();
   }
 }
 
@@ -182,14 +183,7 @@ function bindEvents() {
     const button = event.target.closest("[data-filter]");
     if (!button) return;
 
-    state.filter = button.dataset.filter;
-    state.visibleCount = INITIAL_VISIBLE_COUNT;
-    for (const tab of elements.filterTabs.querySelectorAll(".filter-tab")) {
-      const isActive = tab === button;
-      tab.classList.toggle("active", isActive);
-      tab.setAttribute("aria-pressed", String(isActive));
-    }
-    renderProjects();
+    setActiveFilter(button.dataset.filter, { updateHash: true });
   });
 
   elements.featuredPrev?.addEventListener("click", () => scrollFeatured(-1));
@@ -210,12 +204,7 @@ function bindEvents() {
   });
 
   window.addEventListener("hashchange", () => {
-    const slug = projectSlugFromHash();
-    if (slug) {
-      openProjectBySlug(slug);
-    } else if (elements.drawer && !elements.drawer.hidden) {
-      closeProjectDrawer({ updateHash: false });
-    }
+    applyHashRoute();
   });
 
   elements.loadMore.addEventListener("click", () => {
@@ -528,6 +517,33 @@ function getFilteredProjects() {
   );
 }
 
+function setActiveFilter(filter, options = {}) {
+  const nextFilter = FILTERS[filter] ? filter : "All";
+  const shouldRender = options.forceRender || state.filter !== nextFilter;
+  state.filter = nextFilter;
+  state.visibleCount = INITIAL_VISIBLE_COUNT;
+  updateFilterTabs();
+
+  if (shouldRender) renderProjects();
+
+  if (options.updateHash) {
+    const nextHash = filterHash(nextFilter);
+    if (window.location.hash !== nextHash) {
+      history.pushState(null, "", `${window.location.pathname}${window.location.search}${nextHash}`);
+    }
+  }
+}
+
+function updateFilterTabs() {
+  if (!elements.filterTabs) return;
+
+  for (const tab of elements.filterTabs.querySelectorAll(".filter-tab")) {
+    const isActive = tab.dataset.filter === state.filter;
+    tab.classList.toggle("active", isActive);
+    tab.setAttribute("aria-pressed", String(isActive));
+  }
+}
+
 function sortProjects(projects, mode = "studio") {
   return projects.sort((a, b) => {
     if (mode === "updated") {
@@ -790,9 +806,22 @@ function updateLoadMore(total) {
   elements.loadMore.classList.toggle("expanded", canCollapse);
 }
 
-function openProjectFromHash() {
+function applyHashRoute() {
   const slug = projectSlugFromHash();
-  if (slug) openProjectBySlug(slug);
+  if (slug) {
+    openProjectBySlug(slug);
+    return;
+  }
+
+  if (elements.drawer && !elements.drawer.hidden) {
+    closeProjectDrawer({ updateHash: false });
+  }
+
+  const filter = filterFromHash();
+  if (filter) {
+    setActiveFilter(filter, { forceRender: true });
+    scrollProjectsIntoView();
+  }
 }
 
 function openProjectBySlug(slug, options = {}) {
@@ -1092,10 +1121,27 @@ function projectSlugFromHash() {
   return decodeURIComponent(hash.slice("#project/".length));
 }
 
+function filterFromHash() {
+  const hash = window.location.hash || "";
+  if (hash === "#projects") return "All";
+  if (!hash.startsWith("#category/")) return "";
+  const slug = decodeURIComponent(hash.slice("#category/".length));
+  return FILTERS_BY_SLUG[slug] || "";
+}
+
+function filterHash(filter) {
+  return filter === "All" ? "#projects" : `#category/${categorySlug(filter)}`;
+}
+
 function applyInitialHashScroll() {
   if (visualTestMode || didApplyHashScroll || window.location.hash !== "#projects") return;
 
   didApplyHashScroll = true;
+  scrollProjectsIntoView();
+}
+
+function scrollProjectsIntoView() {
+  if (visualTestMode) return;
   requestAnimationFrame(() => {
     document.querySelector("#projects")?.scrollIntoView({ block: "start" });
   });

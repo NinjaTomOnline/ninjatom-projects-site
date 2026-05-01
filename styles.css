@@ -314,6 +314,39 @@ select {
     0 0 32px rgba(164, 92, 255, 0.26);
 }
 
+.spotlight-surface {
+  --spotlight-x: 50%;
+  --spotlight-y: 0%;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.spotlight-surface::after {
+  position: absolute;
+  inset: -1px;
+  z-index: 0;
+  pointer-events: none;
+  content: "";
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at var(--spotlight-x) var(--spotlight-y), rgba(255, 255, 255, 0.12), transparent 16rem),
+    radial-gradient(circle at var(--spotlight-x) var(--spotlight-y), color-mix(in srgb, var(--accent, var(--purple)) 28%, transparent), transparent 13rem);
+  opacity: 0;
+  mix-blend-mode: screen;
+  transition: opacity 170ms ease;
+}
+
+.spotlight-surface:hover::after,
+.spotlight-surface:focus-within::after {
+  opacity: 0.62;
+}
+
+.spotlight-surface > * {
+  position: relative;
+  z-index: 1;
+}
+
 .icon-button {
   width: 36px;
   justify-content: center;
@@ -2297,6 +2330,67 @@ body[data-visual-view="projects"] .projects-section {
   margin-top: 0.65rem;
 }
 
+.changelog-preview {
+  position: relative;
+}
+
+.changelog-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.changelog-entry {
+  display: grid;
+  grid-template-columns: minmax(132px, 0.22fr) minmax(0, 1fr);
+  gap: 1.35rem;
+  border: 1px solid rgba(166, 186, 220, 0.2);
+  border-radius: var(--radius);
+  padding: 1.35rem;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(42, 212, 255, 0.09), transparent 20rem),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02)),
+    rgba(8, 13, 22, 0.84);
+  box-shadow: 0 22px 68px rgba(0, 0, 0, 0.22);
+}
+
+.changelog-entry time {
+  color: var(--cyan);
+  font-size: 0.82rem;
+  font-weight: 820;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.changelog-entry h3 {
+  margin: 0;
+  color: #f8f5ef;
+  font-size: 1.22rem;
+  font-weight: 840;
+  line-height: 1.25;
+}
+
+.changelog-entry ul {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0.85rem 0 0;
+  padding-left: 1.15rem;
+  color: #aeb8c9;
+  line-height: 1.65;
+}
+
+.changelog-entry li::marker {
+  color: var(--purple-2);
+}
+
+.changelog-entry code {
+  border: 1px solid rgba(166, 186, 220, 0.16);
+  border-radius: 5px;
+  padding: 0.05rem 0.28rem;
+  color: #dcd3ff;
+  background: rgba(164, 92, 255, 0.11);
+  font-size: 0.9em;
+}
+
 .site-footer {
   border-top: 1px solid rgba(166, 186, 220, 0.16);
   background: rgba(3, 5, 10, 0.46);
@@ -2830,6 +2924,12 @@ body[data-visual-view="projects"] .projects-section {
   .asset-actions {
     justify-content: flex-start;
   }
+
+  .changelog-entry {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+    padding: 1.05rem;
+  }
 }
 
 @media (max-width: 420px) {
@@ -2919,5 +3019,9 @@ body[data-visual-view="projects"] .projects-section {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
+  }
+
+  .spotlight-surface::after {
+    display: none;
   }
 }

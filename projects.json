@@ -1,7 +1,7 @@
 {
   "schemaVersion": 3,
   "owner": "NinjaTomOnline",
-  "generatedAt": "2026-05-01T09:26:21.332Z",
+  "generatedAt": "2026-05-01T09:35:57.089Z",
   "includeRules": {
     "repoNameSuffix": "-site",
     "topics": [
@@ -127,6 +127,11 @@
       "previewImageAlt": "",
       "screenshots": [
         {
+          "src": "https://zenwisdom.app/screenshots/zenwisdom-social-card.png",
+          "alt": "",
+          "caption": "Preview"
+        },
+        {
           "src": "https://zenwisdom.app/screenshots/zenwisdom-home.png",
           "alt": "",
           "caption": ""
@@ -148,11 +153,6 @@
         },
         {
           "src": "https://zenwisdom.app/screenshots/zenwisdom-profile.png",
-          "alt": "",
-          "caption": ""
-        },
-        {
-          "src": "https://zenwisdom.app/screenshots/zenwisdom-social-card.png",
           "alt": "",
           "caption": ""
         }
@@ -371,6 +371,11 @@
           "src": "https://ninjatomonline.github.io/retrocopter-site/screenshots/ipad-gameplay.png",
           "alt": "",
           "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/retrocopter-site/screenshots/ipad-title.png",
+          "alt": "",
+          "caption": ""
         }
       ],
       "launchedAt": "2026-04-23T10:07:42.000Z",
@@ -379,7 +384,7 @@
       "versionHighlights": [
         "Live Game project website",
         "Auto-discovered from public GitHub Pages",
-        "3 gallery images available"
+        "4 gallery images available"
       ],
       "accent": "#59F2C7",
       "featured": false,

@@ -47,6 +47,11 @@
 - [x] Generate `feed.xml` as an RSS feed from discovered project sites.
 - [x] Add Lighthouse CI for accessibility, SEO, best practices, and performance audits.
 - [x] Add JSON-LD validation notes to the README.
+- [x] Add repo-tree screenshot discovery so public project screenshot folders can power drawer galleries automatically.
+- [x] Add a public `changelog.html` page for hub launch notes.
+- [x] Add category hash routes such as `#category/ios-apps` and `#category/games`.
+- [x] Add a downloadable press/media-kit ZIP bundle.
+- [x] Add subtle neon cursor spotlights across cards, controls, and press surfaces.
 
 ## Future
 
