@@ -365,9 +365,10 @@ function renderHeroShowcase(projects) {
     const media = document.createElement("span");
     media.className = "hero-product-media";
     media.appendChild(createDefaultPreview(project, true));
-    if (project.previewImage && !visualTestMode) {
+    const heroImage = heroShowcaseImage(project);
+    if (heroImage && !visualTestMode) {
       const image = document.createElement("img");
-      image.src = project.previewImage;
+      image.src = heroImage;
       image.alt = "";
       image.decoding = "async";
       image.addEventListener("error", () => {
@@ -381,6 +382,28 @@ function renderHeroShowcase(projects) {
   }
 
   elements.heroShowcase.appendChild(fragment);
+}
+
+function heroShowcaseImage(project) {
+  const isSwiftTerm = project.slug === "swiftterm-site" || categorySlug(project.name) === "swiftterm";
+  if (isSwiftTerm) {
+    const productComposite = project.screenshots.find((screenshot) =>
+      /swiftterm-hero-console\.png/i.test(screenshot.src),
+    );
+    if (productComposite?.src) return productComposite.src;
+
+    const terminalCapture = project.screenshots.find((screenshot) =>
+      /swiftterm-iphone-terminal\.png/i.test(screenshot.src),
+    );
+    if (terminalCapture?.src) return terminalCapture.src;
+
+    const productScreenshot = project.screenshots.find((screenshot) =>
+      screenshot.src && !/swiftterm-social-preview\.(png|svg)/i.test(screenshot.src),
+    );
+    if (productScreenshot?.src) return productScreenshot.src;
+  }
+
+  return project.previewImage;
 }
 
 function selectHeroProjects(projects) {
