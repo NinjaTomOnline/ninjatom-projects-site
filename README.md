@@ -6,7 +6,7 @@ The site is static and GitHub Pages-friendly: `index.html`, `styles.css`, and `a
 
 The public UI is designed as a dark, cyberpunk-adjacent indie studio portfolio: a large NinjaTom Apps hero, layered project mockups, a compact filter/search/sort deck, image-first project cards, responsive mobile layouts, and a footer with Custom3D.Art, GitHub, and support links.
 
-Live site: `https://ninjatomonline.github.io/ninjatom-projects-site/`
+Live site: `https://ninjatomapps.com/`
 
 ## How Automatic Discovery Works
 
@@ -53,11 +53,11 @@ Minimum useful manifest:
 
 ```json
 {
-  "name": "DoorCodes Vault",
-  "tagline": "Save door codes and surface them when you arrive.",
+  "name": "DoorCodes",
+  "tagline": "Access codes, ready on arrival with privacy-safe reminders and Secure Reveal.",
   "category": "iOS App",
   "status": "Live",
-  "website": "https://doorcodesapp.com",
+  "website": "https://doorcodesapp.com/",
   "supportUrl": "https://doorcodesapp.com/support.html",
   "privacyUrl": "https://doorcodesapp.com/privacy.html",
   "appStoreUrl": "",
@@ -111,7 +111,9 @@ GitHub Pages is currently configured for this repo:
 - Source: `Deploy from a branch`
 - Branch: `main`
 - Folder: `/ (root)`
-- Live URL: `https://ninjatomonline.github.io/ninjatom-projects-site/`
+- Custom domain: `ninjatomapps.com`
+- Live URL: `https://ninjatomapps.com/`
+- GitHub Pages fallback URL: `https://ninjatomonline.github.io/ninjatom-projects-site/`
 
 If the Pages configuration ever needs to be recreated, use:
 
@@ -119,11 +121,20 @@ If the Pages configuration ever needs to be recreated, use:
 2. Set source to `Deploy from a branch`.
 3. Choose branch `main`.
 4. Choose folder `/ (root)`.
-5. Save.
+5. Set custom domain to `ninjatomapps.com`.
+6. Save.
+7. Turn on `Enforce HTTPS` after DNS and certificate provisioning are ready.
 
 Also confirm `Settings` -> `Actions` -> `General` allows workflows to read and write repository contents, because the refresh workflow commits `projects.json`.
 
-No DNS is configured here. Later, a domain such as `apps.ninjatomonline.com`, `ninjatomapps.com`, or `projects.custom3d.art` can point at this Pages site.
+Canonical host files are committed in this repo:
+
+- `CNAME`: `ninjatomapps.com`
+- `robots.txt`: points crawlers to `https://ninjatomapps.com/sitemap.xml`
+- `sitemap.xml`: lists the canonical homepage
+- `index.html`: includes canonical and Open Graph URL metadata for `https://ninjatomapps.com/`
+
+Current IONOS DNS points the apex domain at GitHub Pages with the standard four `A` records and four `AAAA` records. `www.ninjatomapps.com` is a `CNAME` to `ninjatomonline.github.io`.
 
 ## Local Preview
 
@@ -160,6 +171,8 @@ The regression check uses `?visual-test=1` to render deterministic code-native p
 ## Project Structure
 
 - `index.html`: static page markup
+- `CNAME`: GitHub Pages custom-domain file for `ninjatomapps.com`
+- `robots.txt` and `sitemap.xml`: canonical crawler hints for the public domain
 - `styles.css`: responsive dark-mode visual system for the hero, controls, cards, and footer
 - `app.js`: project loading, hero showcase rendering, search, filters, sorting, load-more behavior, and fallback sample data
 - Project cards: `app.js` uses real preview images when available and falls back to generated code-native preview panels when a project does not expose a screenshot yet.

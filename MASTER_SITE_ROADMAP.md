@@ -13,7 +13,7 @@
 - [x] Add GitHub Action for push, daily, and manual refresh.
 - [x] Avoid refresh loops by committing only changed generated output.
 - [x] Add `site-manifest.schema.json`.
-- [x] Add example manifests for DoorCodes Vault, SwiftTerm, Zen Wisdom, DontSpeed, and FlowGuru.
+- [x] Add example manifests for DoorCodes, SwiftTerm, Zen Wisdom, DontSpeed, and FlowGuru.
 - [x] Add GitHub Pages setup documentation.
 - [x] Add automatic real icon discovery from project manifests, web app manifests, HTML icon links, CNAME-backed sites, and common icon paths.
 - [x] Add automatic App Store URL discovery from launched project homepage links.
@@ -26,6 +26,8 @@
 - [x] Fix tablet hero headline formatting so `NinjaTom` never breaks mid-word.
 - [x] Add explicit preview image and icon manifests/assets to the remaining public project site repos.
 - [x] Add deterministic pixel-baseline visual regression for desktop, tablet, mobile, and project-grid views.
+- [x] Choose and configure DNS for `ninjatomapps.com`.
+- [x] Add repo-side `CNAME`, canonical URL, sitemap, robots, Open Graph URL, and support email for `ninjatomapps.com`.
 
 ## Future
 
@@ -35,4 +37,3 @@
 ## Blocked / Needs Owner Choice
 
 - [ ] Choose a privacy-friendly analytics provider and account before adding analytics.
-- [ ] Choose and configure DNS for `apps.ninjatomonline.com`, `ninjatomapps.com`, or `projects.custom3d.art` before adding a custom domain.

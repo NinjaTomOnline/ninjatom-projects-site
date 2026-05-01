@@ -31,8 +31,8 @@ const COMMON_PREVIEW_PATHS = [
 ];
 const FALLBACK_OVERRIDES = {
   "doorcodes-site": {
-    name: "DoorCodes Vault",
-    tagline: "Save door codes and surface them when you arrive.",
+    name: "DoorCodes",
+    tagline: "Access codes, ready on arrival with privacy-safe reminders and Secure Reveal.",
     category: "iOS App",
     accent: "#38BDF8",
     featured: true,

@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://ninjatomonline.github.io/ninjatom-projects-site/site-manifest.schema.json",
+  "$id": "https://ninjatomapps.com/site-manifest.schema.json",
   "title": "NinjaTom Project Site Manifest",
   "description": "Metadata used by the NinjaTom Apps master site to render a project card.",
   "type": "object",
@@ -109,17 +109,17 @@
   "required": ["name", "tagline", "category", "status", "website"],
   "examples": [
     {
-      "name": "DoorCodes Vault",
-      "tagline": "Save door codes and surface them when you arrive.",
+      "name": "DoorCodes",
+      "tagline": "Access codes, ready on arrival with privacy-safe reminders and Secure Reveal.",
       "category": "iOS App",
       "status": "Live",
-      "website": "https://doorcodesapp.com",
+      "website": "https://doorcodesapp.com/",
       "supportUrl": "https://doorcodesapp.com/support.html",
       "privacyUrl": "https://doorcodesapp.com/privacy.html",
-      "appStoreUrl": "",
-      "icon": "",
-      "previewImage": "",
-      "previewImageAlt": "",
+      "appStoreUrl": "https://apps.apple.com/us/app/doorcodes-vault/id6761863570",
+      "icon": "https://doorcodesapp.com/assets/doorcodes-favicon-512.png",
+      "previewImage": "https://doorcodesapp.com/assets/doorcodes-social-preview.png",
+      "previewImageAlt": "DoorCodes website preview for the upgraded access-code app site.",
       "accent": "#38BDF8",
       "featured": true,
       "sortOrder": 10
