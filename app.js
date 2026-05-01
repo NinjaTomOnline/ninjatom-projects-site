@@ -392,13 +392,13 @@ function heroShowcaseImage(project) {
     );
     if (productComposite?.src) return productComposite.src;
 
-    const terminalCapture = project.screenshots.find((screenshot) =>
-      /swiftterm-iphone-terminal\.png/i.test(screenshot.src),
+    const ipadWorkspace = project.screenshots.find((screenshot) =>
+      /swiftterm-ipad-workspace\.png/i.test(screenshot.src),
     );
-    if (terminalCapture?.src) return terminalCapture.src;
+    if (ipadWorkspace?.src) return ipadWorkspace.src;
 
     const productScreenshot = project.screenshots.find((screenshot) =>
-      screenshot.src && !/swiftterm-social-preview\.(png|svg)/i.test(screenshot.src),
+      screenshot.src && !/swiftterm-(social-preview|iphone-terminal|iphone-files)\.(png|svg)/i.test(screenshot.src),
     );
     if (productScreenshot?.src) return productScreenshot.src;
   }
