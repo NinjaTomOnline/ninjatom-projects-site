@@ -134,6 +134,7 @@ init();
 
 async function init() {
   bindEvents();
+  decorateFilterTabs();
   showState("loading", "Loading projects...");
 
   try {
@@ -642,13 +643,15 @@ function createProjectCard(project, index = 0) {
   preview.href = project.website || project.repositoryUrl || "#";
   preview.target = "_blank";
   preview.rel = "noopener noreferrer";
+  const cardMedia = selectCardPreview(project);
 
-  if (project.previewImage && !visualTestMode) {
+  if (cardMedia.src && !visualTestMode) {
     preview.appendChild(createDefaultPreview(project));
+    if (isVectorPreview(cardMedia.src)) preview.classList.add("vector-preview");
 
     const image = document.createElement("img");
-    image.src = project.previewImage;
-    image.alt = project.previewImageAlt;
+    image.src = cardMedia.src;
+    image.alt = cardMedia.alt || project.previewImageAlt;
     image.loading = "lazy";
     image.decoding = "async";
     image.addEventListener("error", () => {
@@ -706,6 +709,44 @@ function createProjectCard(project, index = 0) {
   body.appendChild(footer);
   card.append(preview, icon, body);
   return card;
+}
+
+function decorateFilterTabs() {
+  if (!elements.filterTabs) return;
+
+  for (const tab of elements.filterTabs.querySelectorAll(".filter-tab")) {
+    if (tab.querySelector(".platform-icon")) continue;
+    const label = tab.dataset.filter || tab.textContent;
+    tab.prepend(createPlatformIcon({ category: label, name: label }));
+  }
+}
+
+function selectCardPreview(project) {
+  const candidates = [
+    { src: project.previewImage, alt: project.previewImageAlt },
+    ...project.screenshots.map((screenshot) => ({
+      src: screenshot.src,
+      alt: screenshot.alt || screenshot.caption || project.previewImageAlt,
+    })),
+  ].filter((candidate) => candidate.src);
+
+  return (
+    candidates.find((candidate) => isStrongScreenshot(candidate.src)) ||
+    candidates.find((candidate) => !isVectorPreview(candidate.src)) ||
+    candidates[0] ||
+    { src: "", alt: "" }
+  );
+}
+
+function isStrongScreenshot(src) {
+  const value = String(src || "").toLowerCase();
+  if (!value || isVectorPreview(value)) return false;
+  if (/(social-card|social-preview|social\.png|preview\.png|favicon|app-icon|icon-)/.test(value)) return false;
+  return /(screenshot|screenshots|iphone|ipad|dashboard|gameplay|workspace|terminal|drive|today|home|library|panel|onboarding|level|calendar|map)/.test(value);
+}
+
+function isVectorPreview(src) {
+  return /\.svg(?:[?#].*)?$/i.test(String(src || ""));
 }
 
 function createProjectIcon(project) {
@@ -874,6 +915,8 @@ function createPlatformIcon(project) {
 
 function platformIconName(project) {
   const value = `${project.category || ""} ${project.name || ""} ${project.repoName || ""}`.toLowerCase();
+  if (/\ball\b|show every/.test(value)) return "globe";
+  if (/recent|launch|updated/.test(value)) return "clock";
   if (/(ios|iphone|ipad|watchos)/.test(value)) return "phone";
   if (/(game|arcade|rush|detective|copter)/.test(value)) return "gamepad";
   if (/(creative|custom3d|3d|art|dream|shramana)/.test(value)) return "cube";
@@ -899,6 +942,7 @@ function iconPath(name) {
       return "M4 5.5h16v13H4v-13Zm0 4h16M7 7.5h.1M10 7.5h.1M13 7.5h.1";
     case "tool":
       return "M14.7 5.3a4 4 0 0 0 4.9 4.9l-8.8 8.8a2.2 2.2 0 0 1-3.1-3.1l8.8-8.8Z";
+    case "globe":
     default:
       return "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0 0c2-2.2 3-5.2 3-9s-1-6.8-3-9m0 18c-2-2.2-3-5.2-3-9s1-6.8 3-9M3.6 9h16.8M3.6 15h16.8";
   }
@@ -1544,6 +1588,7 @@ function initCardReveals() {
 
 function canUseReveal() {
   return (
+    !window.location.hash &&
     !visualTestMode &&
     "IntersectionObserver" in window &&
     !window.matchMedia("(prefers-reduced-motion: reduce)").matches
