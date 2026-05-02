@@ -61,6 +61,7 @@
 - [x] Remove the visible Command button and tighten the filter row so Creative / Custom3D stays with the primary filters on desktop.
 - [x] Move project cards directly under the controls so the grid starts sooner.
 - [x] Compress the controls panel further, add filter icons, fold Latest Updates into Studio Notes, prefer real screenshot previews on cards, and shorten the mobile hero preview stack.
+- [x] Make every non-button area of a project card open the project site while preserving explicit card actions.
 
 ## Future
 

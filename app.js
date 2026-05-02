@@ -637,6 +637,7 @@ function createProjectCard(project, index = 0) {
   card.style.setProperty("--accent", project.accent);
   card.style.setProperty("--reveal-delay", `${Math.min(index, 8) * 35}ms`);
   attachTilt(card);
+  enableProjectCardLink(card, project.website || project.repositoryUrl);
 
   const preview = document.createElement("a");
   preview.className = "project-preview";
@@ -709,6 +710,27 @@ function createProjectCard(project, index = 0) {
   body.appendChild(footer);
   card.append(preview, icon, body);
   return card;
+}
+
+function enableProjectCardLink(card, destination) {
+  if (!destination) return;
+
+  card.classList.add("project-card-clickable");
+  card.addEventListener("click", (event) => {
+    if (shouldIgnoreProjectCardClick(event)) return;
+    window.open(destination, "_blank", "noopener,noreferrer");
+  });
+}
+
+function shouldIgnoreProjectCardClick(event) {
+  if (event.defaultPrevented) return true;
+  if (typeof event.button === "number" && event.button !== 0) return true;
+  if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return true;
+
+  const target = event.target;
+  return target instanceof Element && Boolean(
+    target.closest("a, button, input, select, textarea, summary, [role='button'], [role='link']"),
+  );
 }
 
 function decorateFilterTabs() {

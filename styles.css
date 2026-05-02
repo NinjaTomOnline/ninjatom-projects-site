@@ -1291,6 +1291,16 @@ body[data-visual-view="projects"] .projects-section {
   transform: perspective(980px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateY(0);
 }
 
+.project-card-clickable {
+  cursor: pointer;
+}
+
+.project-card-clickable a,
+.project-card-clickable button,
+.project-card-clickable select {
+  cursor: pointer;
+}
+
 .project-card::before {
   position: absolute;
   inset: 0;
