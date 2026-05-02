@@ -1,10 +1,10 @@
 # Next 23 Site Ideas
 
-Recently completed: keyboard quick-find palette, cleaner desktop filter formatting, platform icons, reduced-motion-safe card reveal animations, Studio Notes, GitHub stars/forks metadata, project-card tilt/parallax, animated neon focus rings, neon cursor spotlights, hero project-wall motion, compact latest-updates strip, shareable project detail drawers, drawer snapshot stats, richer screenshot galleries, repo-tree screenshot discovery, launch notes, JSON-LD structured data, RSS feed generation, Recently Launched filtering, category hash routes, public changelog, press/media-kit ZIP, Lighthouse CI, recently-updated ribbons, live discovery status, branded 404 recovery shortcuts, and removal of the featured launch carousel.
+Recently completed: grid-first project layout, keyboard quick-find palette, cleaner desktop filter formatting, platform icons, reduced-motion-safe card reveal animations, Studio Notes, GitHub stars/forks metadata, project-card tilt/parallax, animated neon focus rings, neon cursor spotlights, hero project-wall motion, compact latest-updates strip, shareable project detail drawers, drawer snapshot stats, richer screenshot galleries, repo-tree screenshot discovery, launch notes, JSON-LD structured data, RSS feed generation, Recently Launched filtering, category hash routes, public changelog, press/media-kit ZIP, Lighthouse CI, recently-updated ribbons, live discovery status, branded 404 recovery shortcuts, and removal of the featured launch carousel.
 
 1. Add a low-motion particle grid behind the hero, with `prefers-reduced-motion` support.
 2. Add optional carousel autoplay with pause-on-hover and `prefers-reduced-motion` support.
-3. Add a launch timeline showing newest projects and recently refreshed manifests.
+3. Add a launch timeline below the grid showing newest projects and refreshed manifests.
 4. Add a Custom3D.Art collection band with creative/3D projects separated from utility apps.
 5. Add stronger empty states with a mini preview of how to tag a new repo.
 6. Add quick-find grouping and pinned favorite actions without adding visible toolbar clutter.

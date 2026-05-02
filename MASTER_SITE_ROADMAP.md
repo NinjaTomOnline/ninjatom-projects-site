@@ -59,6 +59,7 @@
 - [x] Add a compact Studio Notes section with curated launch blurbs.
 - [x] Add GitHub stars/forks metadata to generated project data, cards, and drawers.
 - [x] Remove the visible Command button and tighten the filter row so Creative / Custom3D stays with the primary filters on desktop.
+- [x] Move project cards directly under the controls so the grid starts sooner.
 
 ## Future
 

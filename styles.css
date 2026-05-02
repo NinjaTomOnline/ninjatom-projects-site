@@ -686,11 +686,11 @@ body[data-visual-view="projects"] .projects-section {
   min-width: 0;
   grid-template-columns: minmax(0, 1fr) minmax(300px, 400px);
   column-gap: 1.2rem;
-  row-gap: 1.05rem;
+  row-gap: 0.82rem;
   align-items: start;
   border: 1px solid rgba(166, 186, 220, 0.2);
   border-radius: var(--radius);
-  padding: 1.75rem;
+  padding: 1.28rem;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.02)),
     rgba(7, 12, 20, 0.82);
@@ -711,7 +711,7 @@ body[data-visual-view="projects"] .projects-section {
 }
 
 .filter-tab {
-  min-height: 50px;
+  min-height: 46px;
   flex: 0 0 auto;
   border: 1px solid rgba(166, 186, 220, 0.26);
   border-radius: var(--radius);
@@ -752,7 +752,7 @@ body[data-visual-view="projects"] .projects-section {
 
 .search-wrap {
   display: flex;
-  min-height: 50px;
+  min-height: 46px;
   align-items: center;
   gap: 0.8rem;
   border: 1px solid rgba(166, 186, 220, 0.26);
@@ -839,7 +839,7 @@ body[data-visual-view="projects"] .projects-section {
 }
 
 .sort-wrap select {
-  min-height: 46px;
+  min-height: 42px;
   border: 1px solid rgba(166, 186, 220, 0.2);
   border-radius: var(--radius);
   padding: 0 2.25rem 0 0.95rem;
@@ -1196,7 +1196,7 @@ body[data-visual-view="projects"] .projects-section {
 
 .project-grid {
   display: grid;
-  margin-top: 2rem;
+  margin-top: 1rem;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1.35rem;
 }

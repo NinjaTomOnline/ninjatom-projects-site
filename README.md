@@ -4,7 +4,7 @@ Master public website for NinjaTomOnline app, tool, game, and Custom3D.Art proje
 
 The site is static and GitHub Pages-friendly: `index.html`, `styles.css`, and `app.js` render a polished project grid from `projects.json`. A GitHub Action refreshes `projects.json` by discovering public repos under `NinjaTomOnline`.
 
-The public UI is designed as a dark, cyberpunk-adjacent indie studio portfolio: a large NinjaTom Apps hero, layered project mockups, a compact filter/search/sort deck, a keyboard quick-find palette, a slim latest-updates strip, a Studio Notes band, image-first project cards with platform icons, GitHub metadata, tasteful motion, and neon cursor spotlights, shareable project detail drawers with snapshot stats, screenshot galleries, and launch notes, category hash routes, responsive mobile navigation, JSON-LD project structured data, a branded 404 page, RSS project updates, a public changelog, and a footer with Custom3D.Art, GitHub, and support links.
+The public UI is designed as a dark, cyberpunk-adjacent indie studio portfolio: a large NinjaTom Apps hero, layered project mockups, a compact filter/search/sort deck, a grid-first project browser, a keyboard quick-find palette, a slim latest-updates strip, a Studio Notes band, image-first project cards with platform icons, GitHub metadata, tasteful motion, and neon cursor spotlights, shareable project detail drawers with snapshot stats, screenshot galleries, and launch notes, category hash routes, responsive mobile navigation, JSON-LD project structured data, a branded 404 page, RSS project updates, a public changelog, and a footer with Custom3D.Art, GitHub, and support links.
 
 Live site: `https://ninjatomapps.com/`
 
