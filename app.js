@@ -128,6 +128,7 @@ const elements = {
   commandPalette: document.querySelector("#command-palette"),
   commandInput: document.querySelector("#command-input"),
   commandResults: document.querySelector("#command-results"),
+  copyCatalog: document.querySelector("#copy-catalog-json"),
 };
 
 init();
@@ -207,6 +208,8 @@ function bindEvents() {
     activeCommandIndex = 0;
     renderCommandResults();
   });
+
+  elements.copyCatalog?.addEventListener("click", copyCatalogJson);
 
   elements.filterTabs.addEventListener("click", (event) => {
     const button = event.target.closest("[data-filter]");
@@ -326,6 +329,10 @@ function mergeOrgRepositoryData(payload, orgIndex) {
         archived: project.archived ?? repo.archived,
         updatedAt: project.updatedAt || repo.pushed_at,
         stargazersCount: project.stargazersCount ?? repo.stargazers_count,
+        license: project.license || repo.license,
+        defaultBranch: project.defaultBranch || repo.default_branch,
+        openIssuesCount: project.openIssuesCount ?? repo.open_issues_count,
+        latestRelease: project.latestRelease || repo.latest_release,
       };
     }),
   };
@@ -363,6 +370,10 @@ function repoToProject(repo, index) {
     fullName: repo.full_name,
     repoIndex: repoIndexFromRepository(repo),
     stargazersCount: numberOr(repo.stargazers_count, 0),
+    license: repo.license || "",
+    defaultBranch: repo.default_branch || "",
+    openIssuesCount: numberOr(repo.open_issues_count, 0),
+    latestRelease: repo.latest_release || null,
     updatedAt: stringOr(repo.pushed_at, ""),
     manifestFound: false,
   };
@@ -413,10 +424,15 @@ function normalizeProject(project) {
     archived,
     pushed_at: project.updatedAt,
     stargazers_count: project.stargazersCount ?? project.stars,
+    license: project.license,
+    default_branch: project.defaultBranch,
+    open_issues_count: project.openIssuesCount,
+    latest_release: project.latestRelease,
   });
   const version = stringOr(project.version, "");
   const launchedAt = stringOr(project.launchedAt || project.launchDate, "");
   const launchNotes = stringOr(project.launchNotes, defaultLaunchNotes(project));
+  const latestRelease = normalizeLatestRelease(project.latestRelease || repoIndex.latest_release);
   const screenshots = normalizeScreenshots(project.screenshots, {
     name,
     previewImage,
@@ -456,6 +472,10 @@ function normalizeProject(project) {
     manifestFound: Boolean(project.manifestFound),
     stargazersCount: numberOr(project.stargazersCount ?? project.stars, 0),
     forksCount: numberOr(project.forksCount ?? project.forks, 0),
+    license: stringOr(project.license || repoIndex.license, ""),
+    defaultBranch: stringOr(project.defaultBranch || repoIndex.default_branch, ""),
+    openIssuesCount: numberOr(project.openIssuesCount ?? repoIndex.open_issues_count, 0),
+    latestRelease,
     updatedAt: stringOr(project.updatedAt, ""),
     language,
     archived,
@@ -478,6 +498,10 @@ function normalizeProject(project) {
       project.repoName,
       project.fullName,
       project.website,
+      project.license,
+      project.defaultBranch,
+      latestRelease?.name,
+      latestRelease?.tag_name,
       topics.join(" "),
     ]
       .filter(Boolean)
@@ -1510,6 +1534,7 @@ function renderProjectDrawer(project) {
   appendDrawerLink(actions, "Support", project.supportUrl);
   appendDrawerLink(actions, "Privacy", project.privacyUrl);
   appendDrawerLink(actions, "GitHub Repo", project.repositoryUrl);
+  appendDrawerLink(actions, "Share Page", projectShareUrl(project));
 
   const shareButton = document.createElement("button");
   shareButton.className = "button button-secondary drawer-share";
@@ -1535,6 +1560,10 @@ function renderProjectDrawer(project) {
   appendFact(facts, "Full Name", project.fullName);
   appendFact(facts, "Language", project.language);
   appendFact(facts, "Archived", project.archived ? "Yes" : "");
+  appendFact(facts, "License", project.license);
+  appendFact(facts, "Default Branch", project.defaultBranch);
+  appendFact(facts, "Open Issues", project.openIssuesCount ? formatCompactNumber(project.openIssuesCount) : "");
+  appendFact(facts, "Latest Release", project.latestRelease?.tag_name || project.latestRelease?.name || "");
   appendFact(facts, "Stars", formatCompactNumber(project.stargazersCount));
   appendFact(facts, "Forks", formatCompactNumber(project.forksCount));
   appendFact(facts, "Data", project.manifestFound ? "site-manifest.json" : "Inferred from GitHub Pages");
@@ -1647,14 +1676,19 @@ function createRepoIndexSection(project) {
   grid.className = "repo-index-grid";
   appendRepoIndexFact(grid, "Full name", repo.full_name);
   appendRepoIndexFact(grid, "Language", repo.language);
+  appendRepoIndexFact(grid, "License", repo.license);
+  appendRepoIndexFact(grid, "Branch", repo.default_branch);
   appendRepoIndexFact(grid, "Pushed", formatDate(repo.pushed_at) || formatRelative(repo.pushed_at));
   appendRepoIndexFact(grid, "Stars", formatCompactNumber(repo.stargazers_count));
+  appendRepoIndexFact(grid, "Open issues", formatCompactNumber(repo.open_issues_count));
+  appendRepoIndexFact(grid, "Latest release", repo.latest_release?.tag_name || repo.latest_release?.name);
   appendRepoIndexFact(grid, "Archived", repo.archived ? "Yes" : "No");
 
   const links = document.createElement("div");
   links.className = "repo-index-links";
   appendRepoIndexLink(links, "GitHub", repo.html_url);
   appendRepoIndexLink(links, "Homepage", repo.homepage);
+  appendRepoIndexLink(links, "Latest Release", repo.latest_release?.html_url);
 
   const description = document.createElement("p");
   description.className = "repo-index-description";
@@ -1785,7 +1819,7 @@ function appendFact(container, label, value) {
 }
 
 async function copyProjectLink(project) {
-  const url = `${window.location.origin}${window.location.pathname}${window.location.search}#project/${encodeURIComponent(project.slug)}`;
+  const url = projectShareUrl(project);
   if (navigator.clipboard?.writeText) {
     await navigator.clipboard.writeText(url);
     return;
@@ -1793,6 +1827,45 @@ async function copyProjectLink(project) {
 
   const input = document.createElement("input");
   input.value = url;
+  input.setAttribute("readonly", "");
+  input.style.position = "fixed";
+  input.style.opacity = "0";
+  document.body.appendChild(input);
+  input.select();
+  document.execCommand("copy");
+  input.remove();
+}
+
+async function copyCatalogJson() {
+  const button = elements.copyCatalog;
+  if (!button) return;
+
+  const originalText = button.textContent;
+  try {
+    const response = await fetch("data/projects.json", { cache: "no-store" });
+    if (!response.ok) throw statusError(`Unable to load data/projects.json: ${response.status}`, response.status);
+
+    const payload = await response.json();
+    await writeTextToClipboard(JSON.stringify(payload, null, 2));
+    button.textContent = "Copied JSON";
+  } catch (error) {
+    console.warn("Unable to copy catalog JSON.", error);
+    button.textContent = "Copy failed";
+  } finally {
+    window.setTimeout(() => {
+      button.textContent = originalText;
+    }, 1400);
+  }
+}
+
+async function writeTextToClipboard(text) {
+  if (navigator.clipboard?.writeText) {
+    await navigator.clipboard.writeText(text);
+    return;
+  }
+
+  const input = document.createElement("textarea");
+  input.value = text;
   input.setAttribute("readonly", "");
   input.style.position = "fixed";
   input.style.opacity = "0";
@@ -2015,13 +2088,17 @@ function buildStructuredData(projects) {
 }
 
 function projectStructuredData(project) {
-  const images = [project.previewImage, ...project.screenshots.map((screenshot) => screenshot.src)].filter(Boolean);
+  const images = [
+    projectShareImageUrl(project),
+    project.previewImage,
+    ...project.screenshots.map((screenshot) => screenshot.src),
+  ].filter(Boolean);
   const data = {
     "@type": schemaTypeForProject(project),
     "@id": `${CANONICAL_SITE_URL}#project-${project.slug}`,
     name: project.name,
     description: project.tagline,
-    url: project.website || project.repositoryUrl,
+    url: project.website || project.repositoryUrl || projectShareUrl(project),
     image: Array.from(new Set(images)),
     sameAs: [project.repositoryUrl, project.appStoreUrl].filter(Boolean),
     applicationCategory: schemaTypeForProject(project) === "SoftwareApplication" ? project.category : undefined,
@@ -2031,10 +2108,18 @@ function projectStructuredData(project) {
     softwareVersion: project.version || undefined,
     releaseNotes: project.launchNotes || undefined,
     publisher: { "@id": ORGANIZATION_ID },
-    mainEntityOfPage: `${CANONICAL_SITE_URL}#project/${project.slug}`,
+    mainEntityOfPage: projectShareUrl(project),
   };
 
   return compactObject(data);
+}
+
+function projectShareUrl(project) {
+  return new URL(`projects/${project.slug}.html`, CANONICAL_SITE_URL).href;
+}
+
+function projectShareImageUrl(project) {
+  return new URL(`assets/project-og/${project.slug}.png`, CANONICAL_SITE_URL).href;
 }
 
 function schemaTypeForProject(project) {
@@ -2152,9 +2237,13 @@ function normalizeRepoIndex(value, fallback = {}) {
     homepage: validUrl(source.homepage || source.website || fallback.homepage),
     topics,
     language: stringOr(source.language || fallback.language, ""),
+    license: stringOr(source.license || fallback.license, ""),
+    default_branch: stringOr(source.default_branch || source.defaultBranch || fallback.default_branch, ""),
     archived: Boolean(source.archived ?? fallback.archived),
     pushed_at: stringOr(source.pushed_at || source.updatedAt || fallback.pushed_at, ""),
+    open_issues_count: numberOr(source.open_issues_count ?? source.openIssuesCount ?? fallback.open_issues_count, 0),
     stargazers_count: numberOr(source.stargazers_count ?? source.stargazersCount ?? fallback.stargazers_count, 0),
+    latest_release: normalizeLatestRelease(source.latest_release || source.latestRelease || fallback.latest_release),
   };
 }
 
@@ -2167,10 +2256,27 @@ function repoIndexFromRepository(repo) {
     homepage: repo.homepage || "",
     topics: Array.isArray(repo.topics) ? repo.topics : [],
     language: repo.language || "",
+    license: repo.license || "",
+    default_branch: repo.default_branch || "",
     archived: Boolean(repo.archived),
     pushed_at: repo.pushed_at || "",
+    open_issues_count: Number.isFinite(repo.open_issues_count) ? repo.open_issues_count : 0,
     stargazers_count: Number.isFinite(repo.stargazers_count) ? repo.stargazers_count : 0,
+    latest_release: normalizeLatestRelease(repo.latest_release),
   };
+}
+
+function normalizeLatestRelease(value) {
+  if (!value || typeof value !== "object") return null;
+  const release = {
+    name: stringOr(value.name, ""),
+    tag_name: stringOr(value.tag_name || value.tagName, ""),
+    html_url: validUrl(value.html_url || value.url),
+    published_at: stringOr(value.published_at || value.publishedAt, ""),
+    prerelease: Boolean(value.prerelease),
+  };
+
+  return release.name || release.tag_name || release.html_url ? release : null;
 }
 
 function defaultLaunchNotes(project) {

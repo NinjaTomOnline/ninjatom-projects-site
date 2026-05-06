@@ -36,7 +36,8 @@ async function main() {
 
   for (const repo of filtered) {
     const topics = await fetchTopics(repo);
-    projects.push(normalizeRepository(repo, topics));
+    const latestRelease = await fetchLatestRelease(repo);
+    projects.push(normalizeRepository(repo, topics, latestRelease));
   }
 
   projects.sort((a, b) => {
@@ -121,6 +122,24 @@ async function fetchTopics(repo) {
   }
 }
 
+async function fetchLatestRelease(repo) {
+  try {
+    const { data } = await githubJson(new URL(`/repos/${repo.full_name}/releases/latest`, apiRoot));
+    return {
+      name: data.name || data.tag_name || "",
+      tag_name: data.tag_name || "",
+      html_url: data.html_url || "",
+      published_at: data.published_at || "",
+      prerelease: Boolean(data.prerelease),
+    };
+  } catch (error) {
+    if (error.status !== 404) {
+      console.warn(`Warning: unable to fetch latest release for ${repo.full_name}: ${error.message}`);
+    }
+    return null;
+  }
+}
+
 async function githubJson(url) {
   const response = await fetch(url, { headers: apiHeaders });
   if (!response.ok) {
@@ -171,7 +190,7 @@ function nextPageUrl(linkHeader) {
   return null;
 }
 
-function normalizeRepository(repo, topics) {
+function normalizeRepository(repo, topics, latestRelease) {
   return {
     name: repo.name,
     full_name: repo.full_name,
@@ -180,9 +199,13 @@ function normalizeRepository(repo, topics) {
     homepage: repo.homepage || "",
     topics,
     language: repo.language || "",
+    license: repo.license?.spdx_id || repo.license?.name || "",
+    default_branch: repo.default_branch || "",
     archived: Boolean(repo.archived),
     pushed_at: repo.pushed_at || "",
+    open_issues_count: Number.isFinite(repo.open_issues_count) ? repo.open_issues_count : 0,
     stargazers_count: Number.isFinite(repo.stargazers_count) ? repo.stargazers_count : 0,
+    latest_release: latestRelease,
   };
 }
 

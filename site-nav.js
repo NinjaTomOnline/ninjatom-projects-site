@@ -46,7 +46,12 @@
     ".asset-row",
     ".press-contact",
     ".not-found-console",
+    ".catalog-action",
+    ".status-card",
+    ".status-action",
   ].join(",");
+
+  wireDeployStatus();
 
   if (!visualTestMode && finePointer.matches && !prefersReducedMotion.matches) {
     wireSpotlights();
@@ -83,5 +88,36 @@
         element.style.removeProperty("--spotlight-y");
       });
     }
+  }
+
+  async function wireDeployStatus() {
+    const targets = document.querySelectorAll("[data-deploy-status]");
+    if (!targets.length) return;
+
+    try {
+      const response = await fetch("data/deploy-status.json", { cache: "no-store" });
+      if (!response.ok) throw new Error(`deploy-status.json returned ${response.status}`);
+      const status = await response.json();
+      const label = formatDeployStatus(status);
+      for (const target of targets) target.textContent = label;
+    } catch (error) {
+      console.warn("Unable to load deploy status.", error);
+      for (const target of targets) target.textContent = "Deploy status unavailable";
+    }
+  }
+
+  function formatDeployStatus(status) {
+    const date = new Date(status?.generatedAt || "");
+    if (Number.isNaN(date.getTime())) return "Last deployed: pending workflow data";
+
+    const formatted = new Intl.DateTimeFormat(undefined, {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+    }).format(date);
+    const run = status.runNumber ? ` #${status.runNumber}` : "";
+    return `Last deployed ${formatted}${run}`;
   }
 })();

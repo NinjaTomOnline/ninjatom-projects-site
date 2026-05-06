@@ -82,6 +82,11 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         run: node scripts/fetch-repos.mjs
 
+      - name: Generate project share pages and deploy status
+        run: |
+          node scripts/generate-project-share-assets.mjs
+          node scripts/write-deploy-status.mjs
+
       - name: Install dependencies and run existing build command
         run: |
           if [ ! -f package.json ]; then

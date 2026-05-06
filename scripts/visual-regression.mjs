@@ -73,6 +73,13 @@ const shots = [
     height: 900,
   },
   {
+    name: "status",
+    path: "./status.html?visual-test=1",
+    windowSize: "1440,900",
+    width: 1440,
+    height: 900,
+  },
+  {
     name: "not-found",
     path: "./404.html?visual-test=1",
     windowSize: "1440,900",

@@ -7,6 +7,7 @@
         "http://127.0.0.1:8080/",
         "http://127.0.0.1:8080/press.html",
         "http://127.0.0.1:8080/changelog.html",
+        "http://127.0.0.1:8080/status.html",
         "http://127.0.0.1:8080/404.html"
       ],
       "numberOfRuns": 1,

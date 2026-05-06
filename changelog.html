@@ -102,6 +102,7 @@
           </a>
           <a href="press.html">Press</a>
           <a class="active" href="changelog.html">Changelog</a>
+          <a href="status.html">Status</a>
           <a class="nav-link-secondary" href="index.html#about">About</a>
         </div>
         <button class="nav-menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" data-nav-toggle>
@@ -155,6 +156,19 @@
         </div>
 
         <div class="changelog-list">
+          <article class="changelog-entry">
+            <time datetime="2026-05-06">May 6, 2026</time>
+            <div>
+              <h3>Status, deploy metadata, and share-card automation</h3>
+              <ul>
+                <li>Added a public <code>status.html</code> page for deploy, workflow, RSS, and repo-index freshness.</li>
+                <li>Added deploy timestamp metadata through <code>data/deploy-status.json</code> and footer status text.</li>
+                <li>Added generated per-project share pages and Open Graph images for stronger project link previews.</li>
+                <li>Expanded repo-index metadata with license, default branch, open issues, and latest release.</li>
+              </ul>
+            </div>
+          </article>
+
           <article class="changelog-entry">
             <time datetime="2026-05-01">May 1, 2026</time>
             <div>
@@ -223,6 +237,7 @@
           <a href="https://custom3d.art" rel="noopener noreferrer">Custom3D.Art</a>
           <a href="press.html">Press Kit</a>
           <a href="changelog.html">Changelog</a>
+          <a href="status.html">Status</a>
           <a href="https://github.com/NinjaTomOnline" rel="noopener noreferrer">GitHub</a>
           <a href="index.html#about">About</a>
         </div>
@@ -256,6 +271,7 @@
       </div>
       <div class="footer-bottom">
         <span>2026 NinjaTom. All rights reserved.</span>
+        <span class="footer-deploy" data-deploy-status>Deploy status loading...</span>
         <span>Made with HTML + CSS + JavaScript</span>
       </div>
     </footer>

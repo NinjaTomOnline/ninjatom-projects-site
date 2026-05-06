@@ -18,9 +18,11 @@ The build job:
 2. Sets up Node 20.
 3. Runs `node scripts/fetch-repos.mjs`.
 4. Writes `data/projects.json`.
-5. Runs the existing npm build command if a future `package.json` adds one.
-6. Stages the static site into `_pages`.
-7. Uploads `_pages` with `actions/upload-pages-artifact`.
+5. Runs `node scripts/generate-project-share-assets.mjs` to create per-project Open Graph pages/images from the curated catalog.
+6. Runs `node scripts/write-deploy-status.mjs` so the footer and status page can show the latest deploy timestamp.
+7. Runs the existing npm build command if a future `package.json` adds one.
+8. Stages the static site into `_pages`.
+9. Uploads `_pages` with `actions/upload-pages-artifact`.
 
 The deploy job runs `actions/deploy-pages`. The workflow reads the repo's Pages `build_type` before deployment so accidental legacy branch configuration is easy to diagnose.
 
@@ -30,6 +32,21 @@ The verification job:
 - Checks that `ninjatomapps.com` is the Pages custom domain.
 - Checks that HTTPS is enforced.
 - Uploads `pages-dns-https-verification` with `pages-status.json` and a short README.
+
+## Public Status Page
+
+The site exposes `https://ninjatomapps.com/status.html`.
+
+It checks:
+
+- `data/deploy-status.json` for the last artifact deploy timestamp and workflow run link.
+- GitHub's public workflow API for the latest `auto-index-deploy.yml` run.
+- `data/projects.json` for repo-index count and freshness.
+- `feed.xml` for RSS item count and latest build date.
+
+The page also provides download/copy actions for the curated project catalog and broader repo index.
+
+`data/deploy-status.json` is generated in the deploy artifact. A locally generated copy can be committed as a harmless sample, but the live site should normally show the workflow-generated run metadata after deployment.
 
 ## Optional Secret
 
@@ -120,6 +137,18 @@ If repository discovery fails:
 - Add or refresh the optional `ORG_PAT` secret.
 - Confirm the token can read public metadata for `NinjaTomOnline`.
 - Re-run the workflow manually.
+
+If project share pages or Open Graph images are stale:
+
+- Run `node scripts/generate-project-share-assets.mjs` locally after refreshing `projects.json`.
+- Confirm `assets/project-og/*.png` and `projects/*.html` changed as expected.
+- Re-run `Refresh project index` or push the generated changes.
+
+If the status footer says deploy status is unavailable:
+
+- Confirm `data/deploy-status.json` exists in the deployed artifact.
+- Re-run `Auto index and deploy`.
+- Open `https://ninjatomapps.com/status.html` and check which status card is failing.
 
 If topics are missing for one repo:
 
