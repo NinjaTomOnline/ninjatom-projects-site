@@ -1,5 +1,7 @@
 # NinjaTom Apps Project Hub
 
+[![Auto index and deploy](https://github.com/NinjaTomOnline/ninjatom-projects-site/actions/workflows/auto-index-deploy.yml/badge.svg)](https://github.com/NinjaTomOnline/ninjatom-projects-site/actions/workflows/auto-index-deploy.yml)
+
 Master public website for NinjaTomOnline app, tool, game, and Custom3D.Art project websites.
 
 The site is static and GitHub Pages-friendly: `index.html`, `styles.css`, and `app.js` render a polished project grid from `projects.json`, enriched by the broader GitHub org index at `data/projects.json`. GitHub Actions refresh both data sources by discovering public repos under `NinjaTomOnline`.
@@ -54,9 +56,9 @@ It runs:
 - weekly on Mondays at `10:17 UTC`
 - manually with `workflow_dispatch`
 
-It runs `node scripts/fetch-repos.mjs`, writes `data/projects.json`, stages the plain static site into `_pages`, uploads that single directory with `actions/upload-pages-artifact`, and deploys with `actions/deploy-pages` when GitHub Pages source is set to `GitHub Actions`.
+It runs `node scripts/fetch-repos.mjs`, writes `data/projects.json`, stages the plain static site into `_pages`, uploads that single directory with `actions/upload-pages-artifact`, and deploys with `actions/deploy-pages`.
 
-The repo is currently a plain static root site, not Eleventy, Vite, VitePress, or Next. Because GitHub Pages was still configured as legacy branch deployment when this workflow was added, the deploy job skips safely until `Settings` -> `Pages` is switched from `Deploy from a branch` to `GitHub Actions`.
+The repo is currently a plain static root site, not Eleventy, Vite, VitePress, or Next. GitHub Pages is configured to deploy through GitHub Actions.
 
 Full setup and troubleshooting notes are in `docs/auto-index-deploy.md`.
 
@@ -155,9 +157,7 @@ GITHUB_TOKEN="$(gh auth token)" GITHUB_ORG=NinjaTomOnline node scripts/fetch-rep
 
 GitHub Pages is currently configured for this repo:
 
-- Source: `Deploy from a branch`
-- Branch: `main`
-- Folder: `/ (root)`
+- Source: `GitHub Actions`
 - Custom domain: `ninjatomapps.com`
 - Live URL: `https://ninjatomapps.com/`
 - GitHub Pages fallback URL: `https://ninjatomonline.github.io/ninjatom-projects-site/`
@@ -165,16 +165,14 @@ GitHub Pages is currently configured for this repo:
 If the Pages configuration ever needs to be recreated, use:
 
 1. Go to `Settings` -> `Pages`.
-2. Set source to `Deploy from a branch`.
-3. Choose branch `main`.
-4. Choose folder `/ (root)`.
-5. Set custom domain to `ninjatomapps.com`.
-6. Save.
-7. Turn on `Enforce HTTPS` after DNS and certificate provisioning are ready.
+2. Set source to `GitHub Actions`.
+3. Set custom domain to `ninjatomapps.com`.
+4. Save.
+5. Turn on `Enforce HTTPS` after DNS and certificate provisioning are ready.
 
 Also confirm `Settings` -> `Actions` -> `General` allows workflows to read and write repository contents, because the refresh workflow commits `projects.json`.
 
-For the artifact deploy workflow, change `Settings` -> `Pages` -> Source to `GitHub Actions`, then run `Auto index and deploy` manually. The custom domain, `CNAME`, canonical metadata, Open Graph image, and HTTPS enforcement stay the same.
+The artifact deploy workflow preserves the custom domain, `CNAME`, canonical metadata, Open Graph image, and HTTPS enforcement.
 
 Canonical host files are committed in this repo:
 
@@ -267,7 +265,7 @@ The Lighthouse config starts a local static server and audits the homepage, pres
 - `site-nav.js`: accessible mobile navigation toggle and reduced-motion-safe neon cursor spotlights shared across pages
 - `app.js`: project loading, hero showcase rendering, keyboard quick-find palette, compact latest updates inside Studio Notes, discovery status, Recently Launched filtering, category hash routes, shareable project drawers with screenshot galleries and launch notes, JSON-LD structured data, search, filters, sorting, load-more behavior, scroll-reveal and pointer-follow card motion, and fallback sample data
 - Project cards: `app.js` uses real preview images when available, prefers screenshot-like project media over generic social/preview artwork, makes non-button card areas open the project site, shows gallery-count badges for media-rich projects, and falls back to generated code-native preview panels when a project does not expose a screenshot yet.
-- Project drawers: use hash routes such as `#project/doorcodes-site`, so individual project panels can be shared without adding per-project HTML files. Category filters use routes such as `#category/ios-apps` and `#category/games`. Drawer galleries are powered by each project's `screenshots` array, with `previewImage` as the fallback, and now include quick snapshot stats plus a larger featured screenshot.
+- Project drawers: use hash routes such as `#project/doorcodes-site`, so individual project panels can be shared without adding per-project HTML files. Category filters use routes such as `#category/ios-apps` and `#category/games`. Drawer galleries are powered by each project's `screenshots` array, with `previewImage` as the fallback, and now include quick snapshot stats, GitHub repo-index metadata, plus a larger featured screenshot.
 - `projects.json`: generated project index consumed by the frontend
 - `data/projects.json`: generated GitHub org repository index consumed as an enrichment and fallback data source
 - `scripts/discover-projects.js`: GitHub API discovery script

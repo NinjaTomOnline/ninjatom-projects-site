@@ -63,6 +63,7 @@
 - [x] Compress the controls panel further, add filter icons, fold Latest Updates into Studio Notes, prefer real screenshot previews on cards, and shorten the mobile hero preview stack.
 - [x] Make every non-button area of a project card open the project site while preserving explicit card actions.
 - [x] Add a Node 20 GitHub org repository index at `data/projects.json` plus a Pages artifact deploy workflow with DNS/HTTPS verification.
+- [x] Switch Pages to GitHub Actions deploys, add the `ORG_PAT` Actions secret, set project repo homepage URLs, add a deploy badge, and surface repo-index metadata in project drawers.
 
 ## Future
 

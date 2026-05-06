@@ -2168,6 +2168,118 @@ body[data-visual-view="projects"] .projects-section {
   box-shadow: 0 0 14px rgba(42, 212, 255, 0.38);
 }
 
+.drawer-repo-index {
+  display: grid;
+  gap: 0.75rem;
+  border-top: 1px solid rgba(166, 186, 220, 0.14);
+  padding-top: 1rem;
+}
+
+.drawer-repo-index-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.drawer-repo-index-heading h3 {
+  margin: 0;
+  color: #f8f5ef;
+  font-size: 1rem;
+  font-weight: 820;
+  line-height: 1.2;
+}
+
+.drawer-repo-index-heading span {
+  color: var(--cyan);
+  font-size: 0.72rem;
+  font-weight: 820;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.repo-index-description {
+  margin: 0;
+  color: #b8c0cf;
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.repo-index-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.56rem;
+  margin: 0;
+}
+
+.repo-index-grid > div {
+  display: grid;
+  min-width: 0;
+  gap: 0.32rem;
+  border: 1px solid rgba(166, 186, 220, 0.12);
+  border-radius: var(--radius-sm);
+  padding: 0.56rem;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.repo-index-grid dt,
+.repo-index-grid dd {
+  margin: 0;
+}
+
+.repo-index-grid dt {
+  color: #8792a7;
+  font-size: 0.68rem;
+  font-weight: 830;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.repo-index-grid dd {
+  min-width: 0;
+  overflow: hidden;
+  color: #eef2ff;
+  font-size: 0.82rem;
+  font-weight: 760;
+  line-height: 1.3;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.repo-index-links,
+.repo-index-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.44rem;
+}
+
+.repo-index-links a,
+.repo-index-topics span {
+  display: inline-flex;
+  min-height: 28px;
+  align-items: center;
+  border: 1px solid rgba(166, 186, 220, 0.15);
+  border-radius: var(--radius-sm);
+  padding: 0 0.56rem;
+  color: #cfd5e0;
+  background: rgba(255, 255, 255, 0.04);
+  font-size: 0.76rem;
+  font-weight: 740;
+  line-height: 1;
+}
+
+.repo-index-links a:hover {
+  border-color: color-mix(in srgb, var(--accent, var(--purple)) 36%, rgba(166, 186, 220, 0.2));
+  color: #fff;
+  background: color-mix(in srgb, var(--accent, var(--purple)) 16%, rgba(255, 255, 255, 0.04));
+}
+
+.repo-index-topics span {
+  color: #cdb8ff;
+  background: rgba(164, 92, 255, 0.08);
+}
+
 .drawer-gallery {
   display: grid;
   gap: 0.8rem;
@@ -3509,6 +3621,10 @@ body[data-visual-view="projects"] .projects-section {
   }
 
   .drawer-snapshot {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .repo-index-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 

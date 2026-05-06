@@ -1,6 +1,6 @@
 # Auto Index And Pages Deploy
 
-This repo is a plain static GitHub Pages site. There is no `package.json`, so the custom deploy workflow stages the repository root into a single `_pages` artifact directory and deploys that artifact when GitHub Pages is configured to use GitHub Actions.
+This repo is a plain static GitHub Pages site. There is no `package.json`, so the custom deploy workflow stages the repository root into a single `_pages` artifact directory and deploys that artifact through GitHub Actions.
 
 ## Workflow
 
@@ -22,11 +22,7 @@ The build job:
 6. Stages the static site into `_pages`.
 7. Uploads `_pages` with `actions/upload-pages-artifact`.
 
-The deploy job:
-
-- Runs `actions/deploy-pages`.
-- Runs only when the repo's Pages `build_type` is `workflow`.
-- Skips safely while Pages is still using legacy branch deployment.
+The deploy job runs `actions/deploy-pages`. The workflow reads the repo's Pages `build_type` before deployment so accidental legacy branch configuration is easy to diagnose.
 
 The verification job:
 
@@ -101,22 +97,20 @@ The hub shows the homepage as the live site link when available and the GitHub r
 
 ## Pages Source Setting
 
-Current status observed locally before this workflow was added:
+Current status:
 
-- `build_type`: `legacy`
-- source: `main` `/`
+- `build_type`: `workflow`
+- source: `GitHub Actions`
 - custom domain: `ninjatomapps.com`
 - HTTPS enforced: `true`
 
-To let `auto-index-deploy.yml` actually deploy:
+If Pages ever needs to be recreated:
 
 1. Open repo `Settings` -> `Pages`.
-2. Change Source from `Deploy from a branch` to `GitHub Actions`.
+2. Set Source to `GitHub Actions`.
 3. Keep custom domain `ninjatomapps.com`.
 4. Keep `Enforce HTTPS` enabled.
 5. Run `Auto index and deploy` manually.
-
-Until that setting changes, the workflow still builds, uploads the Pages artifact, and writes the DNS/HTTPS verification artifact, but the deploy job skips instead of breaking the existing branch-based Pages site.
 
 ## Troubleshooting
 

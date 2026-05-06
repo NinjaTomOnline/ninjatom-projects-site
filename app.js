@@ -316,6 +316,7 @@ function mergeOrgRepositoryData(payload, orgIndex) {
 
       return {
         ...project,
+        repoIndex: repoIndexFromRepository(repo),
         fullName: project.fullName || repo.full_name,
         repositoryUrl: project.repositoryUrl || repo.html_url,
         description: project.description || repo.description,
@@ -360,6 +361,7 @@ function repoToProject(repo, index) {
     sortOrder: 500 + index,
     repoName: repo.name,
     fullName: repo.full_name,
+    repoIndex: repoIndexFromRepository(repo),
     stargazersCount: numberOr(repo.stargazers_count, 0),
     updatedAt: stringOr(repo.pushed_at, ""),
     manifestFound: false,
@@ -400,6 +402,18 @@ function normalizeProject(project) {
   const topics = normalizeTextList(project.topics);
   const language = stringOr(project.language, "");
   const archived = Boolean(project.archived);
+  const repoIndex = normalizeRepoIndex(project.repoIndex, {
+    name: repoName,
+    full_name: project.fullName || project.full_name,
+    html_url: project.repositoryUrl,
+    description: project.description,
+    homepage: project.website,
+    topics,
+    language,
+    archived,
+    pushed_at: project.updatedAt,
+    stargazers_count: project.stargazersCount ?? project.stars,
+  });
   const version = stringOr(project.version, "");
   const launchedAt = stringOr(project.launchedAt || project.launchDate, "");
   const launchNotes = stringOr(project.launchNotes, defaultLaunchNotes(project));
@@ -419,6 +433,7 @@ function normalizeProject(project) {
 
   return {
     name,
+    description: stringOr(project.description, ""),
     tagline: stringOr(project.tagline || project.description, "A public NinjaTomOnline project website."),
     category,
     status,
@@ -436,6 +451,7 @@ function normalizeProject(project) {
     sortOrder: Number.isFinite(Number(project.sortOrder)) ? Number(project.sortOrder) : 1000,
     repoName,
     fullName: stringOr(project.fullName || project.full_name, ""),
+    repoIndex,
     slug: categorySlug(repoName || name),
     manifestFound: Boolean(project.manifestFound),
     stargazersCount: numberOr(project.stargazersCount ?? project.stars, 0),
@@ -1534,9 +1550,11 @@ function renderProjectDrawer(project) {
   const snapshot = createDrawerSnapshot(project);
   const gallery = createScreenshotGallery(project);
   const launchNotes = createLaunchNotes(project);
+  const repoIndex = createRepoIndexSection(project);
 
   content.append(header, tags, actions);
   if (snapshot) content.appendChild(snapshot);
+  if (repoIndex) content.appendChild(repoIndex);
   if (launchNotes) content.appendChild(launchNotes);
   if (gallery) content.appendChild(gallery);
   content.appendChild(facts);
@@ -1605,6 +1623,78 @@ function createLaunchNotes(project) {
   if (project.launchNotes) section.appendChild(body);
   if (list.children.length) section.appendChild(list);
   return section;
+}
+
+function createRepoIndexSection(project) {
+  const repo = project.repoIndex;
+  if (!repo || !(repo.full_name || repo.html_url || repo.homepage || repo.language || repo.topics.length)) return null;
+
+  const section = document.createElement("section");
+  section.className = "drawer-repo-index";
+  section.setAttribute("aria-label", `${project.name} GitHub repository index metadata`);
+
+  const header = document.createElement("div");
+  header.className = "drawer-repo-index-heading";
+
+  const title = document.createElement("h3");
+  title.textContent = "Repo Index";
+
+  const source = document.createElement("span");
+  source.textContent = "data/projects.json";
+  header.append(title, source);
+
+  const grid = document.createElement("dl");
+  grid.className = "repo-index-grid";
+  appendRepoIndexFact(grid, "Full name", repo.full_name);
+  appendRepoIndexFact(grid, "Language", repo.language);
+  appendRepoIndexFact(grid, "Pushed", formatDate(repo.pushed_at) || formatRelative(repo.pushed_at));
+  appendRepoIndexFact(grid, "Stars", formatCompactNumber(repo.stargazers_count));
+  appendRepoIndexFact(grid, "Archived", repo.archived ? "Yes" : "No");
+
+  const links = document.createElement("div");
+  links.className = "repo-index-links";
+  appendRepoIndexLink(links, "GitHub", repo.html_url);
+  appendRepoIndexLink(links, "Homepage", repo.homepage);
+
+  const description = document.createElement("p");
+  description.className = "repo-index-description";
+  description.textContent = repo.description || "No GitHub repo description set yet.";
+
+  const topics = document.createElement("div");
+  topics.className = "repo-index-topics";
+  for (const topic of repo.topics.slice(0, 10)) {
+    const pill = document.createElement("span");
+    pill.textContent = topic;
+    topics.appendChild(pill);
+  }
+
+  section.append(header, description, grid);
+  if (links.children.length) section.appendChild(links);
+  if (topics.children.length) section.appendChild(topics);
+  return section;
+}
+
+function appendRepoIndexFact(container, label, value) {
+  if (!value && value !== 0) return;
+
+  const item = document.createElement("div");
+  const term = document.createElement("dt");
+  term.textContent = label;
+  const description = document.createElement("dd");
+  description.textContent = value;
+  item.append(term, description);
+  container.appendChild(item);
+}
+
+function appendRepoIndexLink(container, label, url) {
+  if (!url) return;
+
+  const link = document.createElement("a");
+  link.href = url;
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+  link.textContent = label;
+  container.appendChild(link);
 }
 
 function createScreenshotGallery(project) {
@@ -2042,12 +2132,45 @@ function normalizeScreenshots(value, fallback = {}) {
   return screenshots.slice(0, 6);
 }
 
-function normalizeTextList(value, fallback = []) {
+function normalizeTextList(value, fallback = [], limit = 6) {
   const source = Array.isArray(value) ? value : [];
   const cleaned = source
     .map((item) => (typeof item === "string" ? item.trim() : ""))
     .filter(Boolean);
-  return (cleaned.length ? cleaned : fallback).slice(0, 6);
+  return (cleaned.length ? cleaned : fallback).slice(0, limit);
+}
+
+function normalizeRepoIndex(value, fallback = {}) {
+  const source = value && typeof value === "object" ? value : fallback;
+  const topics = normalizeTextList(source.topics, fallback.topics || [], 20);
+
+  return {
+    name: stringOr(source.name || fallback.name, ""),
+    full_name: stringOr(source.full_name || source.fullName || fallback.full_name, ""),
+    html_url: validUrl(source.html_url || source.repositoryUrl || fallback.html_url),
+    description: stringOr(source.description || fallback.description, ""),
+    homepage: validUrl(source.homepage || source.website || fallback.homepage),
+    topics,
+    language: stringOr(source.language || fallback.language, ""),
+    archived: Boolean(source.archived ?? fallback.archived),
+    pushed_at: stringOr(source.pushed_at || source.updatedAt || fallback.pushed_at, ""),
+    stargazers_count: numberOr(source.stargazers_count ?? source.stargazersCount ?? fallback.stargazers_count, 0),
+  };
+}
+
+function repoIndexFromRepository(repo) {
+  return {
+    name: repo.name,
+    full_name: repo.full_name,
+    html_url: repo.html_url,
+    description: repo.description || "",
+    homepage: repo.homepage || "",
+    topics: Array.isArray(repo.topics) ? repo.topics : [],
+    language: repo.language || "",
+    archived: Boolean(repo.archived),
+    pushed_at: repo.pushed_at || "",
+    stargazers_count: Number.isFinite(repo.stargazers_count) ? repo.stargazers_count : 0,
+  };
 }
 
 function defaultLaunchNotes(project) {
