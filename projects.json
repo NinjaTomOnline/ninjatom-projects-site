@@ -1,7 +1,7 @@
 {
   "schemaVersion": 3,
   "owner": "NinjaTomOnline",
-  "generatedAt": "2026-05-02T03:32:03.399Z",
+  "generatedAt": "2026-05-06T08:38:50.980Z",
   "includeRules": {
     "repoNameSuffix": "-site",
     "topics": [
@@ -617,13 +617,13 @@
     },
     {
       "name": "QuitGentle",
-      "tagline": "Calm smoking tracking for cravings, rescue moments, and real progress.",
+      "tagline": "Shame-free smoking tracking for fast logs, craving rescue, and pattern awareness.",
       "category": "iOS App",
-      "status": "App Review",
+      "status": "Live on App Store",
       "website": "https://quitgentle.com/",
       "supportUrl": "https://quitgentle.com/support/",
       "privacyUrl": "https://quitgentle.com/privacy/",
-      "appStoreUrl": "",
+      "appStoreUrl": "https://apps.apple.com/us/app/quitgentle-smoking-tracker/id6761405030",
       "icon": "https://raw.githubusercontent.com/NinjaTomOnline/ashtag-site/main/assets/icons/quitgentle-app-icon.png",
       "previewImage": "https://raw.githubusercontent.com/NinjaTomOnline/ashtag-site/main/assets/screenshots/quitgentle-today-marketing.png",
       "previewImageAlt": "QuitGentle Today screen preview",
@@ -639,6 +639,11 @@
           "caption": ""
         },
         {
+          "src": "https://quitgentle.com/assets/screenshots/quitgentle-hotspots.png",
+          "alt": "QuitGentle Today screen preview",
+          "caption": ""
+        },
+        {
           "src": "https://quitgentle.com/assets/screenshots/quitgentle-progress.png",
           "alt": "QuitGentle Today screen preview",
           "caption": ""
@@ -649,25 +654,20 @@
           "caption": ""
         },
         {
-          "src": "https://quitgentle.com/assets/screenshots/quitgentle-hotspots.png",
-          "alt": "QuitGentle Today screen preview",
-          "caption": ""
-        },
-        {
-          "src": "https://quitgentle.com/assets/screenshots/quitgentle-today-collapsed-sync.png",
+          "src": "https://quitgentle.com/assets/screenshots/quitgentle-watch-marketing.png",
           "alt": "QuitGentle Today screen preview",
           "caption": ""
         }
       ],
       "launchedAt": "2026-04-09T16:57:11.000Z",
       "version": "",
-      "launchNotes": "QuitGentle is listed as App Review in the iOS App catalog, refreshed automatically from its site manifest.",
+      "launchNotes": "QuitGentle is listed as Live on App Store in the iOS App catalog, refreshed automatically from its site manifest.",
       "versionHighlights": [
-        "App Review iOS App project website",
+        "Live on App Store iOS App project website",
         "Curated by site-manifest.json",
         "6 gallery images available"
       ],
-      "accent": "#16745d",
+      "accent": "#e7c176",
       "featured": false,
       "sortOrder": 230,
       "repoName": "ashtag-site",
@@ -679,7 +679,7 @@
       "manifestFound": true,
       "stargazersCount": 0,
       "forksCount": 0,
-      "updatedAt": "2026-05-01T02:12:25Z"
+      "updatedAt": "2026-05-06T08:28:40Z"
     },
     {
       "name": "Dreamspell",
@@ -745,7 +745,7 @@
       "manifestFound": false,
       "stargazersCount": 0,
       "forksCount": 0,
-      "updatedAt": "2026-04-15T05:37:16Z"
+      "updatedAt": "2026-05-05T22:57:12Z"
     },
     {
       "name": "Shramana",
