@@ -1,7 +1,7 @@
 {
   "schemaVersion": 3,
   "owner": "NinjaTomOnline",
-  "generatedAt": "2026-05-06T08:38:50.980Z",
+  "generatedAt": "2026-05-06T09:16:40.256Z",
   "includeRules": {
     "repoNameSuffix": "-site",
     "topics": [
@@ -639,6 +639,11 @@
           "caption": ""
         },
         {
+          "src": "https://quitgentle.com/assets/screenshots/quitgentle-watch-marketing.png",
+          "alt": "QuitGentle Today screen preview",
+          "caption": ""
+        },
+        {
           "src": "https://quitgentle.com/assets/screenshots/quitgentle-hotspots.png",
           "alt": "QuitGentle Today screen preview",
           "caption": ""
@@ -650,11 +655,6 @@
         },
         {
           "src": "https://quitgentle.com/assets/screenshots/quitgentle-history.png",
-          "alt": "QuitGentle Today screen preview",
-          "caption": ""
-        },
-        {
-          "src": "https://quitgentle.com/assets/screenshots/quitgentle-watch-marketing.png",
           "alt": "QuitGentle Today screen preview",
           "caption": ""
         }
@@ -679,7 +679,7 @@
       "manifestFound": true,
       "stargazersCount": 0,
       "forksCount": 0,
-      "updatedAt": "2026-05-06T08:28:40Z"
+      "updatedAt": "2026-05-06T09:05:07Z"
     },
     {
       "name": "Dreamspell",
