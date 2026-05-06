@@ -24,6 +24,8 @@
     "Driving safety message refined",
     "Support and privacy pages available"
   ],
+  "progressPercent": 82,
+  "releaseProjectionNote": "Projected from the live launch site, app artwork, and complete support/privacy surfaces.",
   "accent": "#FF6FA8",
   "featured": false,
   "sortOrder": 40

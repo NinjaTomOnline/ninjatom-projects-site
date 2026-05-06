@@ -112,6 +112,18 @@ Examples:
 
 The hub shows the homepage as the live site link when available and the GitHub repo link separately.
 
+## Store Status And Release Projections
+
+The curated catalog marks projects with a valid `appStoreUrl` as `On the App Store`. If `appStoreUrl` is blank, the frontend shows a projected release date and progress score instead.
+
+The projection is automatic by default. It uses public project signals such as status text, homepage availability, manifest presence, support/privacy links, screenshots, GitHub releases, and recent updates. For known launch plans, add these optional fields to `site-manifest.json`:
+
+- `projectedReleaseDate`: manual projected release date. `estimatedReleaseDate` and `targetReleaseDate` are aliases.
+- `progressPercent`: manual progress from 0 to 100. `progress` and `completionPercent` are aliases.
+- `releaseProjectionNote`: note shown in the project drawer. `progressNote` is an alias.
+
+Once an app launches, add the real `appStoreUrl` to the project homepage or manifest. The hub will switch that card from projected release to App Store live on the next refresh.
+
 ## Pages Source Setting
 
 Current status:

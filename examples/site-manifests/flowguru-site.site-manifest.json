@@ -22,6 +22,8 @@
     "Project preview connected",
     "Support and privacy URLs documented"
   ],
+  "progressPercent": 58,
+  "releaseProjectionNote": "Projected from the live project site, preview artwork, and documented support/privacy URLs.",
   "accent": "#FFCF70",
   "featured": false,
   "sortOrder": 50

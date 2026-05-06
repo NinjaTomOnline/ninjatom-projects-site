@@ -1419,6 +1419,50 @@ body[data-visual-view="projects"] .projects-section {
   backdrop-filter: blur(12px);
 }
 
+.release-badge {
+  position: absolute;
+  left: 0.75rem;
+  top: 0.75rem;
+  z-index: 4;
+  display: inline-flex;
+  min-height: 26px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(89, 242, 199, 0.38);
+  border-radius: var(--radius-sm);
+  padding: 0 0.58rem;
+  color: #dffbf2;
+  background:
+    linear-gradient(180deg, rgba(89, 242, 199, 0.18), rgba(8, 13, 22, 0.62)),
+    rgba(5, 7, 13, 0.72);
+  box-shadow: 0 0 22px rgba(89, 242, 199, 0.14);
+  font-size: 0.7rem;
+  font-weight: 840;
+  line-height: 1;
+  white-space: nowrap;
+  backdrop-filter: blur(12px);
+}
+
+.release-badge.projected {
+  color: #fff2cc;
+  border-color: rgba(255, 207, 112, 0.42);
+  background:
+    linear-gradient(180deg, rgba(255, 207, 112, 0.2), rgba(8, 13, 22, 0.62)),
+    rgba(5, 7, 13, 0.72);
+  box-shadow: 0 0 22px rgba(255, 207, 112, 0.16);
+}
+
+.release-badge.archived {
+  color: #c8cfdd;
+  border-color: rgba(166, 186, 220, 0.26);
+  background: rgba(5, 7, 13, 0.72);
+  box-shadow: none;
+}
+
+.release-badge + .fresh-badge {
+  top: 2.88rem;
+}
+
 .gallery-badge {
   position: absolute;
   right: 0.75rem;
@@ -1575,6 +1619,51 @@ body[data-visual-view="projects"] .projects-section {
   flex-wrap: wrap;
   gap: 0.38rem;
   margin: -0.2rem 0 0.88rem;
+}
+
+.release-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.58rem;
+  border: 1px solid rgba(166, 186, 220, 0.14);
+  border-radius: var(--radius-sm);
+  margin: -0.1rem 0 0.82rem;
+  padding: 0.58rem 0.62rem;
+  color: #c5cedf;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.042), rgba(255, 255, 255, 0.014)),
+    rgba(255, 255, 255, 0.02);
+}
+
+.release-meta svg {
+  width: 1.05rem;
+  height: 1.05rem;
+  flex: 0 0 auto;
+  color: #8ef1d2;
+}
+
+.release-meta.projected svg {
+  color: #ffcf70;
+}
+
+.release-meta > span {
+  display: grid;
+  min-width: 0;
+  gap: 0.1rem;
+}
+
+.release-meta strong {
+  color: #f8f5ef;
+  font-size: 0.82rem;
+  font-weight: 820;
+  line-height: 1.15;
+}
+
+.release-meta span span {
+  color: #8f9bad;
+  font-size: 0.75rem;
+  font-weight: 660;
+  line-height: 1.28;
 }
 
 .repo-chip {
@@ -2100,6 +2189,101 @@ body[data-visual-view="projects"] .projects-section {
   line-height: 1.28;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.drawer-release {
+  display: grid;
+  gap: 0.75rem;
+  border-top: 1px solid rgba(166, 186, 220, 0.14);
+  padding-top: 1rem;
+}
+
+.drawer-release-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.drawer-release-heading h3 {
+  margin: 0;
+  color: #f8f5ef;
+  font-size: 1rem;
+  font-weight: 820;
+  line-height: 1.2;
+}
+
+.drawer-release-heading span {
+  color: #8f9bad;
+  font-size: 0.78rem;
+  font-weight: 760;
+  text-align: right;
+}
+
+.drawer-release p {
+  max-width: 58ch;
+  margin: 0;
+  color: #b8c0cf;
+  font-size: 0.94rem;
+  line-height: 1.6;
+}
+
+.release-progress {
+  display: grid;
+  gap: 0.42rem;
+}
+
+.release-progress > span:first-child {
+  color: #d2d8e5;
+  font-size: 0.8rem;
+  font-weight: 760;
+}
+
+.release-progress > span:last-child {
+  position: relative;
+  display: block;
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(166, 186, 220, 0.12);
+}
+
+.release-progress > span:last-child::before {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--progress, 0%);
+  border-radius: inherit;
+  content: "";
+  background: linear-gradient(90deg, #8ef1d2, #2ad4ff);
+  box-shadow: 0 0 18px rgba(89, 242, 199, 0.28);
+}
+
+.drawer-release.projected .release-progress > span:last-child::before {
+  background: linear-gradient(90deg, #ffcf70, #ff6fa8);
+}
+
+.drawer-release.archived .release-progress > span:last-child::before {
+  background: linear-gradient(90deg, #8f9bad, #c8cfdd);
+  box-shadow: none;
+}
+
+.drawer-release ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.drawer-release li {
+  border: 1px solid rgba(166, 186, 220, 0.14);
+  border-radius: var(--radius-sm);
+  padding: 0.32rem 0.48rem;
+  color: #cdd5e4;
+  background: rgba(255, 255, 255, 0.035);
+  font-size: 0.72rem;
+  font-weight: 720;
 }
 
 .drawer-launch {

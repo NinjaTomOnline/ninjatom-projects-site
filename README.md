@@ -6,7 +6,7 @@ Master public website for NinjaTomOnline app, tool, game, and Custom3D.Art proje
 
 The site is static and GitHub Pages-friendly: `index.html`, `styles.css`, and `app.js` render a polished project grid from `projects.json`, enriched by the broader GitHub org index at `data/projects.json`. GitHub Actions refresh both data sources by discovering public repos under `NinjaTomOnline`.
 
-The public UI is designed as a dark, cyberpunk-adjacent indie studio portfolio: a large NinjaTom Apps hero, layered project mockups, a compact icon-led filter/search/sort deck, a grid-first project browser, a keyboard quick-find palette, Latest Updates folded into Studio Notes, image-first project cards that prefer real screenshots over generic previews, GitHub metadata, tasteful motion, and neon cursor spotlights, shareable project detail drawers with snapshot stats, screenshot galleries, and launch notes, per-project Open Graph share pages, category hash routes, responsive mobile navigation, JSON-LD project structured data, a branded 404 page, RSS project updates, a public changelog, a public status page, and a footer with deploy freshness, Custom3D.Art, GitHub, and support links.
+The public UI is designed as a dark, cyberpunk-adjacent indie studio portfolio: a large NinjaTom Apps hero, layered project mockups, a compact icon-led filter/search/sort deck, a grid-first project browser, a keyboard quick-find palette, Latest Updates folded into Studio Notes, image-first project cards that prefer real screenshots over generic previews, GitHub metadata, App Store live badges, progress-based release projections, tasteful motion, and neon cursor spotlights, shareable project detail drawers with snapshot stats, screenshot galleries, launch notes, and release forecasts, per-project Open Graph share pages, category hash routes, responsive mobile navigation, JSON-LD project structured data, a branded 404 page, RSS project updates, a public changelog, a public status page, and a footer with deploy freshness, Custom3D.Art, GitHub, and support links.
 
 Live site: `https://ninjatomapps.com/`
 
@@ -39,6 +39,8 @@ The script also discovers real project icons automatically. It checks, in order:
 - common repo paths such as `assets/app-icon.png`, `assets/icon-512.png`, and `screenshots/app-icon.png`
 
 The script also picks up App Store links from each project site's `index.html` when a manifest does not specify `appStoreUrl`. This keeps launched app cards current as long as the public site links to the App Store.
+
+Projects with a valid `appStoreUrl` are marked `On the App Store` on cards and in the detail drawer. Projects without an App Store URL get a projected release date and progress score estimated from public signals such as manifest status, website availability, support/privacy pages, screenshots, GitHub releases, and recent repo updates. You can override the estimate with manifest fields when you know the real target.
 
 The script also builds each drawer gallery. It prefers `site-manifest.json` `screenshots`, then `site.webmanifest` screenshots, then screenshot-like images from the project homepage, then screenshot/preview files found by scanning the repo tree, then known common screenshot paths. If no explicit gallery exists, the project preview image is still used as a one-image fallback. If a repo has screenshots but no explicit preview image, the first screenshot becomes the card preview so the grid stays visual.
 
@@ -85,7 +87,7 @@ Minimum useful manifest:
   "website": "https://doorcodesapp.com/",
   "supportUrl": "https://doorcodesapp.com/support.html",
   "privacyUrl": "https://doorcodesapp.com/privacy.html",
-  "appStoreUrl": "",
+  "appStoreUrl": "https://apps.apple.com/us/app/doorcodes-vault/id6761863570",
   "icon": "",
   "launchedAt": "2026-04-30T00:00:00Z",
   "version": "Live",
@@ -95,6 +97,7 @@ Minimum useful manifest:
     "Support and privacy pages available",
     "Premium screenshot gallery ready"
   ],
+  "progressPercent": 100,
   "screenshots": [
     {
       "src": "https://doorcodesapp.com/assets/doorcodes-social-preview.png",
@@ -128,6 +131,9 @@ Example manifests live in `examples/site-manifests/`.
 - `version`: optional public version or release label shown in the drawer and JSON-LD
 - `launchNotes`: optional release note shown in the drawer and RSS feed
 - `versionHighlights`: optional short bullet list shown under launch notes in the drawer
+- `projectedReleaseDate`: optional ISO date-time used as the manual projected release date when `appStoreUrl` is blank. `estimatedReleaseDate` and `targetReleaseDate` are accepted aliases.
+- `progressPercent`: optional manual release-progress override from 0 to 100. `progress` and `completionPercent` are accepted aliases. If omitted, the hub estimates progress from public project signals.
+- `releaseProjectionNote`: optional note shown in the release projection drawer section. `progressNote` is accepted as an alias.
 - `accent`: six-digit hex color
 - `featured`: featured projects appear first
 - `sortOrder`: lower numbers appear earlier within featured/non-featured groups

@@ -22,6 +22,8 @@
     "Project site indexed",
     "Technical preview artwork available"
   ],
+  "progressPercent": 68,
+  "releaseProjectionNote": "Projected from the live site, technical preview material, and support/privacy readiness.",
   "accent": "#59F2C7",
   "featured": true,
   "sortOrder": 20

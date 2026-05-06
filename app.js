@@ -140,7 +140,7 @@ async function init() {
 
   try {
     const payload = await loadProjects();
-    state.projects = payload.projects.map(normalizeProject);
+    state.projects = payload.projects.map((project) => normalizeProject(project, payload));
     renderHeroShowcase(state.projects);
     renderLatestUpdates(state.projects);
     renderStudioNotes(state.projects);
@@ -153,7 +153,7 @@ async function init() {
     applyVisualCommandPalette();
   } catch (error) {
     console.warn("Falling back to sample project data.", error);
-    state.projects = FALLBACK_PROJECTS.map(normalizeProject);
+    state.projects = FALLBACK_PROJECTS.map((project) => normalizeProject(project, { sample: true }));
     renderHeroShowcase(state.projects);
     renderLatestUpdates(state.projects);
     renderStudioNotes(state.projects);
@@ -402,12 +402,16 @@ function humanizeRepoName(value) {
     .replace(/\b\w/g, (letter) => letter.toUpperCase());
 }
 
-function normalizeProject(project) {
+function normalizeProject(project, context = {}) {
   const name = stringOr(project.name, "Untitled Project");
   const category = stringOr(project.category, "Project");
   const status = stringOr(project.status, "Live");
   const repoName = stringOr(project.repoName, "");
   const website = validUrl(project.website);
+  const supportUrl = validUrl(project.supportUrl);
+  const privacyUrl = validUrl(project.privacyUrl);
+  const appStoreUrl = validUrl(project.appStoreUrl);
+  const repositoryUrl = validUrl(project.repositoryUrl);
   const previewImage = validUrl(project.previewImage);
   const previewImageAlt = stringOr(project.previewImageAlt, `${name} preview`);
   const topics = normalizeTextList(project.topics);
@@ -433,12 +437,50 @@ function normalizeProject(project) {
   const launchedAt = stringOr(project.launchedAt || project.launchDate, "");
   const launchNotes = stringOr(project.launchNotes, defaultLaunchNotes(project));
   const latestRelease = normalizeLatestRelease(project.latestRelease || repoIndex.latest_release);
+  const updatedAt = stringOr(project.updatedAt, "");
   const screenshots = normalizeScreenshots(project.screenshots, {
     name,
     previewImage,
     previewImageAlt,
   });
   const resolvedPreviewImage = previewImage || screenshots[0]?.src || "";
+  const projectionContext = {
+    generatedAt: context.generatedAt || context.orgIndexGeneratedAt,
+    sample: context.sample,
+  };
+  const releaseProjection = createReleaseProjection(
+    {
+      name,
+      category,
+      status,
+      website,
+      supportUrl,
+      privacyUrl,
+      appStoreUrl,
+      repositoryUrl,
+      icon: validUrl(project.icon),
+      previewImage: resolvedPreviewImage,
+      screenshots,
+      accent: validAccent(project.accent),
+      repoName,
+      fullName: stringOr(project.fullName || project.full_name, ""),
+      manifestFound: Boolean(project.manifestFound),
+      stargazersCount: numberOr(project.stargazersCount ?? project.stars, 0),
+      forksCount: numberOr(project.forksCount ?? project.forks, 0),
+      openIssuesCount: numberOr(project.openIssuesCount ?? repoIndex.open_issues_count, 0),
+      latestRelease,
+      updatedAt,
+      language,
+      archived,
+      launchedAt,
+      version,
+      topics,
+      projectedReleaseDate: stringOr(project.projectedReleaseDate || project.estimatedReleaseDate || project.targetReleaseDate, ""),
+      progressPercent: project.progressPercent ?? project.progress ?? project.completionPercent,
+      releaseProjectionNote: stringOr(project.releaseProjectionNote || project.progressNote, ""),
+    },
+    projectionContext,
+  );
   const versionHighlights = normalizeTextList(project.versionHighlights, [
     `${status} ${category} project website`,
     project.manifestFound ? "Curated by site-manifest.json" : "Auto-discovered from public GitHub Pages",
@@ -454,10 +496,10 @@ function normalizeProject(project) {
     category,
     status,
     website,
-    supportUrl: validUrl(project.supportUrl),
-    privacyUrl: validUrl(project.privacyUrl),
-    appStoreUrl: validUrl(project.appStoreUrl),
-    repositoryUrl: validUrl(project.repositoryUrl),
+    supportUrl,
+    privacyUrl,
+    appStoreUrl,
+    repositoryUrl,
     icon: validUrl(project.icon),
     previewImage: resolvedPreviewImage,
     previewImageAlt,
@@ -476,13 +518,14 @@ function normalizeProject(project) {
     defaultBranch: stringOr(project.defaultBranch || repoIndex.default_branch, ""),
     openIssuesCount: numberOr(project.openIssuesCount ?? repoIndex.open_issues_count, 0),
     latestRelease,
-    updatedAt: stringOr(project.updatedAt, ""),
+    updatedAt,
     language,
     archived,
     launchedAt,
     version,
     launchNotes,
     versionHighlights,
+    releaseProjection,
     topics,
     searchText: [
       name,
@@ -502,6 +545,9 @@ function normalizeProject(project) {
       project.defaultBranch,
       latestRelease?.name,
       latestRelease?.tag_name,
+      releaseProjection.label,
+      releaseProjection.dateLabel,
+      releaseProjection.badge,
       topics.join(" "),
     ]
       .filter(Boolean)
@@ -845,6 +891,7 @@ function createProjectCard(project, index = 0) {
     preview.appendChild(createDefaultPreview(project));
   }
   preview.appendChild(createStatusBadge(project.status));
+  preview.appendChild(createReleaseBadge(project));
   if (isRecentlyUpdated(project)) {
     preview.appendChild(createFreshBadge());
   }
@@ -870,6 +917,7 @@ function createProjectCard(project, index = 0) {
   tagline.className = "card-tagline";
   tagline.textContent = project.tagline;
 
+  const releaseMeta = createReleaseMeta(project);
   const repoMeta = createRepoMeta(project);
 
   const links = document.createElement("div");
@@ -888,6 +936,7 @@ function createProjectCard(project, index = 0) {
   appendFooterMeta(footer, formatRelative(project.updatedAt), "clock");
 
   body.append(titleRow, tagline);
+  if (releaseMeta) body.appendChild(releaseMeta);
   if (repoMeta) body.appendChild(repoMeta);
   if (links.children.length) body.appendChild(links);
   body.appendChild(footer);
@@ -1025,6 +1074,36 @@ function createStatusBadge(label) {
   return status;
 }
 
+function createReleaseBadge(project) {
+  const projection = project.releaseProjection;
+  const badge = document.createElement("span");
+  badge.className = `release-badge ${projection.kind}`;
+  badge.textContent = projection.badge;
+  badge.title = projection.dateLabel;
+  return badge;
+}
+
+function createReleaseMeta(project) {
+  const projection = project.releaseProjection;
+  if (!projection) return null;
+
+  const meta = document.createElement("div");
+  meta.className = `release-meta ${projection.kind}`;
+  meta.appendChild(createIcon(projection.kind === "app-store" ? "phone" : "calendar"));
+
+  const copy = document.createElement("span");
+  const label = document.createElement("strong");
+  label.textContent = projection.label;
+  const detail = document.createElement("span");
+  detail.textContent = projection.kind === "projected"
+    ? `${projection.dateLabel} / ${projection.progress}% progress`
+    : projection.dateLabel;
+
+  copy.append(label, detail);
+  meta.appendChild(copy);
+  return meta;
+}
+
 function createFreshBadge() {
   const badge = document.createElement("span");
   badge.className = "fresh-badge";
@@ -1156,6 +1235,8 @@ function iconPath(name) {
   switch (name) {
     case "clock":
       return "M12 6v6l4 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z";
+    case "calendar":
+      return "M7 3.5v3M17 3.5v3M4.5 8.5h15M6 5.5h12a1.5 1.5 0 0 1 1.5 1.5v11.5A1.5 1.5 0 0 1 18 20H6a1.5 1.5 0 0 1-1.5-1.5V7A1.5 1.5 0 0 1 6 5.5Zm2.5 7h3m3 0h1";
     case "star":
       return "m12 3.5 2.6 5.2 5.8.8-4.2 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8-4.2-4.1 5.8-.8L12 3.5Z";
     case "fork":
@@ -1564,6 +1645,9 @@ function renderProjectDrawer(project) {
   appendFact(facts, "Default Branch", project.defaultBranch);
   appendFact(facts, "Open Issues", project.openIssuesCount ? formatCompactNumber(project.openIssuesCount) : "");
   appendFact(facts, "Latest Release", project.latestRelease?.tag_name || project.latestRelease?.name || "");
+  appendFact(facts, "Store Status", project.releaseProjection.label);
+  appendFact(facts, "Projected Release", project.releaseProjection.kind === "projected" ? formatDate(project.releaseProjection.date) : "");
+  appendFact(facts, "Progress", project.releaseProjection.progress ? `${project.releaseProjection.progress}%` : "");
   appendFact(facts, "Stars", formatCompactNumber(project.stargazersCount));
   appendFact(facts, "Forks", formatCompactNumber(project.forksCount));
   appendFact(facts, "Data", project.manifestFound ? "site-manifest.json" : "Inferred from GitHub Pages");
@@ -1577,17 +1661,68 @@ function renderProjectDrawer(project) {
   }
 
   const snapshot = createDrawerSnapshot(project);
+  const releaseForecast = createReleaseForecast(project);
   const gallery = createScreenshotGallery(project);
   const launchNotes = createLaunchNotes(project);
   const repoIndex = createRepoIndexSection(project);
 
   content.append(header, tags, actions);
+  if (releaseForecast) content.appendChild(releaseForecast);
   if (snapshot) content.appendChild(snapshot);
   if (repoIndex) content.appendChild(repoIndex);
   if (launchNotes) content.appendChild(launchNotes);
   if (gallery) content.appendChild(gallery);
   content.appendChild(facts);
   if (topicWrap.children.length) content.appendChild(topicWrap);
+}
+
+function createReleaseForecast(project) {
+  const projection = project.releaseProjection;
+  if (!projection) return null;
+
+  const section = document.createElement("section");
+  section.className = `drawer-release ${projection.kind}`;
+  section.setAttribute("aria-label", `${project.name} App Store and release projection`);
+
+  const header = document.createElement("div");
+  header.className = "drawer-release-heading";
+
+  const title = document.createElement("h3");
+  title.textContent = projection.kind === "app-store"
+    ? "App Store Status"
+    : projection.target === "App Store"
+      ? "App Store Projection"
+      : "Release Projection";
+
+  const meta = document.createElement("span");
+  meta.textContent = projection.dateLabel;
+  header.append(title, meta);
+
+  const copy = document.createElement("p");
+  copy.textContent = projection.note;
+
+  const progress = document.createElement("div");
+  progress.className = "release-progress";
+  progress.setAttribute("aria-label", `${projection.progress}% project progress`);
+  progress.style.setProperty("--progress", `${projection.progress}%`);
+
+  const progressLabel = document.createElement("span");
+  progressLabel.textContent = `${projection.progress}% progress`;
+
+  const progressBar = document.createElement("span");
+  progressBar.setAttribute("aria-hidden", "true");
+  progress.append(progressLabel, progressBar);
+
+  const signals = document.createElement("ul");
+  for (const signal of projection.signals.slice(0, 5)) {
+    const item = document.createElement("li");
+    item.textContent = signal.label;
+    signals.appendChild(item);
+  }
+
+  section.append(header, copy, progress);
+  if (signals.children.length) section.appendChild(signals);
+  return section;
 }
 
 function createDrawerSnapshot(project) {
@@ -2109,6 +2244,13 @@ function projectStructuredData(project) {
     releaseNotes: project.launchNotes || undefined,
     publisher: { "@id": ORGANIZATION_ID },
     mainEntityOfPage: projectShareUrl(project),
+    potentialAction: project.releaseProjection?.kind === "projected"
+      ? {
+          "@type": "ViewAction",
+          name: project.releaseProjection.dateLabel,
+          target: project.website || project.repositoryUrl || projectShareUrl(project),
+        }
+      : undefined,
   };
 
   return compactObject(data);
@@ -2164,6 +2306,15 @@ function formatDate(value) {
   }).format(date);
 }
 
+function formatShortDate(value) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
+  return new Intl.DateTimeFormat(undefined, {
+    month: "short",
+    day: "numeric",
+  }).format(date);
+}
+
 function isRecentlyUpdated(project) {
   if (visualTestMode) return false;
   const updated = dateValue(project.updatedAt);
@@ -2177,6 +2328,165 @@ function isRecentlyLaunched(project) {
   if (!launched) return false;
   const days = ((visualTestMode ? dateValue("2026-05-01T00:00:00Z") : Date.now()) - launched) / (24 * 60 * 60 * 1000);
   return days >= 0 && days <= 120;
+}
+
+function createReleaseProjection(project, context = {}) {
+  const explicitDate = cleanDateValue(project.projectedReleaseDate);
+  const explicitProgress = normalizedPercent(project.progressPercent);
+
+  if (project.appStoreUrl) {
+    const date = cleanDateValue(project.launchedAt) || cleanDateValue(project.updatedAt) || "";
+    return {
+      kind: "app-store",
+      label: "On the App Store",
+      badge: "App Store",
+      target: "App Store",
+      date,
+      dateLabel: date ? `App Store live / ${formatDate(date)}` : "App Store live",
+      progress: 100,
+      note: `${project.name} has a verified App Store link in the catalog.`,
+      signals: [{ label: "App Store URL connected", weight: 100 }],
+    };
+  }
+
+  if (project.archived || /archived/i.test(project.status)) {
+    return {
+      kind: "archived",
+      label: "Archived",
+      badge: "Archived",
+      target: "release",
+      date: "",
+      dateLabel: "No active release projection",
+      progress: explicitProgress ?? 0,
+      note: `${project.name} is archived, so the hub does not project a release date.`,
+      signals: [{ label: "Repository or manifest is archived", weight: 0 }],
+    };
+  }
+
+  const signals = releaseProgressSignals(project);
+  const inferredProgress = signals.reduce((total, signal) => total + signal.weight, 0);
+  const progress = explicitProgress ?? clampNumber(inferredProgress, 12, 95);
+  const date = explicitDate || projectedReleaseDate(project, progress, context);
+  const target = releaseProjectionTarget(project);
+  const targetPhrase = target === "App Store" ? "App Store" : "release";
+
+  return {
+    kind: "projected",
+    label: `Projected ${target}`,
+    badge: `Projected ${formatShortDate(date) || "TBD"}`,
+    target,
+    date,
+    dateLabel: formatDate(date) ? `Projected ${formatDate(date)}` : "Projected date TBD",
+    progress,
+    note:
+      project.releaseProjectionNote ||
+      `Estimated ${targetPhrase} timing from public project progress: ${signals.slice(0, 3).map((signal) => signal.label).join(", ").toLowerCase()}.`,
+    signals,
+  };
+}
+
+function releaseProjectionTarget(project) {
+  const searchable = `${project.category} ${project.status} ${project.topics.join(" ")}`;
+  return /ios|iphone|ipad|app store|testflight/i.test(searchable) ? "App Store" : "release";
+}
+
+function releaseProgressSignals(project) {
+  const signals = [];
+  const status = project.status.toLowerCase();
+
+  if (/release candidate/.test(status)) signals.push({ label: "Release candidate status", weight: 28 });
+  else if (/testflight|beta/.test(status)) signals.push({ label: "Beta/TestFlight status", weight: 22 });
+  else if (/private staging|staging/.test(status)) signals.push({ label: "Private staging status", weight: 16 });
+  else if (/coming soon|planned/.test(status)) signals.push({ label: "Coming soon status", weight: 10 });
+  else if (/live/.test(status)) signals.push({ label: "Public site is live", weight: 18 });
+
+  if (project.website) signals.push({ label: "Public website connected", weight: 14 });
+  if (project.manifestFound) signals.push({ label: "Curated site manifest", weight: 14 });
+  if (project.supportUrl) signals.push({ label: "Support URL ready", weight: 5 });
+  if (project.privacyUrl) signals.push({ label: "Privacy URL ready", weight: 5 });
+  if (project.icon) signals.push({ label: "App icon discovered", weight: 4 });
+  if (project.previewImage) signals.push({ label: "Preview artwork ready", weight: 5 });
+  if (project.screenshots.length >= 5) signals.push({ label: "Full screenshot gallery", weight: 14 });
+  else if (project.screenshots.length >= 3) signals.push({ label: "Screenshot gallery started", weight: 10 });
+  else if (project.screenshots.length >= 1) signals.push({ label: "Project screenshot available", weight: 5 });
+  if (project.version) signals.push({ label: "Version metadata set", weight: 5 });
+  if (project.latestRelease) signals.push({ label: "GitHub release exists", weight: 8 });
+  if (project.repositoryUrl) signals.push({ label: "GitHub repo indexed", weight: 3 });
+
+  const daysSinceUpdate = daysSince(project.updatedAt);
+  if (daysSinceUpdate <= 30) signals.push({ label: "Updated in the last 30 days", weight: 8 });
+  else if (daysSinceUpdate <= 90) signals.push({ label: "Updated in the last 90 days", weight: 5 });
+  else if (daysSinceUpdate <= 180) signals.push({ label: "Updated in the last 180 days", weight: 2 });
+
+  return signals.length ? signals : [{ label: "Catalog entry exists", weight: 12 }];
+}
+
+function projectedReleaseDate(project, progress, context = {}) {
+  const anchor = projectionAnchorDate(project, context);
+  const days =
+    progress >= 88 ? 14 :
+      progress >= 76 ? 28 :
+        progress >= 62 ? 49 :
+          progress >= 46 ? 77 :
+            112;
+  const jitter = stableNumber(project.repoName || project.name) % 10;
+  const date = new Date(anchor);
+  date.setUTCDate(date.getUTCDate() + days + jitter);
+
+  while (date.getUTCDay() !== 2) {
+    date.setUTCDate(date.getUTCDate() + 1);
+  }
+
+  date.setUTCHours(12, 0, 0, 0);
+  return date.toISOString();
+}
+
+function projectionAnchorDate(project, context = {}) {
+  if (visualTestMode) return new Date("2026-05-06T12:00:00Z");
+
+  const candidates = [
+    context.generatedAt,
+    project.updatedAt,
+    project.launchedAt,
+    new Date().toISOString(),
+  ];
+
+  for (const candidate of candidates) {
+    const date = new Date(candidate);
+    if (!Number.isNaN(date.getTime())) return date;
+  }
+
+  return new Date();
+}
+
+function cleanDateValue(value) {
+  if (!value) return "";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
+  return date.toISOString();
+}
+
+function normalizedPercent(value) {
+  if (value === undefined || value === null || value === "") return null;
+  const number = Number(value);
+  return Number.isFinite(number) ? clampNumber(Math.round(number), 0, 100) : null;
+}
+
+function clampNumber(value, min, max) {
+  return Math.min(max, Math.max(min, value));
+}
+
+function daysSince(value) {
+  const timestamp = dateValue(value);
+  if (!timestamp) return Infinity;
+  const now = visualTestMode ? dateValue("2026-05-06T12:00:00Z") : Date.now();
+  return Math.max(0, (now - timestamp) / (24 * 60 * 60 * 1000));
+}
+
+function stableNumber(value) {
+  return String(value || "")
+    .split("")
+    .reduce((total, character) => total + character.charCodeAt(0), 0);
 }
 
 function normalizeScreenshots(value, fallback = {}) {

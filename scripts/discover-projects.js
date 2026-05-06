@@ -340,6 +340,14 @@ async function normalizeProject(repo, topics, manifest, siteHints = {}) {
       ? `${screenshots.length} gallery image${screenshots.length === 1 ? "" : "s"} available`
       : "Project preview available",
   ]);
+  const projectedReleaseDate = cleanDateString(
+    manifest?.projectedReleaseDate,
+    manifest?.estimatedReleaseDate,
+    manifest?.targetReleaseDate,
+  );
+  const progressPercent = normalizePercent(
+    manifest?.progressPercent ?? manifest?.progress ?? manifest?.completionPercent,
+  );
 
   return {
     name,
@@ -362,6 +370,9 @@ async function normalizeProject(repo, topics, manifest, siteHints = {}) {
     version,
     launchNotes,
     versionHighlights,
+    projectedReleaseDate: projectedReleaseDate || undefined,
+    progressPercent,
+    releaseProjectionNote: cleanString(manifest?.releaseProjectionNote || manifest?.progressNote) || undefined,
     accent: validAccent(manifest?.accent) || fallback.accent || inferredAccent(repo.name),
     featured: manifest?.featured === undefined ? Boolean(fallback.featured) : Boolean(manifest.featured),
     sortOrder: Number.isFinite(Number(manifest?.sortOrder))
@@ -901,6 +912,13 @@ function cleanDateString(...values) {
     if (!Number.isNaN(date.getTime())) return date.toISOString();
   }
   return "";
+}
+
+function normalizePercent(value) {
+  if (value === undefined || value === null || value === "") return undefined;
+  const number = Number(value);
+  if (!Number.isFinite(number)) return undefined;
+  return Math.min(100, Math.max(0, Math.round(number)));
 }
 
 function normalizeStringList(value, fallback = []) {

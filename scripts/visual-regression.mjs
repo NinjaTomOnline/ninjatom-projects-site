@@ -59,6 +59,13 @@ const shots = [
     height: 1000,
   },
   {
+    name: "desktop-projected-project-detail",
+    path: "./?visual-test=1#project/zenwisdom-site",
+    windowSize: "1440,1000",
+    width: 1440,
+    height: 1000,
+  },
+  {
     name: "desktop-command-palette",
     path: "./?visual-test=1&command=1",
     windowSize: "1440,1000",

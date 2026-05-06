@@ -25,6 +25,7 @@
     "Support and privacy pages available",
     "Premium screenshot gallery ready"
   ],
+  "progressPercent": 100,
   "accent": "#38BDF8",
   "featured": true,
   "sortOrder": 10

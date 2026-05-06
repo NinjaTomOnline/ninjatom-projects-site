@@ -23,6 +23,7 @@ try {
   await capture("desktop-projects", `${baseUrl}#projects`, "1440,1200", 1440, 1200);
   await capture("desktop-category-games", `${baseUrl}#category/games`, "1440,1000", 1440, 1000);
   await capture("desktop-project-detail", `${baseUrl}#project/doorcodes-site`, "1440,1000", 1440, 1000);
+  await capture("desktop-projected-project-detail", `${baseUrl}#project/zenwisdom-site`, "1440,1000", 1440, 1000);
   await capture("desktop-command-palette", `${baseUrl}?visual-test=1&command=1`, "1440,1000", 1440, 1000);
   await capture("changelog", `${baseUrl}changelog.html`, "1440,900", 1440, 900);
   await capture("status", `${baseUrl}status.html`, "1440,900", 1440, 900);

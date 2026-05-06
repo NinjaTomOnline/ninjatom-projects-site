@@ -149,6 +149,47 @@
         "type": "string"
       }
     },
+    "projectedReleaseDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Optional manual projected App Store or public release date. Used only when appStoreUrl is blank."
+    },
+    "estimatedReleaseDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Alias for projectedReleaseDate."
+    },
+    "targetReleaseDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Alias for projectedReleaseDate."
+    },
+    "progressPercent": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Optional release-progress override from 0 to 100. If omitted, the hub estimates progress from public project signals."
+    },
+    "progress": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Alias for progressPercent."
+    },
+    "completionPercent": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Alias for progressPercent."
+    },
+    "releaseProjectionNote": {
+      "type": "string",
+      "description": "Optional note shown in the release projection drawer section."
+    },
+    "progressNote": {
+      "type": "string",
+      "description": "Alias for releaseProjectionNote."
+    },
     "accent": {
       "type": "string",
       "pattern": "^#[0-9A-Fa-f]{6}$",
@@ -192,6 +233,7 @@
         "Support and privacy pages available",
         "Premium screenshot gallery ready"
       ],
+      "progressPercent": 100,
       "accent": "#38BDF8",
       "featured": true,
       "sortOrder": 10

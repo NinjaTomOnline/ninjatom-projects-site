@@ -65,10 +65,12 @@
 - [x] Add a Node 20 GitHub org repository index at `data/projects.json` plus a Pages artifact deploy workflow with DNS/HTTPS verification.
 - [x] Switch Pages to GitHub Actions deploys, add the `ORG_PAT` Actions secret, set project repo homepage URLs, add a deploy badge, and surface repo-index metadata in project drawers.
 - [x] Add footer deploy freshness, a public `status.html`, richer repo-index metadata, catalog JSON copy/download actions, and generated per-project Open Graph share pages/images.
+- [x] Add App Store live markers and progress-based projected release dates for projects not yet in the store.
 
 ## Future
 
 - [ ] Add missing App Store links to project homepages as each remaining app launches.
+- [ ] Replace estimated projections with exact owner-approved target dates where launch plans are known.
 - [ ] Work through the highest-impact ideas in `NEXT_23_SITE_IDEAS.md`.
 
 ## Blocked / Needs Owner Choice
