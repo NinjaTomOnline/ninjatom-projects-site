@@ -1556,6 +1556,11 @@ body[data-visual-view="projects"] .projects-section {
   background: rgba(164, 92, 255, 0.16);
 }
 
+.tag.archived-tag {
+  color: #ffd28c;
+  background: rgba(255, 190, 92, 0.13);
+}
+
 .card-tagline {
   min-height: 4.4rem;
   margin: 0.9rem 0 1rem;
@@ -1563,6 +1568,47 @@ body[data-visual-view="projects"] .projects-section {
   font-size: 1rem;
   font-weight: 430;
   line-height: 1.55;
+}
+
+.repo-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.38rem;
+  margin: -0.2rem 0 0.88rem;
+}
+
+.repo-chip {
+  display: inline-flex;
+  min-height: 24px;
+  max-width: 100%;
+  align-items: center;
+  border: 1px solid rgba(166, 186, 220, 0.13);
+  border-radius: var(--radius-sm);
+  padding: 0 0.48rem;
+  color: #b8c0cf;
+  background: rgba(255, 255, 255, 0.035);
+  font-size: 0.68rem;
+  font-weight: 780;
+  line-height: 1;
+  overflow-wrap: anywhere;
+}
+
+.repo-chip.language {
+  color: #98f5d0;
+  border-color: rgba(89, 242, 199, 0.24);
+  background: rgba(89, 242, 199, 0.08);
+}
+
+.repo-chip.topic {
+  color: #cdb8ff;
+  border-color: rgba(164, 92, 255, 0.22);
+  background: rgba(164, 92, 255, 0.08);
+}
+
+.repo-chip.archived {
+  color: #ffd28c;
+  border-color: rgba(255, 190, 92, 0.28);
+  background: rgba(255, 190, 92, 0.09);
 }
 
 .card-links {

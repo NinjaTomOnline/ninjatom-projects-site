@@ -2,7 +2,7 @@
 
 Master public website for NinjaTomOnline app, tool, game, and Custom3D.Art project websites.
 
-The site is static and GitHub Pages-friendly: `index.html`, `styles.css`, and `app.js` render a polished project grid from `projects.json`. A GitHub Action refreshes `projects.json` by discovering public repos under `NinjaTomOnline`.
+The site is static and GitHub Pages-friendly: `index.html`, `styles.css`, and `app.js` render a polished project grid from `projects.json`, enriched by the broader GitHub org index at `data/projects.json`. GitHub Actions refresh both data sources by discovering public repos under `NinjaTomOnline`.
 
 The public UI is designed as a dark, cyberpunk-adjacent indie studio portfolio: a large NinjaTom Apps hero, layered project mockups, a compact icon-led filter/search/sort deck, a grid-first project browser, a keyboard quick-find palette, Latest Updates folded into Studio Notes, image-first project cards that prefer real screenshots over generic previews, GitHub metadata, tasteful motion, and neon cursor spotlights, shareable project detail drawers with snapshot stats, screenshot galleries, and launch notes, category hash routes, responsive mobile navigation, JSON-LD project structured data, a branded 404 page, RSS project updates, a public changelog, and a footer with Custom3D.Art, GitHub, and support links.
 
@@ -43,6 +43,22 @@ The script also builds each drawer gallery. It prefers `site-manifest.json` `scr
 The script includes GitHub repository metadata from the same public API response, including `stargazersCount` and `forksCount`. The frontend shows those compactly on project cards and in drawer metadata.
 
 The script writes both `projects.json` and `feed.xml`. The action commits those generated files only when project data or RSS output changes. Generated commits include `[skip ci]`, and the workflow ignores pushes that only change `projects.json` or `feed.xml` to avoid update loops.
+
+## Auto Index And Pages Deploy
+
+The workflow in `.github/workflows/auto-index-deploy.yml` adds a GitHub Pages artifact deploy path for the app hub.
+
+It runs:
+
+- on push to `main`
+- weekly on Mondays at `10:17 UTC`
+- manually with `workflow_dispatch`
+
+It runs `node scripts/fetch-repos.mjs`, writes `data/projects.json`, stages the plain static site into `_pages`, uploads that single directory with `actions/upload-pages-artifact`, and deploys with `actions/deploy-pages` when GitHub Pages source is set to `GitHub Actions`.
+
+The repo is currently a plain static root site, not Eleventy, Vite, VitePress, or Next. Because GitHub Pages was still configured as legacy branch deployment when this workflow was added, the deploy job skips safely until `Settings` -> `Pages` is switched from `Deploy from a branch` to `GitHub Actions`.
+
+Full setup and troubleshooting notes are in `docs/auto-index-deploy.md`.
 
 ## Add A New Project
 
@@ -129,6 +145,12 @@ Locally:
 GITHUB_TOKEN="$(gh auth token)" node scripts/discover-projects.js
 ```
 
+To refresh the broader GitHub org repo index locally:
+
+```bash
+GITHUB_TOKEN="$(gh auth token)" GITHUB_ORG=NinjaTomOnline node scripts/fetch-repos.mjs
+```
+
 ## GitHub Pages Setup
 
 GitHub Pages is currently configured for this repo:
@@ -151,6 +173,8 @@ If the Pages configuration ever needs to be recreated, use:
 7. Turn on `Enforce HTTPS` after DNS and certificate provisioning are ready.
 
 Also confirm `Settings` -> `Actions` -> `General` allows workflows to read and write repository contents, because the refresh workflow commits `projects.json`.
+
+For the artifact deploy workflow, change `Settings` -> `Pages` -> Source to `GitHub Actions`, then run `Auto index and deploy` manually. The custom domain, `CNAME`, canonical metadata, Open Graph image, and HTTPS enforcement stay the same.
 
 Canonical host files are committed in this repo:
 
@@ -245,14 +269,18 @@ The Lighthouse config starts a local static server and audits the homepage, pres
 - Project cards: `app.js` uses real preview images when available, prefers screenshot-like project media over generic social/preview artwork, makes non-button card areas open the project site, shows gallery-count badges for media-rich projects, and falls back to generated code-native preview panels when a project does not expose a screenshot yet.
 - Project drawers: use hash routes such as `#project/doorcodes-site`, so individual project panels can be shared without adding per-project HTML files. Category filters use routes such as `#category/ios-apps` and `#category/games`. Drawer galleries are powered by each project's `screenshots` array, with `previewImage` as the fallback, and now include quick snapshot stats plus a larger featured screenshot.
 - `projects.json`: generated project index consumed by the frontend
+- `data/projects.json`: generated GitHub org repository index consumed as an enrichment and fallback data source
 - `scripts/discover-projects.js`: GitHub API discovery script
+- `scripts/fetch-repos.mjs`: Node 20 GitHub REST repo indexer for `.github/workflows/auto-index-deploy.yml`
 - `scripts/visual-regression.mjs`: pixel-baseline regression check with no npm dependencies
 - `scripts/visual-smoke.mjs`: screenshot smoke check for homepage, project grid, project drawer, and 404 states
 - `lighthouserc.json`: Lighthouse CI audit thresholds and local static-server config
 - `.github/workflows/discover-projects.yml`: scheduled/manual/push refresh automation
+- `.github/workflows/auto-index-deploy.yml`: Node 20 org index generation, single-path Pages artifact upload, deploy-pages deployment, and DNS/HTTPS verification artifact
 - `.github/workflows/visual-smoke.yml`: desktop/mobile screenshot smoke check plus pixel-baseline comparison
 - `.github/workflows/lighthouse.yml`: Lighthouse CI checks for accessibility, SEO, best practices, and performance
 - `site-manifest.schema.json`: metadata contract
 - `examples/site-manifests/`: copy/paste manifest starters
 - `tests/visual-baselines/`: committed screenshot baselines for regression checks
 - `NEXT_23_SITE_IDEAS.md`: prioritized ideas for future polish and special effects
+- `docs/auto-index-deploy.md`: custom Pages workflow setup, optional `ORG_PAT`, manual run, repo topic/homepage, and troubleshooting notes

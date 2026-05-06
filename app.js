@@ -246,17 +246,147 @@ function bindEvents() {
 }
 
 async function loadProjects() {
-  const response = await fetch("projects.json", { cache: "no-store" });
+  const [primaryResult, orgIndexResult] = await Promise.allSettled([
+    loadProjectPayload("projects.json"),
+    loadOrgIndexPayload("data/projects.json"),
+  ]);
+
+  const orgIndex = orgIndexResult.status === "fulfilled" ? orgIndexResult.value : null;
+  if (orgIndexResult.status === "rejected" && orgIndexResult.reason?.status !== 404) {
+    console.warn("Unable to load data/projects.json.", orgIndexResult.reason);
+  }
+
+  if (primaryResult.status === "fulfilled") {
+    return mergeOrgRepositoryData(primaryResult.value, orgIndex);
+  }
+
+  if (orgIndex) {
+    return orgIndexToProjectPayload(orgIndex);
+  }
+
+  throw primaryResult.reason || new Error("Unable to load project data.");
+}
+
+async function loadProjectPayload(path) {
+  const response = await fetch(path, { cache: "no-store" });
   if (!response.ok) {
-    throw new Error(`Unable to load projects.json: ${response.status}`);
+    throw statusError(`Unable to load ${path}: ${response.status}`, response.status);
   }
 
   const payload = await response.json();
   if (!payload || !Array.isArray(payload.projects)) {
-    throw new Error("projects.json must contain a projects array.");
+    throw new Error(`${path} must contain a projects array.`);
   }
 
   return payload;
+}
+
+async function loadOrgIndexPayload(path) {
+  const response = await fetch(path, { cache: "no-store" });
+  if (!response.ok) {
+    throw statusError(`Unable to load ${path}: ${response.status}`, response.status);
+  }
+
+  const payload = await response.json();
+  if (!payload || !Array.isArray(payload.repositories)) {
+    throw new Error(`${path} must contain a repositories array.`);
+  }
+
+  return payload;
+}
+
+function mergeOrgRepositoryData(payload, orgIndex) {
+  if (!orgIndex?.repositories?.length) return payload;
+
+  const repositoriesByName = new Map();
+  const repositoriesByUrl = new Map();
+  for (const repo of orgIndex.repositories) {
+    repositoriesByName.set(String(repo.name || "").toLowerCase(), repo);
+    repositoriesByUrl.set(String(repo.html_url || "").replace(/\/$/, "").toLowerCase(), repo);
+  }
+
+  return {
+    ...payload,
+    orgIndexGeneratedAt: orgIndex.generatedAt,
+    orgIndexCount: orgIndex.count || orgIndex.repositories.length,
+    projects: payload.projects.map((project) => {
+      const repoUrl = String(project.repositoryUrl || "").replace(/\/$/, "").toLowerCase();
+      const repo = repositoriesByName.get(String(project.repoName || "").toLowerCase()) || repositoriesByUrl.get(repoUrl);
+      if (!repo) return project;
+
+      return {
+        ...project,
+        fullName: project.fullName || repo.full_name,
+        repositoryUrl: project.repositoryUrl || repo.html_url,
+        description: project.description || repo.description,
+        website: project.website || repo.homepage,
+        topics: Array.isArray(repo.topics) && repo.topics.length ? repo.topics : project.topics,
+        language: project.language || repo.language,
+        archived: project.archived ?? repo.archived,
+        updatedAt: project.updatedAt || repo.pushed_at,
+        stargazersCount: project.stargazersCount ?? repo.stargazers_count,
+      };
+    }),
+  };
+}
+
+function orgIndexToProjectPayload(orgIndex) {
+  return {
+    schemaVersion: orgIndex.schemaVersion || 1,
+    owner: orgIndex.owner,
+    generatedAt: orgIndex.generatedAt,
+    includeRules: ["data/projects.json GitHub organization repository index"],
+    projects: orgIndex.repositories.map(repoToProject),
+  };
+}
+
+function repoToProject(repo, index) {
+  const name = humanizeRepoName(repo.name);
+  const homepage = validUrl(repo.homepage);
+  const language = stringOr(repo.language, "");
+  const archived = Boolean(repo.archived);
+
+  return {
+    name,
+    tagline: stringOr(repo.description, `Public ${language || "GitHub"} project from NinjaTomOnline.`),
+    category: categoryFromRepository(repo),
+    status: archived ? "Archived" : "Live",
+    website: homepage,
+    repositoryUrl: validUrl(repo.html_url),
+    topics: Array.isArray(repo.topics) ? repo.topics : [],
+    language,
+    archived,
+    featured: false,
+    sortOrder: 500 + index,
+    repoName: repo.name,
+    fullName: repo.full_name,
+    stargazersCount: numberOr(repo.stargazers_count, 0),
+    updatedAt: stringOr(repo.pushed_at, ""),
+    manifestFound: false,
+  };
+}
+
+function categoryFromRepository(repo) {
+  const text = [
+    repo.name,
+    repo.description || "",
+    (repo.topics || []).join(" "),
+    repo.language || "",
+  ]
+    .join(" ")
+    .toLowerCase();
+  if (/(ios|iphone|ipad|swiftui)/.test(text)) return "iOS App";
+  if (/(game|sprite|phaser|unity)/.test(text)) return "Games";
+  if (/(custom3d|creative|3d|art|mesh|voxel)/.test(text)) return "Creative / Custom3D";
+  if (/(tool|utility|cli|automation|script)/.test(text)) return "Tools";
+  return "Web Apps";
+}
+
+function humanizeRepoName(value) {
+  return stringOr(value, "Untitled Project")
+    .replace(/-site$/i, "")
+    .replace(/[-_]+/g, " ")
+    .replace(/\b\w/g, (letter) => letter.toUpperCase());
 }
 
 function normalizeProject(project) {
@@ -267,6 +397,9 @@ function normalizeProject(project) {
   const website = validUrl(project.website);
   const previewImage = validUrl(project.previewImage);
   const previewImageAlt = stringOr(project.previewImageAlt, `${name} preview`);
+  const topics = normalizeTextList(project.topics);
+  const language = stringOr(project.language, "");
+  const archived = Boolean(project.archived);
   const version = stringOr(project.version, "");
   const launchedAt = stringOr(project.launchedAt || project.launchDate, "");
   const launchNotes = stringOr(project.launchNotes, defaultLaunchNotes(project));
@@ -286,7 +419,7 @@ function normalizeProject(project) {
 
   return {
     name,
-    tagline: stringOr(project.tagline, "A public NinjaTomOnline project website."),
+    tagline: stringOr(project.tagline || project.description, "A public NinjaTomOnline project website."),
     category,
     status,
     website,
@@ -302,27 +435,34 @@ function normalizeProject(project) {
     featured: Boolean(project.featured),
     sortOrder: Number.isFinite(Number(project.sortOrder)) ? Number(project.sortOrder) : 1000,
     repoName,
+    fullName: stringOr(project.fullName || project.full_name, ""),
     slug: categorySlug(repoName || name),
     manifestFound: Boolean(project.manifestFound),
     stargazersCount: numberOr(project.stargazersCount ?? project.stars, 0),
     forksCount: numberOr(project.forksCount ?? project.forks, 0),
     updatedAt: stringOr(project.updatedAt, ""),
+    language,
+    archived,
     launchedAt,
     version,
     launchNotes,
     versionHighlights,
-    topics: Array.isArray(project.topics) ? project.topics : [],
+    topics,
     searchText: [
       name,
       project.tagline,
+      project.description,
       launchNotes,
       version,
       versionHighlights.join(" "),
       category,
       status,
+      language,
+      archived ? "archived" : "",
       project.repoName,
+      project.fullName,
       project.website,
-      Array.isArray(project.topics) ? project.topics.join(" ") : "",
+      topics.join(" "),
     ]
       .filter(Boolean)
       .join(" ")
@@ -690,6 +830,8 @@ function createProjectCard(project, index = 0) {
   tagline.className = "card-tagline";
   tagline.textContent = project.tagline;
 
+  const repoMeta = createRepoMeta(project);
+
   const links = document.createElement("div");
   links.className = "card-links";
   links.appendChild(createDetailButton(project, true));
@@ -706,6 +848,7 @@ function createProjectCard(project, index = 0) {
   appendFooterMeta(footer, formatRelative(project.updatedAt), "clock");
 
   body.append(titleRow, tagline);
+  if (repoMeta) body.appendChild(repoMeta);
   if (links.children.length) body.appendChild(links);
   body.appendChild(footer);
   card.append(preview, icon, body);
@@ -854,6 +997,29 @@ function createGalleryBadge(count) {
   badge.className = "gallery-badge";
   badge.textContent = `${count} shots`;
   return badge;
+}
+
+function createRepoMeta(project) {
+  const items = [];
+  if (project.language) items.push({ label: project.language, tone: "language" });
+  for (const topic of project.topics.slice(0, 2)) {
+    items.push({ label: topic, tone: "topic" });
+  }
+  if (project.archived) items.push({ label: "Archived", tone: "archived" });
+  if (!items.length) return null;
+
+  const meta = document.createElement("div");
+  meta.className = "repo-meta";
+  meta.setAttribute("aria-label", `${project.name} repository metadata`);
+
+  for (const item of items.slice(0, 4)) {
+    const chip = document.createElement("span");
+    chip.className = `repo-chip ${item.tone}`;
+    chip.textContent = item.label;
+    meta.appendChild(chip);
+  }
+
+  return meta;
 }
 
 function createDetailButton(project, compact = false) {
@@ -1314,6 +1480,12 @@ function renderProjectDrawer(project) {
     launched.textContent = "Recently launched";
     tags.appendChild(launched);
   }
+  if (project.archived) {
+    const archived = document.createElement("span");
+    archived.className = "tag archived-tag";
+    archived.textContent = "Archived";
+    tags.appendChild(archived);
+  }
 
   const actions = document.createElement("div");
   actions.className = "drawer-actions";
@@ -1344,6 +1516,9 @@ function renderProjectDrawer(project) {
   appendFact(facts, "Version", project.version);
   appendFact(facts, "Updated", formatDate(project.updatedAt) || formatRelative(project.updatedAt));
   appendFact(facts, "Repo", project.repoName);
+  appendFact(facts, "Full Name", project.fullName);
+  appendFact(facts, "Language", project.language);
+  appendFact(facts, "Archived", project.archived ? "Yes" : "");
   appendFact(facts, "Stars", formatCompactNumber(project.stargazersCount));
   appendFact(facts, "Forks", formatCompactNumber(project.forksCount));
   appendFact(facts, "Data", project.manifestFound ? "site-manifest.json" : "Inferred from GitHub Pages");
@@ -1686,7 +1861,9 @@ function updateDiscoverySummary(payload = {}) {
   const latestProject = [...state.projects].sort((a, b) => dateValue(b.updatedAt) - dateValue(a.updatedAt))[0];
   elements.discoveryCount.textContent = payload.sample
     ? `${state.projects.length} sample projects loaded`
-    : `${state.projects.length} public project sites indexed`;
+    : payload.orgIndexCount
+      ? `${state.projects.length} project sites / ${payload.orgIndexCount} repos indexed`
+      : `${state.projects.length} public project sites indexed`;
   elements.discoveryManifests.textContent = `${manifestCount} manifest${manifestCount === 1 ? "" : "s"} found`;
   elements.discoveryGenerated.textContent = payload.generatedAt
     ? `Refreshed ${formatDate(payload.generatedAt)}`
@@ -1890,7 +2067,15 @@ function compactObject(value) {
 }
 
 function categoryIncludes(project, terms) {
-  const value = `${project.category} ${project.name} ${project.repoName}`.toLowerCase();
+  const value = [
+    project.category,
+    project.name,
+    project.repoName,
+    project.language,
+    project.topics.join(" "),
+  ]
+    .join(" ")
+    .toLowerCase();
   return terms.some((term) => value.includes(term));
 }
 
@@ -1922,6 +2107,12 @@ function dateValue(value) {
 
 function stringOr(value, fallback) {
   return typeof value === "string" && value.trim() ? value.trim() : fallback;
+}
+
+function statusError(message, status) {
+  const error = new Error(message);
+  error.status = status;
+  return error;
 }
 
 function numberOr(value, fallback = 0) {
