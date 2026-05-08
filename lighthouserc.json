@@ -1,14 +1,14 @@
 {
   "ci": {
     "collect": {
-      "startServerCommand": "python3 -u -m http.server 8080 --bind 127.0.0.1",
+      "startServerCommand": "python3 -u -m http.server 8796 --bind 127.0.0.1",
       "startServerReadyPattern": "Serving HTTP",
       "url": [
-        "http://127.0.0.1:8080/",
-        "http://127.0.0.1:8080/press.html",
-        "http://127.0.0.1:8080/changelog.html",
-        "http://127.0.0.1:8080/status.html",
-        "http://127.0.0.1:8080/404.html"
+        "http://127.0.0.1:8796/",
+        "http://127.0.0.1:8796/press.html",
+        "http://127.0.0.1:8796/changelog.html",
+        "http://127.0.0.1:8796/status.html",
+        "http://127.0.0.1:8796/404.html"
       ],
       "numberOfRuns": 1,
       "settings": {

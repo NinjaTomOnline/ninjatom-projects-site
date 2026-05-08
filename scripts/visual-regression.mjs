@@ -38,6 +38,27 @@ const shots = [
     height: 844,
   },
   {
+    name: "mobile-projects",
+    path: "./?visual-test=1&view=projects",
+    windowSize: "390,1000",
+    width: 390,
+    height: 1000,
+  },
+  {
+    name: "mobile-app-store-filter",
+    path: "./?visual-test=1&view=projects#category/app-store",
+    windowSize: "390,1000",
+    width: 390,
+    height: 1000,
+  },
+  {
+    name: "mobile-project-detail",
+    path: "./?visual-test=1#project/doorcodes-site",
+    windowSize: "390,1000",
+    width: 390,
+    height: 1000,
+  },
+  {
     name: "desktop-projects",
     path: "./?visual-test=1&view=projects",
     windowSize: "1440,1200",

@@ -20,6 +20,9 @@ try {
   await assertProjectData();
   await capture("desktop-home", baseUrl, "1440,1000", 1440, 1000);
   await capture("mobile-home", baseUrl, "390,844", 390, 844);
+  await capture("mobile-projects", `${baseUrl}?visual-test=1&view=projects`, "390,1000", 390, 1000);
+  await capture("mobile-app-store-filter", `${baseUrl}?visual-test=1&view=projects#category/app-store`, "390,1000", 390, 1000);
+  await capture("mobile-project-detail", `${baseUrl}#project/doorcodes-site`, "390,1000", 390, 1000);
   await capture("desktop-projects", `${baseUrl}#projects`, "1440,1200", 1440, 1200);
   await capture("desktop-app-store-filter", `${baseUrl}#category/app-store`, "1440,1000", 1440, 1000);
   await capture("desktop-category-games", `${baseUrl}#category/games`, "1440,1000", 1440, 1000);
