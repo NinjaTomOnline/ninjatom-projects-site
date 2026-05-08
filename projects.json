@@ -1,7 +1,7 @@
 {
   "schemaVersion": 3,
   "owner": "NinjaTomOnline",
-  "generatedAt": "2026-05-06T10:16:25.398Z",
+  "generatedAt": "2026-05-08T09:08:33.667Z",
   "includeRules": {
     "repoNameSuffix": "-site",
     "topics": [
@@ -625,37 +625,37 @@
       "privacyUrl": "https://quitgentle.com/privacy/",
       "appStoreUrl": "https://apps.apple.com/us/app/quitgentle-smoking-tracker/id6761405030",
       "icon": "https://raw.githubusercontent.com/NinjaTomOnline/ashtag-site/main/assets/icons/quitgentle-app-icon.png",
-      "previewImage": "https://raw.githubusercontent.com/NinjaTomOnline/ashtag-site/main/assets/screenshots/quitgentle-today-marketing.png",
-      "previewImageAlt": "QuitGentle Today screen preview",
+      "previewImage": "https://raw.githubusercontent.com/NinjaTomOnline/ashtag-site/main/assets/social/quitgentle-facebook-preview-20260507-v2.png",
+      "previewImageAlt": "QuitGentle social preview with app icon, launch copy, and three app screens",
       "screenshots": [
         {
-          "src": "https://raw.githubusercontent.com/NinjaTomOnline/ashtag-site/main/assets/screenshots/quitgentle-today-marketing.png",
-          "alt": "QuitGentle Today screen preview",
+          "src": "https://raw.githubusercontent.com/NinjaTomOnline/ashtag-site/main/assets/social/quitgentle-facebook-preview-20260507-v2.png",
+          "alt": "QuitGentle social preview with app icon, launch copy, and three app screens",
+          "caption": ""
+        },
+        {
+          "src": "https://quitgentle.com/assets/screenshots/quitgentle-today-marketing.png",
+          "alt": "QuitGentle social preview with app icon, launch copy, and three app screens",
           "caption": ""
         },
         {
           "src": "https://quitgentle.com/assets/screenshots/quitgentle-rescue.png",
-          "alt": "QuitGentle Today screen preview",
+          "alt": "QuitGentle social preview with app icon, launch copy, and three app screens",
           "caption": ""
         },
         {
           "src": "https://quitgentle.com/assets/screenshots/quitgentle-watch-marketing.png",
-          "alt": "QuitGentle Today screen preview",
+          "alt": "QuitGentle social preview with app icon, launch copy, and three app screens",
           "caption": ""
         },
         {
           "src": "https://quitgentle.com/assets/screenshots/quitgentle-hotspots.png",
-          "alt": "QuitGentle Today screen preview",
+          "alt": "QuitGentle social preview with app icon, launch copy, and three app screens",
           "caption": ""
         },
         {
           "src": "https://quitgentle.com/assets/screenshots/quitgentle-progress.png",
-          "alt": "QuitGentle Today screen preview",
-          "caption": ""
-        },
-        {
-          "src": "https://quitgentle.com/assets/screenshots/quitgentle-history.png",
-          "alt": "QuitGentle Today screen preview",
+          "alt": "QuitGentle social preview with app icon, launch copy, and three app screens",
           "caption": ""
         }
       ],
@@ -679,7 +679,7 @@
       "manifestFound": true,
       "stargazersCount": 0,
       "forksCount": 0,
-      "updatedAt": "2026-05-06T09:49:46Z"
+      "updatedAt": "2026-05-08T00:01:18Z"
     },
     {
       "name": "Dreamspell",
