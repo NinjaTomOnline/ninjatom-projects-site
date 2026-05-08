@@ -21,6 +21,7 @@ try {
   await capture("desktop-home", baseUrl, "1440,1000", 1440, 1000);
   await capture("mobile-home", baseUrl, "390,844", 390, 844);
   await capture("desktop-projects", `${baseUrl}#projects`, "1440,1200", 1440, 1200);
+  await capture("desktop-app-store-filter", `${baseUrl}#category/app-store`, "1440,1000", 1440, 1000);
   await capture("desktop-category-games", `${baseUrl}#category/games`, "1440,1000", 1440, 1000);
   await capture("desktop-project-detail", `${baseUrl}#project/doorcodes-site`, "1440,1000", 1440, 1000);
   await capture("desktop-projected-project-detail", `${baseUrl}#project/zenwisdom-site`, "1440,1000", 1440, 1000);

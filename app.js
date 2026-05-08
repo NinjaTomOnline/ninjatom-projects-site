@@ -1,5 +1,6 @@
 const FILTERS = {
   All: () => true,
+  "App Store": (project) => Boolean(project.appStoreUrl),
   "iOS Apps": (project) => categoryIncludes(project, ["ios", "iphone", "ipad", "watchos"]),
   "Web Apps": (project) => categoryIncludes(project, ["web", "website", "saas"]),
   Games: (project) => categoryIncludes(project, ["game", "games"]),
@@ -1223,6 +1224,7 @@ function createPlatformIcon(project) {
 function platformIconName(project) {
   const value = `${project.category || ""} ${project.name || ""} ${project.repoName || ""}`.toLowerCase();
   if (/\ball\b|show every/.test(value)) return "globe";
+  if (/app store|in store|store/.test(value)) return "store";
   if (/recent|launch|updated/.test(value)) return "clock";
   if (/(ios|iphone|ipad|watchos)/.test(value)) return "phone";
   if (/(game|arcade|rush|detective|copter)/.test(value)) return "gamepad";
@@ -1237,6 +1239,8 @@ function iconPath(name) {
       return "M12 6v6l4 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z";
     case "calendar":
       return "M7 3.5v3M17 3.5v3M4.5 8.5h15M6 5.5h12a1.5 1.5 0 0 1 1.5 1.5v11.5A1.5 1.5 0 0 1 18 20H6a1.5 1.5 0 0 1-1.5-1.5V7A1.5 1.5 0 0 1 6 5.5Zm2.5 7h3m3 0h1";
+    case "store":
+      return "M6.5 9.5 7.4 4h9.2l.9 5.5M5 9.5h14l-.8 10H5.8L5 9.5Zm4 3.5v2.2a3 3 0 0 0 6 0V13";
     case "star":
       return "m12 3.5 2.6 5.2 5.8.8-4.2 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8-4.2-4.1 5.8-.8L12 3.5Z";
     case "fork":

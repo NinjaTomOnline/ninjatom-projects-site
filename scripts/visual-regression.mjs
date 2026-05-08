@@ -45,6 +45,13 @@ const shots = [
     height: 1200,
   },
   {
+    name: "desktop-app-store-filter",
+    path: "./?visual-test=1#category/app-store",
+    windowSize: "1440,1000",
+    width: 1440,
+    height: 1000,
+  },
+  {
     name: "desktop-category-games",
     path: "./?visual-test=1#category/games",
     windowSize: "1440,1000",
