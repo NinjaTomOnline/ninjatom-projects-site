@@ -129,6 +129,9 @@ const FALLBACK_OVERRIDES = {
     tagline: "A creative project site with a reflective, imaginative tone.",
     category: "Creative / Custom3D",
     accent: "#A78BFA",
+    website: "https://dreamspell.app/",
+    supportUrl: "https://dreamspell.app/support.html",
+    privacyUrl: "https://dreamspell.app/privacy.html",
     sortOrder: 310,
   },
   "shramana-site": {
@@ -283,6 +286,7 @@ async function normalizeProject(repo, topics, manifest, siteHints = {}) {
   const inferredName = humanizeRepoName(repo.name);
   const website = firstValidUrl(
     manifest?.website,
+    fallback.website,
     repo.homepage,
     siteHints.cnameUrl,
     `https://${owner.toLowerCase()}.github.io/${repo.name}/`,
@@ -359,8 +363,8 @@ async function normalizeProject(repo, topics, manifest, siteHints = {}) {
     category,
     status,
     website,
-    supportUrl: firstValidUrl(manifest?.supportUrl),
-    privacyUrl: firstValidUrl(manifest?.privacyUrl),
+    supportUrl: firstValidUrl(manifest?.supportUrl, fallback.supportUrl),
+    privacyUrl: firstValidUrl(manifest?.privacyUrl, fallback.privacyUrl),
     appStoreUrl: firstValidUrl(manifest?.appStoreUrl, ...siteHints.appStoreCandidates),
     icon,
     previewImage: resolvedPreviewImage,

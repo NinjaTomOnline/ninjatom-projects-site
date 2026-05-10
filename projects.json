@@ -686,42 +686,42 @@
       "tagline": "A creative project site with a reflective, imaginative tone.",
       "category": "Creative / Custom3D",
       "status": "Live",
-      "website": "https://getdreamspell.com/",
-      "supportUrl": "",
-      "privacyUrl": "",
+      "website": "https://dreamspell.app/",
+      "supportUrl": "https://dreamspell.app/support.html",
+      "privacyUrl": "https://dreamspell.app/privacy.html",
       "appStoreUrl": "https://apps.apple.com/us/app/dreamspell/id413388110",
-      "icon": "https://getdreamspell.com/icon-512.png",
-      "previewImage": "https://getdreamspell.com/screenshots/web/iphone-dashboard-dark.png",
+      "icon": "https://dreamspell.app/icon-512.png",
+      "previewImage": "https://dreamspell.app/screenshots/web/iphone-dashboard-dark.png",
       "previewImageAlt": "",
       "screenshots": [
         {
-          "src": "https://getdreamspell.com/screenshots/annual-cycle-map.svg",
-          "alt": "",
+          "src": "https://dreamspell.app/screenshots/annual-cycle-map.svg",
+          "alt": "Dreamspell calendar map overview",
           "caption": ""
         },
         {
-          "src": "https://getdreamspell.com/screenshots/web/iphone-dashboard-dark.png",
-          "alt": "",
+          "src": "https://dreamspell.app/screenshots/web/iphone-dashboard-dark.png",
+          "alt": "Dreamspell project preview: dashboard",
           "caption": ""
         },
         {
-          "src": "https://getdreamspell.com/screenshots/web/iphone-calendar-dark.png",
-          "alt": "",
+          "src": "https://dreamspell.app/screenshots/web/iphone-calendar-dark.png",
+          "alt": "Dreamspell project preview: calendar",
           "caption": ""
         },
         {
-          "src": "https://getdreamspell.com/screenshots/web/iphone-explorer-selector-dark.png",
-          "alt": "",
+          "src": "https://dreamspell.app/screenshots/web/iphone-explorer-selector-dark.png",
+          "alt": "Dreamspell project preview: explorer",
           "caption": ""
         },
         {
-          "src": "https://getdreamspell.com/screenshots/web/iphone-dreamspell-course-dark.png",
-          "alt": "",
+          "src": "https://dreamspell.app/screenshots/web/iphone-dreamspell-course-dark.png",
+          "alt": "Dreamspell project preview: course",
           "caption": ""
         },
         {
-          "src": "https://getdreamspell.com/screenshots/web/iphone-tones-reference-dark.png",
-          "alt": "",
+          "src": "https://dreamspell.app/screenshots/web/iphone-tones-reference-dark.png",
+          "alt": "Dreamspell project preview: tones",
           "caption": ""
         }
       ],
