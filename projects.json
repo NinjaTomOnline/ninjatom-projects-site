@@ -1,7 +1,7 @@
 {
   "schemaVersion": 3,
   "owner": "NinjaTomOnline",
-  "generatedAt": "2026-05-08T09:08:33.667Z",
+  "generatedAt": "2026-05-10T06:03:18.769Z",
   "includeRules": {
     "repoNameSuffix": "-site",
     "topics": [
@@ -691,37 +691,37 @@
       "privacyUrl": "https://dreamspell.app/privacy.html",
       "appStoreUrl": "https://apps.apple.com/us/app/dreamspell/id413388110",
       "icon": "https://dreamspell.app/icon-512.png",
-      "previewImage": "https://dreamspell.app/screenshots/web/iphone-dashboard-dark.png",
+      "previewImage": "https://getdreamspell.com/screenshots/web/iphone-dashboard-dark.png",
       "previewImageAlt": "",
       "screenshots": [
         {
           "src": "https://dreamspell.app/screenshots/annual-cycle-map.svg",
-          "alt": "Dreamspell calendar map overview",
+          "alt": "",
           "caption": ""
         },
         {
           "src": "https://dreamspell.app/screenshots/web/iphone-dashboard-dark.png",
-          "alt": "Dreamspell project preview: dashboard",
+          "alt": "",
           "caption": ""
         },
         {
           "src": "https://dreamspell.app/screenshots/web/iphone-calendar-dark.png",
-          "alt": "Dreamspell project preview: calendar",
+          "alt": "",
           "caption": ""
         },
         {
           "src": "https://dreamspell.app/screenshots/web/iphone-explorer-selector-dark.png",
-          "alt": "Dreamspell project preview: explorer",
+          "alt": "",
           "caption": ""
         },
         {
           "src": "https://dreamspell.app/screenshots/web/iphone-dreamspell-course-dark.png",
-          "alt": "Dreamspell project preview: course",
+          "alt": "",
           "caption": ""
         },
         {
           "src": "https://dreamspell.app/screenshots/web/iphone-tones-reference-dark.png",
-          "alt": "Dreamspell project preview: tones",
+          "alt": "",
           "caption": ""
         }
       ],
