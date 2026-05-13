@@ -1,7 +1,7 @@
 {
   "schemaVersion": 3,
   "owner": "NinjaTomOnline",
-  "generatedAt": "2026-05-10T06:03:18.769Z",
+  "generatedAt": "2026-05-13T10:11:41.578Z",
   "includeRules": {
     "repoNameSuffix": "-site",
     "topics": [
@@ -150,7 +150,7 @@
       "website": "https://zenwisdom.app/",
       "supportUrl": "",
       "privacyUrl": "",
-      "appStoreUrl": "",
+      "appStoreUrl": "https://apps.apple.com/us/app/zen-wisdom/id414329570",
       "icon": "https://zenwisdom.app/assets/icon-512.png",
       "previewImage": "https://zenwisdom.app/screenshots/zenwisdom-social-card.png",
       "previewImageAlt": "",
@@ -171,7 +171,7 @@
           "caption": ""
         },
         {
-          "src": "https://zenwisdom.app/screenshots/zenwisdom-meditate.png",
+          "src": "https://zenwisdom.app/screenshots/zenwisdom-profile.png",
           "alt": "",
           "caption": ""
         },
@@ -181,7 +181,7 @@
           "caption": ""
         },
         {
-          "src": "https://zenwisdom.app/screenshots/zenwisdom-profile.png",
+          "src": "https://zenwisdom.app/screenshots/zenwisdom-meditate.png",
           "alt": "",
           "caption": ""
         }
@@ -206,7 +206,7 @@
       "manifestFound": false,
       "stargazersCount": 0,
       "forksCount": 0,
-      "updatedAt": "2026-04-30T14:16:44Z"
+      "updatedAt": "2026-05-12T20:44:43Z"
     },
     {
       "name": "DontSpeed",
@@ -812,6 +812,59 @@
       "stargazersCount": 0,
       "forksCount": 0,
       "updatedAt": "2026-05-01T10:40:12Z"
+    },
+    {
+      "name": "Mealbot Express",
+      "tagline": "MealBot Express marketing support privacy site",
+      "category": "Project",
+      "status": "Live",
+      "website": "https://ninjatomonline.github.io/mealbot-express-site/",
+      "supportUrl": "",
+      "privacyUrl": "",
+      "appStoreUrl": "",
+      "icon": "https://ninjatomonline.github.io/mealbot-express-site/assets/app-icon.png",
+      "previewImage": "https://ninjatomonline.github.io/mealbot-express-site/assets/feature-graphic.png",
+      "previewImageAlt": "",
+      "screenshots": [
+        {
+          "src": "https://ninjatomonline.github.io/mealbot-express-site/screenshots/simulator-smoke-landscape.png",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/mealbot-express-site/screenshots/canon-gameplay-pickup.png",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/mealbot-express-site/screenshots/canon-gameplay-deliver.png",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/mealbot-express-site/assets/feature-graphic.png",
+          "alt": "",
+          "caption": ""
+        }
+      ],
+      "launchedAt": "2026-05-12T21:27:56.000Z",
+      "version": "",
+      "launchNotes": "Mealbot Express is listed as Live in the Project catalog, refreshed automatically from public GitHub Pages metadata.",
+      "versionHighlights": [
+        "Live Project project website",
+        "Auto-discovered from public GitHub Pages",
+        "4 gallery images available"
+      ],
+      "accent": "#7DD3FC",
+      "featured": false,
+      "sortOrder": 1000,
+      "repoName": "mealbot-express-site",
+      "repositoryUrl": "https://github.com/NinjaTomOnline/mealbot-express-site",
+      "topics": [],
+      "manifestFound": false,
+      "stargazersCount": 0,
+      "forksCount": 0,
+      "updatedAt": "2026-05-12T21:27:59Z"
     }
   ]
 }

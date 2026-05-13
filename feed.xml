@@ -6,7 +6,23 @@
     <atom:link href="https://ninjatomapps.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>New and updated NinjaTom Apps, tools, games, and Custom3D.Art project websites.</description>
     <language>en-us</language>
-    <lastBuildDate>Fri, 08 May 2026 00:01:18 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 12 May 2026 21:27:59 GMT</lastBuildDate>
+    <item>
+      <title>Mealbot Express</title>
+      <link>https://ninjatomonline.github.io/mealbot-express-site/</link>
+      <guid isPermaLink="false">https://ninjatomapps.com/#project/mealbot-express-site</guid>
+      <pubDate>Tue, 12 May 2026 21:27:59 GMT</pubDate>
+      <category>Project</category>
+      <description>MealBot Express marketing support privacy site Mealbot Express is listed as Live in the Project catalog, refreshed automatically from public GitHub Pages metadata.</description>
+    </item>
+    <item>
+      <title>Zen Wisdom</title>
+      <link>https://zenwisdom.app/</link>
+      <guid isPermaLink="false">https://ninjatomapps.com/#project/zenwisdom-site</guid>
+      <pubDate>Tue, 12 May 2026 20:44:43 GMT</pubDate>
+      <category>iOS App</category>
+      <description>Quiet daily reflections designed for calmer routines. Zen Wisdom is listed as Live in the iOS App catalog, refreshed automatically from public GitHub Pages metadata.</description>
+    </item>
     <item>
       <title>QuitGentle</title>
       <link>https://quitgentle.com/</link>
@@ -94,14 +110,6 @@
       <pubDate>Thu, 30 Apr 2026 19:50:52 GMT</pubDate>
       <category>Game</category>
       <description>A mystery-driven game project site. Deadhead Detective is listed as Live in the Game catalog, refreshed automatically from its site manifest.</description>
-    </item>
-    <item>
-      <title>Zen Wisdom</title>
-      <link>https://zenwisdom.app/</link>
-      <guid isPermaLink="false">https://ninjatomapps.com/#project/zenwisdom-site</guid>
-      <pubDate>Thu, 30 Apr 2026 14:16:44 GMT</pubDate>
-      <category>iOS App</category>
-      <description>Quiet daily reflections designed for calmer routines. Zen Wisdom is listed as Live in the iOS App catalog, refreshed automatically from public GitHub Pages metadata.</description>
     </item>
     <item>
       <title>Retrocopter</title>
