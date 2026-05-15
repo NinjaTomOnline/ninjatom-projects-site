@@ -1,7 +1,7 @@
 {
   "schemaVersion": 3,
   "owner": "NinjaTomOnline",
-  "generatedAt": "2026-05-13T10:11:41.578Z",
+  "generatedAt": "2026-05-15T10:11:41.315Z",
   "includeRules": {
     "repoNameSuffix": "-site",
     "topics": [
@@ -152,14 +152,9 @@
       "privacyUrl": "",
       "appStoreUrl": "https://apps.apple.com/us/app/zen-wisdom/id414329570",
       "icon": "https://zenwisdom.app/assets/icon-512.png",
-      "previewImage": "https://zenwisdom.app/screenshots/zenwisdom-social-card.png",
+      "previewImage": "https://zenwisdom.app/screenshots/zenwisdom-facebook-2-06.png",
       "previewImageAlt": "",
       "screenshots": [
-        {
-          "src": "https://zenwisdom.app/screenshots/zenwisdom-social-card.png",
-          "alt": "",
-          "caption": "Preview"
-        },
         {
           "src": "https://zenwisdom.app/screenshots/zenwisdom-home.png",
           "alt": "",
@@ -177,6 +172,11 @@
         },
         {
           "src": "https://zenwisdom.app/screenshots/zenwisdom-journal.png",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "https://zenwisdom.app/screenshots/zenwisdom-facebook-2-06.png",
           "alt": "",
           "caption": ""
         },
@@ -206,7 +206,7 @@
       "manifestFound": false,
       "stargazersCount": 0,
       "forksCount": 0,
-      "updatedAt": "2026-05-12T20:44:43Z"
+      "updatedAt": "2026-05-14T16:47:14Z"
     },
     {
       "name": "DontSpeed",

@@ -6,7 +6,15 @@
     <atom:link href="https://ninjatomapps.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>New and updated NinjaTom Apps, tools, games, and Custom3D.Art project websites.</description>
     <language>en-us</language>
-    <lastBuildDate>Tue, 12 May 2026 21:27:59 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 14 May 2026 16:47:14 GMT</lastBuildDate>
+    <item>
+      <title>Zen Wisdom</title>
+      <link>https://zenwisdom.app/</link>
+      <guid isPermaLink="false">https://ninjatomapps.com/#project/zenwisdom-site</guid>
+      <pubDate>Thu, 14 May 2026 16:47:14 GMT</pubDate>
+      <category>iOS App</category>
+      <description>Quiet daily reflections designed for calmer routines. Zen Wisdom is listed as Live in the iOS App catalog, refreshed automatically from public GitHub Pages metadata.</description>
+    </item>
     <item>
       <title>Mealbot Express</title>
       <link>https://ninjatomonline.github.io/mealbot-express-site/</link>
@@ -14,14 +22,6 @@
       <pubDate>Tue, 12 May 2026 21:27:59 GMT</pubDate>
       <category>Project</category>
       <description>MealBot Express marketing support privacy site Mealbot Express is listed as Live in the Project catalog, refreshed automatically from public GitHub Pages metadata.</description>
-    </item>
-    <item>
-      <title>Zen Wisdom</title>
-      <link>https://zenwisdom.app/</link>
-      <guid isPermaLink="false">https://ninjatomapps.com/#project/zenwisdom-site</guid>
-      <pubDate>Tue, 12 May 2026 20:44:43 GMT</pubDate>
-      <category>iOS App</category>
-      <description>Quiet daily reflections designed for calmer routines. Zen Wisdom is listed as Live in the iOS App catalog, refreshed automatically from public GitHub Pages metadata.</description>
     </item>
     <item>
       <title>QuitGentle</title>
