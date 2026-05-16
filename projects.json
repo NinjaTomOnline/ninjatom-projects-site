@@ -1,7 +1,7 @@
 {
   "schemaVersion": 3,
   "owner": "NinjaTomOnline",
-  "generatedAt": "2026-05-15T10:11:41.315Z",
+  "generatedAt": "2026-05-16T09:54:53.174Z",
   "includeRules": {
     "repoNameSuffix": "-site",
     "topics": [
@@ -29,17 +29,12 @@
           "caption": ""
         },
         {
-          "src": "https://doorcodesapp.com/screenshots/iphone/iphone-places-dark.png",
+          "src": "https://doorcodesapp.com/screenshots/iphone/iphone-places-list.png",
           "alt": "DoorCodes website preview for the upgraded access-code app site.",
           "caption": ""
         },
         {
-          "src": "https://doorcodesapp.com/screenshots/iphone/iphone-nearby-dark.png",
-          "alt": "DoorCodes website preview for the upgraded access-code app site.",
-          "caption": ""
-        },
-        {
-          "src": "https://doorcodesapp.com/screenshots/iphone/iphone-recents-dark.png",
+          "src": "https://doorcodesapp.com/screenshots/iphone/iphone-nearby-ready.png",
           "alt": "DoorCodes website preview for the upgraded access-code app site.",
           "caption": ""
         },
@@ -50,6 +45,11 @@
         },
         {
           "src": "https://doorcodesapp.com/screenshots/iphone/iphone-settings-privacy.png",
+          "alt": "DoorCodes website preview for the upgraded access-code app site.",
+          "caption": ""
+        },
+        {
+          "src": "https://doorcodesapp.com/screenshots/ipad/ipad-places-workspace.png",
           "alt": "DoorCodes website preview for the upgraded access-code app site.",
           "caption": ""
         }
@@ -74,7 +74,7 @@
       "manifestFound": true,
       "stargazersCount": 0,
       "forksCount": 0,
-      "updatedAt": "2026-05-01T01:09:14Z"
+      "updatedAt": "2026-05-16T09:14:26Z"
     },
     {
       "name": "SwiftTerm",
