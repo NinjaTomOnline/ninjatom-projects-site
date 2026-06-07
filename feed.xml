@@ -6,7 +6,23 @@
     <atom:link href="https://ninjatomapps.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>New and updated NinjaTom Apps, tools, games, and Custom3D.Art project websites.</description>
     <language>en-us</language>
-    <lastBuildDate>Sat, 16 May 2026 09:14:26 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 07 Jun 2026 10:10:18 GMT</lastBuildDate>
+    <item>
+      <title>Wearethewatchers</title>
+      <link>https://wearethewatchers.com/</link>
+      <guid isPermaLink="false">https://ninjatomapps.com/#project/wearethewatchers-site</guid>
+      <pubDate>Sun, 07 Jun 2026 10:10:18 GMT</pubDate>
+      <category>Project</category>
+      <description>CUSTOS static launch site for wearethewatchers.com Wearethewatchers is listed as Live in the Project catalog, refreshed automatically from public GitHub Pages metadata.</description>
+    </item>
+    <item>
+      <title>Zen Wisdom</title>
+      <link>https://zenwisdom.app/</link>
+      <guid isPermaLink="false">https://ninjatomapps.com/#project/zenwisdom-site</guid>
+      <pubDate>Sat, 06 Jun 2026 15:01:01 GMT</pubDate>
+      <category>iOS App</category>
+      <description>Quiet daily reflections designed for calmer routines. Zen Wisdom is listed as Live in the iOS App catalog, refreshed automatically from public GitHub Pages metadata.</description>
+    </item>
     <item>
       <title>DoorCodes</title>
       <link>https://doorcodesapp.com/</link>
@@ -14,14 +30,6 @@
       <pubDate>Sat, 16 May 2026 09:14:26 GMT</pubDate>
       <category>iOS App</category>
       <description>Access codes, ready on arrival with privacy-safe reminders and Secure Reveal. DoorCodes is listed as Live in the iOS App catalog, refreshed automatically from its site manifest.</description>
-    </item>
-    <item>
-      <title>Zen Wisdom</title>
-      <link>https://zenwisdom.app/</link>
-      <guid isPermaLink="false">https://ninjatomapps.com/#project/zenwisdom-site</guid>
-      <pubDate>Thu, 14 May 2026 16:47:14 GMT</pubDate>
-      <category>iOS App</category>
-      <description>Quiet daily reflections designed for calmer routines. Zen Wisdom is listed as Live in the iOS App catalog, refreshed automatically from public GitHub Pages metadata.</description>
     </item>
     <item>
       <title>Mealbot Express</title>

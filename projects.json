@@ -1,7 +1,7 @@
 {
   "schemaVersion": 3,
   "owner": "NinjaTomOnline",
-  "generatedAt": "2026-05-16T09:54:53.174Z",
+  "generatedAt": "2026-06-07T10:16:37.462Z",
   "includeRules": {
     "repoNameSuffix": "-site",
     "topics": [
@@ -152,7 +152,7 @@
       "privacyUrl": "",
       "appStoreUrl": "https://apps.apple.com/us/app/zen-wisdom/id414329570",
       "icon": "https://zenwisdom.app/assets/icon-512.png",
-      "previewImage": "https://zenwisdom.app/screenshots/zenwisdom-facebook-2-06.png",
+      "previewImage": "https://zenwisdom.app/screenshots/zenwisdom-facebook-2-07.png",
       "previewImageAlt": "",
       "screenshots": [
         {
@@ -181,7 +181,7 @@
           "caption": ""
         },
         {
-          "src": "https://zenwisdom.app/screenshots/zenwisdom-meditate.png",
+          "src": "https://zenwisdom.app/screenshots/zenwisdom-facebook-2-07.png",
           "alt": "",
           "caption": ""
         }
@@ -206,7 +206,7 @@
       "manifestFound": false,
       "stargazersCount": 0,
       "forksCount": 0,
-      "updatedAt": "2026-05-14T16:47:14Z"
+      "updatedAt": "2026-06-06T15:01:01Z"
     },
     {
       "name": "DontSpeed",
@@ -865,6 +865,69 @@
       "stargazersCount": 0,
       "forksCount": 0,
       "updatedAt": "2026-05-12T21:27:59Z"
+    },
+    {
+      "name": "Wearethewatchers",
+      "tagline": "CUSTOS static launch site for wearethewatchers.com",
+      "category": "Project",
+      "status": "Live",
+      "website": "https://wearethewatchers.com/",
+      "supportUrl": "",
+      "privacyUrl": "",
+      "appStoreUrl": "",
+      "icon": "",
+      "previewImage": "https://wearethewatchers.com/assets/custos-social-card.svg",
+      "previewImageAlt": "",
+      "screenshots": [
+        {
+          "src": "https://wearethewatchers.com/assets/custos-social-card.svg",
+          "alt": "",
+          "caption": "Preview"
+        },
+        {
+          "src": "https://wearethewatchers.com/assets/mockups/first-drop-contact-sheet.png",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "https://wearethewatchers.com/assets/mockups/productized-first-drop-contact-sheet.png",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "https://wearethewatchers.com/assets/product-created/custos-hat-mockup.png",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "https://wearethewatchers.com/assets/product-created/hoodie-mockup.png",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "https://wearethewatchers.com/assets/product-created/oversight-deskmat-mockup.png",
+          "alt": "",
+          "caption": ""
+        }
+      ],
+      "launchedAt": "2026-06-06T16:45:25.000Z",
+      "version": "",
+      "launchNotes": "Wearethewatchers is listed as Live in the Project catalog, refreshed automatically from public GitHub Pages metadata.",
+      "versionHighlights": [
+        "Live Project project website",
+        "Auto-discovered from public GitHub Pages",
+        "6 gallery images available"
+      ],
+      "accent": "#FFCF70",
+      "featured": false,
+      "sortOrder": 1000,
+      "repoName": "wearethewatchers-site",
+      "repositoryUrl": "https://github.com/NinjaTomOnline/wearethewatchers-site",
+      "topics": [],
+      "manifestFound": false,
+      "stargazersCount": 0,
+      "forksCount": 0,
+      "updatedAt": "2026-06-07T10:10:18Z"
     }
   ]
 }
