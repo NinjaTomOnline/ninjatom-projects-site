@@ -6,7 +6,15 @@
     <atom:link href="https://ninjatomapps.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>New and updated NinjaTom Apps, tools, games, and Custom3D.Art project websites.</description>
     <language>en-us</language>
-    <lastBuildDate>Sun, 07 Jun 2026 18:15:40 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 08 Jun 2026 11:15:09 GMT</lastBuildDate>
+    <item>
+      <title>QuitGentle</title>
+      <link>https://quitgentle.com/</link>
+      <guid isPermaLink="false">https://ninjatomapps.com/#project/ashtag-site</guid>
+      <pubDate>Mon, 08 Jun 2026 11:15:09 GMT</pubDate>
+      <category>iOS App</category>
+      <description>Shame-free smoking tracking for fast logs, craving rescue, and pattern awareness. QuitGentle is listed as Live on App Store in the iOS App catalog, refreshed automatically from its site manifest.</description>
+    </item>
     <item>
       <title>Wearethewatchers</title>
       <link>https://wearethewatchers.com/</link>
@@ -38,14 +46,6 @@
       <pubDate>Tue, 12 May 2026 21:27:59 GMT</pubDate>
       <category>Project</category>
       <description>MealBot Express marketing support privacy site Mealbot Express is listed as Live in the Project catalog, refreshed automatically from public GitHub Pages metadata.</description>
-    </item>
-    <item>
-      <title>QuitGentle</title>
-      <link>https://quitgentle.com/</link>
-      <guid isPermaLink="false">https://ninjatomapps.com/#project/ashtag-site</guid>
-      <pubDate>Fri, 08 May 2026 00:01:18 GMT</pubDate>
-      <category>iOS App</category>
-      <description>Shame-free smoking tracking for fast logs, craving rescue, and pattern awareness. QuitGentle is listed as Live on App Store in the iOS App catalog, refreshed automatically from its site manifest.</description>
     </item>
     <item>
       <title>Dreamspell</title>
