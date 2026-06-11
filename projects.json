@@ -1,7 +1,7 @@
 {
   "schemaVersion": 3,
   "owner": "NinjaTomOnline",
-  "generatedAt": "2026-06-09T10:37:29.904Z",
+  "generatedAt": "2026-06-11T10:59:52.530Z",
   "includeRules": {
     "repoNameSuffix": "-site",
     "topics": [
@@ -617,9 +617,9 @@
     },
     {
       "name": "QuitGentle",
-      "tagline": "Shame-free smoking tracking for fast logs, craving rescue, and pattern awareness.",
+      "tagline": "Shame-free smoking tracking with fast logs, craving rescue, pattern awareness, and optional Premium insight.",
       "category": "iOS App",
-      "status": "Live on App Store",
+      "status": "Live on App Store with optional Premium",
       "website": "https://quitgentle.com/",
       "supportUrl": "https://quitgentle.com/support/",
       "privacyUrl": "https://quitgentle.com/privacy/",
@@ -661,9 +661,9 @@
       ],
       "launchedAt": "2026-04-09T16:57:11.000Z",
       "version": "",
-      "launchNotes": "QuitGentle is listed as Live on App Store in the iOS App catalog, refreshed automatically from its site manifest.",
+      "launchNotes": "QuitGentle is listed as Live on App Store with optional Premium in the iOS App catalog, refreshed automatically from its site manifest.",
       "versionHighlights": [
-        "Live on App Store iOS App project website",
+        "Live on App Store with optional Premium iOS App project website",
         "Curated by site-manifest.json",
         "6 gallery images available"
       ],
@@ -679,7 +679,7 @@
       "manifestFound": true,
       "stargazersCount": 0,
       "forksCount": 0,
-      "updatedAt": "2026-06-08T11:15:09Z"
+      "updatedAt": "2026-06-11T00:20:58Z"
     },
     {
       "name": "Dreamspell",
