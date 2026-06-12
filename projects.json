@@ -1,7 +1,7 @@
 {
   "schemaVersion": 3,
   "owner": "NinjaTomOnline",
-  "generatedAt": "2026-06-11T10:59:52.530Z",
+  "generatedAt": "2026-06-12T10:51:02.620Z",
   "includeRules": {
     "repoNameSuffix": "-site",
     "topics": [
@@ -691,7 +691,7 @@
       "privacyUrl": "https://dreamspell.app/privacy.html",
       "appStoreUrl": "https://apps.apple.com/us/app/dreamspell/id413388110",
       "icon": "https://dreamspell.app/icon-512.png",
-      "previewImage": "https://getdreamspell.com/screenshots/web/iphone-dashboard-dark.png",
+      "previewImage": "https://dreamspell.app/screenshots/web/iphone-dashboard-dark.png",
       "previewImageAlt": "",
       "screenshots": [
         {
@@ -745,7 +745,7 @@
       "manifestFound": false,
       "stargazersCount": 0,
       "forksCount": 0,
-      "updatedAt": "2026-05-05T22:57:12Z"
+      "updatedAt": "2026-06-12T00:48:54Z"
     },
     {
       "name": "Shramana",
