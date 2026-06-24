@@ -1,7 +1,7 @@
 {
   "schemaVersion": 3,
   "owner": "NinjaTomOnline",
-  "generatedAt": "2026-06-12T10:51:02.620Z",
+  "generatedAt": "2026-06-24T10:28:47.961Z",
   "includeRules": {
     "repoNameSuffix": "-site",
     "topics": [
@@ -865,6 +865,49 @@
       "stargazersCount": 0,
       "forksCount": 0,
       "updatedAt": "2026-05-12T21:27:59Z"
+    },
+    {
+      "name": "Minddeck",
+      "tagline": "MindDeck public marketing support and privacy site",
+      "category": "Project",
+      "status": "Live",
+      "website": "https://ninjatomonline.github.io/minddeck-site/",
+      "supportUrl": "",
+      "privacyUrl": "",
+      "appStoreUrl": "",
+      "icon": "",
+      "previewImage": "https://ninjatomonline.github.io/minddeck-site/screenshots/ipad-home.png",
+      "previewImageAlt": "",
+      "screenshots": [
+        {
+          "src": "https://ninjatomonline.github.io/minddeck-site/screenshots/iphone-home.png",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/minddeck-site/screenshots/ipad-home.png",
+          "alt": "",
+          "caption": ""
+        }
+      ],
+      "launchedAt": "2026-06-24T02:07:56.000Z",
+      "version": "",
+      "launchNotes": "Minddeck is listed as Live in the Project catalog, refreshed automatically from public GitHub Pages metadata.",
+      "versionHighlights": [
+        "Live Project project website",
+        "Auto-discovered from public GitHub Pages",
+        "2 gallery images available"
+      ],
+      "accent": "#7DD3FC",
+      "featured": false,
+      "sortOrder": 1000,
+      "repoName": "minddeck-site",
+      "repositoryUrl": "https://github.com/NinjaTomOnline/minddeck-site",
+      "topics": [],
+      "manifestFound": false,
+      "stargazersCount": 0,
+      "forksCount": 0,
+      "updatedAt": "2026-06-24T02:08:41Z"
     },
     {
       "name": "Wearethewatchers",
