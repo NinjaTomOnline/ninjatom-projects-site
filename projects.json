@@ -1,7 +1,7 @@
 {
   "schemaVersion": 3,
   "owner": "NinjaTomOnline",
-  "generatedAt": "2026-06-24T10:28:47.961Z",
+  "generatedAt": "2026-07-10T12:13:18.878Z",
   "includeRules": {
     "repoNameSuffix": "-site",
     "topics": [
@@ -90,6 +90,11 @@
       "previewImageAlt": "",
       "screenshots": [
         {
+          "src": "https://swiftterm.app/assets/swiftterm-social-preview.png",
+          "alt": "",
+          "caption": "Preview"
+        },
+        {
           "src": "https://swiftterm.app/screenshots/swiftterm-ipad-workspace.png",
           "alt": "",
           "caption": ""
@@ -111,11 +116,6 @@
         },
         {
           "src": "https://swiftterm.app/screenshots/swiftterm-architecture.png",
-          "alt": "",
-          "caption": ""
-        },
-        {
-          "src": "https://swiftterm.app/assets/swiftterm-social-preview.png",
           "alt": "",
           "caption": ""
         }
@@ -156,11 +156,6 @@
       "previewImageAlt": "",
       "screenshots": [
         {
-          "src": "https://zenwisdom.app/screenshots/zenwisdom-home.png",
-          "alt": "",
-          "caption": ""
-        },
-        {
           "src": "https://zenwisdom.app/screenshots/zenwisdom-library.png",
           "alt": "",
           "caption": ""
@@ -182,6 +177,11 @@
         },
         {
           "src": "https://zenwisdom.app/screenshots/zenwisdom-facebook-2-07.png",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "https://zenwisdom.app/screenshots/zenwisdom-meditate.png",
           "alt": "",
           "caption": ""
         }
@@ -349,17 +349,17 @@
           "caption": ""
         },
         {
-          "src": "https://ninjatomonline.github.io/rooftoprush-site/screenshots/01-onboarding-ready.jpg",
-          "alt": "",
-          "caption": ""
-        },
-        {
           "src": "https://ninjatomonline.github.io/rooftoprush-site/screenshots/04-hook-vault.jpg",
           "alt": "",
           "caption": ""
         },
         {
           "src": "https://ninjatomonline.github.io/rooftoprush-site/screenshots/06-game-over.jpg",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/rooftoprush-site/press-kit/screenshots/elite-encounter.jpg",
           "alt": "",
           "caption": ""
         }
@@ -396,7 +396,7 @@
       "privacyUrl": "",
       "appStoreUrl": "",
       "icon": "https://ninjatomonline.github.io/retrocopter-site/assets/app-icon.png",
-      "previewImage": "https://ninjatomonline.github.io/retrocopter-site/screenshots/ipad-gameplay.png",
+      "previewImage": "https://ninjatomonline.github.io/retrocopter-site/screenshots/ipad-title.png",
       "previewImageAlt": "",
       "screenshots": [
         {
@@ -406,11 +406,6 @@
         },
         {
           "src": "https://ninjatomonline.github.io/retrocopter-site/screenshots/iphone-gameplay.png",
-          "alt": "",
-          "caption": ""
-        },
-        {
-          "src": "https://ninjatomonline.github.io/retrocopter-site/screenshots/ipad-gameplay.png",
           "alt": "",
           "caption": ""
         },
@@ -426,7 +421,7 @@
       "versionHighlights": [
         "Live Game project website",
         "Auto-discovered from public GitHub Pages",
-        "4 gallery images available"
+        "3 gallery images available"
       ],
       "accent": "#59F2C7",
       "featured": false,
@@ -451,47 +446,47 @@
       "supportUrl": "",
       "privacyUrl": "",
       "appStoreUrl": "",
-      "icon": "https://raw.githubusercontent.com/NinjaTomOnline/deadheaddetective-site/main/assets/deadhead-detective-icon.svg",
-      "previewImage": "https://raw.githubusercontent.com/NinjaTomOnline/deadheaddetective-site/main/assets/deadhead-detective-preview.svg",
-      "previewImageAlt": "Deadhead Detective project preview",
+      "icon": "",
+      "previewImage": "https://ninjatomonline.github.io/deadheaddetective-site/assets/deadhead-detective-preview.svg",
+      "previewImageAlt": "",
       "screenshots": [
         {
-          "src": "https://raw.githubusercontent.com/NinjaTomOnline/deadheaddetective-site/main/assets/deadhead-detective-preview.svg",
-          "alt": "Deadhead Detective project preview",
+          "src": "https://ninjatomonline.github.io/deadheaddetective-site/assets/deadhead-detective-preview.svg",
+          "alt": "",
+          "caption": "Preview"
+        },
+        {
+          "src": "https://ninjatomonline.github.io/deadheaddetective-site/screenshots/ipad/01-dashboard-summary.png",
+          "alt": "",
           "caption": ""
         },
         {
-          "src": "https://ninjatomonline.github.io/deadheaddetective-site/screenshots/iphone/01-dashboard-summary.png",
-          "alt": "Deadhead Detective project preview",
+          "src": "https://ninjatomonline.github.io/deadheaddetective-site/screenshots/ipad/02-active-trip-ready.png",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/deadheaddetective-site/screenshots/ipad/03-active-trip-live.png",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/deadheaddetective-site/screenshots/ipad/05-insights-trend.png",
+          "alt": "",
           "caption": ""
         },
         {
           "src": "https://ninjatomonline.github.io/deadheaddetective-site/screenshots/iphone/02-active-trip-overview.png",
-          "alt": "Deadhead Detective project preview",
-          "caption": ""
-        },
-        {
-          "src": "https://ninjatomonline.github.io/deadheaddetective-site/screenshots/iphone/03-history-sessions.png",
-          "alt": "Deadhead Detective project preview",
-          "caption": ""
-        },
-        {
-          "src": "https://ninjatomonline.github.io/deadheaddetective-site/screenshots/iphone/04-insights-trend.png",
-          "alt": "Deadhead Detective project preview",
-          "caption": ""
-        },
-        {
-          "src": "https://ninjatomonline.github.io/deadheaddetective-site/screenshots/iphone/05-active-trip-route-controls.png",
-          "alt": "Deadhead Detective project preview",
+          "alt": "",
           "caption": ""
         }
       ],
       "launchedAt": "2026-04-09T20:05:11.000Z",
       "version": "",
-      "launchNotes": "Deadhead Detective is listed as Live in the Game catalog, refreshed automatically from its site manifest.",
+      "launchNotes": "Deadhead Detective is listed as Live in the Game catalog, refreshed automatically from public GitHub Pages metadata.",
       "versionHighlights": [
         "Live Game project website",
-        "Curated by site-manifest.json",
+        "Auto-discovered from public GitHub Pages",
         "6 gallery images available"
       ],
       "accent": "#A78BFA",
@@ -503,7 +498,7 @@
         "app-website",
         "ninjatom-project-site"
       ],
-      "manifestFound": true,
+      "manifestFound": false,
       "stargazersCount": 0,
       "forksCount": 0,
       "updatedAt": "2026-04-30T19:50:52Z"
