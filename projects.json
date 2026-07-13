@@ -1,7 +1,7 @@
 {
   "schemaVersion": 3,
   "owner": "NinjaTomOnline",
-  "generatedAt": "2026-07-11T10:38:35.974Z",
+  "generatedAt": "2026-07-13T04:26:07.395Z",
   "includeRules": {
     "repoNameSuffix": "-site",
     "topics": [
@@ -822,7 +822,7 @@
       "supportUrl": "",
       "privacyUrl": "",
       "appStoreUrl": "",
-      "icon": "https://ninjatomonline.github.io/mealbot-express-site/assets/app-icon.png",
+      "icon": "",
       "previewImage": "https://ninjatomonline.github.io/mealbot-express-site/assets/feature-graphic.png",
       "previewImageAlt": "",
       "screenshots": [
