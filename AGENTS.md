@@ -76,7 +76,14 @@ Run the smallest relevant checks first, then the complete affected user path. Fo
 
 ## Development Hub handoff
 
-Use the global one-ID loop. At completion, move the selected item to `Ready to Test`, not `Done`, and report:
+Mission Control sources:
+
+- Development Hub: https://docs.google.com/document/d/1pRB7IY7B-UWQec7l3LlPKmvYoaHtuQjJ_LkCNergKrY/edit
+- Development Standards: https://docs.google.com/document/d/1Wlh43v2xAph6DO50h92dW1QBcSDGn5vFwJqvbJFV8kQ/edit
+
+Work exactly one explicitly selected Hub ID; never implement the whole backlog automatically. Read the complete live item and Development Standards through authenticated Google Drive access. If Drive is unavailable, use only the supplied item and return a structured handoff for Mission Control to write back; never claim a live read or write.
+
+Follow `Open` → `Investigating` → `In Progress` → `Ready to Test` → `Done`. Use `Blocked` only for a named dependency, decision, credential, device, account, or external service. Move active implementation to `In Progress`; at completion, move the selected item to `Ready to Test` and report:
 
 - stale/missing/incorrect findings or root cause;
 - source files and generated files changed;
@@ -84,3 +91,5 @@ Use the global one-ID loop. At completion, move the selected item to `Ready to T
 - evidence for canonical domain/HTTPS/redirect behavior when in scope;
 - remaining DNS, email, permissions, or external-service risks;
 - exact human review and deployment steps.
+
+Include the branch, commit, and pull-request reference. Never mark the item `Done`; only Tom may do that after human verification.
