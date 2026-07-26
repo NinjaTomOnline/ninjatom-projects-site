@@ -142,29 +142,18 @@ select {
 
 .brand-mark {
   display: grid;
-  width: 48px;
+  width: 62px;
   height: 48px;
   flex: 0 0 auto;
   place-items: center;
   filter: drop-shadow(0 0 18px rgba(164, 92, 255, 0.44));
 }
 
-.brand-mark svg {
+.brand-mark img {
   display: block;
   width: 100%;
   height: 100%;
-}
-
-.brand-mark svg .brand-mark-bg {
-  fill: #6d35d5;
-}
-
-.brand-mark svg .brand-mark-mask {
-  fill: #f8f7ff;
-}
-
-.brand-mark svg circle {
-  fill: #05070d;
+  object-fit: contain;
 }
 
 .brand-wordmark strong {
@@ -3891,7 +3880,7 @@ body[data-visual-view="projects"] .projects-section {
   }
 
   .brand-mark {
-    width: 38px;
+    width: 48px;
     height: 38px;
   }
 
