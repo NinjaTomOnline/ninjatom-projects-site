@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { createHash } from "node:crypto";
-import { access, mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { access, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { spawn } from "node:child_process";
@@ -34,15 +34,32 @@ for (const project of projects) {
   );
 }
 
+await removeOrphanedGeneratedFiles();
+
 console.log(
   `Generated ${projects.length} project share page${projects.length === 1 ? "" : "s"} and ${pngCount} PNG Open Graph image${pngCount === 1 ? "" : "s"}.`,
 );
 
+async function removeOrphanedGeneratedFiles() {
+  const expected = new Set(projects.map((project) => slugify(project.slug || project.repoName || project.name)));
+  for (const [directory, extensions] of [
+    [pageDir, [".html"]],
+    [imageDir, [".svg", ".png"]],
+  ]) {
+    for (const name of await readdir(directory)) {
+      const extension = extensions.find((candidate) => name.endsWith(candidate));
+      if (!extension) continue;
+      const slug = name.slice(0, -extension.length);
+      if (!expected.has(slug)) await rm(join(directory, name));
+    }
+  }
+}
+
 function normalizeProject(project) {
-  const slug = slugify(project.repoName || project.name);
+  const slug = slugify(project.slug || project.repoName || project.name);
   const name = stringOr(project.name, "NinjaTom Project");
   const category = stringOr(project.category, "Project");
-  const status = stringOr(project.status, "Live");
+  const status = stringOr(project.productStatus || project.status, "Active Development");
   const accent = validAccent(project.accent) || accentFromText(name);
 
   return {
@@ -50,7 +67,7 @@ function normalizeProject(project) {
     name,
     category,
     status,
-    tagline: stringOr(project.tagline, "Independent apps, tools, games, and creative software."),
+    tagline: stringOr(project.tagline, "Apps, games, tools, and creative technology from NinjaTom Apps."),
     website: stringOr(project.website || project.repositoryUrl, siteUrl),
     repositoryUrl: stringOr(project.repositoryUrl, ""),
     accent,

@@ -2,7 +2,7 @@
   "name": "SwiftTerm",
   "tagline": "A polished terminal companion for fast command notes and workflows.",
   "category": "Tool",
-  "status": "Live",
+  "status": "Near Release / Release Candidate",
   "website": "https://swiftterm.app/",
   "supportUrl": "https://swiftterm.app/support.html",
   "privacyUrl": "https://swiftterm.app/privacy.html",
@@ -15,16 +15,15 @@
       "caption": "Project preview"
     }
   ],
-  "launchedAt": "2026-04-30T00:00:00Z",
   "version": "Preview",
-  "launchNotes": "SwiftTerm has a live project site and technical preview material ready for the hub.",
+  "launchNotes": "SwiftTerm has a public product site and remains a near-release preview candidate.",
   "versionHighlights": [
     "Project site indexed",
     "Technical preview artwork available"
   ],
-  "progressPercent": 68,
-  "releaseProjectionNote": "Projected from the live site, technical preview material, and support/privacy readiness.",
   "accent": "#59F2C7",
-  "featured": true,
-  "sortOrder": 20
+  "featured": false,
+  "sortOrder": 20,
+  "productStatus": "Near Release / Release Candidate",
+  "websiteStatus": "Public product site available"
 }

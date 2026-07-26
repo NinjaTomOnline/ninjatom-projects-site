@@ -1,66 +1,126 @@
 {
-  "schemaVersion": 3,
+  "schemaVersion": 4,
   "owner": "NinjaTomOnline",
-  "generatedAt": "2026-07-13T12:19:58.670Z",
+  "generatedAt": "2026-07-26T18:14:55.516Z",
   "includeRules": {
     "repoNameSuffix": "-site",
     "topics": [
       "ninjatom-project-site",
       "app-website"
-    ]
+    ],
+    "curation": "scripts/portfolio-curation.json",
+    "includeUncuratedDiscovered": false
   },
   "projects": [
     {
+      "name": "MealBot Express",
+      "tagline": "A four-world, free-roam competitive arcade delivery game built for couch and online multiplayer.",
+      "category": "Game",
+      "status": "Active Development",
+      "productStatus": "Active Development",
+      "websiteStatus": "Public project site available",
+      "website": "https://ninjatomonline.github.io/mealbot-express-site/",
+      "supportUrl": "https://ninjatomonline.github.io/mealbot-express-site/support.html",
+      "privacyUrl": "https://ninjatomonline.github.io/mealbot-express-site/privacy.html",
+      "appStoreUrl": "",
+      "icon": "https://ninjatomonline.github.io/mealbot-express-site/assets/app-icon.png",
+      "previewImage": "https://ninjatomonline.github.io/mealbot-express-site/assets/feature-graphic.png",
+      "previewImageAlt": "MealBot Express University Campus gameplay foundation.",
+      "screenshots": [
+        {
+          "src": "https://ninjatomonline.github.io/mealbot-express-site/screenshots/simulator-smoke-landscape.png",
+          "alt": "MealBot Express University Campus gameplay foundation.",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/mealbot-express-site/screenshots/canon-gameplay-pickup.png",
+          "alt": "MealBot Express University Campus gameplay foundation.",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/mealbot-express-site/screenshots/canon-gameplay-deliver.png",
+          "alt": "MealBot Express University Campus gameplay foundation.",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/mealbot-express-site/assets/feature-graphic.png",
+          "alt": "MealBot Express University Campus gameplay foundation.",
+          "caption": ""
+        }
+      ],
+      "launchedAt": "",
+      "version": "Playable campus foundation",
+      "launchNotes": "The University Campus build is the playable foundation for a larger game with Night City, Jersey Shore / Boardwalk, a player-voted fourth world, upgradeable MealBots, power-ups, progression, leaderboards, cosmetics, and short-session replay loops.",
+      "versionHighlights": [
+        "Four-world competitive arcade vision",
+        "Couch and online multiplayer planned",
+        "University Campus gameplay foundation in active development"
+      ],
+      "accent": "#FFBE5C",
+      "featured": true,
+      "sortOrder": 1,
+      "repoName": "mealbot-express-site",
+      "repositoryUrl": "https://github.com/NinjaTomOnline/mealbot-express-site",
+      "topics": [],
+      "manifestFound": false,
+      "stargazersCount": 0,
+      "forksCount": 0,
+      "updatedAt": "2026-05-12T21:27:59Z",
+      "curationFound": true
+    },
+    {
       "name": "DoorCodes",
       "tagline": "Access codes, ready on arrival with privacy-safe reminders and Secure Reveal.",
-      "category": "iOS App",
-      "status": "Live",
+      "category": "Mobile App",
+      "status": "Shipped / Available",
+      "productStatus": "Shipped / Available",
+      "websiteStatus": "Public website and App Store available",
       "website": "https://doorcodesapp.com/",
       "supportUrl": "https://doorcodesapp.com/support.html",
       "privacyUrl": "https://doorcodesapp.com/privacy.html",
       "appStoreUrl": "https://apps.apple.com/us/app/doorcodes-vault/id6761863570",
       "icon": "https://doorcodesapp.com/assets/doorcodes-favicon-512.png",
       "previewImage": "https://doorcodesapp.com/assets/doorcodes-social-preview.png",
-      "previewImageAlt": "DoorCodes website preview for the upgraded access-code app site.",
+      "previewImageAlt": "DoorCodes access-code app website and interface preview.",
       "screenshots": [
         {
           "src": "https://doorcodesapp.com/assets/doorcodes-social-preview.png",
-          "alt": "DoorCodes website preview for the upgraded access-code app site.",
+          "alt": "DoorCodes access-code app website and interface preview.",
           "caption": ""
         },
         {
           "src": "https://doorcodesapp.com/screenshots/iphone/iphone-places-list.png",
-          "alt": "DoorCodes website preview for the upgraded access-code app site.",
+          "alt": "DoorCodes access-code app website and interface preview.",
           "caption": ""
         },
         {
           "src": "https://doorcodesapp.com/screenshots/iphone/iphone-nearby-ready.png",
-          "alt": "DoorCodes website preview for the upgraded access-code app site.",
+          "alt": "DoorCodes access-code app website and interface preview.",
           "caption": ""
         },
         {
           "src": "https://doorcodesapp.com/screenshots/iphone/iphone-place-detail-quick-reveal.png",
-          "alt": "DoorCodes website preview for the upgraded access-code app site.",
+          "alt": "DoorCodes access-code app website and interface preview.",
           "caption": ""
         },
         {
           "src": "https://doorcodesapp.com/screenshots/iphone/iphone-settings-privacy.png",
-          "alt": "DoorCodes website preview for the upgraded access-code app site.",
+          "alt": "DoorCodes access-code app website and interface preview.",
           "caption": ""
         },
         {
           "src": "https://doorcodesapp.com/screenshots/ipad/ipad-places-workspace.png",
-          "alt": "DoorCodes website preview for the upgraded access-code app site.",
+          "alt": "DoorCodes access-code app website and interface preview.",
           "caption": ""
         }
       ],
-      "launchedAt": "2026-04-08T20:32:05.000Z",
-      "version": "",
-      "launchNotes": "DoorCodes is listed as Live in the iOS App catalog, refreshed automatically from its site manifest.",
+      "launchedAt": "2026-04-13T00:00:00Z",
+      "version": "1.0.3",
+      "launchNotes": "DoorCodes is publicly available on the App Store with a dedicated product site, support path, privacy policy, and release artwork.",
       "versionHighlights": [
-        "Live iOS App project website",
-        "Curated by site-manifest.json",
-        "6 gallery images available"
+        "Available on the App Store",
+        "Support and privacy paths verified",
+        "Delivered public product"
       ],
       "accent": "#38BDF8",
       "featured": true,
@@ -74,602 +134,66 @@
       "manifestFound": true,
       "stargazersCount": 0,
       "forksCount": 0,
-      "updatedAt": "2026-05-16T09:14:26Z"
-    },
-    {
-      "name": "SwiftTerm",
-      "tagline": "A polished terminal companion for fast command notes and workflows.",
-      "category": "Tool",
-      "status": "Live",
-      "website": "https://swiftterm.app/",
-      "supportUrl": "",
-      "privacyUrl": "",
-      "appStoreUrl": "",
-      "icon": "https://swiftterm.app/screenshots/swiftterm-app-icon.png",
-      "previewImage": "https://swiftterm.app/assets/swiftterm-social-preview.png",
-      "previewImageAlt": "",
-      "screenshots": [
-        {
-          "src": "https://swiftterm.app/screenshots/swiftterm-ipad-workspace.png",
-          "alt": "",
-          "caption": ""
-        },
-        {
-          "src": "https://swiftterm.app/screenshots/swiftterm-iphone-terminal.png",
-          "alt": "",
-          "caption": ""
-        },
-        {
-          "src": "https://swiftterm.app/assets/swiftterm-hero-console.png",
-          "alt": "",
-          "caption": ""
-        },
-        {
-          "src": "https://swiftterm.app/screenshots/swiftterm-iphone-files.png",
-          "alt": "",
-          "caption": ""
-        },
-        {
-          "src": "https://swiftterm.app/screenshots/swiftterm-architecture.png",
-          "alt": "",
-          "caption": ""
-        },
-        {
-          "src": "https://swiftterm.app/assets/swiftterm-social-preview.png",
-          "alt": "",
-          "caption": ""
-        }
-      ],
-      "launchedAt": "2026-04-20T19:48:00.000Z",
-      "version": "",
-      "launchNotes": "SwiftTerm is listed as Live in the Tool catalog, refreshed automatically from public GitHub Pages metadata.",
-      "versionHighlights": [
-        "Live Tool project website",
-        "Auto-discovered from public GitHub Pages",
-        "6 gallery images available"
-      ],
-      "accent": "#59F2C7",
-      "featured": true,
-      "sortOrder": 20,
-      "repoName": "swiftterm-site",
-      "repositoryUrl": "https://github.com/NinjaTomOnline/swiftterm-site",
-      "topics": [
-        "app-website",
-        "ninjatom-project-site"
-      ],
-      "manifestFound": false,
-      "stargazersCount": 0,
-      "forksCount": 0,
-      "updatedAt": "2026-05-01T10:38:41Z"
-    },
-    {
-      "name": "Zen Wisdom",
-      "tagline": "Quiet daily reflections designed for calmer routines.",
-      "category": "iOS App",
-      "status": "Live",
-      "website": "https://zenwisdom.app/",
-      "supportUrl": "",
-      "privacyUrl": "",
-      "appStoreUrl": "https://apps.apple.com/us/app/zen-wisdom/id414329570",
-      "icon": "https://zenwisdom.app/assets/icon-512.png",
-      "previewImage": "https://zenwisdom.app/screenshots/zenwisdom-facebook-2-07.png",
-      "previewImageAlt": "",
-      "screenshots": [
-        {
-          "src": "https://zenwisdom.app/screenshots/zenwisdom-home.png",
-          "alt": "",
-          "caption": ""
-        },
-        {
-          "src": "https://zenwisdom.app/screenshots/zenwisdom-library.png",
-          "alt": "",
-          "caption": ""
-        },
-        {
-          "src": "https://zenwisdom.app/screenshots/zenwisdom-profile.png",
-          "alt": "",
-          "caption": ""
-        },
-        {
-          "src": "https://zenwisdom.app/screenshots/zenwisdom-journal.png",
-          "alt": "",
-          "caption": ""
-        },
-        {
-          "src": "https://zenwisdom.app/screenshots/zenwisdom-facebook-2-06.png",
-          "alt": "",
-          "caption": ""
-        },
-        {
-          "src": "https://zenwisdom.app/screenshots/zenwisdom-facebook-2-07.png",
-          "alt": "",
-          "caption": ""
-        }
-      ],
-      "launchedAt": "2026-04-19T03:32:16.000Z",
-      "version": "",
-      "launchNotes": "Zen Wisdom is listed as Live in the iOS App catalog, refreshed automatically from public GitHub Pages metadata.",
-      "versionHighlights": [
-        "Live iOS App project website",
-        "Auto-discovered from public GitHub Pages",
-        "6 gallery images available"
-      ],
-      "accent": "#A78BFA",
-      "featured": false,
-      "sortOrder": 30,
-      "repoName": "zenwisdom-site",
-      "repositoryUrl": "https://github.com/NinjaTomOnline/zenwisdom-site",
-      "topics": [
-        "app-website",
-        "ninjatom-project-site"
-      ],
-      "manifestFound": false,
-      "stargazersCount": 0,
-      "forksCount": 0,
-      "updatedAt": "2026-06-06T15:01:01Z"
-    },
-    {
-      "name": "DontSpeed",
-      "tagline": "A speed-awareness app website built for simple, focused driving safety.",
-      "category": "iOS App",
-      "status": "Live",
-      "website": "https://dontspeed.app/",
-      "supportUrl": "",
-      "privacyUrl": "",
-      "appStoreUrl": "",
-      "icon": "https://dontspeed.app/screenshots/app-icon.png",
-      "previewImage": "https://dontspeed.app/screenshots/social-card.png",
-      "previewImageAlt": "",
-      "screenshots": [
-        {
-          "src": "https://dontspeed.app/screenshots/6.9-inch/03-drive-alert.png",
-          "alt": "",
-          "caption": ""
-        },
-        {
-          "src": "https://dontspeed.app/screenshots/6.9-inch/02-drive-ready.png",
-          "alt": "",
-          "caption": ""
-        },
-        {
-          "src": "https://dontspeed.app/screenshots/6.9-inch/01-onboarding.png",
-          "alt": "",
-          "caption": ""
-        },
-        {
-          "src": "https://dontspeed.app/screenshots/6.9-inch/04-settings.png",
-          "alt": "",
-          "caption": ""
-        },
-        {
-          "src": "https://dontspeed.app/screenshots/6.9-inch/05-log.png",
-          "alt": "",
-          "caption": ""
-        },
-        {
-          "src": "https://dontspeed.app/screenshots/social-card.png",
-          "alt": "",
-          "caption": ""
-        }
-      ],
-      "launchedAt": "2026-04-30T00:40:59.000Z",
-      "version": "",
-      "launchNotes": "DontSpeed is listed as Live in the iOS App catalog, refreshed automatically from public GitHub Pages metadata.",
-      "versionHighlights": [
-        "Live iOS App project website",
-        "Auto-discovered from public GitHub Pages",
-        "6 gallery images available"
-      ],
-      "accent": "#FF6FA8",
-      "featured": false,
-      "sortOrder": 40,
-      "repoName": "dontspeed-site",
-      "repositoryUrl": "https://github.com/NinjaTomOnline/dontspeed-site",
-      "topics": [
-        "app-website",
-        "ninjatom-project-site"
-      ],
-      "manifestFound": false,
-      "stargazersCount": 0,
-      "forksCount": 0,
-      "updatedAt": "2026-05-01T03:35:49Z"
-    },
-    {
-      "name": "FlowGuru",
-      "tagline": "A flow arts home base for profiles, practice prompts, and the first release circle.",
-      "category": "Community",
-      "status": "Private staging",
-      "website": "https://ninjatomonline.github.io/flowguru-site/",
-      "supportUrl": "https://ninjatomonline.github.io/flowguru-site/support.html",
-      "privacyUrl": "https://ninjatomonline.github.io/flowguru-site/privacy.html",
-      "appStoreUrl": "",
-      "icon": "https://raw.githubusercontent.com/NinjaTomOnline/flowguru-site/main/assets/flowguru-icon.svg",
-      "previewImage": "https://raw.githubusercontent.com/NinjaTomOnline/flowguru-site/main/assets/flowguru-social.png",
-      "previewImageAlt": "FlowGuru launch art showing profile, practice prompt, and flow trails",
-      "screenshots": [
-        {
-          "src": "https://raw.githubusercontent.com/NinjaTomOnline/flowguru-site/main/assets/flowguru-social.png",
-          "alt": "FlowGuru launch art showing profile, practice prompt, and flow trails",
-          "caption": ""
-        },
-        {
-          "src": "https://ninjatomonline.github.io/flowguru-site/assets/flowguru-preview.svg",
-          "alt": "FlowGuru launch art showing profile, practice prompt, and flow trails",
-          "caption": ""
-        }
-      ],
-      "launchedAt": "2026-04-24T05:33:19.000Z",
-      "version": "",
-      "launchNotes": "FlowGuru is listed as Private staging in the Community catalog, refreshed automatically from its site manifest.",
-      "versionHighlights": [
-        "Private staging Community project website",
-        "Curated by site-manifest.json",
-        "2 gallery images available"
-      ],
-      "accent": "#54F2D0",
-      "featured": false,
-      "sortOrder": 50,
-      "repoName": "flowguru-site",
-      "repositoryUrl": "https://github.com/NinjaTomOnline/flowguru-site",
-      "topics": [
-        "app-website",
-        "ninjatom-project-site"
-      ],
-      "manifestFound": true,
-      "stargazersCount": 0,
-      "forksCount": 0,
-      "updatedAt": "2026-05-01T11:01:02Z"
-    },
-    {
-      "name": "Rooftop Rush",
-      "tagline": "A fast arcade project site with skyline energy.",
-      "category": "Game",
-      "status": "Live",
-      "website": "https://ninjatomonline.github.io/rooftoprush-site/",
-      "supportUrl": "",
-      "privacyUrl": "",
-      "appStoreUrl": "",
-      "icon": "https://ninjatomonline.github.io/rooftoprush-site/favicon.svg",
-      "previewImage": "https://ninjatomonline.github.io/rooftoprush-site/screenshots/03-wardrobe-restored.jpg",
-      "previewImageAlt": "",
-      "screenshots": [
-        {
-          "src": "https://ninjatomonline.github.io/rooftoprush-site/screenshots/03-wardrobe-restored.jpg",
-          "alt": "",
-          "caption": ""
-        },
-        {
-          "src": "https://ninjatomonline.github.io/rooftoprush-site/screenshots/02-warehouse-evidence.jpg",
-          "alt": "",
-          "caption": ""
-        },
-        {
-          "src": "https://ninjatomonline.github.io/rooftoprush-site/screenshots/05-elite-encounter.jpg",
-          "alt": "",
-          "caption": ""
-        },
-        {
-          "src": "https://ninjatomonline.github.io/rooftoprush-site/screenshots/01-onboarding-ready.jpg",
-          "alt": "",
-          "caption": ""
-        },
-        {
-          "src": "https://ninjatomonline.github.io/rooftoprush-site/screenshots/04-hook-vault.jpg",
-          "alt": "",
-          "caption": ""
-        },
-        {
-          "src": "https://ninjatomonline.github.io/rooftoprush-site/screenshots/06-game-over.jpg",
-          "alt": "",
-          "caption": ""
-        }
-      ],
-      "launchedAt": "2026-04-30T12:51:05.000Z",
-      "version": "",
-      "launchNotes": "Rooftop Rush is listed as Live in the Game catalog, refreshed automatically from public GitHub Pages metadata.",
-      "versionHighlights": [
-        "Live Game project website",
-        "Auto-discovered from public GitHub Pages",
-        "6 gallery images available"
-      ],
-      "accent": "#42D9FF",
-      "featured": false,
-      "sortOrder": 110,
-      "repoName": "rooftoprush-site",
-      "repositoryUrl": "https://github.com/NinjaTomOnline/rooftoprush-site",
-      "topics": [
-        "app-website",
-        "ninjatom-project-site"
-      ],
-      "manifestFound": false,
-      "stargazersCount": 0,
-      "forksCount": 0,
-      "updatedAt": "2026-05-01T14:27:25Z"
-    },
-    {
-      "name": "Retrocopter",
-      "tagline": "A retro arcade flight project site.",
-      "category": "Game",
-      "status": "Live",
-      "website": "https://ninjatomonline.github.io/retrocopter-site/",
-      "supportUrl": "",
-      "privacyUrl": "",
-      "appStoreUrl": "",
-      "icon": "https://ninjatomonline.github.io/retrocopter-site/assets/app-icon.png",
-      "previewImage": "https://ninjatomonline.github.io/retrocopter-site/screenshots/ipad-gameplay.png",
-      "previewImageAlt": "",
-      "screenshots": [
-        {
-          "src": "https://ninjatomonline.github.io/retrocopter-site/screenshots/iphone-title.png",
-          "alt": "",
-          "caption": ""
-        },
-        {
-          "src": "https://ninjatomonline.github.io/retrocopter-site/screenshots/iphone-gameplay.png",
-          "alt": "",
-          "caption": ""
-        },
-        {
-          "src": "https://ninjatomonline.github.io/retrocopter-site/screenshots/ipad-gameplay.png",
-          "alt": "",
-          "caption": ""
-        },
-        {
-          "src": "https://ninjatomonline.github.io/retrocopter-site/screenshots/ipad-title.png",
-          "alt": "",
-          "caption": ""
-        }
-      ],
-      "launchedAt": "2026-04-23T10:07:42.000Z",
-      "version": "",
-      "launchNotes": "Retrocopter is listed as Live in the Game catalog, refreshed automatically from public GitHub Pages metadata.",
-      "versionHighlights": [
-        "Live Game project website",
-        "Auto-discovered from public GitHub Pages",
-        "4 gallery images available"
-      ],
-      "accent": "#59F2C7",
-      "featured": false,
-      "sortOrder": 120,
-      "repoName": "retrocopter-site",
-      "repositoryUrl": "https://github.com/NinjaTomOnline/retrocopter-site",
-      "topics": [
-        "app-website",
-        "ninjatom-project-site"
-      ],
-      "manifestFound": false,
-      "stargazersCount": 0,
-      "forksCount": 0,
-      "updatedAt": "2026-04-23T13:38:26Z"
-    },
-    {
-      "name": "Deadhead Detective",
-      "tagline": "A mystery-driven game project site.",
-      "category": "Game",
-      "status": "Live",
-      "website": "https://ninjatomonline.github.io/deadheaddetective-site/",
-      "supportUrl": "",
-      "privacyUrl": "",
-      "appStoreUrl": "",
-      "icon": "https://raw.githubusercontent.com/NinjaTomOnline/deadheaddetective-site/main/assets/deadhead-detective-icon.svg",
-      "previewImage": "https://raw.githubusercontent.com/NinjaTomOnline/deadheaddetective-site/main/assets/deadhead-detective-preview.svg",
-      "previewImageAlt": "Deadhead Detective project preview",
-      "screenshots": [
-        {
-          "src": "https://raw.githubusercontent.com/NinjaTomOnline/deadheaddetective-site/main/assets/deadhead-detective-preview.svg",
-          "alt": "Deadhead Detective project preview",
-          "caption": ""
-        },
-        {
-          "src": "https://ninjatomonline.github.io/deadheaddetective-site/screenshots/iphone/01-dashboard-summary.png",
-          "alt": "Deadhead Detective project preview",
-          "caption": ""
-        },
-        {
-          "src": "https://ninjatomonline.github.io/deadheaddetective-site/screenshots/iphone/02-active-trip-overview.png",
-          "alt": "Deadhead Detective project preview",
-          "caption": ""
-        },
-        {
-          "src": "https://ninjatomonline.github.io/deadheaddetective-site/screenshots/iphone/03-history-sessions.png",
-          "alt": "Deadhead Detective project preview",
-          "caption": ""
-        },
-        {
-          "src": "https://ninjatomonline.github.io/deadheaddetective-site/screenshots/iphone/04-insights-trend.png",
-          "alt": "Deadhead Detective project preview",
-          "caption": ""
-        },
-        {
-          "src": "https://ninjatomonline.github.io/deadheaddetective-site/screenshots/iphone/05-active-trip-route-controls.png",
-          "alt": "Deadhead Detective project preview",
-          "caption": ""
-        }
-      ],
-      "launchedAt": "2026-04-09T20:05:11.000Z",
-      "version": "",
-      "launchNotes": "Deadhead Detective is listed as Live in the Game catalog, refreshed automatically from its site manifest.",
-      "versionHighlights": [
-        "Live Game project website",
-        "Curated by site-manifest.json",
-        "6 gallery images available"
-      ],
-      "accent": "#A78BFA",
-      "featured": false,
-      "sortOrder": 130,
-      "repoName": "deadheaddetective-site",
-      "repositoryUrl": "https://github.com/NinjaTomOnline/deadheaddetective-site",
-      "topics": [
-        "app-website",
-        "ninjatom-project-site"
-      ],
-      "manifestFound": true,
-      "stargazersCount": 0,
-      "forksCount": 0,
-      "updatedAt": "2026-04-30T19:50:52Z"
-    },
-    {
-      "name": "MasterSpaces",
-      "tagline": "Window layouts that remember the room.",
-      "category": "macOS Utility",
-      "status": "Release Candidate",
-      "website": "https://ninjatomonline.github.io/masterspaces-site/",
-      "supportUrl": "https://ninjatomonline.github.io/masterspaces-site/support.html",
-      "privacyUrl": "https://ninjatomonline.github.io/masterspaces-site/privacy.html",
-      "appStoreUrl": "",
-      "icon": "https://raw.githubusercontent.com/NinjaTomOnline/masterspaces-site/main/assets/favicon.svg",
-      "previewImage": "https://raw.githubusercontent.com/NinjaTomOnline/masterspaces-site/main/assets/social-preview.png",
-      "previewImageAlt": "MasterSpaces launch preview with monitor topology map",
-      "screenshots": [
-        {
-          "src": "https://raw.githubusercontent.com/NinjaTomOnline/masterspaces-site/main/assets/social-preview.png",
-          "alt": "MasterSpaces launch preview with monitor topology map",
-          "caption": ""
-        },
-        {
-          "src": "https://ninjatomonline.github.io/masterspaces-site/screenshots/menu-bar-panel.png",
-          "alt": "MasterSpaces launch preview with monitor topology map",
-          "caption": ""
-        },
-        {
-          "src": "https://ninjatomonline.github.io/masterspaces-site/screenshots/onboarding.png",
-          "alt": "MasterSpaces launch preview with monitor topology map",
-          "caption": ""
-        },
-        {
-          "src": "https://ninjatomonline.github.io/masterspaces-site/screenshots/preferences.png",
-          "alt": "MasterSpaces launch preview with monitor topology map",
-          "caption": ""
-        },
-        {
-          "src": "https://ninjatomonline.github.io/masterspaces-site/screenshots/archive/menu-bar-panel-light.svg",
-          "alt": "MasterSpaces launch preview with monitor topology map",
-          "caption": ""
-        },
-        {
-          "src": "https://ninjatomonline.github.io/masterspaces-site/screenshots/archive/onboarding-light.svg",
-          "alt": "MasterSpaces launch preview with monitor topology map",
-          "caption": ""
-        }
-      ],
-      "launchedAt": "2026-04-24T04:20:03.000Z",
-      "version": "",
-      "launchNotes": "MasterSpaces is listed as Release Candidate in the macOS Utility catalog, refreshed automatically from its site manifest.",
-      "versionHighlights": [
-        "Release Candidate macOS Utility project website",
-        "Curated by site-manifest.json",
-        "6 gallery images available"
-      ],
-      "accent": "#EF9D2F",
-      "featured": false,
-      "sortOrder": 210,
-      "repoName": "masterspaces-site",
-      "repositoryUrl": "https://github.com/NinjaTomOnline/masterspaces-site",
-      "topics": [
-        "app-website",
-        "ninjatom-project-site"
-      ],
-      "manifestFound": true,
-      "stargazersCount": 0,
-      "forksCount": 0,
-      "updatedAt": "2026-05-01T11:04:38Z"
-    },
-    {
-      "name": "CushionOps",
-      "tagline": "A focused operations tool project site.",
-      "category": "Tool",
-      "status": "Live",
-      "website": "https://ninjatomonline.github.io/cushionops-site/",
-      "supportUrl": "",
-      "privacyUrl": "",
-      "appStoreUrl": "",
-      "icon": "https://raw.githubusercontent.com/NinjaTomOnline/cushionops-site/main/assets/cushionops-icon.svg",
-      "previewImage": "https://raw.githubusercontent.com/NinjaTomOnline/cushionops-site/main/assets/cushionops-preview.svg",
-      "previewImageAlt": "CushionOps project preview",
-      "screenshots": [
-        {
-          "src": "https://raw.githubusercontent.com/NinjaTomOnline/cushionops-site/main/assets/cushionops-preview.svg",
-          "alt": "CushionOps project preview",
-          "caption": ""
-        }
-      ],
-      "launchedAt": "2026-04-20T22:44:50.000Z",
-      "version": "",
-      "launchNotes": "CushionOps is listed as Live in the Tool catalog, refreshed automatically from its site manifest.",
-      "versionHighlights": [
-        "Live Tool project website",
-        "Curated by site-manifest.json",
-        "1 gallery image available"
-      ],
-      "accent": "#FFCF70",
-      "featured": false,
-      "sortOrder": 220,
-      "repoName": "cushionops-site",
-      "repositoryUrl": "https://github.com/NinjaTomOnline/cushionops-site",
-      "topics": [
-        "app-website",
-        "ninjatom-project-site"
-      ],
-      "manifestFound": true,
-      "stargazersCount": 0,
-      "forksCount": 0,
-      "updatedAt": "2026-04-30T19:50:53Z"
+      "updatedAt": "2026-05-16T09:14:26Z",
+      "curationFound": true
     },
     {
       "name": "QuitGentle",
-      "tagline": "Shame-free smoking tracking with fast logs, craving rescue, pattern awareness, and optional Premium insight.",
-      "category": "iOS App",
-      "status": "Live on App Store with optional Premium",
+      "tagline": "A calm smoking-cessation tracker with progress cues, check-ins, and optional Premium tools.",
+      "category": "Mobile App",
+      "status": "Shipped / Available",
+      "productStatus": "Shipped / Available",
+      "websiteStatus": "Public website and App Store available",
       "website": "https://quitgentle.com/",
       "supportUrl": "https://quitgentle.com/support/",
       "privacyUrl": "https://quitgentle.com/privacy/",
       "appStoreUrl": "https://apps.apple.com/us/app/quitgentle-smoking-tracker/id6761405030",
       "icon": "https://raw.githubusercontent.com/NinjaTomOnline/ashtag-site/main/assets/icons/quitgentle-app-icon.png",
       "previewImage": "https://raw.githubusercontent.com/NinjaTomOnline/ashtag-site/main/assets/social/quitgentle-facebook-preview-20260507-v2.png",
-      "previewImageAlt": "QuitGentle social preview with app icon, launch copy, and three app screens",
+      "previewImageAlt": "QuitGentle smoking-tracker app and public product preview.",
       "screenshots": [
         {
           "src": "https://raw.githubusercontent.com/NinjaTomOnline/ashtag-site/main/assets/social/quitgentle-facebook-preview-20260507-v2.png",
-          "alt": "QuitGentle social preview with app icon, launch copy, and three app screens",
+          "alt": "QuitGentle smoking-tracker app and public product preview.",
           "caption": ""
         },
         {
           "src": "https://quitgentle.com/assets/screenshots/quitgentle-today-marketing.png",
-          "alt": "QuitGentle social preview with app icon, launch copy, and three app screens",
+          "alt": "QuitGentle smoking-tracker app and public product preview.",
           "caption": ""
         },
         {
           "src": "https://quitgentle.com/assets/screenshots/quitgentle-rescue.png",
-          "alt": "QuitGentle social preview with app icon, launch copy, and three app screens",
+          "alt": "QuitGentle smoking-tracker app and public product preview.",
           "caption": ""
         },
         {
           "src": "https://quitgentle.com/assets/screenshots/quitgentle-watch-marketing.png",
-          "alt": "QuitGentle social preview with app icon, launch copy, and three app screens",
+          "alt": "QuitGentle smoking-tracker app and public product preview.",
           "caption": ""
         },
         {
           "src": "https://quitgentle.com/assets/screenshots/quitgentle-hotspots.png",
-          "alt": "QuitGentle social preview with app icon, launch copy, and three app screens",
+          "alt": "QuitGentle smoking-tracker app and public product preview.",
           "caption": ""
         },
         {
           "src": "https://quitgentle.com/assets/screenshots/quitgentle-progress.png",
-          "alt": "QuitGentle social preview with app icon, launch copy, and three app screens",
+          "alt": "QuitGentle smoking-tracker app and public product preview.",
           "caption": ""
         }
       ],
-      "launchedAt": "2026-04-09T16:57:11.000Z",
-      "version": "",
-      "launchNotes": "QuitGentle is listed as Live on App Store with optional Premium in the iOS App catalog, refreshed automatically from its site manifest.",
+      "launchedAt": "2026-05-05T00:00:00Z",
+      "version": "1.1",
+      "launchNotes": "QuitGentle is publicly available on the App Store. AshTag remains an internal source alias and is not a separate public product.",
       "versionHighlights": [
-        "Live on App Store with optional Premium iOS App project website",
-        "Curated by site-manifest.json",
-        "6 gallery images available"
+        "Available on the App Store",
+        "Actively maintained",
+        "Canonical public identity: QuitGentle"
       ],
       "accent": "#e7c176",
-      "featured": false,
-      "sortOrder": 230,
+      "featured": true,
+      "sortOrder": 20,
       "repoName": "ashtag-site",
       "repositoryUrl": "https://github.com/NinjaTomOnline/ashtag-site",
       "topics": [
@@ -679,63 +203,205 @@
       "manifestFound": true,
       "stargazersCount": 0,
       "forksCount": 0,
-      "updatedAt": "2026-06-11T00:20:58Z"
+      "updatedAt": "2026-06-11T00:20:58Z",
+      "slug": "quitgentle",
+      "curationFound": true
     },
     {
-      "name": "Dreamspell",
-      "tagline": "A creative project site with a reflective, imaginative tone.",
-      "category": "Creative / Custom3D",
-      "status": "Live",
+      "name": "Ninja Tom’s Rooftop Rush",
+      "tagline": "A fast chapter-driven rooftop arcade game built around movement, gadgets, evidence, and style.",
+      "category": "Game",
+      "status": "Near Release / Release Candidate",
+      "productStatus": "Near Release / Release Candidate",
+      "websiteStatus": "Public project site available",
+      "website": "https://ninjatomonline.github.io/rooftoprush-site/",
+      "supportUrl": "https://ninjatomonline.github.io/rooftoprush-site/support.html",
+      "privacyUrl": "https://ninjatomonline.github.io/rooftoprush-site/privacy.html",
+      "appStoreUrl": "",
+      "icon": "https://ninjatomonline.github.io/rooftoprush-site/favicon.svg",
+      "previewImage": "https://ninjatomonline.github.io/rooftoprush-site/screenshots/03-wardrobe-restored.jpg",
+      "previewImageAlt": "Ninja Tom’s Rooftop Rush gameplay and character wardrobe preview.",
+      "screenshots": [
+        {
+          "src": "https://ninjatomonline.github.io/rooftoprush-site/screenshots/03-wardrobe-restored.jpg",
+          "alt": "Ninja Tom’s Rooftop Rush gameplay and character wardrobe preview.",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/rooftoprush-site/screenshots/02-warehouse-evidence.jpg",
+          "alt": "Ninja Tom’s Rooftop Rush gameplay and character wardrobe preview.",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/rooftoprush-site/screenshots/05-elite-encounter.jpg",
+          "alt": "Ninja Tom’s Rooftop Rush gameplay and character wardrobe preview.",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/rooftoprush-site/screenshots/01-onboarding-ready.jpg",
+          "alt": "Ninja Tom’s Rooftop Rush gameplay and character wardrobe preview.",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/rooftoprush-site/screenshots/04-hook-vault.jpg",
+          "alt": "Ninja Tom’s Rooftop Rush gameplay and character wardrobe preview.",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/rooftoprush-site/screenshots/06-game-over.jpg",
+          "alt": "Ninja Tom’s Rooftop Rush gameplay and character wardrobe preview.",
+          "caption": ""
+        }
+      ],
+      "launchedAt": "",
+      "version": "Release candidate",
+      "launchNotes": "The game has a complete multi-chapter release-candidate path and current gameplay media. Human playability, final media approval, and release authorization remain open.",
+      "versionHighlights": [
+        "Six-chapter campaign path",
+        "Gameplay and HUD evidence captured",
+        "Final owner and release gates remain"
+      ],
+      "accent": "#42D9FF",
+      "featured": true,
+      "sortOrder": 30,
+      "repoName": "rooftoprush-site",
+      "repositoryUrl": "https://github.com/NinjaTomOnline/rooftoprush-site",
+      "topics": [
+        "app-website",
+        "ninjatom-project-site"
+      ],
+      "manifestFound": false,
+      "stargazersCount": 0,
+      "forksCount": 0,
+      "updatedAt": "2026-05-01T14:27:25Z",
+      "curationFound": true
+    },
+    {
+      "name": "Zen Wisdom",
+      "tagline": "Quiet daily reflections and timeless teachings, modernized for today’s Apple devices.",
+      "category": "Mobile App",
+      "status": "Released but actively maintained",
+      "productStatus": "Released but actively maintained",
+      "websiteStatus": "Public website and App Store available",
+      "website": "https://zenwisdom.app/",
+      "supportUrl": "https://zenwisdom.app/support.html",
+      "privacyUrl": "https://zenwisdom.app/privacy.html",
+      "appStoreUrl": "https://apps.apple.com/us/app/zen-wisdom/id414329570",
+      "icon": "https://zenwisdom.app/assets/icon-512.png",
+      "previewImage": "https://zenwisdom.app/screenshots/zenwisdom-facebook-2-07.png",
+      "previewImageAlt": "Zen Wisdom reflection app update and public product preview.",
+      "screenshots": [
+        {
+          "src": "https://zenwisdom.app/screenshots/zenwisdom-home.png",
+          "alt": "Zen Wisdom reflection app update and public product preview.",
+          "caption": ""
+        },
+        {
+          "src": "https://zenwisdom.app/screenshots/zenwisdom-library.png",
+          "alt": "Zen Wisdom reflection app update and public product preview.",
+          "caption": ""
+        },
+        {
+          "src": "https://zenwisdom.app/screenshots/zenwisdom-profile.png",
+          "alt": "Zen Wisdom reflection app update and public product preview.",
+          "caption": ""
+        },
+        {
+          "src": "https://zenwisdom.app/screenshots/zenwisdom-journal.png",
+          "alt": "Zen Wisdom reflection app update and public product preview.",
+          "caption": ""
+        },
+        {
+          "src": "https://zenwisdom.app/screenshots/zenwisdom-facebook-2-06.png",
+          "alt": "Zen Wisdom reflection app update and public product preview.",
+          "caption": ""
+        },
+        {
+          "src": "https://zenwisdom.app/screenshots/zenwisdom-facebook-2-07.png",
+          "alt": "Zen Wisdom reflection app update and public product preview.",
+          "caption": ""
+        }
+      ],
+      "launchedAt": "2011-01-15T00:00:00Z",
+      "version": "2.07",
+      "launchNotes": "Zen Wisdom is a long-running App Store product modernized and maintained with a current 2026 update.",
+      "versionHighlights": [
+        "Available on the App Store",
+        "Modernized and maintained",
+        "Current 2026 release verified"
+      ],
+      "accent": "#A78BFA",
+      "featured": false,
+      "sortOrder": 40,
+      "repoName": "zenwisdom-site",
+      "repositoryUrl": "https://github.com/NinjaTomOnline/zenwisdom-site",
+      "topics": [
+        "app-website",
+        "ninjatom-project-site"
+      ],
+      "manifestFound": false,
+      "stargazersCount": 0,
+      "forksCount": 0,
+      "updatedAt": "2026-06-06T15:01:01Z",
+      "curationFound": true
+    },
+    {
+      "name": "DreamSpell",
+      "tagline": "A modern companion for the Dreamspell calendar, daily kin, oracle, and reflective practice.",
+      "category": "Mobile App",
+      "status": "Released but actively maintained",
+      "productStatus": "Released but actively maintained",
+      "websiteStatus": "Public website and App Store available",
       "website": "https://dreamspell.app/",
       "supportUrl": "https://dreamspell.app/support.html",
       "privacyUrl": "https://dreamspell.app/privacy.html",
       "appStoreUrl": "https://apps.apple.com/us/app/dreamspell/id413388110",
       "icon": "https://dreamspell.app/icon-512.png",
       "previewImage": "https://dreamspell.app/screenshots/web/iphone-dashboard-dark.png",
-      "previewImageAlt": "",
+      "previewImageAlt": "DreamSpell daily kin and oracle app dashboard preview.",
       "screenshots": [
         {
           "src": "https://dreamspell.app/screenshots/annual-cycle-map.svg",
-          "alt": "",
+          "alt": "DreamSpell daily kin and oracle app dashboard preview.",
           "caption": ""
         },
         {
           "src": "https://dreamspell.app/screenshots/web/iphone-dashboard-dark.png",
-          "alt": "",
+          "alt": "DreamSpell daily kin and oracle app dashboard preview.",
           "caption": ""
         },
         {
           "src": "https://dreamspell.app/screenshots/web/iphone-calendar-dark.png",
-          "alt": "",
+          "alt": "DreamSpell daily kin and oracle app dashboard preview.",
           "caption": ""
         },
         {
           "src": "https://dreamspell.app/screenshots/web/iphone-explorer-selector-dark.png",
-          "alt": "",
+          "alt": "DreamSpell daily kin and oracle app dashboard preview.",
           "caption": ""
         },
         {
           "src": "https://dreamspell.app/screenshots/web/iphone-dreamspell-course-dark.png",
-          "alt": "",
+          "alt": "DreamSpell daily kin and oracle app dashboard preview.",
           "caption": ""
         },
         {
           "src": "https://dreamspell.app/screenshots/web/iphone-tones-reference-dark.png",
-          "alt": "",
+          "alt": "DreamSpell daily kin and oracle app dashboard preview.",
           "caption": ""
         }
       ],
-      "launchedAt": "2026-04-11T21:53:18.000Z",
-      "version": "",
-      "launchNotes": "Dreamspell is listed as Live in the Creative / Custom3D catalog, refreshed automatically from public GitHub Pages metadata.",
+      "launchedAt": "2011-01-11T00:00:00Z",
+      "version": "1.6.4",
+      "launchNotes": "DreamSpell is a long-running App Store product modernized and maintained with a current 2026 release and canonical dreamspell.app destination.",
       "versionHighlights": [
-        "Live Creative / Custom3D project website",
-        "Auto-discovered from public GitHub Pages",
-        "6 gallery images available"
+        "Available on the App Store",
+        "Modernized and maintained",
+        "Canonical dreamspell.app destination"
       ],
       "accent": "#A78BFA",
       "featured": false,
-      "sortOrder": 310,
+      "sortOrder": 50,
       "repoName": "dreamspell-site",
       "repositoryUrl": "https://github.com/NinjaTomOnline/dreamspell-site",
       "topics": [
@@ -745,63 +411,319 @@
       "manifestFound": false,
       "stargazersCount": 0,
       "forksCount": 0,
-      "updatedAt": "2026-06-12T00:48:54Z"
+      "updatedAt": "2026-06-12T00:48:54Z",
+      "curationFound": true
+    },
+    {
+      "name": "Don’t Speed",
+      "tagline": "A route-aware speed companion designed for clear alerts, safer pacing, and trip review.",
+      "category": "Mobile App",
+      "status": "Near Release / Release Candidate",
+      "productStatus": "Near Release / Release Candidate",
+      "websiteStatus": "Public project site available",
+      "website": "https://dontspeed.app/",
+      "supportUrl": "https://dontspeed.app/support.html",
+      "privacyUrl": "https://dontspeed.app/privacy.html",
+      "appStoreUrl": "",
+      "icon": "https://dontspeed.app/screenshots/app-icon.png",
+      "previewImage": "https://dontspeed.app/screenshots/social-card.png",
+      "previewImageAlt": "Don’t Speed trip dashboard and speed-awareness app preview.",
+      "screenshots": [
+        {
+          "src": "https://dontspeed.app/screenshots/6.9-inch/03-drive-alert.png",
+          "alt": "Don’t Speed trip dashboard and speed-awareness app preview.",
+          "caption": ""
+        },
+        {
+          "src": "https://dontspeed.app/screenshots/6.9-inch/02-drive-ready.png",
+          "alt": "Don’t Speed trip dashboard and speed-awareness app preview.",
+          "caption": ""
+        },
+        {
+          "src": "https://dontspeed.app/screenshots/6.9-inch/01-onboarding.png",
+          "alt": "Don’t Speed trip dashboard and speed-awareness app preview.",
+          "caption": ""
+        },
+        {
+          "src": "https://dontspeed.app/screenshots/6.9-inch/04-settings.png",
+          "alt": "Don’t Speed trip dashboard and speed-awareness app preview.",
+          "caption": ""
+        },
+        {
+          "src": "https://dontspeed.app/screenshots/6.9-inch/05-log.png",
+          "alt": "Don’t Speed trip dashboard and speed-awareness app preview.",
+          "caption": ""
+        },
+        {
+          "src": "https://dontspeed.app/screenshots/social-card.png",
+          "alt": "Don’t Speed trip dashboard and speed-awareness app preview.",
+          "caption": ""
+        }
+      ],
+      "launchedAt": "",
+      "version": "TestFlight release candidate",
+      "launchNotes": "A release-candidate build is active in TestFlight. Physical route, locked-screen, audio, and final release approval remain before public launch.",
+      "versionHighlights": [
+        "Internal and external TestFlight active",
+        "Release archive and readiness gates passed",
+        "Physical route QA remains"
+      ],
+      "accent": "#FF6FA8",
+      "featured": false,
+      "sortOrder": 60,
+      "repoName": "dontspeed-site",
+      "repositoryUrl": "https://github.com/NinjaTomOnline/dontspeed-site",
+      "topics": [
+        "app-website",
+        "ninjatom-project-site"
+      ],
+      "manifestFound": false,
+      "stargazersCount": 0,
+      "forksCount": 0,
+      "updatedAt": "2026-05-01T03:35:49Z",
+      "curationFound": true
+    },
+    {
+      "name": "SwiftTerm",
+      "tagline": "A polished terminal companion for command notes, remote sessions, and fast developer workflows.",
+      "category": "Developer Tool",
+      "status": "Near Release / Release Candidate",
+      "productStatus": "Near Release / Release Candidate",
+      "websiteStatus": "Public project site available",
+      "website": "https://swiftterm.app/",
+      "supportUrl": "https://swiftterm.app/support.html",
+      "privacyUrl": "https://swiftterm.app/privacy.html",
+      "appStoreUrl": "",
+      "icon": "https://swiftterm.app/screenshots/swiftterm-app-icon.png",
+      "previewImage": "https://swiftterm.app/assets/swiftterm-social-preview.png",
+      "previewImageAlt": "SwiftTerm terminal sessions and command workflow preview.",
+      "screenshots": [
+        {
+          "src": "https://swiftterm.app/screenshots/swiftterm-ipad-workspace.png",
+          "alt": "SwiftTerm terminal sessions and command workflow preview.",
+          "caption": ""
+        },
+        {
+          "src": "https://swiftterm.app/screenshots/swiftterm-iphone-terminal.png",
+          "alt": "SwiftTerm terminal sessions and command workflow preview.",
+          "caption": ""
+        },
+        {
+          "src": "https://swiftterm.app/assets/swiftterm-hero-console.png",
+          "alt": "SwiftTerm terminal sessions and command workflow preview.",
+          "caption": ""
+        },
+        {
+          "src": "https://swiftterm.app/screenshots/swiftterm-iphone-files.png",
+          "alt": "SwiftTerm terminal sessions and command workflow preview.",
+          "caption": ""
+        },
+        {
+          "src": "https://swiftterm.app/screenshots/swiftterm-architecture.png",
+          "alt": "SwiftTerm terminal sessions and command workflow preview.",
+          "caption": ""
+        },
+        {
+          "src": "https://swiftterm.app/assets/swiftterm-social-preview.png",
+          "alt": "SwiftTerm terminal sessions and command workflow preview.",
+          "caption": ""
+        }
+      ],
+      "launchedAt": "",
+      "version": "Release preview",
+      "launchNotes": "SwiftTerm has a public product preview and release-preparation materials; a public App Store listing is not yet verified.",
+      "versionHighlights": [
+        "Terminal workflow product implemented",
+        "Public preview available",
+        "App Store release preparation continues"
+      ],
+      "accent": "#59F2C7",
+      "featured": false,
+      "sortOrder": 70,
+      "repoName": "swiftterm-site",
+      "repositoryUrl": "https://github.com/NinjaTomOnline/swiftterm-site",
+      "topics": [
+        "app-website",
+        "ninjatom-project-site"
+      ],
+      "manifestFound": false,
+      "stargazersCount": 0,
+      "forksCount": 0,
+      "updatedAt": "2026-05-01T10:38:41Z",
+      "curationFound": true
+    },
+    {
+      "name": "Mind Deck",
+      "tagline": "A focused thought-card app for prompts, reflection, and deliberate mental resets.",
+      "category": "Mobile App",
+      "status": "Near Release / Release Candidate",
+      "productStatus": "Near Release / Release Candidate",
+      "websiteStatus": "Public project site available",
+      "website": "https://ninjatomonline.github.io/minddeck-site/",
+      "supportUrl": "https://ninjatomonline.github.io/minddeck-site/support.html",
+      "privacyUrl": "https://ninjatomonline.github.io/minddeck-site/privacy.html",
+      "appStoreUrl": "",
+      "icon": "",
+      "previewImage": "https://ninjatomonline.github.io/minddeck-site/screenshots/ipad-home.png",
+      "previewImageAlt": "Mind Deck thought-card app home screen on iPad.",
+      "screenshots": [
+        {
+          "src": "https://ninjatomonline.github.io/minddeck-site/screenshots/iphone-home.png",
+          "alt": "Mind Deck thought-card app home screen on iPad.",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/minddeck-site/screenshots/ipad-home.png",
+          "alt": "Mind Deck thought-card app home screen on iPad.",
+          "caption": ""
+        }
+      ],
+      "launchedAt": "",
+      "version": "Submission candidate",
+      "launchNotes": "Mind Deck has a public product preview and current mobile/tablet interfaces while its App Store listing remains in preparation.",
+      "versionHighlights": [
+        "iPhone and iPad interfaces implemented",
+        "Public product preview available",
+        "App Store listing remains in preparation"
+      ],
+      "accent": "#7DD3FC",
+      "featured": false,
+      "sortOrder": 80,
+      "repoName": "minddeck-site",
+      "repositoryUrl": "https://github.com/NinjaTomOnline/minddeck-site",
+      "topics": [],
+      "manifestFound": false,
+      "stargazersCount": 0,
+      "forksCount": 0,
+      "updatedAt": "2026-06-24T02:08:41Z",
+      "curationFound": true
+    },
+    {
+      "name": "DeadHead Detective",
+      "tagline": "A gig-driving profitability utility that separates paid miles from deadhead miles and turns trips into useful insight.",
+      "category": "Mobile App",
+      "status": "Active Development",
+      "productStatus": "Active Development",
+      "websiteStatus": "Public project site available",
+      "website": "https://ninjatomonline.github.io/deadheaddetective-site/",
+      "supportUrl": "https://ninjatomonline.github.io/deadheaddetective-site/support.html",
+      "privacyUrl": "https://ninjatomonline.github.io/deadheaddetective-site/privacy.html",
+      "appStoreUrl": "",
+      "icon": "https://raw.githubusercontent.com/NinjaTomOnline/deadheaddetective-site/main/assets/deadhead-detective-icon.svg",
+      "previewImage": "https://ninjatomonline.github.io/deadheaddetective-site/screenshots/iphone/01-dashboard-summary.png",
+      "previewImageAlt": "DeadHead Detective gig-driving dashboard with earnings and mileage summary.",
+      "screenshots": [
+        {
+          "src": "https://raw.githubusercontent.com/NinjaTomOnline/deadheaddetective-site/main/assets/deadhead-detective-preview.svg",
+          "alt": "DeadHead Detective gig-driving dashboard with earnings and mileage summary.",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/deadheaddetective-site/screenshots/iphone/01-dashboard-summary.png",
+          "alt": "DeadHead Detective gig-driving dashboard with earnings and mileage summary.",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/deadheaddetective-site/screenshots/iphone/02-active-trip-overview.png",
+          "alt": "DeadHead Detective gig-driving dashboard with earnings and mileage summary.",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/deadheaddetective-site/screenshots/iphone/03-history-sessions.png",
+          "alt": "DeadHead Detective gig-driving dashboard with earnings and mileage summary.",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/deadheaddetective-site/screenshots/iphone/04-insights-trend.png",
+          "alt": "DeadHead Detective gig-driving dashboard with earnings and mileage summary.",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/deadheaddetective-site/screenshots/iphone/05-active-trip-route-controls.png",
+          "alt": "DeadHead Detective gig-driving dashboard with earnings and mileage summary.",
+          "caption": ""
+        }
+      ],
+      "launchedAt": "",
+      "version": "Active product build",
+      "launchNotes": "Current interfaces cover the dashboard, active trips, history, and profitability insights. No public App Store release is claimed.",
+      "versionHighlights": [
+        "Paid and deadhead mile tracking",
+        "Trip history and insight surfaces",
+        "Public release not yet verified"
+      ],
+      "accent": "#A78BFA",
+      "featured": false,
+      "sortOrder": 90,
+      "repoName": "deadheaddetective-site",
+      "repositoryUrl": "https://github.com/NinjaTomOnline/deadheaddetective-site",
+      "topics": [
+        "app-website",
+        "ninjatom-project-site"
+      ],
+      "manifestFound": true,
+      "stargazersCount": 0,
+      "forksCount": 0,
+      "updatedAt": "2026-04-30T19:50:52Z",
+      "curationFound": true
     },
     {
       "name": "Shramana",
-      "tagline": "A contemplative creative project site.",
-      "category": "Creative / Custom3D",
-      "status": "Live",
+      "tagline": "A contemplative iPad puzzle game with twenty authored levels, monk abilities, and accessible play systems.",
+      "category": "Game",
+      "status": "Near Release / Release Candidate",
+      "productStatus": "Near Release / Release Candidate",
+      "websiteStatus": "Public project site available",
       "website": "https://ninjatomonline.github.io/shramana-site/",
-      "supportUrl": "",
-      "privacyUrl": "",
+      "supportUrl": "https://ninjatomonline.github.io/shramana-site/support.html",
+      "privacyUrl": "https://ninjatomonline.github.io/shramana-site/privacy.html",
       "appStoreUrl": "",
       "icon": "https://raw.githubusercontent.com/NinjaTomOnline/shramana-site/main/assets/shramana-icon.svg",
-      "previewImage": "https://raw.githubusercontent.com/NinjaTomOnline/shramana-site/main/assets/shramana-preview.svg",
-      "previewImageAlt": "Shramana project preview",
+      "previewImage": "https://ninjatomonline.github.io/shramana-site/assets/screenshots/level-20.png",
+      "previewImageAlt": "Shramana iPad puzzle-game level with monk abilities and environmental challenges.",
       "screenshots": [
         {
           "src": "https://raw.githubusercontent.com/NinjaTomOnline/shramana-site/main/assets/shramana-preview.svg",
-          "alt": "Shramana project preview",
+          "alt": "Shramana iPad puzzle-game level with monk abilities and environmental challenges.",
           "caption": ""
         },
         {
           "src": "https://ninjatomonline.github.io/shramana-site/assets/screenshots/level-20.png",
-          "alt": "Shramana project preview",
+          "alt": "Shramana iPad puzzle-game level with monk abilities and environmental challenges.",
           "caption": ""
         },
         {
           "src": "https://ninjatomonline.github.io/shramana-site/assets/monks/monk_static_east.png",
-          "alt": "Shramana project preview",
+          "alt": "Shramana iPad puzzle-game level with monk abilities and environmental challenges.",
           "caption": ""
         },
         {
           "src": "https://ninjatomonline.github.io/shramana-site/assets/monks/levitate_0.png",
-          "alt": "Shramana project preview",
+          "alt": "Shramana iPad puzzle-game level with monk abilities and environmental challenges.",
           "caption": ""
         },
         {
           "src": "https://ninjatomonline.github.io/shramana-site/assets/monks/astralMove_0.png",
-          "alt": "Shramana project preview",
+          "alt": "Shramana iPad puzzle-game level with monk abilities and environmental challenges.",
           "caption": ""
         },
         {
           "src": "https://ninjatomonline.github.io/shramana-site/assets/art/obj_exitGate_active.png",
-          "alt": "Shramana project preview",
+          "alt": "Shramana iPad puzzle-game level with monk abilities and environmental challenges.",
           "caption": ""
         }
       ],
-      "launchedAt": "2026-04-14T09:01:27.000Z",
-      "version": "",
-      "launchNotes": "Shramana is listed as Live in the Creative / Custom3D catalog, refreshed automatically from its site manifest.",
+      "launchedAt": "",
+      "version": "iPad release candidate",
+      "launchNotes": "The app target, campaign, release tooling, and extensive validation exist; physical-device and final release gates remain.",
       "versionHighlights": [
-        "Live Creative / Custom3D project website",
-        "Curated by site-manifest.json",
-        "6 gallery images available"
+        "Twenty authored puzzle levels",
+        "Guided abilities and accessibility systems",
+        "Physical-device and release approval remain"
       ],
       "accent": "#59F2C7",
       "featured": false,
-      "sortOrder": 320,
+      "sortOrder": 100,
       "repoName": "shramana-site",
       "repositoryUrl": "https://github.com/NinjaTomOnline/shramana-site",
       "topics": [
@@ -811,166 +733,559 @@
       "manifestFound": true,
       "stargazersCount": 0,
       "forksCount": 0,
-      "updatedAt": "2026-05-01T10:40:12Z"
+      "updatedAt": "2026-05-01T10:40:12Z",
+      "curationFound": true
     },
     {
-      "name": "Mealbot Express",
-      "tagline": "MealBot Express marketing support privacy site",
-      "category": "Project",
-      "status": "Live",
-      "website": "https://ninjatomonline.github.io/mealbot-express-site/",
-      "supportUrl": "",
-      "privacyUrl": "",
+      "name": "RetroCopter",
+      "tagline": "A compact retro arcade flight game built around responsive controls and quick replay loops.",
+      "category": "Game",
+      "status": "Near Release / Release Candidate",
+      "productStatus": "Near Release / Release Candidate",
+      "websiteStatus": "Public project site available",
+      "website": "https://ninjatomonline.github.io/retrocopter-site/",
+      "supportUrl": "https://ninjatomonline.github.io/retrocopter-site/support.html",
+      "privacyUrl": "https://ninjatomonline.github.io/retrocopter-site/privacy.html",
       "appStoreUrl": "",
-      "icon": "https://ninjatomonline.github.io/mealbot-express-site/assets/app-icon.png",
-      "previewImage": "https://ninjatomonline.github.io/mealbot-express-site/assets/feature-graphic.png",
-      "previewImageAlt": "",
+      "icon": "https://ninjatomonline.github.io/retrocopter-site/assets/app-icon.png",
+      "previewImage": "https://ninjatomonline.github.io/retrocopter-site/screenshots/ipad-gameplay.png",
+      "previewImageAlt": "RetroCopter arcade flight gameplay on iPad.",
       "screenshots": [
         {
-          "src": "https://ninjatomonline.github.io/mealbot-express-site/screenshots/simulator-smoke-landscape.png",
-          "alt": "",
+          "src": "https://ninjatomonline.github.io/retrocopter-site/screenshots/iphone-title.png",
+          "alt": "RetroCopter arcade flight gameplay on iPad.",
           "caption": ""
         },
         {
-          "src": "https://ninjatomonline.github.io/mealbot-express-site/screenshots/canon-gameplay-pickup.png",
-          "alt": "",
+          "src": "https://ninjatomonline.github.io/retrocopter-site/screenshots/iphone-gameplay.png",
+          "alt": "RetroCopter arcade flight gameplay on iPad.",
           "caption": ""
         },
         {
-          "src": "https://ninjatomonline.github.io/mealbot-express-site/screenshots/canon-gameplay-deliver.png",
-          "alt": "",
+          "src": "https://ninjatomonline.github.io/retrocopter-site/screenshots/ipad-gameplay.png",
+          "alt": "RetroCopter arcade flight gameplay on iPad.",
           "caption": ""
         },
         {
-          "src": "https://ninjatomonline.github.io/mealbot-express-site/assets/feature-graphic.png",
-          "alt": "",
+          "src": "https://ninjatomonline.github.io/retrocopter-site/screenshots/ipad-title.png",
+          "alt": "RetroCopter arcade flight gameplay on iPad.",
           "caption": ""
         }
       ],
-      "launchedAt": "2026-05-12T21:27:56.000Z",
-      "version": "",
-      "launchNotes": "Mealbot Express is listed as Live in the Project catalog, refreshed automatically from public GitHub Pages metadata.",
+      "launchedAt": "",
+      "version": "Final-review candidate",
+      "launchNotes": "A playable product and public gameplay preview exist; App Store availability remains pending final review.",
       "versionHighlights": [
-        "Live Project project website",
-        "Auto-discovered from public GitHub Pages",
-        "4 gallery images available"
+        "Playable arcade flight loop",
+        "Public gameplay preview available",
+        "Final distribution review remains"
       ],
-      "accent": "#7DD3FC",
+      "accent": "#59F2C7",
       "featured": false,
-      "sortOrder": 1000,
-      "repoName": "mealbot-express-site",
-      "repositoryUrl": "https://github.com/NinjaTomOnline/mealbot-express-site",
-      "topics": [],
+      "sortOrder": 110,
+      "repoName": "retrocopter-site",
+      "repositoryUrl": "https://github.com/NinjaTomOnline/retrocopter-site",
+      "topics": [
+        "app-website",
+        "ninjatom-project-site"
+      ],
       "manifestFound": false,
       "stargazersCount": 0,
       "forksCount": 0,
-      "updatedAt": "2026-05-12T21:27:59Z"
+      "updatedAt": "2026-04-23T13:38:26Z",
+      "curationFound": true
     },
     {
-      "name": "Minddeck",
-      "tagline": "MindDeck public marketing support and privacy site",
-      "category": "Project",
-      "status": "Live",
-      "website": "https://ninjatomonline.github.io/minddeck-site/",
+      "name": "MasterSpaces",
+      "tagline": "A macOS workspace utility for organizing spaces, ideas, and repeatable project workflows.",
+      "category": "macOS Utility",
+      "status": "Near Release / Release Candidate",
+      "productStatus": "Near Release / Release Candidate",
+      "websiteStatus": "Public project site available",
+      "website": "https://ninjatomonline.github.io/masterspaces-site/",
+      "supportUrl": "https://ninjatomonline.github.io/masterspaces-site/support.html",
+      "privacyUrl": "https://ninjatomonline.github.io/masterspaces-site/privacy.html",
+      "appStoreUrl": "",
+      "icon": "https://raw.githubusercontent.com/NinjaTomOnline/masterspaces-site/main/assets/favicon.svg",
+      "previewImage": "https://raw.githubusercontent.com/NinjaTomOnline/masterspaces-site/main/assets/social-preview.png",
+      "previewImageAlt": "MasterSpaces macOS workspace and organization preview.",
+      "screenshots": [
+        {
+          "src": "https://raw.githubusercontent.com/NinjaTomOnline/masterspaces-site/main/assets/social-preview.png",
+          "alt": "MasterSpaces macOS workspace and organization preview.",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/masterspaces-site/screenshots/menu-bar-panel.png",
+          "alt": "MasterSpaces macOS workspace and organization preview.",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/masterspaces-site/screenshots/onboarding.png",
+          "alt": "MasterSpaces macOS workspace and organization preview.",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/masterspaces-site/screenshots/preferences.png",
+          "alt": "MasterSpaces macOS workspace and organization preview.",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/masterspaces-site/screenshots/archive/menu-bar-panel-light.svg",
+          "alt": "MasterSpaces macOS workspace and organization preview.",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/masterspaces-site/screenshots/archive/onboarding-light.svg",
+          "alt": "MasterSpaces macOS workspace and organization preview.",
+          "caption": ""
+        }
+      ],
+      "launchedAt": "",
+      "version": "Direct-download release candidate",
+      "launchNotes": "MasterSpaces is a direct-download release candidate. Public download follows notarization and clean-machine QA.",
+      "versionHighlights": [
+        "macOS utility implemented",
+        "Public product site available",
+        "Notarization and clean-machine QA remain"
+      ],
+      "accent": "#EF9D2F",
+      "featured": false,
+      "sortOrder": 120,
+      "repoName": "masterspaces-site",
+      "repositoryUrl": "https://github.com/NinjaTomOnline/masterspaces-site",
+      "topics": [
+        "app-website",
+        "ninjatom-project-site"
+      ],
+      "manifestFound": true,
+      "stargazersCount": 0,
+      "forksCount": 0,
+      "updatedAt": "2026-05-01T11:04:38Z",
+      "curationFound": true
+    },
+    {
+      "repoName": "pinball-dojo",
+      "name": "NinjaTom Arcade: Pinball Dojo",
+      "category": "Game",
+      "websiteStatus": "NinjaTomApps portfolio detail",
+      "website": "https://ninjatomapps.com/#project/pinball-dojo",
+      "tagline": "A watchOS-first pinball game with SpriteKit physics, Digital Crown controls, and belt-rank progression.",
+      "launchNotes": "The Master Dojo table is playable, simulator builds and logic tests pass, and a signed release archive exists. Distribution signing and final watch captures remain.",
+      "version": "Playable watchOS MVP",
+      "versionHighlights": [
+        "Complete Master Dojo table",
+        "Two Digital Crown control modes",
+        "Distribution and final store media remain"
+      ],
+      "previewImageAlt": "Code-native Pinball Dojo watchOS game preview.",
+      "topics": [
+        "watchos",
+        "spritekit",
+        "game"
+      ],
+      "accent": "#FF6B4A",
+      "launchedAt": "",
+      "sortOrder": 130,
+      "status": "Near Release / Release Candidate",
+      "productStatus": "Near Release / Release Candidate",
+      "curationFound": true
+    },
+    {
+      "repoName": "wristmaze",
+      "name": "WristMaze",
+      "category": "Game",
+      "websiteStatus": "NinjaTomApps portfolio detail",
+      "website": "https://ninjatomapps.com/#project/wristmaze",
+      "tagline": "A twenty-level Apple Watch maze adventure with tilt controls, hazards, progression, and Game Center systems.",
+      "launchNotes": "The campaign, complication, progression, accessibility, audio, and Game Center code paths are implemented. Real-watch tuning and App Store Connect completion remain.",
+      "version": "watchOS release candidate",
+      "versionHighlights": [
+        "Twenty-level story campaign",
+        "Tilt controls and watch complications",
+        "Real-device and store gates remain"
+      ],
+      "previewImageAlt": "Code-native WristMaze Apple Watch game preview.",
+      "topics": [
+        "watchos",
+        "game",
+        "game-center"
+      ],
+      "accent": "#2AD4FF",
+      "launchedAt": "",
+      "sortOrder": 140,
+      "status": "Near Release / Release Candidate",
+      "productStatus": "Near Release / Release Candidate",
+      "curationFound": true
+    },
+    {
+      "repoName": "geometric-alchemy",
+      "name": "Geometric Alchemy",
+      "category": "Creative Commerce",
+      "websiteStatus": "Public storefront available",
+      "website": "https://custom3d.art/",
+      "tagline": "Custom 3D-printed art, geometric objects, and fabrication work presented through a live public storefront.",
+      "launchNotes": "Custom3D.Art currently routes to the Geometric Alchemy public storefront. Store availability is verified without making individual inventory claims.",
+      "version": "Public storefront",
+      "versionHighlights": [
+        "Public shop and gallery available",
+        "Custom fabrication capability",
+        "Canonical Custom3D.Art entry point"
+      ],
+      "previewImageAlt": "Code-native Geometric Alchemy creative fabrication preview.",
+      "topics": [
+        "3d-printing",
+        "creative-commerce",
+        "fabrication"
+      ],
+      "accent": "#C07CFF",
+      "launchedAt": "",
+      "sortOrder": 150,
+      "status": "Shipped / Available",
+      "productStatus": "Shipped / Available",
+      "curationFound": true
+    },
+    {
+      "name": "FlowGuru",
+      "tagline": "A community and focus platform exploring practical tools for creative momentum and getting unstuck.",
+      "category": "Web Platform",
+      "status": "Active Development",
+      "productStatus": "Active Development",
+      "websiteStatus": "Public staging site available",
+      "website": "https://ninjatomonline.github.io/flowguru-site/",
+      "supportUrl": "https://ninjatomonline.github.io/flowguru-site/support.html",
+      "privacyUrl": "https://ninjatomonline.github.io/flowguru-site/privacy.html",
+      "appStoreUrl": "",
+      "icon": "https://raw.githubusercontent.com/NinjaTomOnline/flowguru-site/main/assets/flowguru-icon.svg",
+      "previewImage": "https://raw.githubusercontent.com/NinjaTomOnline/flowguru-site/main/assets/flowguru-social.png",
+      "previewImageAlt": "FlowGuru creative focus and community platform preview.",
+      "screenshots": [
+        {
+          "src": "https://raw.githubusercontent.com/NinjaTomOnline/flowguru-site/main/assets/flowguru-social.png",
+          "alt": "FlowGuru creative focus and community platform preview.",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/flowguru-site/assets/flowguru-preview.svg",
+          "alt": "FlowGuru creative focus and community platform preview.",
+          "caption": ""
+        }
+      ],
+      "launchedAt": "",
+      "version": "Staged foundation",
+      "launchNotes": "A staged foundation and public preview exist while product scope, release, domain, and commercial decisions remain in development.",
+      "versionHighlights": [
+        "Community and focus concept defined",
+        "Public staging surface available",
+        "Release and product decisions remain"
+      ],
+      "accent": "#54F2D0",
+      "featured": false,
+      "sortOrder": 160,
+      "repoName": "flowguru-site",
+      "repositoryUrl": "https://github.com/NinjaTomOnline/flowguru-site",
+      "topics": [
+        "app-website",
+        "ninjatom-project-site"
+      ],
+      "manifestFound": true,
+      "stargazersCount": 0,
+      "forksCount": 0,
+      "updatedAt": "2026-05-01T11:01:02Z",
+      "curationFound": true
+    },
+    {
+      "name": "CushionOps",
+      "tagline": "A focused operations system for repeatable work, readiness tracking, and practical team execution.",
+      "category": "Operations Platform",
+      "status": "Active Development",
+      "productStatus": "Active Development",
+      "websiteStatus": "NinjaTomApps portfolio detail; external site unavailable",
+      "website": "https://ninjatomapps.com/#project/cushionops-site",
       "supportUrl": "",
       "privacyUrl": "",
       "appStoreUrl": "",
       "icon": "",
-      "previewImage": "https://ninjatomonline.github.io/minddeck-site/screenshots/ipad-home.png",
-      "previewImageAlt": "",
-      "screenshots": [
-        {
-          "src": "https://ninjatomonline.github.io/minddeck-site/screenshots/iphone-home.png",
-          "alt": "",
-          "caption": ""
-        },
-        {
-          "src": "https://ninjatomonline.github.io/minddeck-site/screenshots/ipad-home.png",
-          "alt": "",
-          "caption": ""
-        }
-      ],
-      "launchedAt": "2026-06-24T02:07:56.000Z",
-      "version": "",
-      "launchNotes": "Minddeck is listed as Live in the Project catalog, refreshed automatically from public GitHub Pages metadata.",
+      "previewImage": "",
+      "previewImageAlt": "CushionOps production planning and inventory coordination tool preview.",
+      "screenshots": [],
+      "launchedAt": "",
+      "version": "Active development",
+      "launchNotes": "CushionOps remains active development. The former public Pages URL is unavailable, so this portfolio detail replaces the broken external link without claiming launch.",
       "versionHighlights": [
-        "Live Project project website",
-        "Auto-discovered from public GitHub Pages",
-        "2 gallery images available"
+        "Operations workflow architecture",
+        "Readiness and roadmap work active",
+        "No public product release claimed"
       ],
-      "accent": "#7DD3FC",
+      "accent": "#FFCF70",
       "featured": false,
-      "sortOrder": 1000,
-      "repoName": "minddeck-site",
-      "repositoryUrl": "https://github.com/NinjaTomOnline/minddeck-site",
-      "topics": [],
-      "manifestFound": false,
+      "sortOrder": 170,
+      "repoName": "cushionops-site",
+      "repositoryUrl": "https://github.com/NinjaTomOnline/cushionops-site",
+      "topics": [
+        "app-website",
+        "ninjatom-project-site"
+      ],
+      "manifestFound": true,
       "stargazersCount": 0,
       "forksCount": 0,
-      "updatedAt": "2026-06-24T02:08:41Z"
+      "updatedAt": "2026-04-30T19:50:53Z",
+      "curationFound": true
     },
     {
-      "name": "Wearethewatchers",
-      "tagline": "CUSTOS static launch site for wearethewatchers.com",
-      "category": "Project",
-      "status": "Live",
+      "repoName": "lumaflow",
+      "name": "LumaFlow",
+      "category": "Mobile App",
+      "websiteStatus": "NinjaTomApps portfolio detail",
+      "website": "https://ninjatomapps.com/#project/lumaflow",
+      "tagline": "An active Apple-platform product build progressing through runtime QA and provisioning gates.",
+      "launchNotes": "LumaFlow is represented without an external link because similarly named public domains belong to unrelated products. Runtime QA and release setup remain active work.",
+      "version": "Active product build",
+      "versionHighlights": [
+        "Apple-platform application in development",
+        "Runtime QA in progress",
+        "No unrelated public domain linked"
+      ],
+      "previewImageAlt": "Code-native LumaFlow active-development preview.",
+      "topics": [
+        "swift",
+        "apple-platforms",
+        "active-development"
+      ],
+      "accent": "#7DD3FC",
+      "launchedAt": "",
+      "sortOrder": 180,
+      "status": "Active Development",
+      "productStatus": "Active Development",
+      "curationFound": true
+    },
+    {
+      "name": "CUSTOS / We Are the Watchers",
+      "tagline": "A watchful creative brand and product-world concept exploring identity, artifacts, and a first public collection.",
+      "category": "Creative Commerce",
+      "status": "Prototype / Concept Lab",
+      "productStatus": "Prototype / Concept Lab",
+      "websiteStatus": "Public brand site; checkout not launched",
       "website": "https://wearethewatchers.com/",
-      "supportUrl": "",
-      "privacyUrl": "",
+      "supportUrl": "https://wearethewatchers.com/support.html",
+      "privacyUrl": "https://wearethewatchers.com/privacy.html",
       "appStoreUrl": "",
       "icon": "",
       "previewImage": "https://wearethewatchers.com/assets/custos-social-card.svg",
-      "previewImageAlt": "",
+      "previewImageAlt": "CUSTOS / We Are the Watchers creative brand concept preview.",
       "screenshots": [
         {
           "src": "https://wearethewatchers.com/assets/custos-social-card.svg",
-          "alt": "",
+          "alt": "CUSTOS / We Are the Watchers creative brand concept preview.",
           "caption": "Preview"
         },
         {
           "src": "https://wearethewatchers.com/assets/mockups/first-drop-contact-sheet.png",
-          "alt": "",
+          "alt": "CUSTOS / We Are the Watchers creative brand concept preview.",
           "caption": ""
         },
         {
           "src": "https://wearethewatchers.com/assets/mockups/productized-first-drop-contact-sheet.png",
-          "alt": "",
+          "alt": "CUSTOS / We Are the Watchers creative brand concept preview.",
           "caption": ""
         },
         {
           "src": "https://wearethewatchers.com/assets/product-created/custos-hat-mockup.png",
-          "alt": "",
+          "alt": "CUSTOS / We Are the Watchers creative brand concept preview.",
           "caption": ""
         },
         {
           "src": "https://wearethewatchers.com/assets/product-created/hoodie-mockup.png",
-          "alt": "",
+          "alt": "CUSTOS / We Are the Watchers creative brand concept preview.",
           "caption": ""
         },
         {
           "src": "https://wearethewatchers.com/assets/product-created/oversight-deskmat-mockup.png",
-          "alt": "",
+          "alt": "CUSTOS / We Are the Watchers creative brand concept preview.",
           "caption": ""
         }
       ],
-      "launchedAt": "2026-06-06T16:45:25.000Z",
-      "version": "",
-      "launchNotes": "Wearethewatchers is listed as Live in the Project catalog, refreshed automatically from public GitHub Pages metadata.",
+      "launchedAt": "",
+      "version": "Concept collection",
+      "launchNotes": "The public brand site is available, but checkout and a public product launch are not claimed. CUSTOS and We Are the Watchers are presented as one identity, not duplicate projects.",
       "versionHighlights": [
-        "Live Project project website",
-        "Auto-discovered from public GitHub Pages",
-        "6 gallery images available"
+        "Public brand identity available",
+        "First collection prepared",
+        "Checkout and launch remain gated"
       ],
       "accent": "#FFCF70",
       "featured": false,
-      "sortOrder": 1000,
+      "sortOrder": 190,
       "repoName": "wearethewatchers-site",
       "repositoryUrl": "https://github.com/NinjaTomOnline/wearethewatchers-site",
       "topics": [],
       "manifestFound": false,
       "stargazersCount": 0,
       "forksCount": 0,
-      "updatedAt": "2026-06-07T18:15:40Z"
+      "updatedAt": "2026-06-07T18:15:40Z",
+      "curationFound": true
+    },
+    {
+      "repoName": "grateful-dicks",
+      "name": "Grateful Dicks",
+      "category": "Creative Concept Lab",
+      "websiteStatus": "Public teaser available",
+      "website": "https://gratefuldicks.com/",
+      "tagline": "An adult-humor character and merchandise concept lab developing an original visual identity and public-interest test.",
+      "launchNotes": "The project remains a concept lab with a public teaser. Nothing is represented here as manufactured, for sale, affiliated, or officially launched.",
+      "version": "Public concept lab",
+      "versionHighlights": [
+        "Original concept identity",
+        "Public teaser available",
+        "No sale or manufactured-product claim"
+      ],
+      "previewImageAlt": "Code-native Grateful Dicks adult-humor concept-lab preview.",
+      "topics": [
+        "18-plus",
+        "concept-lab",
+        "creative"
+      ],
+      "accent": "#FF4FAB",
+      "launchedAt": "",
+      "sortOrder": 200,
+      "status": "Prototype / Concept Lab",
+      "productStatus": "Prototype / Concept Lab",
+      "curationFound": true
+    },
+    {
+      "repoName": "watcher-one",
+      "name": "Watcher.One",
+      "category": "Creative Technology",
+      "websiteStatus": "NinjaTomApps portfolio detail",
+      "website": "https://ninjatomapps.com/#project/watcher-one",
+      "tagline": "A local-first AI cohost and live-production system connecting overlays, recaps, chat, memory, and avatar workflows.",
+      "launchNotes": "A locally testable MVP exists. Public streaming remains gated by external accounts, production direction, operator validation, and cost approval.",
+      "version": "Local MVP",
+      "versionHighlights": [
+        "Local-first cohost platform",
+        "OBS, chat, recap, and memory surfaces",
+        "Public live operation remains gated"
+      ],
+      "previewImageAlt": "Code-native Watcher.One AI live-production concept preview.",
+      "topics": [
+        "ai",
+        "live-production",
+        "local-first"
+      ],
+      "accent": "#59F2C7",
+      "launchedAt": "",
+      "sortOrder": 210,
+      "status": "Prototype / Concept Lab",
+      "productStatus": "Prototype / Concept Lab",
+      "curationFound": true
+    },
+    {
+      "repoName": "reloadsmith",
+      "name": "ReloadSmith",
+      "category": "Developer Tool",
+      "websiteStatus": "NinjaTomApps portfolio detail",
+      "website": "https://ninjatomapps.com/#project/reloadsmith",
+      "tagline": "A Unity hot-reload and iteration toolkit developed to shorten editor feedback loops and support repeatable project validation.",
+      "launchNotes": "ReloadSmith is represented as an internal developer tool. No Asset Store or public-package availability is claimed.",
+      "version": "Internal tooling",
+      "versionHighlights": [
+        "Unity iteration workflow",
+        "Release-readiness tooling",
+        "No public distribution claim"
+      ],
+      "previewImageAlt": "Code-native ReloadSmith Unity developer-tool preview.",
+      "topics": [
+        "unity",
+        "developer-tool",
+        "automation"
+      ],
+      "accent": "#8FC6FF",
+      "launchedAt": "",
+      "sortOrder": 220,
+      "status": "Internal Developer Tool",
+      "productStatus": "Internal Developer Tool",
+      "curationFound": true
+    },
+    {
+      "repoName": "mission-control-watch",
+      "name": "Mission Control Watch",
+      "category": "Developer Tool",
+      "websiteStatus": "NinjaTomApps portfolio detail",
+      "website": "https://ninjatomapps.com/#project/mission-control-watch",
+      "tagline": "A private watchOS attention surface for secure owner notifications, acknowledgement, and bounded reminders.",
+      "launchNotes": "This is an owner-only internal tool in active private development. No App Store, TestFlight, public enrollment, or infrastructure details are offered.",
+      "version": "Private Phase 1A",
+      "versionHighlights": [
+        "Standalone watchOS attention workflow",
+        "Private owner-only development",
+        "No public distribution claim"
+      ],
+      "previewImageAlt": "Code-native Mission Control Watch internal-tool preview.",
+      "topics": [
+        "watchos",
+        "internal-tool",
+        "operations"
+      ],
+      "accent": "#A78BFA",
+      "launchedAt": "",
+      "sortOrder": 230,
+      "status": "Internal Developer Tool",
+      "productStatus": "Internal Developer Tool",
+      "curationFound": true
+    },
+    {
+      "repoName": "raspberry-pi-mission-control",
+      "name": "Raspberry Pi Mission Control",
+      "category": "Developer Tool",
+      "websiteStatus": "NinjaTomApps portfolio detail",
+      "website": "https://ninjatomapps.com/#project/raspberry-pi-mission-control",
+      "tagline": "A private operations dashboard joining local status, weather, input, and workshop control into one resilient interface.",
+      "launchNotes": "The dashboard and local input path have working owner evidence. Network, device, camera, and endpoint details remain private by design.",
+      "version": "Operational internal system",
+      "versionHighlights": [
+        "Local operations dashboard",
+        "Resilient status and input workflows",
+        "Sensitive infrastructure kept private"
+      ],
+      "previewImageAlt": "Code-native Raspberry Pi Mission Control operations-dashboard preview.",
+      "topics": [
+        "raspberry-pi",
+        "operations",
+        "internal-tool"
+      ],
+      "accent": "#30C7FF",
+      "launchedAt": "",
+      "sortOrder": 240,
+      "status": "Internal Developer Tool",
+      "productStatus": "Internal Developer Tool",
+      "curationFound": true
+    },
+    {
+      "repoName": "fabrication-venue-vending",
+      "name": "Fabrication & Venue Vending",
+      "category": "Creative Commerce",
+      "websiteStatus": "NinjaTomApps portfolio detail",
+      "website": "https://ninjatomapps.com/#project/fabrication-venue-vending",
+      "tagline": "A planned fabrication and venue-commerce system connecting inventory, QR ordering, displays, and lead workflows.",
+      "launchNotes": "The initiative is in investigation and planning. It is presented as a future operating system, not a launched storefront or vending network.",
+      "version": "Investigation",
+      "versionHighlights": [
+        "Inventory and catalog planning",
+        "QR ordering and display concepts",
+        "No launch or availability claim"
+      ],
+      "previewImageAlt": "Code-native fabrication and venue-vending initiative preview.",
+      "topics": [
+        "fabrication",
+        "commerce",
+        "planned"
+      ],
+      "accent": "#FFCF70",
+      "launchedAt": "",
+      "sortOrder": 250,
+      "status": "Planned / On Hold",
+      "productStatus": "Planned / On Hold",
+      "curationFound": true
     }
   ]
 }

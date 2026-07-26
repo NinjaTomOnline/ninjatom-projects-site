@@ -1,5 +1,5 @@
 NinjaTom Apps Media Kit
-Updated: 2026-05-01
+Updated: 2026-07-26
 
 Canonical site:
 https://ninjatomapps.com/
@@ -12,7 +12,7 @@ Included assets:
 - apple-touch-icon.png and favicon-32.png: browser and home-screen icon assets.
 
 Short description:
-NinjaTom Apps is a public hub for independent apps, tools, games, and creative software by NinjaTomOnline and Custom3D.Art.
+NinjaTom Apps presents a complete portfolio of shipped apps, near-release games, active products, studio tools, and creative technology by NinjaTomOnline and Custom3D.Art.
 
 Contact:
 support@ninjatomapps.com

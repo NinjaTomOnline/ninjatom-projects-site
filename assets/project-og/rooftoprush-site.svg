@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
-  <title id="title">Rooftop Rush | NinjaTom Apps</title>
-  <desc id="desc">A fast arcade project site with skyline energy.</desc>
+  <title id="title">Ninja Tom’s Rooftop Rush | NinjaTom Apps</title>
+  <desc id="desc">A fast chapter-driven rooftop arcade game built around movement, gadgets, evidence, and style.</desc>
   <defs>
     <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
       <stop offset="0" stop-color="#05070d"/>
@@ -33,11 +33,11 @@
   <g filter="url(#softShadow)" transform="translate(70 174)">
     <rect x="0" y="0" width="1060" height="338" rx="34" fill="#0d1420" fill-opacity="0.88" stroke="#a6badc" stroke-opacity="0.18"/>
     <rect x="34" y="34" width="156" height="156" rx="30" fill="#42D9FF" fill-opacity="0.16" stroke="#42D9FF" stroke-opacity="0.42"/>
-    <text x="112" y="126" text-anchor="middle" fill="#f7f4f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="64" font-weight="900">RR</text>
-    <text x="226" y="92" fill="#f7f4f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="64" font-weight="900" letter-spacing="0"><tspan x="226" dy="0">Rooftop Rush</tspan></text>
-    <text x="226" y="164" fill="#b8c0cf" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="28" font-weight="520"><tspan x="226" dy="0">A fast arcade project site with skyline energy.</tspan></text>
+    <text x="112" y="126" text-anchor="middle" fill="#f7f4f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="64" font-weight="900">NT</text>
+    <text x="226" y="92" fill="#f7f4f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="56" font-weight="900" letter-spacing="0"><tspan x="226" dy="0">Ninja Tom’s</tspan><tspan x="226" dy="62">Rooftop Rush</tspan></text>
+    <text x="226" y="210" fill="#b8c0cf" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="28" font-weight="520"><tspan x="226" dy="0">A fast chapter-driven rooftop arcade game built</tspan><tspan x="226" dy="40">around movement, gadgets, evidence, and style.</tspan></text>
     <g transform="translate(226 268)">
-      <g transform="translate(0 0)"><rect width="82" height="34" rx="10" fill="#42D9FF" fill-opacity="0.14" stroke="#42D9FF" stroke-opacity="0.35"/><text x="17" y="23" fill="#f7f4f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="820">Game</text></g><g transform="translate(180 0)"><rect width="82" height="34" rx="10" fill="#42D9FF" fill-opacity="0.14" stroke="#42D9FF" stroke-opacity="0.35"/><text x="17" y="23" fill="#f7f4f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="820">Live</text></g><g transform="translate(360 0)"><rect width="166" height="34" rx="10" fill="#42D9FF" fill-opacity="0.14" stroke="#42D9FF" stroke-opacity="0.35"/><text x="17" y="23" fill="#f7f4f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="820">app-website</text></g><g transform="translate(0 48)"><rect width="240" height="34" rx="10" fill="#42D9FF" fill-opacity="0.14" stroke="#42D9FF" stroke-opacity="0.35"/><text x="17" y="23" fill="#f7f4f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="820">ninjatom-project-site</text></g>
+      <g transform="translate(0 0)"><rect width="82" height="34" rx="10" fill="#42D9FF" fill-opacity="0.14" stroke="#42D9FF" stroke-opacity="0.35"/><text x="17" y="23" fill="#f7f4f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="820">Game</text></g><g transform="translate(180 0)"><rect width="240" height="34" rx="10" fill="#42D9FF" fill-opacity="0.14" stroke="#42D9FF" stroke-opacity="0.35"/><text x="17" y="23" fill="#f7f4f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="820">Near Release / Release Candidate</text></g><g transform="translate(360 0)"><rect width="166" height="34" rx="10" fill="#42D9FF" fill-opacity="0.14" stroke="#42D9FF" stroke-opacity="0.35"/><text x="17" y="23" fill="#f7f4f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="820">app-website</text></g><g transform="translate(0 48)"><rect width="240" height="34" rx="10" fill="#42D9FF" fill-opacity="0.14" stroke="#42D9FF" stroke-opacity="0.35"/><text x="17" y="23" fill="#f7f4f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="820">ninjatom-project-site</text></g>
     </g>
   </g>
   <text x="72" y="578" fill="#7f8797" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="23" font-weight="680">ninjatomapps.com/projects/rooftoprush-site.html</text>

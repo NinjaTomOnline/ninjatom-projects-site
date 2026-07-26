@@ -2,7 +2,7 @@
   "name": "Don't Speed",
   "tagline": "A speed-awareness app website built for simple, focused driving safety.",
   "category": "iOS App",
-  "status": "Live",
+  "status": "Near Release / Release Candidate",
   "website": "https://dontspeed.app/",
   "supportUrl": "https://dontspeed.app/support.html",
   "privacyUrl": "https://dontspeed.app/privacy.html",
@@ -17,16 +17,15 @@
       "caption": "Launch preview"
     }
   ],
-  "launchedAt": "2026-04-30T00:00:00Z",
-  "version": "Launch",
-  "launchNotes": "Don't Speed is live as a focused driving-safety app site with support and privacy pages.",
+  "version": "TestFlight",
+  "launchNotes": "Don’t Speed has a public product site and remains a near-release TestFlight candidate.",
   "versionHighlights": [
     "Driving safety message refined",
     "Support and privacy pages available"
   ],
-  "progressPercent": 82,
-  "releaseProjectionNote": "Projected from the live launch site, app artwork, and complete support/privacy surfaces.",
   "accent": "#FF6FA8",
   "featured": false,
-  "sortOrder": 40
+  "sortOrder": 40,
+  "productStatus": "Near Release / Release Candidate",
+  "websiteStatus": "Public product site available"
 }

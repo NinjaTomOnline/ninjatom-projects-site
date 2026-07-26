@@ -7,6 +7,7 @@ const DEFAULT_OWNER = "NinjaTomOnline";
 const DEFAULT_MASTER_REPO = "ninjatom-projects-site";
 const INCLUDE_TOPICS = ["ninjatom-project-site", "app-website"];
 const DEFAULT_ACCENT = "#42D9FF";
+const CURATION_PATH = path.resolve(__dirname, "portfolio-curation.json");
 const COMMON_ICON_PATHS = [
   "apple-touch-icon.png",
   "icon-512.png",
@@ -58,7 +59,7 @@ const FALLBACK_OVERRIDES = {
     tagline: "A polished terminal companion for fast command notes and workflows.",
     category: "Tool",
     accent: "#59F2C7",
-    featured: true,
+    featured: false,
     sortOrder: 20,
   },
   "zenwisdom-site": {
@@ -69,7 +70,7 @@ const FALLBACK_OVERRIDES = {
     sortOrder: 30,
   },
   "dontspeed-site": {
-    name: "DontSpeed",
+    name: "Don’t Speed",
     tagline: "A speed-awareness app website built for simple, focused driving safety.",
     category: "iOS App",
     accent: "#FF6FA8",
@@ -83,7 +84,7 @@ const FALLBACK_OVERRIDES = {
     sortOrder: 50,
   },
   "rooftoprush-site": {
-    name: "Rooftop Rush",
+    name: "Ninja Tom’s Rooftop Rush",
     tagline: "A fast arcade project site with skyline energy.",
     category: "Game",
     accent: "#42D9FF",
@@ -97,9 +98,9 @@ const FALLBACK_OVERRIDES = {
     sortOrder: 120,
   },
   "deadheaddetective-site": {
-    name: "Deadhead Detective",
-    tagline: "A mystery-driven game project site.",
-    category: "Game",
+    name: "DeadHead Detective",
+    tagline: "A gig-driving profitability utility for understanding deadhead miles and better route decisions.",
+    category: "Mobile Utility",
     accent: "#A78BFA",
     sortOrder: 130,
   },
@@ -165,7 +166,7 @@ main().catch((error) => {
 async function main() {
   console.log(`Discovering public project websites for ${owner}...`);
   const repos = await fetchPublicRepos(owner);
-  const projects = [];
+  const discoveredProjects = [];
 
   for (const repo of repos) {
     if (repo.name.toLowerCase() === masterRepo.toLowerCase()) continue;
@@ -175,18 +176,22 @@ async function main() {
 
     const manifest = await readManifest(repo);
     const siteHints = await readSiteHints(repo);
-    projects.push(await normalizeProject(repo, topics, manifest, siteHints));
+    discoveredProjects.push(await normalizeProject(repo, topics, manifest, siteHints));
   }
 
+  const curation = await readPortfolioCuration();
+  const projects = applyPortfolioCuration(discoveredProjects, curation);
   projects.sort(compareProjects);
 
   const nextPayload = {
-    schemaVersion: 3,
+    schemaVersion: 4,
     owner,
     generatedAt: new Date().toISOString(),
     includeRules: {
       repoNameSuffix: "-site",
       topics: INCLUDE_TOPICS,
+      curation: "scripts/portfolio-curation.json",
+      includeUncuratedDiscovered: Boolean(curation.includeUncuratedDiscovered),
     },
     projects,
   };
@@ -208,6 +213,96 @@ async function main() {
     await fs.writeFile(feedOutputPath, nextFeed, "utf8");
     console.log(`Wrote RSS feed to ${path.relative(repoRoot, feedOutputPath)}.`);
   }
+}
+
+async function readPortfolioCuration() {
+  const parsed = JSON.parse(await fs.readFile(CURATION_PATH, "utf8"));
+  if (!parsed || !Array.isArray(parsed.entries) || !Array.isArray(parsed.statusTaxonomy)) {
+    throw new Error("scripts/portfolio-curation.json must define entries and statusTaxonomy arrays.");
+  }
+  return parsed;
+}
+
+function applyPortfolioCuration(discoveredProjects, curation) {
+  const allowedStatuses = new Set(curation.statusTaxonomy);
+  const discoveredByRepo = new Map(
+    discoveredProjects.map((project) => [project.repoName.toLowerCase(), project]),
+  );
+  const matchedRepos = new Set();
+  const seenRepoNames = new Set();
+  const seenNames = new Set();
+  const projects = [];
+
+  for (const entry of curation.entries) {
+    if (entry.include === false) continue;
+    if (!allowedStatuses.has(entry.productStatus)) {
+      throw new Error(`Invalid productStatus for ${entry.name || entry.repoName}: ${entry.productStatus}`);
+    }
+    if (!cleanString(entry.websiteStatus)) {
+      throw new Error(`Missing websiteStatus for ${entry.name || entry.repoName}.`);
+    }
+
+    const matchNames = Array.isArray(entry.matchRepoNames)
+      ? entry.matchRepoNames.map((value) => cleanString(value).toLowerCase()).filter(Boolean)
+      : [];
+    const matches = matchNames.map((name) => discoveredByRepo.get(name)).filter(Boolean);
+    if (matches.length > 1) {
+      throw new Error(`Curation entry ${entry.name} matched multiple discovered repositories.`);
+    }
+    if (matchNames.length && matches.length === 0) {
+      throw new Error(`Curation entry ${entry.name} did not match a discovered repository.`);
+    }
+
+    const base = matches[0] || {};
+    if (base.repoName) matchedRepos.add(base.repoName.toLowerCase());
+    const controlFields = new Set(["matchRepoNames", "include", "productStatus"]);
+    const override = Object.fromEntries(
+      Object.entries(entry).filter(([key]) => !controlFields.has(key)),
+    );
+    const project = {
+      ...base,
+      ...override,
+      repoName: cleanString(entry.repoName) || base.repoName,
+      status: entry.productStatus,
+      productStatus: entry.productStatus,
+      websiteStatus: cleanString(entry.websiteStatus),
+      curationFound: true,
+    };
+    if (!Object.hasOwn(entry, "screenshots") && cleanString(entry.previewImageAlt) && Array.isArray(project.screenshots)) {
+      project.screenshots = project.screenshots.map((screenshot) => ({
+        ...screenshot,
+        alt: entry.previewImageAlt,
+      }));
+    }
+
+    if (!cleanString(project.repoName) || !cleanString(project.name) || !isAbsoluteHttpUrl(project.website)) {
+      throw new Error(`Curated project ${entry.name || entry.repoName} needs repoName, name, and an absolute website URL.`);
+    }
+
+    const repoKey = project.repoName.toLowerCase();
+    const nameKey = project.name.toLowerCase();
+    if (seenRepoNames.has(repoKey) || seenNames.has(nameKey)) {
+      throw new Error(`Duplicate curated project identity: ${project.name} / ${project.repoName}.`);
+    }
+    seenRepoNames.add(repoKey);
+    seenNames.add(nameKey);
+    projects.push(project);
+  }
+
+  if (curation.includeUncuratedDiscovered) {
+    for (const project of discoveredProjects) {
+      if (matchedRepos.has(project.repoName.toLowerCase())) continue;
+      projects.push({
+        ...project,
+        status: project.status === "Archived / Superseded" ? project.status : "Active Development",
+        productStatus: project.status === "Archived / Superseded" ? project.status : "Active Development",
+        websiteStatus: "Public project site discovered; product status not curated",
+        curationFound: false,
+      });
+    }
+  }
+
+  return projects;
 }
 
 async function fetchPublicRepos(account) {
@@ -320,7 +415,8 @@ async function normalizeProject(repo, topics, manifest, siteHints = {}) {
   const resolvedPreviewImage = previewImage || screenshots[0]?.src || "";
   const name = cleanString(manifest?.name) || fallback.name || inferredName;
   const category = cleanString(manifest?.category) || fallback.category || inferCategory(repo, topics);
-  const status = cleanString(manifest?.status) || (repo.archived ? "Archived" : "Live");
+  const status = cleanString(manifest?.productStatus || manifest?.status) ||
+    (repo.archived ? "Archived / Superseded" : "Active Development");
   const launchedAt = cleanDateString(
     manifest?.launchedAt,
     manifest?.launchDate,
@@ -362,6 +458,8 @@ async function normalizeProject(repo, topics, manifest, siteHints = {}) {
       `A public project website from ${owner}.`,
     category,
     status,
+    productStatus: status,
+    websiteStatus: cleanString(manifest?.websiteStatus) || "Public project site available",
     website,
     supportUrl: firstValidUrl(manifest?.supportUrl, fallback.supportUrl),
     privacyUrl: firstValidUrl(manifest?.privacyUrl, fallback.privacyUrl),
@@ -822,7 +920,7 @@ function inferCategory(repo, topics) {
 function humanizeRepoName(repoName) {
   const known = {
     doorcodes: "DoorCodes",
-    dontspeed: "DontSpeed",
+    dontspeed: "Don’t Speed",
     swiftterm: "SwiftTerm",
     zenwisdom: "Zen Wisdom",
     flowguru: "FlowGuru",
@@ -900,7 +998,7 @@ function buildRssFeed(payload) {
     <title>NinjaTom Apps Project Updates</title>
     <link>${siteUrl}</link>
     <atom:link href="${siteUrl}feed.xml" rel="self" type="application/rss+xml"/>
-    <description>New and updated NinjaTom Apps, tools, games, and Custom3D.Art project websites.</description>
+    <description>New and updated apps, games, tools, and creative technology from NinjaTom Apps.</description>
     <language>en-us</language>
     <lastBuildDate>${new Date(lastBuildTimestamp || 0).toUTCString()}</lastBuildDate>
 ${items}

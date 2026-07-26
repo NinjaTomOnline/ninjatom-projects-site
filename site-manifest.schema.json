@@ -21,7 +21,26 @@
     },
     "status": {
       "type": "string",
-      "description": "Project status badge, for example Live, Beta, TestFlight, Coming Soon, or Archived."
+      "description": "Legacy product-status badge. Prefer productStatus for new manifests."
+    },
+    "productStatus": {
+      "type": "string",
+      "enum": [
+        "Shipped / Available",
+        "Released but actively maintained",
+        "Near Release / Release Candidate",
+        "Active Development",
+        "Prototype / Concept Lab",
+        "Internal Developer Tool",
+        "Planned / On Hold",
+        "Archived / Superseded",
+        "Exclude from Public Portfolio"
+      ],
+      "description": "Actual product lifecycle status, separate from whether a website is reachable."
+    },
+    "websiteStatus": {
+      "type": "string",
+      "description": "Public website availability, for example Public project site available, Public staging site available, or NinjaTomApps portfolio detail."
     },
     "website": {
       "type": "string",
@@ -168,7 +187,7 @@
       "type": "number",
       "minimum": 0,
       "maximum": 100,
-      "description": "Optional release-progress override from 0 to 100. If omitted, the hub estimates progress from public project signals."
+      "description": "Optional owner-curated release-progress value from 0 to 100. No progress is inferred when omitted."
     },
     "progress": {
       "type": "number",
@@ -204,13 +223,18 @@
       "description": "Lower numbers appear first within the featured/non-featured group."
     }
   },
-  "required": ["name", "tagline", "category", "status", "website"],
+  "required": ["name", "tagline", "category", "website"],
+  "anyOf": [
+    { "required": ["productStatus"] },
+    { "required": ["status"] }
+  ],
   "examples": [
     {
       "name": "DoorCodes",
       "tagline": "Access codes, ready on arrival with privacy-safe reminders and Secure Reveal.",
-      "category": "iOS App",
-      "status": "Live",
+      "category": "Mobile App",
+      "productStatus": "Shipped / Available",
+      "websiteStatus": "Public website and App Store available",
       "website": "https://doorcodesapp.com/",
       "supportUrl": "https://doorcodesapp.com/support.html",
       "privacyUrl": "https://doorcodesapp.com/privacy.html",
@@ -225,15 +249,14 @@
           "caption": "Launch preview"
         }
       ],
-      "launchedAt": "2026-04-30T00:00:00Z",
-      "version": "Live",
+      "launchedAt": "2026-04-13T00:00:00Z",
+      "version": "1.0.3",
       "launchNotes": "DoorCodes is live with App Store, support, privacy, and launch artwork connected.",
       "versionHighlights": [
         "App Store listing connected",
         "Support and privacy pages available",
         "Premium screenshot gallery ready"
       ],
-      "progressPercent": 100,
       "accent": "#38BDF8",
       "featured": true,
       "sortOrder": 10

@@ -57,10 +57,10 @@
 
   <g transform="translate(72 188)">
     <text x="0" y="0" fill="#f8fafc" font-family="Inter, SF Pro Display, Arial, sans-serif" font-size="86" font-weight="900">NinjaTom Apps</text>
-    <text x="0" y="96" fill="url(#purpleText)" font-family="Inter, SF Pro Display, Arial, sans-serif" font-size="86" font-weight="900">Project Hub</text>
-    <text x="2" y="158" fill="#d8deea" font-family="Inter, SF Pro Text, Arial, sans-serif" font-size="31" font-weight="700">Independent apps, tools, games,</text>
-    <text x="2" y="198" fill="#d8deea" font-family="Inter, SF Pro Text, Arial, sans-serif" font-size="31" font-weight="700">and creative software.</text>
-    <text x="2" y="250" fill="#9ca8ba" font-family="Inter, SF Pro Text, Arial, sans-serif" font-size="25" font-weight="500">A living GitHub Pages project gallery.</text>
+    <text x="0" y="96" fill="url(#purpleText)" font-family="Inter, SF Pro Display, Arial, sans-serif" font-size="78" font-weight="900">Studio Portfolio</text>
+    <text x="2" y="158" fill="#d8deea" font-family="Inter, SF Pro Text, Arial, sans-serif" font-size="31" font-weight="700">Shipped apps, near-release games,</text>
+    <text x="2" y="198" fill="#d8deea" font-family="Inter, SF Pro Text, Arial, sans-serif" font-size="31" font-weight="700">tools, and creative technology.</text>
+    <text x="2" y="250" fill="#9ca8ba" font-family="Inter, SF Pro Text, Arial, sans-serif" font-size="25" font-weight="500">A complete multi-product studio portfolio.</text>
     <text x="2" y="306" fill="#6ee7f9" font-family="Inter, SF Pro Text, Arial, sans-serif" font-size="28" font-weight="800">ninjatomapps.com</text>
   </g>
 
