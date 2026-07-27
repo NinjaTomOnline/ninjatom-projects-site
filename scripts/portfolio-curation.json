@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-07-26",
+  "updatedAt": "2026-07-27",
   "includeUncuratedDiscovered": false,
   "statusTaxonomy": [
     "Shipped / Available",
@@ -14,30 +14,6 @@
     "Exclude from Public Portfolio"
   ],
   "entries": [
-    {
-      "matchRepoNames": [
-        "mealbot-express-site"
-      ],
-      "name": "MealBot Express",
-      "category": "Game",
-      "productStatus": "Active Development",
-      "websiteStatus": "Public project site available",
-      "tagline": "A four-world, free-roam competitive arcade delivery game built for couch and online multiplayer.",
-      "launchNotes": "The University Campus build is the playable foundation for a larger game with Night City, Jersey Shore / Boardwalk, a player-voted fourth world, upgradeable MealBots, power-ups, progression, leaderboards, cosmetics, and short-session replay loops.",
-      "version": "Playable campus foundation",
-      "versionHighlights": [
-        "Four-world competitive arcade vision",
-        "Couch and online multiplayer planned",
-        "University Campus gameplay foundation in active development"
-      ],
-      "previewImageAlt": "MealBot Express University Campus gameplay foundation.",
-      "supportUrl": "https://ninjatomonline.github.io/mealbot-express-site/support.html",
-      "privacyUrl": "https://ninjatomonline.github.io/mealbot-express-site/privacy.html",
-      "launchedAt": "",
-      "featured": true,
-      "sortOrder": 1,
-      "accent": "#FFBE5C"
-    },
     {
       "matchRepoNames": [
         "doorcodes-site"
@@ -85,29 +61,6 @@
     },
     {
       "matchRepoNames": [
-        "rooftoprush-site"
-      ],
-      "name": "Ninja Tom’s Rooftop Rush",
-      "category": "Game",
-      "productStatus": "Near Release / Release Candidate",
-      "websiteStatus": "Public project site available",
-      "tagline": "A fast chapter-driven rooftop arcade game built around movement, gadgets, evidence, and style.",
-      "launchNotes": "The game has a complete multi-chapter release-candidate path and current gameplay media. Human playability, final media approval, and release authorization remain open.",
-      "version": "Release candidate",
-      "versionHighlights": [
-        "Six-chapter campaign path",
-        "Gameplay and HUD evidence captured",
-        "Final owner and release gates remain"
-      ],
-      "supportUrl": "https://ninjatomonline.github.io/rooftoprush-site/support.html",
-      "privacyUrl": "https://ninjatomonline.github.io/rooftoprush-site/privacy.html",
-      "launchedAt": "",
-      "previewImageAlt": "Ninja Tom’s Rooftop Rush gameplay and character wardrobe preview.",
-      "featured": true,
-      "sortOrder": 30
-    },
-    {
-      "matchRepoNames": [
         "zenwisdom-site"
       ],
       "name": "Zen Wisdom",
@@ -127,7 +80,7 @@
       "appStoreUrl": "https://apps.apple.com/us/app/zen-wisdom/id414329570",
       "launchedAt": "2011-01-15T00:00:00Z",
       "previewImageAlt": "Zen Wisdom reflection app update and public product preview.",
-      "sortOrder": 40
+      "sortOrder": 30
     },
     {
       "matchRepoNames": [
@@ -151,7 +104,81 @@
       "appStoreUrl": "https://apps.apple.com/us/app/dreamspell/id413388110",
       "launchedAt": "2011-01-11T00:00:00Z",
       "previewImageAlt": "DreamSpell daily kin and oracle app dashboard preview.",
+      "sortOrder": 40
+    },
+    {
+      "repoName": "custom3d-art",
+      "name": "Custom3D.Art",
+      "category": "Founder-Operated Fabrication Business",
+      "productStatus": "Shipped / Available",
+      "websiteStatus": "Active founder-operated fabrication business; official website available",
+      "website": "https://custom3d.art/",
+      "tagline": "A founder-operated fabrication business for laser engraving, 3D printing, prototyping, custom products, fabrication, and related venue and customer work.",
+      "launchNotes": "Custom3D.Art is the active public identity for Tom’s related founder-operated fabrication business. It is presented as a fabrication business, not a software application.",
+      "version": "Active fabrication business",
+      "versionHighlights": [
+        "Laser engraving and 3D printing",
+        "Prototyping and custom products",
+        "Official Custom3D.Art destination"
+      ],
+      "previewImageAlt": "Code-native Custom3D.Art fabrication business preview.",
+      "topics": [
+        "laser-engraving",
+        "3d-printing",
+        "prototyping",
+        "fabrication"
+      ],
+      "accent": "#C07CFF",
+      "launchedAt": "",
+      "featured": true,
       "sortOrder": 50
+    },
+    {
+      "matchRepoNames": [
+        "mealbot-express-site"
+      ],
+      "name": "MealBot Express",
+      "category": "Game",
+      "productStatus": "Active Development",
+      "websiteStatus": "Public project site available",
+      "tagline": "A four-world, free-roam competitive arcade delivery game built for couch and online multiplayer.",
+      "launchNotes": "The University Campus build is the playable foundation for a larger game with Night City, Jersey Shore / Boardwalk, a player-voted fourth world, upgradeable MealBots, power-ups, progression, leaderboards, cosmetics, and short-session replay loops.",
+      "version": "Playable campus foundation",
+      "versionHighlights": [
+        "Four-world competitive arcade vision",
+        "Couch and online multiplayer planned",
+        "University Campus gameplay foundation in active development"
+      ],
+      "previewImageAlt": "MealBot Express University Campus gameplay foundation.",
+      "supportUrl": "https://ninjatomonline.github.io/mealbot-express-site/support.html",
+      "privacyUrl": "https://ninjatomonline.github.io/mealbot-express-site/privacy.html",
+      "launchedAt": "",
+      "featured": true,
+      "sortOrder": 100,
+      "accent": "#FFBE5C"
+    },
+    {
+      "matchRepoNames": [
+        "rooftoprush-site"
+      ],
+      "name": "Ninja Tom’s Rooftop Rush",
+      "category": "Game",
+      "productStatus": "Near Release / Release Candidate",
+      "websiteStatus": "Public project site available",
+      "tagline": "A fast chapter-driven rooftop arcade game built around movement, gadgets, evidence, and style.",
+      "launchNotes": "The game has a complete multi-chapter release-candidate path and current gameplay media. Human playability, final media approval, and release authorization remain open.",
+      "version": "Release candidate",
+      "versionHighlights": [
+        "Six-chapter campaign path",
+        "Gameplay and HUD evidence captured",
+        "Final owner and release gates remain"
+      ],
+      "supportUrl": "https://ninjatomonline.github.io/rooftoprush-site/support.html",
+      "privacyUrl": "https://ninjatomonline.github.io/rooftoprush-site/privacy.html",
+      "launchedAt": "",
+      "previewImageAlt": "Ninja Tom’s Rooftop Rush gameplay and character wardrobe preview.",
+      "featured": true,
+      "sortOrder": 110
     },
     {
       "matchRepoNames": [
@@ -173,7 +200,7 @@
       "privacyUrl": "https://dontspeed.app/privacy.html",
       "launchedAt": "",
       "previewImageAlt": "Don’t Speed trip dashboard and speed-awareness app preview.",
-      "sortOrder": 60
+      "sortOrder": 120
     },
     {
       "matchRepoNames": [
@@ -196,7 +223,7 @@
       "launchedAt": "",
       "previewImageAlt": "SwiftTerm terminal sessions and command workflow preview.",
       "featured": false,
-      "sortOrder": 70
+      "sortOrder": 130
     },
     {
       "matchRepoNames": [
@@ -218,30 +245,7 @@
       "privacyUrl": "https://ninjatomonline.github.io/minddeck-site/privacy.html",
       "launchedAt": "",
       "previewImageAlt": "Mind Deck thought-card app home screen on iPad.",
-      "sortOrder": 80
-    },
-    {
-      "matchRepoNames": [
-        "deadheaddetective-site"
-      ],
-      "name": "DeadHead Detective",
-      "category": "Mobile App",
-      "productStatus": "Active Development",
-      "websiteStatus": "Public project site available",
-      "tagline": "A gig-driving profitability utility that separates paid miles from deadhead miles and turns trips into useful insight.",
-      "launchNotes": "Current interfaces cover the dashboard, active trips, history, and profitability insights. No public App Store release is claimed.",
-      "version": "Active product build",
-      "versionHighlights": [
-        "Paid and deadhead mile tracking",
-        "Trip history and insight surfaces",
-        "Public release not yet verified"
-      ],
-      "previewImage": "https://ninjatomonline.github.io/deadheaddetective-site/screenshots/iphone/01-dashboard-summary.png",
-      "previewImageAlt": "DeadHead Detective gig-driving dashboard with earnings and mileage summary.",
-      "supportUrl": "https://ninjatomonline.github.io/deadheaddetective-site/support.html",
-      "privacyUrl": "https://ninjatomonline.github.io/deadheaddetective-site/privacy.html",
-      "launchedAt": "",
-      "sortOrder": 90
+      "sortOrder": 140
     },
     {
       "matchRepoNames": [
@@ -264,7 +268,7 @@
       "supportUrl": "https://ninjatomonline.github.io/shramana-site/support.html",
       "privacyUrl": "https://ninjatomonline.github.io/shramana-site/privacy.html",
       "launchedAt": "",
-      "sortOrder": 100
+      "sortOrder": 150
     },
     {
       "matchRepoNames": [
@@ -286,7 +290,7 @@
       "privacyUrl": "https://ninjatomonline.github.io/retrocopter-site/privacy.html",
       "launchedAt": "",
       "previewImageAlt": "RetroCopter arcade flight gameplay on iPad.",
-      "sortOrder": 110
+      "sortOrder": 160
     },
     {
       "matchRepoNames": [
@@ -306,7 +310,7 @@
       ],
       "launchedAt": "",
       "previewImageAlt": "MasterSpaces macOS workspace and organization preview.",
-      "sortOrder": 120
+      "sortOrder": 170
     },
     {
       "repoName": "pinball-dojo",
@@ -331,7 +335,7 @@
       ],
       "accent": "#FF6B4A",
       "launchedAt": "",
-      "sortOrder": 130
+      "sortOrder": 180
     },
     {
       "repoName": "wristmaze",
@@ -356,32 +360,30 @@
       ],
       "accent": "#2AD4FF",
       "launchedAt": "",
-      "sortOrder": 140
+      "sortOrder": 190
     },
     {
-      "repoName": "geometric-alchemy",
-      "name": "Geometric Alchemy",
-      "category": "Creative Commerce",
-      "productStatus": "Shipped / Available",
-      "websiteStatus": "Public storefront available",
-      "website": "https://custom3d.art/",
-      "tagline": "Custom 3D-printed art, geometric objects, and fabrication work presented through a live public storefront.",
-      "launchNotes": "Custom3D.Art currently routes to the Geometric Alchemy public storefront. Store availability is verified without making individual inventory claims.",
-      "version": "Public storefront",
+      "matchRepoNames": [
+        "deadheaddetective-site"
+      ],
+      "name": "DeadHead Detective",
+      "category": "Mobile App",
+      "productStatus": "Active Development",
+      "websiteStatus": "Public project site available",
+      "tagline": "A gig-driving profitability utility that separates paid miles from deadhead miles and turns trips into useful insight.",
+      "launchNotes": "Current interfaces cover the dashboard, active trips, history, and profitability insights. No public App Store release is claimed.",
+      "version": "Active product build",
       "versionHighlights": [
-        "Public shop and gallery available",
-        "Custom fabrication capability",
-        "Canonical Custom3D.Art entry point"
+        "Paid and deadhead mile tracking",
+        "Trip history and insight surfaces",
+        "Public release not yet verified"
       ],
-      "previewImageAlt": "Code-native Geometric Alchemy creative fabrication preview.",
-      "topics": [
-        "3d-printing",
-        "creative-commerce",
-        "fabrication"
-      ],
-      "accent": "#C07CFF",
+      "previewImage": "https://ninjatomonline.github.io/deadheaddetective-site/screenshots/iphone/01-dashboard-summary.png",
+      "previewImageAlt": "DeadHead Detective gig-driving dashboard with earnings and mileage summary.",
+      "supportUrl": "https://ninjatomonline.github.io/deadheaddetective-site/support.html",
+      "privacyUrl": "https://ninjatomonline.github.io/deadheaddetective-site/privacy.html",
       "launchedAt": "",
-      "sortOrder": 150
+      "sortOrder": 250
     },
     {
       "matchRepoNames": [
@@ -401,7 +403,7 @@
       ],
       "launchedAt": "",
       "previewImageAlt": "FlowGuru creative focus and community platform preview.",
-      "sortOrder": 160
+      "sortOrder": 260
     },
     {
       "matchRepoNames": [
@@ -426,7 +428,7 @@
       "supportUrl": "",
       "privacyUrl": "",
       "launchedAt": "",
-      "sortOrder": 170,
+      "sortOrder": 270,
       "previewImageAlt": "CushionOps production planning and inventory coordination tool preview."
     },
     {
@@ -452,7 +454,7 @@
       ],
       "accent": "#7DD3FC",
       "launchedAt": "",
-      "sortOrder": 180
+      "sortOrder": 280
     },
     {
       "matchRepoNames": [
@@ -474,7 +476,7 @@
       "privacyUrl": "https://wearethewatchers.com/privacy.html",
       "launchedAt": "",
       "previewImageAlt": "CUSTOS / We Are the Watchers creative brand concept preview.",
-      "sortOrder": 190
+      "sortOrder": 350
     },
     {
       "repoName": "grateful-dicks",
@@ -499,7 +501,7 @@
       ],
       "accent": "#FF4FAB",
       "launchedAt": "",
-      "sortOrder": 200
+      "sortOrder": 360
     },
     {
       "repoName": "watcher-one",
@@ -524,107 +526,33 @@
       ],
       "accent": "#59F2C7",
       "launchedAt": "",
-      "sortOrder": 210
-    },
-    {
-      "repoName": "reloadsmith",
-      "name": "ReloadSmith",
-      "category": "Developer Tool",
-      "productStatus": "Internal Developer Tool",
-      "websiteStatus": "NinjaTomApps portfolio detail",
-      "website": "https://ninjatomapps.com/#project/reloadsmith",
-      "tagline": "A Unity hot-reload and iteration toolkit developed to shorten editor feedback loops and support repeatable project validation.",
-      "launchNotes": "ReloadSmith is represented as an internal developer tool. No Asset Store or public-package availability is claimed.",
-      "version": "Internal tooling",
-      "versionHighlights": [
-        "Unity iteration workflow",
-        "Release-readiness tooling",
-        "No public distribution claim"
-      ],
-      "previewImageAlt": "Code-native ReloadSmith Unity developer-tool preview.",
-      "topics": [
-        "unity",
-        "developer-tool",
-        "automation"
-      ],
-      "accent": "#8FC6FF",
-      "launchedAt": "",
-      "sortOrder": 220
-    },
-    {
-      "repoName": "mission-control-watch",
-      "name": "Mission Control Watch",
-      "category": "Developer Tool",
-      "productStatus": "Internal Developer Tool",
-      "websiteStatus": "NinjaTomApps portfolio detail",
-      "website": "https://ninjatomapps.com/#project/mission-control-watch",
-      "tagline": "A private watchOS attention surface for secure owner notifications, acknowledgement, and bounded reminders.",
-      "launchNotes": "This is an owner-only internal tool in active private development. No App Store, TestFlight, public enrollment, or infrastructure details are offered.",
-      "version": "Private Phase 1A",
-      "versionHighlights": [
-        "Standalone watchOS attention workflow",
-        "Private owner-only development",
-        "No public distribution claim"
-      ],
-      "previewImageAlt": "Code-native Mission Control Watch internal-tool preview.",
-      "topics": [
-        "watchos",
-        "internal-tool",
-        "operations"
-      ],
-      "accent": "#A78BFA",
-      "launchedAt": "",
-      "sortOrder": 230
-    },
-    {
-      "repoName": "raspberry-pi-mission-control",
-      "name": "Raspberry Pi Mission Control",
-      "category": "Developer Tool",
-      "productStatus": "Internal Developer Tool",
-      "websiteStatus": "NinjaTomApps portfolio detail",
-      "website": "https://ninjatomapps.com/#project/raspberry-pi-mission-control",
-      "tagline": "A private operations dashboard joining local status, weather, input, and workshop control into one resilient interface.",
-      "launchNotes": "The dashboard and local input path have working owner evidence. Network, device, camera, and endpoint details remain private by design.",
-      "version": "Operational internal system",
-      "versionHighlights": [
-        "Local operations dashboard",
-        "Resilient status and input workflows",
-        "Sensitive infrastructure kept private"
-      ],
-      "previewImageAlt": "Code-native Raspberry Pi Mission Control operations-dashboard preview.",
-      "topics": [
-        "raspberry-pi",
-        "operations",
-        "internal-tool"
-      ],
-      "accent": "#30C7FF",
-      "launchedAt": "",
-      "sortOrder": 240
+      "sortOrder": 370
     },
     {
       "repoName": "fabrication-venue-vending",
-      "name": "Fabrication & Venue Vending",
-      "category": "Creative Commerce",
+      "name": "Custom3D.Art — Fabrication & Venue Vending",
+      "category": "Planned Fabrication Initiative",
       "productStatus": "Planned / On Hold",
-      "websiteStatus": "NinjaTomApps portfolio detail",
+      "websiteStatus": "NinjaTomApps planning detail; not launched",
       "website": "https://ninjatomapps.com/#project/fabrication-venue-vending",
-      "tagline": "A planned fabrication and venue-commerce system connecting inventory, QR ordering, displays, and lead workflows.",
-      "launchNotes": "The initiative is in investigation and planning. It is presented as a future operating system, not a launched storefront or vending network.",
-      "version": "Investigation",
+      "tagline": "A planned Custom3D.Art initiative exploring venue vending, inventory, QR ordering, displays, and customer-work workflows.",
+      "launchNotes": "This planned initiative sits under Custom3D.Art and is not a standalone business identity, launched storefront, or operating vending network.",
+      "version": "Custom3D.Art planning initiative",
       "versionHighlights": [
-        "Inventory and catalog planning",
-        "QR ordering and display concepts",
+        "Planned under Custom3D.Art",
+        "Venue and customer-work workflows in investigation",
         "No launch or availability claim"
       ],
-      "previewImageAlt": "Code-native fabrication and venue-vending initiative preview.",
+      "previewImageAlt": "Code-native planned Custom3D.Art venue-vending initiative preview.",
       "topics": [
+        "custom3d-art",
         "fabrication",
-        "commerce",
+        "venue-vending",
         "planned"
       ],
       "accent": "#FFCF70",
       "launchedAt": "",
-      "sortOrder": 250
+      "sortOrder": 450
     }
   ],
   "excluded": [

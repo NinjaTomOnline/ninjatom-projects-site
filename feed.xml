@@ -136,6 +136,14 @@
       <description>A compact retro arcade flight game built around responsive controls and quick replay loops. A playable product and public gameplay preview exist; App Store availability remains pending final review.</description>
     </item>
     <item>
+      <title>Custom3D.Art</title>
+      <link>https://custom3d.art/</link>
+      <guid isPermaLink="false">https://ninjatomapps.com/#project/custom3d-art</guid>
+      <pubDate>Wed, 24 Jun 2026 02:08:41 GMT</pubDate>
+      <category>Founder-Operated Fabrication Business</category>
+      <description>A founder-operated fabrication business for laser engraving, 3D printing, prototyping, custom products, fabrication, and related venue and customer work. Custom3D.Art is the active public identity for Tom’s related founder-operated fabrication business. It is presented as a fabrication business, not a software application.</description>
+    </item>
+    <item>
       <title>NinjaTom Arcade: Pinball Dojo</title>
       <link>https://ninjatomapps.com/#project/pinball-dojo</link>
       <guid isPermaLink="false">https://ninjatomapps.com/#project/pinball-dojo</guid>
@@ -150,14 +158,6 @@
       <pubDate>Wed, 24 Jun 2026 02:08:41 GMT</pubDate>
       <category>Game</category>
       <description>A twenty-level Apple Watch maze adventure with tilt controls, hazards, progression, and Game Center systems. The campaign, complication, progression, accessibility, audio, and Game Center code paths are implemented. Real-watch tuning and App Store Connect completion remain.</description>
-    </item>
-    <item>
-      <title>Geometric Alchemy</title>
-      <link>https://custom3d.art/</link>
-      <guid isPermaLink="false">https://ninjatomapps.com/#project/geometric-alchemy</guid>
-      <pubDate>Wed, 24 Jun 2026 02:08:41 GMT</pubDate>
-      <category>Creative Commerce</category>
-      <description>Custom 3D-printed art, geometric objects, and fabrication work presented through a live public storefront. Custom3D.Art currently routes to the Geometric Alchemy public storefront. Store availability is verified without making individual inventory claims.</description>
     </item>
     <item>
       <title>LumaFlow</title>
@@ -184,36 +184,12 @@
       <description>A local-first AI cohost and live-production system connecting overlays, recaps, chat, memory, and avatar workflows. A locally testable MVP exists. Public streaming remains gated by external accounts, production direction, operator validation, and cost approval.</description>
     </item>
     <item>
-      <title>ReloadSmith</title>
-      <link>https://ninjatomapps.com/#project/reloadsmith</link>
-      <guid isPermaLink="false">https://ninjatomapps.com/#project/reloadsmith</guid>
-      <pubDate>Wed, 24 Jun 2026 02:08:41 GMT</pubDate>
-      <category>Developer Tool</category>
-      <description>A Unity hot-reload and iteration toolkit developed to shorten editor feedback loops and support repeatable project validation. ReloadSmith is represented as an internal developer tool. No Asset Store or public-package availability is claimed.</description>
-    </item>
-    <item>
-      <title>Mission Control Watch</title>
-      <link>https://ninjatomapps.com/#project/mission-control-watch</link>
-      <guid isPermaLink="false">https://ninjatomapps.com/#project/mission-control-watch</guid>
-      <pubDate>Wed, 24 Jun 2026 02:08:41 GMT</pubDate>
-      <category>Developer Tool</category>
-      <description>A private watchOS attention surface for secure owner notifications, acknowledgement, and bounded reminders. This is an owner-only internal tool in active private development. No App Store, TestFlight, public enrollment, or infrastructure details are offered.</description>
-    </item>
-    <item>
-      <title>Raspberry Pi Mission Control</title>
-      <link>https://ninjatomapps.com/#project/raspberry-pi-mission-control</link>
-      <guid isPermaLink="false">https://ninjatomapps.com/#project/raspberry-pi-mission-control</guid>
-      <pubDate>Wed, 24 Jun 2026 02:08:41 GMT</pubDate>
-      <category>Developer Tool</category>
-      <description>A private operations dashboard joining local status, weather, input, and workshop control into one resilient interface. The dashboard and local input path have working owner evidence. Network, device, camera, and endpoint details remain private by design.</description>
-    </item>
-    <item>
-      <title>Fabrication &amp; Venue Vending</title>
+      <title>Custom3D.Art — Fabrication &amp; Venue Vending</title>
       <link>https://ninjatomapps.com/#project/fabrication-venue-vending</link>
       <guid isPermaLink="false">https://ninjatomapps.com/#project/fabrication-venue-vending</guid>
       <pubDate>Wed, 24 Jun 2026 02:08:41 GMT</pubDate>
-      <category>Creative Commerce</category>
-      <description>A planned fabrication and venue-commerce system connecting inventory, QR ordering, displays, and lead workflows. The initiative is in investigation and planning. It is presented as a future operating system, not a launched storefront or vending network.</description>
+      <category>Planned Fabrication Initiative</category>
+      <description>A planned Custom3D.Art initiative exploring venue vending, inventory, QR ordering, displays, and customer-work workflows. This planned initiative sits under Custom3D.Art and is not a standalone business identity, launched storefront, or operating vending network.</description>
     </item>
   </channel>
 </rss>

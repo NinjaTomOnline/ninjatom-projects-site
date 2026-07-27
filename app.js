@@ -885,8 +885,8 @@ function sortProjects(projects, mode = "studio") {
       return a.name.localeCompare(b.name);
     }
 
-    if (a.featured !== b.featured) return a.featured ? -1 : 1;
     if (a.sortOrder !== b.sortOrder) return a.sortOrder - b.sortOrder;
+    if (a.featured !== b.featured) return a.featured ? -1 : 1;
     return a.name.localeCompare(b.name);
   });
 }

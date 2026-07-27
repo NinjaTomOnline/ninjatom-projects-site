@@ -14,6 +14,7 @@ const pageDir = resolve(repoRoot, "projects");
 const chromePath = await findChrome();
 const projectsPayload = JSON.parse(await readFile(projectsPath, "utf8"));
 const projects = Array.isArray(projectsPayload.projects) ? projectsPayload.projects : [];
+const brandMarkDataUri = `data:image/png;base64,${(await readFile(resolve(repoRoot, "assets", "ninjatom-head-mark.png"))).toString("base64")}`;
 
 await mkdir(imageDir, { recursive: true });
 await mkdir(pageDir, { recursive: true });
@@ -105,12 +106,7 @@ function projectSvg(project) {
   <path d="M760 86c146-42 284-4 372 92" fill="none" stroke="${escapeXml(project.accent)}" stroke-opacity="0.28" stroke-width="2"/>
   <path d="M700 534c168 32 308-4 426-108" fill="none" stroke="#2ad4ff" stroke-opacity="0.15" stroke-width="2"/>
   <g transform="translate(72 64)">
-    <g transform="translate(0 0)">
-      <path d="M0 36C22 0 62-9 103 6c-7 26-26 55-55 74C26 94 3 103 0 104Z" fill="${escapeXml(project.accent)}"/>
-      <path d="M20 39c18-22 45-29 75-20-9 20-26 38-49 50-12 6-23 10-33 12V52Z" fill="#f7f4f0"/>
-      <circle cx="43" cy="49" r="6" fill="#05070d"/>
-      <circle cx="65" cy="43" r="6" fill="#05070d"/>
-    </g>
+    <image x="0" y="3" width="112" height="74" preserveAspectRatio="xMidYMid meet" href="${brandMarkDataUri}"/>
     <text x="132" y="55" fill="#f7f4f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="38" font-weight="820">NinjaTom <tspan fill="${escapeXml(project.accent)}">Apps</tspan></text>
   </g>
   <g filter="url(#softShadow)" transform="translate(70 174)">

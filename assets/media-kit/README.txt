@@ -1,18 +1,14 @@
 NinjaTom Apps Media Kit
-Updated: 2026-07-26
+Candidate date: 2026-07-27
+Canonical site: https://ninjatomapps.com/
 
-Canonical site:
-https://ninjatomapps.com/
+Included:
+- ninjatom-head-mark.png: transparent white ninja silhouette isolated directly from the owner-approved printed business-card photograph.
+- ninjatomapps-social-preview.png / .svg: 1200x630 organization social preview.
+- ninjatomapps-icon.svg, icon-192.png, icon-512.png, apple-touch-icon.png, favicon-32.png: candidate identity outputs.
 
-Included assets:
-- ninjatomapps-social-preview.png: 1200x630 Open Graph and social preview image.
-- ninjatomapps-social-preview.svg: editable vector source for the social preview.
-- ninjatomapps-icon.svg: NinjaTom Apps brand mark source.
-- icon-192.png and icon-512.png: app/site icons.
-- apple-touch-icon.png and favicon-32.png: browser and home-screen icon assets.
+Source limitation:
+The original business-card vector/layered design asset was not located. The ninja mark is photo-derived and is not claimed as the exact original digital source. Owner visual approval remains required; if the original digital asset is supplied, regenerate all dependent identity files.
 
-Short description:
-NinjaTom Apps presents a complete portfolio of shipped apps, near-release games, active products, studio tools, and creative technology by NinjaTomOnline and Custom3D.Art.
-
-Contact:
-support@ninjatomapps.com
+Usage:
+Keep the white silhouette intact and preserve comfortable clear space. Do not recolor or redraw the silhouette without owner approval.

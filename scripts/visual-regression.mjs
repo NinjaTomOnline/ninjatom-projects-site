@@ -93,6 +93,13 @@ const shots = [
     height: 1000,
   },
   {
+    name: "desktop-custom3d-detail",
+    path: "./?visual-test=1#project/custom3d-art",
+    windowSize: "1440,1000",
+    width: 1440,
+    height: 1000,
+  },
+  {
     name: "desktop-maintained-project-detail",
     path: "./?visual-test=1#project/zenwisdom-site",
     windowSize: "1440,1000",

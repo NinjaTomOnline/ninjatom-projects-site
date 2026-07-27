@@ -22,11 +22,13 @@ try {
       const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
       const cards = () => [...document.querySelectorAll('.project-card')];
       const cardNames = () => cards().map((card) => card.querySelector('h3')?.textContent?.trim()).filter(Boolean);
+      const forbiddenNames = ['Reload' + 'Smith', 'Mission Control ' + 'Watch', 'Raspberry Pi ' + 'Mission Control'];
 
       const jsonLd = JSON.parse(document.querySelector('#structured-data').textContent);
       const graph = Array.isArray(jsonLd['@graph']) ? jsonLd['@graph'] : [];
       const collectionPage = graph.find((item) => item['@type'] === 'CollectionPage');
       const itemList = collectionPage?.mainEntity;
+      const custom3dJsonLdType = itemList?.itemListElement?.find((entry) => entry.item?.name === 'Custom3D.Art')?.item?.['@type'];
 
       const search = document.querySelector('#project-search');
       search.value = 'MealBot Express';
@@ -43,12 +45,20 @@ try {
 
       document.querySelector('[data-filter="All"]').click();
       await delay(50);
-      document.querySelector('button[data-project-slug="mealbot-express-site"]').click();
+      const defaultNames = cardNames();
+      const mealBotButton = document.querySelector('button[data-project-slug="mealbot-express-site"]');
+      mealBotButton.focus();
+      const detailButtonKeyboardFocus = document.activeElement === mealBotButton;
+      mealBotButton.click();
       await delay(220);
       const drawerOpened = !document.querySelector('#project-drawer').hidden && document.querySelector('#drawer-title')?.textContent === 'MealBot Express';
       document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
       await delay(220);
       const drawerClosed = document.querySelector('#project-drawer').hidden;
+      const drawerFocusRestored = document.activeElement === mealBotButton;
+
+      document.querySelector('.skip-link').focus();
+      const skipLinkKeyboardFocus = document.activeElement?.classList.contains('skip-link');
 
       document.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', ctrlKey: true, bubbles: true }));
       await delay(50);
@@ -60,22 +70,36 @@ try {
       const feedText = await fetch('feed.xml').then((response) => response.text());
       const feed = new DOMParser().parseFromString(feedText, 'application/xml');
       const sharePageOk = (await fetch('projects/mealbot-express-site.html')).ok;
+      const custom3dPageOk = (await fetch('projects/custom3d-art.html')).ok;
+      const publicText = [document.body.textContent, feedText, JSON.stringify(jsonLd)].join(' ');
+      const forbiddenPublicNames = forbiddenNames.filter((name) => publicText.includes(name));
+      const inquiryLink = document.querySelector('#work-with-us a[href^="mailto:"]')?.href || '';
+      const custom3dLink = document.querySelector('#work-with-us a[href^="https://custom3d.art"]')?.href || '';
 
       return {
         jsonLdTypes: graph.map((item) => item['@type']),
         itemCount: itemList?.numberOfItems,
         itemEntries: itemList?.itemListElement?.length,
+        custom3dJsonLdType,
         canonical: document.querySelector('link[rel="canonical"]')?.href,
         searchNames,
+        defaultNames,
         gameNames,
         gameCategories,
         drawerOpened,
         drawerClosed,
+        drawerFocusRestored,
+        detailButtonKeyboardFocus,
+        skipLinkKeyboardFocus,
         commandOpened,
         commandClosed,
         feedItems: feed.querySelectorAll('item').length,
         feedParseErrors: feed.querySelectorAll('parsererror').length,
         sharePageOk,
+        custom3dPageOk,
+        forbiddenPublicNames,
+        inquiryLink,
+        custom3dLink,
       };
     })()`,
   });
@@ -94,21 +118,26 @@ try {
   });
   const failures = [];
   if (!checks.jsonLdTypes.includes("Organization") || !checks.jsonLdTypes.includes("WebSite") || !checks.jsonLdTypes.includes("CollectionPage")) failures.push("JSON-LD graph is incomplete.");
-  if (checks.itemCount !== 26 || checks.itemEntries !== 26) failures.push(`JSON-LD item list expected 26 projects, found ${checks.itemCount}/${checks.itemEntries}.`);
+  if (checks.itemCount !== 23 || checks.itemEntries !== 23) failures.push(`JSON-LD item list expected 23 projects, found ${checks.itemCount}/${checks.itemEntries}.`);
   if (checks.canonical !== "https://ninjatomapps.com/") failures.push(`Canonical URL mismatch: ${checks.canonical}`);
+  if (checks.custom3dJsonLdType !== "CreativeWork") failures.push(`Custom3D.Art JSON-LD type must be CreativeWork, found ${checks.custom3dJsonLdType}.`);
   if (checks.searchNames.length !== 1 || checks.searchNames[0] !== "MealBot Express") failures.push(`Search returned ${checks.searchNames.join(", ") || "nothing"}.`);
   if (!checks.gameNames.length || checks.gameCategories.some((category) => category !== "Game")) failures.push("Games filter returned a non-game or no projects.");
   if (!checks.drawerOpened || !checks.drawerClosed) failures.push("Project drawer open/Escape-close path failed.");
+  if (!checks.drawerFocusRestored || !checks.detailButtonKeyboardFocus || !checks.skipLinkKeyboardFocus) failures.push("Keyboard focus or drawer focus-restoration path failed.");
   if (!checks.commandOpened || !checks.commandClosed) failures.push("Keyboard command palette path failed.");
-  if (checks.feedParseErrors || checks.feedItems !== 26) failures.push(`RSS expected 26 valid items, found ${checks.feedItems}.`);
-  if (!checks.sharePageOk) failures.push("MealBot generated share page did not load.");
+  if (checks.feedParseErrors || checks.feedItems !== 23) failures.push(`RSS expected 23 valid items, found ${checks.feedItems}.`);
+  if (!checks.sharePageOk || !checks.custom3dPageOk) failures.push("Representative generated share page did not load.");
+  if (checks.forbiddenPublicNames.length) failures.push(`Owner-designated private names leaked: ${checks.forbiddenPublicNames.join(', ')}.`);
+  if (checks.defaultNames.slice(0, 6).join('|') !== ['DoorCodes', 'QuitGentle', 'Zen Wisdom', 'DreamSpell', 'Custom3D.Art', 'MealBot Express'].join('|')) failures.push(`Lifecycle hierarchy mismatch: ${checks.defaultNames.slice(0, 6).join(', ')}.`);
+  if (!checks.inquiryLink.includes('subject=NinjaTom%20Apps%20Project%20Inquiry') || checks.custom3dLink !== 'https://custom3d.art/') failures.push("Business-development or Custom3D.Art conversion link failed.");
   if (failures.length) {
     console.error(JSON.stringify(checks, null, 2));
     throw new Error(failures.join("\n"));
   }
 
   console.log(`Functional smoke passed: ${checks.itemCount} JSON-LD projects, ${checks.feedItems} RSS items, ${checks.gameNames.length} game cards.`);
-  console.log("Search, filters, drawer Escape handling, command palette keyboard handling, canonical URL, and MealBot share page passed.");
+  console.log("Search, filters, lifecycle order, drawer Escape/focus restoration, keyboard quick-find, skip link, canonical URL, conversion links, private-name absence, and representative share pages passed.");
 } finally {
   server.close();
 }

@@ -64,6 +64,43 @@ for (const obsoleteName of ["AshTag", "Mealbot Express", "DontSpeed", "Minddeck"
   if (projects.some((project) => project.name === obsoleteName)) errors.push(`Obsolete public name remains: ${obsoleteName}.`);
 }
 
+
+const privateNames = ["Reload" + "Smith", "Mission Control " + "Watch", "Raspberry Pi " + "Mission Control"];
+for (const name of privateNames) {
+  if (entries.some((entry) => entry.name === name) || projects.some((project) => project.name === name)) {
+    errors.push(`Owner-designated private system remains in public portfolio data: ${name}.`);
+  }
+}
+
+const custom3d = projects.find((project) => project.name === "Custom3D.Art");
+if (!custom3d) {
+  errors.push("Custom3D.Art is missing.");
+} else {
+  if (custom3d.website !== "https://custom3d.art/") errors.push("Custom3D.Art official website mismatch.");
+  if (/software|mobile app|web app/i.test(custom3d.category)) errors.push("Custom3D.Art must not be classified as software.");
+  const positioning = `${custom3d.tagline} ${custom3d.launchNotes}`.toLowerCase();
+  for (const phrase of ["founder-operated", "laser engraving", "3d printing", "prototyping", "fabrication business"]) {
+    if (!positioning.includes(phrase)) errors.push(`Custom3D.Art positioning is missing: ${phrase}.`);
+  }
+}
+
+const fabrication = projects.find((project) => project.repoName === "fabrication-venue-vending");
+if (!fabrication) {
+  errors.push("Custom3D.Art fabrication and venue-vending plan is missing.");
+} else {
+  const positioning = `${fabrication.name} ${fabrication.tagline} ${fabrication.launchNotes}`.toLowerCase();
+  if (!positioning.includes("custom3d.art") || !positioning.includes("not a standalone business identity") || fabrication.productStatus !== "Planned / On Hold") {
+    errors.push("Fabrication and venue-vending work must remain a planned Custom3D.Art initiative, not a standalone business.");
+  }
+}
+
+const expectedLeadingOrder = ["DoorCodes", "QuitGentle", "Zen Wisdom", "DreamSpell", "Custom3D.Art", "MealBot Express"];
+const generatedOrder = projects.map((project) => project.name);
+if (generatedOrder.slice(0, expectedLeadingOrder.length).join("|") !== expectedLeadingOrder.join("|")) {
+  errors.push(`Lifecycle hierarchy mismatch: ${generatedOrder.slice(0, expectedLeadingOrder.length).join(", ")}.`);
+}
+if (projects.at(-1)?.repoName !== "fabrication-venue-vending") errors.push("Planned work must remain last in the default lifecycle hierarchy.");
+
 const appStoreProjects = projects.filter((project) => project.appStoreUrl);
 for (const expected of ["DoorCodes", "QuitGentle", "Zen Wisdom", "DreamSpell"]) {
   if (!appStoreProjects.some((project) => project.name === expected)) errors.push(`${expected}: verified App Store link missing.`);

@@ -1,7 +1,7 @@
 {
   "name": "NinjaTom Apps",
   "short_name": "NinjaTom",
-  "description": "A complete portfolio of shipped apps, near-release games, active products, internal tools, and creative technology by NinjaTom Apps.",
+  "description": "A complete portfolio of shipped apps, near-release games, active products, fabrication work, and creative technology by NinjaTom Apps.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

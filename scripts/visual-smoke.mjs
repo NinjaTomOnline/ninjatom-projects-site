@@ -27,6 +27,7 @@ try {
   await capture("desktop-category-games", `${baseUrl}?visual-test=1#category/games`, "1440,1000", 1440, 1000);
   await capture("desktop-project-detail", `${baseUrl}?visual-test=1#project/doorcodes-site`, "1440,1000", 1440, 1000);
   await capture("desktop-mealbot-detail", `${baseUrl}?visual-test=1#project/mealbot-express-site`, "1440,1000", 1440, 1000);
+  await capture("desktop-custom3d-detail", `${baseUrl}?visual-test=1#project/custom3d-art`, "1440,1000", 1440, 1000);
   await capture("desktop-maintained-project-detail", `${baseUrl}?visual-test=1#project/zenwisdom-site`, "1440,1000", 1440, 1000);
   await capture("desktop-command-palette", `${baseUrl}?visual-test=1&command=1`, "1440,1000", 1440, 1000);
   await capture("changelog", `${baseUrl}changelog.html`, "1440,900", 1440, 900);
