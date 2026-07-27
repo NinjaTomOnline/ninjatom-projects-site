@@ -31,6 +31,7 @@ try {
   await capture("desktop-maintained-project-detail", `${baseUrl}?visual-test=1#project/zenwisdom-site`, "1440,1000", 1440, 1000);
   await capture("desktop-command-palette", `${baseUrl}?visual-test=1&command=1`, "1440,1000", 1440, 1000);
   await capture("changelog", `${baseUrl}changelog.html`, "1440,900", 1440, 900);
+  await capture("press", `${baseUrl}press.html`, "1440,1000", 1440, 1000);
   await capture("status", `${baseUrl}status.html`, "1440,900", 1440, 900);
   await capture("not-found", `${baseUrl}404.html`, "1440,900", 1440, 900);
 

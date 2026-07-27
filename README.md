@@ -257,10 +257,11 @@ Run the portfolio truth/link validator and rendered functional smoke check:
 
 ```bash
 node scripts/validate-portfolio.mjs --links
+node scripts/validate-project-share-assets.mjs
 node scripts/functional-smoke.mjs
 ```
 
-These checks validate the curated taxonomy, verified App Store count, required MealBot positioning, alt text, external links, rendered JSON-LD, RSS, search, filters, project drawer, keyboard command palette, canonical URL, and generated MealBot share page.
+These checks validate the curated taxonomy, verified App Store count, required MealBot positioning, alt text, external links, generated social-image counts and boundaries, rendered JSON-LD, RSS, search, filters, customer-safe project drawers, keyboard command palette, canonical URL, and representative share pages.
 
 Run the stricter pixel-baseline visual regression check:
 
@@ -306,13 +307,15 @@ The Lighthouse config starts a local static server and audits the homepage, pres
 - `app.js`: project loading, hero showcase rendering, keyboard quick-find palette, compact latest updates inside Studio Notes, discovery status, Recently Launched filtering, category hash routes, shareable project drawers with screenshot galleries and launch notes, JSON-LD structured data, search, filters, sorting, load-more behavior, scroll-reveal and pointer-follow card motion, and fallback sample data
 - `status.js`: public status page loader for deploy metadata, latest workflow run, repo-index freshness, RSS freshness, and JSON copy actions
 - Project cards: `app.js` uses real preview images when available, prefers screenshot-like project media over generic social/preview artwork, makes non-button card areas open the project site, shows gallery-count badges for media-rich projects, and falls back to generated code-native preview panels when a project does not expose a screenshot yet.
-- Project drawers: use hash routes such as `#project/doorcodes-site`, and generated pages such as `projects/doorcodes-site.html` provide Open Graph metadata before redirecting into the matching drawer. Category filters use routes such as `#category/ios-apps` and `#category/games`. Drawer galleries are powered by each project's `screenshots` array, with `previewImage` as the fallback, and now include quick snapshot stats, GitHub repo-index metadata, plus a larger featured screenshot.
+- Project drawers: use hash routes such as `#project/doorcodes-site`, and generated pages such as `projects/doorcodes-site.html` provide Open Graph metadata before redirecting into the matching drawer. Category filters use routes such as `#category/ios-apps` and `#category/games`. Drawer galleries are powered by each project's `screenshots` array, with `previewImage` as the fallback, and present product lifecycle, availability, release evidence, launch notes, and media without customer-facing repository diagnostics.
 - `projects.json`: generated project index consumed by the frontend
 - `data/projects.json`: generated GitHub org repository index consumed as an enrichment and fallback data source
 - `scripts/discover-projects.js`: GitHub API discovery script
 - `scripts/fetch-repos.mjs`: Node 20 GitHub REST repo indexer for `.github/workflows/auto-index-deploy.yml`
 - `scripts/write-deploy-status.mjs`: writes workflow/deploy metadata to `data/deploy-status.json`
 - `scripts/generate-project-share-assets.mjs`: generates `projects/*.html` share pages and `assets/project-og/*` images
+- `scripts/validate-project-share-assets.mjs`: validates generated share-image counts, footer language, chip spacing, text boundaries, and 1200x630 PNG dimensions
+- `scripts/generate-project-share-contact-sheet.mjs`: captures all generated project-share PNGs into one owner-review contact sheet
 - `scripts/portfolio-curation.json`: public-safe inclusion, exclusion, naming, status, and positioning authority
 - `scripts/validate-portfolio.mjs`: deterministic catalog, taxonomy, evidence-field, alt-text, and optional external-link validator
 - `scripts/chrome-capture.mjs`: exact-viewport Chrome DevTools Protocol capture helper used by local visual checks

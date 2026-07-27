@@ -81,7 +81,7 @@ For the existing curated app cards, keep using at least one of:
 - `ninjatom-project-site`
 - `app-website`
 
-The new org index includes all public, non-fork repositories by default and records each repo's topics into `data/projects.json`. Topics still matter because the frontend displays them on cards and uses them in search/filter matching.
+The org index includes all public, non-fork repositories by default and records each repo's topics in `data/projects.json` for technical status, automation, and internal matching. Repository topics and diagnostics are not presented on customer-facing project cards or detail drawers.
 
 Useful topic examples:
 

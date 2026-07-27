@@ -87,7 +87,7 @@ async function loadFeedStatus() {
     updateCard(
       statusElements.feed,
       `${items.length} items`,
-      `Latest feed build ${formatDateTime(latest) || "available"}.`,
+      `Latest project update ${formatDateTime(latest) || "available"}.`,
       `<a href="feed.xml">Open feed.xml</a>`,
     );
   } catch (error) {

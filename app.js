@@ -330,19 +330,8 @@ function mergeOrgRepositoryData(payload, orgIndex) {
       return {
         ...project,
         repoIndex: repoIndexFromRepository(repo),
-        fullName: project.fullName || repo.full_name,
         repositoryUrl: project.repositoryUrl || repo.html_url,
-        description: project.description || repo.description,
         website: project.website || repo.homepage,
-        topics: Array.isArray(repo.topics) && repo.topics.length ? repo.topics : project.topics,
-        language: project.language || repo.language,
-        archived: project.archived ?? repo.archived,
-        updatedAt: project.updatedAt || repo.pushed_at,
-        stargazersCount: project.stargazersCount ?? repo.stargazers_count,
-        license: project.license || repo.license,
-        defaultBranch: project.defaultBranch || repo.default_branch,
-        openIssuesCount: project.openIssuesCount ?? repo.open_issues_count,
-        latestRelease: project.latestRelease || repo.latest_release,
       };
     }),
   };
@@ -897,11 +886,11 @@ function createProjectCard(project, index = 0) {
   card.style.setProperty("--accent", project.accent);
   card.style.setProperty("--reveal-delay", `${Math.min(index, 8) * 35}ms`);
   attachTilt(card);
-  enableProjectCardLink(card, project.website || project.repositoryUrl);
+  enableProjectCardLink(card, project.website);
 
   const preview = document.createElement("a");
   preview.className = "project-preview";
-  preview.href = project.website || project.repositoryUrl || "#";
+  preview.href = project.website || "#";
   preview.target = "_blank";
   preview.rel = "noopener noreferrer";
   const cardMedia = selectCardPreview(project);
@@ -953,25 +942,20 @@ function createProjectCard(project, index = 0) {
   tagline.textContent = project.tagline;
 
   const releaseMeta = createReleaseMeta(project);
-  const repoMeta = createRepoMeta(project);
-
   const links = document.createElement("div");
   links.className = "card-links";
   links.appendChild(createDetailButton(project, true));
   appendLink(links, "App Store", project.appStoreUrl);
   appendLink(links, "Support", project.supportUrl);
   appendLink(links, "Privacy", project.privacyUrl);
-  appendLink(links, "Repo", project.repositoryUrl);
 
   const footer = document.createElement("div");
   footer.className = "card-footer";
   appendFooterLink(footer, "Project Site", project.website, "globe");
   appendFooterMeta(footer, project.websiteStatus, "globe");
-  appendFooterMeta(footer, formatRelative(project.updatedAt), "clock");
 
   body.append(titleRow, tagline);
   if (releaseMeta) body.appendChild(releaseMeta);
-  if (repoMeta) body.appendChild(repoMeta);
   if (links.children.length) body.appendChild(links);
   body.appendChild(footer);
   card.append(preview, icon, body);
@@ -1153,28 +1137,7 @@ function createGalleryBadge(count) {
   return badge;
 }
 
-function createRepoMeta(project) {
-  const items = [];
-  if (project.language) items.push({ label: project.language, tone: "language" });
-  for (const topic of project.topics.slice(0, 2)) {
-    items.push({ label: topic, tone: "topic" });
-  }
-  if (project.archived) items.push({ label: "Archived", tone: "archived" });
-  if (!items.length) return null;
 
-  const meta = document.createElement("div");
-  meta.className = "repo-meta";
-  meta.setAttribute("aria-label", `${project.name} repository metadata`);
-
-  for (const item of items.slice(0, 4)) {
-    const chip = document.createElement("span");
-    chip.className = `repo-chip ${item.tone}`;
-    chip.textContent = item.label;
-    meta.appendChild(chip);
-  }
-
-  return meta;
-}
 
 function createDetailButton(project, compact = false) {
   const button = document.createElement("button");
@@ -1611,9 +1574,7 @@ function renderProjectDrawer(project) {
   eyebrow.className = "drawer-eyebrow";
   eyebrow.textContent = project.curationFound
     ? "Verified NinjaTom Apps portfolio entry"
-    : project.manifestFound
-      ? "Manifest-powered project"
-      : "Auto-discovered project";
+    : "NinjaTom Apps portfolio entry";
 
   const title = document.createElement("h2");
   title.id = "drawer-title";
@@ -1643,20 +1604,12 @@ function renderProjectDrawer(project) {
     launched.textContent = "Recently launched";
     tags.appendChild(launched);
   }
-  if (project.archived) {
-    const archived = document.createElement("span");
-    archived.className = "tag archived-tag";
-    archived.textContent = "Archived";
-    tags.appendChild(archived);
-  }
-
   const actions = document.createElement("div");
   actions.className = "drawer-actions";
   appendDrawerLink(actions, "Open Project Site", project.website, true);
   appendDrawerLink(actions, "App Store", project.appStoreUrl);
   appendDrawerLink(actions, "Support", project.supportUrl);
   appendDrawerLink(actions, "Privacy", project.privacyUrl);
-  appendDrawerLink(actions, "GitHub Repo", project.repositoryUrl);
   appendDrawerLink(actions, "Share Page", projectShareUrl(project));
 
   const shareButton = document.createElement("button");
@@ -1679,52 +1632,21 @@ function renderProjectDrawer(project) {
   appendFact(facts, "Website", project.websiteStatus);
   appendFact(facts, "Released", formatDate(project.launchedAt));
   appendFact(facts, "Version", project.version);
-  appendFact(facts, "Updated", formatDate(project.updatedAt) || formatRelative(project.updatedAt));
-  appendFact(facts, "Repo", project.repoName);
-  appendFact(facts, "Full Name", project.fullName);
-  appendFact(facts, "Language", project.language);
-  appendFact(facts, "Archived", project.archived ? "Yes" : "");
-  appendFact(facts, "License", project.license);
-  appendFact(facts, "Default Branch", project.defaultBranch);
-  appendFact(facts, "Open Issues", project.openIssuesCount ? formatCompactNumber(project.openIssuesCount) : "");
   appendFact(facts, "Latest Release", project.latestRelease?.tag_name || project.latestRelease?.name || "");
   appendFact(facts, "Store Status", project.releaseProjection?.label || "");
   appendFact(facts, "Projected Release", project.releaseProjection?.kind === "projected" ? formatDate(project.releaseProjection.date) : "");
   appendFact(facts, "Progress", project.releaseProjection?.kind === "projected" ? `${project.releaseProjection.progress}%` : "");
-  appendFact(facts, "Stars", formatCompactNumber(project.stargazersCount));
-  appendFact(facts, "Forks", formatCompactNumber(project.forksCount));
-  appendFact(
-    facts,
-    "Data",
-    project.curationFound
-      ? "Curated portfolio source"
-      : project.manifestFound
-        ? "site-manifest.json"
-        : "Inferred from GitHub Pages",
-  );
-
-  const topicWrap = document.createElement("div");
-  topicWrap.className = "drawer-topics";
-  for (const topic of project.topics.slice(0, 8)) {
-    const pill = document.createElement("span");
-    pill.textContent = topic;
-    topicWrap.appendChild(pill);
-  }
-
   const snapshot = createDrawerSnapshot(project);
   const releaseForecast = createReleaseForecast(project);
   const gallery = createScreenshotGallery(project);
   const launchNotes = createLaunchNotes(project);
-  const repoIndex = createRepoIndexSection(project);
 
   content.append(header, tags, actions);
   if (releaseForecast) content.appendChild(releaseForecast);
   if (snapshot) content.appendChild(snapshot);
-  if (repoIndex) content.appendChild(repoIndex);
   if (launchNotes) content.appendChild(launchNotes);
   if (gallery) content.appendChild(gallery);
   content.appendChild(facts);
-  if (topicWrap.children.length) content.appendChild(topicWrap);
 }
 
 function createReleaseForecast(project) {
@@ -1782,7 +1704,7 @@ function createDrawerSnapshot(project) {
     ["Lifecycle", project.productStatus],
     ["Website", project.websiteStatus],
     ["Gallery", galleryCount ? `${galleryCount} image${galleryCount === 1 ? "" : "s"}` : "Code-native preview"],
-    ["Source", project.curationFound ? "Curated" : project.manifestFound ? "Manifest" : "Discovery"],
+    ["Availability", project.appStoreUrl ? "App Store" : project.website ? "Public product site" : "Portfolio listing"],
   ];
 
   const section = document.createElement("section");
@@ -1840,82 +1762,11 @@ function createLaunchNotes(project) {
   return section;
 }
 
-function createRepoIndexSection(project) {
-  const repo = project.repoIndex;
-  if (!repo || !(repo.full_name || repo.html_url || repo.homepage || repo.language || repo.topics.length)) return null;
 
-  const section = document.createElement("section");
-  section.className = "drawer-repo-index";
-  section.setAttribute("aria-label", `${project.name} GitHub repository index metadata`);
 
-  const header = document.createElement("div");
-  header.className = "drawer-repo-index-heading";
 
-  const title = document.createElement("h3");
-  title.textContent = "Repo Index";
 
-  const source = document.createElement("span");
-  source.textContent = "data/projects.json";
-  header.append(title, source);
 
-  const grid = document.createElement("dl");
-  grid.className = "repo-index-grid";
-  appendRepoIndexFact(grid, "Full name", repo.full_name);
-  appendRepoIndexFact(grid, "Language", repo.language);
-  appendRepoIndexFact(grid, "License", repo.license);
-  appendRepoIndexFact(grid, "Branch", repo.default_branch);
-  appendRepoIndexFact(grid, "Pushed", formatDate(repo.pushed_at) || formatRelative(repo.pushed_at));
-  appendRepoIndexFact(grid, "Stars", formatCompactNumber(repo.stargazers_count));
-  appendRepoIndexFact(grid, "Open issues", formatCompactNumber(repo.open_issues_count));
-  appendRepoIndexFact(grid, "Latest release", repo.latest_release?.tag_name || repo.latest_release?.name);
-  appendRepoIndexFact(grid, "Archived", repo.archived ? "Yes" : "No");
-
-  const links = document.createElement("div");
-  links.className = "repo-index-links";
-  appendRepoIndexLink(links, "GitHub", repo.html_url);
-  appendRepoIndexLink(links, "Homepage", repo.homepage);
-  appendRepoIndexLink(links, "Latest Release", repo.latest_release?.html_url);
-
-  const description = document.createElement("p");
-  description.className = "repo-index-description";
-  description.textContent = repo.description || "No GitHub repo description set yet.";
-
-  const topics = document.createElement("div");
-  topics.className = "repo-index-topics";
-  for (const topic of repo.topics.slice(0, 10)) {
-    const pill = document.createElement("span");
-    pill.textContent = topic;
-    topics.appendChild(pill);
-  }
-
-  section.append(header, description, grid);
-  if (links.children.length) section.appendChild(links);
-  if (topics.children.length) section.appendChild(topics);
-  return section;
-}
-
-function appendRepoIndexFact(container, label, value) {
-  if (!value && value !== 0) return;
-
-  const item = document.createElement("div");
-  const term = document.createElement("dt");
-  term.textContent = label;
-  const description = document.createElement("dd");
-  description.textContent = value;
-  item.append(term, description);
-  container.appendChild(item);
-}
-
-function appendRepoIndexLink(container, label, url) {
-  if (!url) return;
-
-  const link = document.createElement("a");
-  link.href = url;
-  link.target = "_blank";
-  link.rel = "noopener noreferrer";
-  link.textContent = label;
-  container.appendChild(link);
-}
 
 function createScreenshotGallery(project) {
   const screenshots = Array.isArray(project.screenshots) ? project.screenshots : [];

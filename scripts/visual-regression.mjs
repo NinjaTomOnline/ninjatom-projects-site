@@ -121,6 +121,13 @@ const shots = [
     height: 900,
   },
   {
+    name: "press",
+    path: "./press.html?visual-test=1",
+    windowSize: "1440,1000",
+    width: 1440,
+    height: 1000,
+  },
+  {
     name: "status",
     path: "./status.html?visual-test=1",
     windowSize: "1440,900",

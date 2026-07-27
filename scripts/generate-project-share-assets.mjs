@@ -72,20 +72,53 @@ function normalizeProject(project) {
     website: stringOr(project.website || project.repositoryUrl, siteUrl),
     repositoryUrl: stringOr(project.repositoryUrl, ""),
     accent,
-    topics: Array.isArray(project.topics) ? project.topics.slice(0, 4) : [],
+    topics: Array.isArray(project.topics) ? project.topics.filter(isPublicFacingTopic).slice(0, 4) : [],
     updatedAt: stringOr(project.updatedAt || project.launchedAt, ""),
   };
 }
 
 function projectSvg(project) {
-  const titleLines = wrapText(project.name, 18, 3);
-  const taglineLines = wrapText(project.tagline, 48, 3);
-  const topics = [project.category, project.status, ...project.topics].filter(Boolean).slice(0, 5);
+  const titleSize = titleFontSize(project.name);
+  const titleLineHeight = titleSize + 8;
+  const taglineSize = 24;
+  const taglineLineHeight = 34;
+  const contentX = 226;
+  const contentWidth = 790;
+  const titleY = 74;
+  const titleLines = wrapTextByWidth(project.name, titleSize, contentWidth, 2);
+  const taglineY = titleY + (titleLines.length - 1) * titleLineHeight + 50;
+  const taglineLines = wrapTextByWidth(project.tagline, taglineSize, contentWidth, 2);
+  const chipY = 248;
+  const chipLabels = [...new Set([project.category, project.status, ...project.topics].filter(Boolean))];
+  const chips = layoutChips(chipLabels, { maxWidth: contentWidth, maxRows: 2 });
+  const footerUrl = fitTextToWidth(`ninjatomapps.com/projects/${project.slug}.html`, 21, 560);
+  const footerBrand = "NinjaTom Apps / Studio Portfolio";
+  const layout = {
+    canvas: { x: 0, y: 0, width: 1200, height: 630 },
+    card: { x: 70, y: 174, width: 1060, height: 338 },
+    content: { x: 70 + contentX, y: 174 + 14, width: contentWidth, height: 324 },
+    title: textBounds(titleLines, 70 + contentX, 174 + titleY, titleSize, titleLineHeight),
+    tagline: textBounds(taglineLines, 70 + contentX, 174 + taglineY, taglineSize, taglineLineHeight),
+    chips: chips.map((chip) => ({
+      label: chip.label,
+      x: 70 + contentX + chip.x,
+      y: 174 + chipY + chip.y,
+      width: chip.width,
+      height: chip.height,
+      priority: chip.priority,
+    })),
+    footerUrl: textBounds([footerUrl], 72, 578, 21, 26),
+    footerBrand: {
+      ...textBounds([footerBrand], 1128 - estimateTextWidth(footerBrand, 23), 578, 23, 28),
+      anchor: "end",
+    },
+  };
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
   <title id="title">${escapeXml(project.name)} | NinjaTom Apps</title>
   <desc id="desc">${escapeXml(project.tagline)}</desc>
+  <metadata id="layout-metadata">${escapeXml(JSON.stringify(layout))}</metadata>
   <defs>
     <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
       <stop offset="0" stop-color="#05070d"/>
@@ -113,14 +146,14 @@ function projectSvg(project) {
     <rect x="0" y="0" width="1060" height="338" rx="34" fill="#0d1420" fill-opacity="0.88" stroke="#a6badc" stroke-opacity="0.18"/>
     <rect x="34" y="34" width="156" height="156" rx="30" fill="${escapeXml(project.accent)}" fill-opacity="0.16" stroke="${escapeXml(project.accent)}" stroke-opacity="0.42"/>
     <text x="112" y="126" text-anchor="middle" fill="#f7f4f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="64" font-weight="900">${escapeXml(initials(project.name))}</text>
-    <text x="226" y="92" fill="#f7f4f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="${titleFontSize(project.name)}" font-weight="900" letter-spacing="0">${titleLines.map((line, index) => `<tspan x="226" dy="${index === 0 ? 0 : 62}">${escapeXml(line)}</tspan>`).join("")}</text>
-    <text x="226" y="${titleLines.length > 1 ? 210 : 164}" fill="#b8c0cf" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="28" font-weight="520">${taglineLines.map((line, index) => `<tspan x="226" dy="${index === 0 ? 0 : 40}">${escapeXml(line)}</tspan>`).join("")}</text>
-    <g transform="translate(226 268)">
-      ${topics.map((topic, index) => chipSvg(topic, index, project.accent)).join("")}
+    <text x="${contentX}" y="${titleY}" fill="#f7f4f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="${titleSize}" font-weight="900" letter-spacing="0">${titleLines.map((line, index) => `<tspan x="${contentX}" dy="${index === 0 ? 0 : titleLineHeight}">${escapeXml(line)}</tspan>`).join("")}</text>
+    <text x="${contentX}" y="${taglineY}" fill="#b8c0cf" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="${taglineSize}" font-weight="520">${taglineLines.map((line, index) => `<tspan x="${contentX}" dy="${index === 0 ? 0 : taglineLineHeight}">${escapeXml(line)}</tspan>`).join("")}</text>
+    <g transform="translate(${contentX} ${chipY})">
+      ${chips.map((chip) => chipSvg(chip, project.accent)).join("")}
     </g>
   </g>
-  <text x="72" y="578" fill="#7f8797" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="23" font-weight="680">ninjatomapps.com/projects/${escapeXml(project.slug)}.html</text>
-  <text x="1128" y="578" text-anchor="end" fill="#dcd3ff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="23" font-weight="760">Custom3D.Art / GitHub Pages</text>
+  <text x="72" y="578" fill="#7f8797" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="21" font-weight="680">${escapeXml(footerUrl)}</text>
+  <text x="1128" y="578" text-anchor="end" fill="#dcd3ff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="23" font-weight="760">${footerBrand}</text>
 </svg>
 `;
 }
@@ -231,22 +264,42 @@ async function findChrome() {
   return "";
 }
 
-function chipSvg(label, index, accent) {
-  const width = Math.min(240, Math.max(82, label.length * 12 + 34));
-  const y = Math.floor(index / 3) * 48;
-  const col = index % 3;
-  const offset = col === 0 ? 0 : col === 1 ? 180 : 360;
-  return `<g transform="translate(${offset} ${y})"><rect width="${width}" height="34" rx="10" fill="${escapeXml(accent)}" fill-opacity="0.14" stroke="${escapeXml(accent)}" stroke-opacity="0.35"/><text x="17" y="23" fill="#f7f4f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="820">${escapeXml(label)}</text></g>`;
+function chipSvg(chip, accent) {
+  return `<g data-chip-label="${escapeAttr(chip.label)}" data-chip-x="${chip.x}" data-chip-y="${chip.y}" data-chip-width="${chip.width}" data-chip-height="${chip.height}" transform="translate(${chip.x} ${chip.y})"><rect width="${chip.width}" height="${chip.height}" rx="10" fill="${escapeXml(accent)}" fill-opacity="0.14" stroke="${escapeXml(accent)}" stroke-opacity="0.35"/><text x="17" y="22" fill="#f7f4f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="820">${escapeXml(chip.label)}</text></g>`;
 }
 
-function wrapText(value, maxLength, maxLines) {
+function layoutChips(labels, { maxWidth, maxRows }) {
+  const chips = [];
+  let x = 0;
+  let row = 0;
+  const gapX = 12;
+  const gapY = 10;
+  const height = 34;
+
+  for (const [index, rawLabel] of labels.entries()) {
+    const primary = index < 2;
+    const widthLimit = primary ? maxWidth : 246;
+    const label = fitTextToWidth(rawLabel, 16, widthLimit - 34);
+    const width = Math.min(widthLimit, Math.max(88, Math.ceil(estimateTextWidth(label, 16) + 34)));
+    if (x && x + width > maxWidth) {
+      row += 1;
+      x = 0;
+    }
+    if (row >= maxRows) break;
+    chips.push({ label, x, y: row * (height + gapY), width, height, priority: primary ? "primary" : "topic" });
+    x += width + gapX;
+  }
+  return chips;
+}
+
+function wrapTextByWidth(value, fontSize, maxWidth, maxLines) {
   const words = String(value || "").split(/\s+/).filter(Boolean);
   const lines = [];
   let current = "";
 
   for (const word of words) {
     const next = current ? `${current} ${word}` : word;
-    if (next.length > maxLength && current) {
+    if (estimateTextWidth(next, fontSize) > maxWidth && current) {
       lines.push(current);
       current = word;
     } else {
@@ -255,16 +308,49 @@ function wrapText(value, maxLength, maxLines) {
   }
   if (current) lines.push(current);
 
-  const clipped = lines.slice(0, maxLines);
-  if (lines.length > maxLines) clipped[clipped.length - 1] = `${clipped[clipped.length - 1].replace(/\.*$/, "")}...`;
+  const clipped = lines.slice(0, maxLines).map((line) => fitTextToWidth(line, fontSize, maxWidth));
+  if (lines.length > maxLines) clipped[clipped.length - 1] = fitTextToWidth(`${clipped[clipped.length - 1]}...`, fontSize, maxWidth);
   return clipped.length ? clipped : [""];
 }
 
 function titleFontSize(value) {
   const length = String(value || "").length;
-  if (length > 24) return 48;
-  if (length > 18) return 56;
-  return 64;
+  if (length > 38) return 42;
+  if (length > 26) return 48;
+  if (length > 18) return 54;
+  return 60;
+}
+
+function estimateTextWidth(value, fontSize) {
+  let units = 0;
+  for (const character of String(value || "")) {
+    if (/\s/.test(character)) units += 0.34;
+    else if (/[ilI1|.,'`!:;]/.test(character)) units += 0.3;
+    else if (/[MW@#%&]/.test(character)) units += 0.9;
+    else if (/[A-Z0-9]/.test(character)) units += 0.66;
+    else units += 0.56;
+  }
+  return Math.ceil(units * fontSize * 1.08);
+}
+
+function fitTextToWidth(value, fontSize, maxWidth) {
+  const text = String(value || "");
+  if (estimateTextWidth(text, fontSize) <= maxWidth) return text;
+  let clipped = text;
+  while (clipped.length && estimateTextWidth(`${clipped}...`, fontSize) > maxWidth) clipped = clipped.slice(0, -1);
+  return `${clipped.trimEnd()}...`;
+}
+
+function textBounds(lines, x, baselineY, fontSize, lineHeight) {
+  const width = Math.max(...lines.map((line) => estimateTextWidth(line, fontSize)), 0);
+  const top = baselineY - fontSize;
+  const bottom = baselineY + (lines.length - 1) * lineHeight + Math.ceil(fontSize * 0.24);
+  return { x, y: top, width, height: bottom - top };
+}
+
+function isPublicFacingTopic(value) {
+  const topic = String(value || "").trim().toLowerCase();
+  return topic && !["html", "css", "javascript", "app-website", "project-site", "ninjatom-project-site", "github-pages"].includes(topic);
 }
 
 function slugify(value) {
