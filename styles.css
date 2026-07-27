@@ -1679,20 +1679,32 @@ body[data-visual-view="projects"] .projects-section {
 .card-title-row {
   display: flex;
   min-width: 0;
+  flex-wrap: wrap;
   align-items: flex-start;
   justify-content: space-between;
   gap: 0.8rem;
 }
 
 .card-title-row h3 {
-  min-width: 0;
+  flex: 1 1 10rem;
+  min-width: min(100%, 10rem);
   margin: 0;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
+  word-break: normal;
   color: #f7f4f0;
   font-size: 1.28rem;
   font-weight: 820;
   letter-spacing: 0;
   line-height: 1.2;
+}
+
+.card-title-row .category-tag {
+  max-width: 100%;
+  flex: 0 1 auto;
+  padding-block: 0.2rem;
+  line-height: 1.15;
+  text-align: center;
+  white-space: normal;
 }
 
 .tag {
