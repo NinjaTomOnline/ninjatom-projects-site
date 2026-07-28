@@ -2,7 +2,7 @@
   "name": "DoorCodes",
   "tagline": "Access codes, ready on arrival with privacy-safe reminders and Secure Reveal.",
   "category": "iOS App",
-  "status": "Live",
+  "status": "Shipped / Available",
   "website": "https://doorcodesapp.com/",
   "supportUrl": "https://doorcodesapp.com/support.html",
   "privacyUrl": "https://doorcodesapp.com/privacy.html",
@@ -17,16 +17,16 @@
       "caption": "Launch preview"
     }
   ],
-  "launchedAt": "2026-04-30T00:00:00Z",
-  "version": "Live",
-  "launchNotes": "DoorCodes is live with App Store, support, privacy, and launch artwork connected.",
+  "version": "1.0.3",
+  "launchNotes": "DoorCodes is shipped with a verified App Store listing, public support and privacy pages, and launch artwork.",
   "versionHighlights": [
     "App Store listing connected",
     "Support and privacy pages available",
     "Premium screenshot gallery ready"
   ],
-  "progressPercent": 100,
   "accent": "#38BDF8",
   "featured": true,
-  "sortOrder": 10
+  "sortOrder": 10,
+  "productStatus": "Shipped / Available",
+  "websiteStatus": "Public product site available"
 }

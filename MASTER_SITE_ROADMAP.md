@@ -13,7 +13,7 @@
 - [x] Add GitHub Action for push, daily, and manual refresh.
 - [x] Avoid refresh loops by committing only changed generated output.
 - [x] Add `site-manifest.schema.json`.
-- [x] Add example manifests for DoorCodes, SwiftTerm, Zen Wisdom, DontSpeed, and FlowGuru.
+- [x] Add example manifests for DoorCodes, SwiftTerm, Zen Wisdom, Don’t Speed, and FlowGuru.
 - [x] Add GitHub Pages setup documentation.
 - [x] Add automatic real icon discovery from project manifests, web app manifests, HTML icon links, CNAME-backed sites, and common icon paths.
 - [x] Add automatic App Store URL discovery from launched project homepage links.
@@ -65,7 +65,7 @@
 - [x] Add a Node 20 GitHub org repository index at `data/projects.json` plus a Pages artifact deploy workflow with DNS/HTTPS verification.
 - [x] Switch Pages to GitHub Actions deploys, add the `ORG_PAT` Actions secret, set project repo homepage URLs, add a deploy badge, and surface repo-index metadata in project drawers.
 - [x] Add footer deploy freshness, a public `status.html`, richer repo-index metadata, catalog JSON copy/download actions, and generated per-project Open Graph share pages/images.
-- [x] Add App Store live markers and progress-based projected release dates for projects not yet in the store.
+- [x] Add verified App Store markers and explicit owner-reviewed lifecycle statuses; automatic projections were later removed.
 - [x] Add a dedicated App Store filter to show only projects with live App Store links.
 - [x] Add iPhone-focused responsive polish for the hero, controls, project cards, and project drawers.
 

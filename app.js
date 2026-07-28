@@ -1,12 +1,16 @@
 const FILTERS = {
   All: () => true,
+  Shipped: (project) => /shipped|released but actively maintained/i.test(project.productStatus),
+  "Near Release": (project) => /near release/i.test(project.productStatus),
+  "Active Development": (project) => /active development/i.test(project.productStatus),
+  "Labs & Tools": (project) => /prototype|internal developer tool|planned/i.test(project.productStatus),
   "App Store": (project) => Boolean(project.appStoreUrl),
-  "iOS Apps": (project) => categoryIncludes(project, ["ios", "iphone", "ipad", "watchos"]),
+  Apps: (project) => categoryIncludes(project, ["app", "ios", "iphone", "ipad", "watchos", "macos"]),
   "Web Apps": (project) => categoryIncludes(project, ["web", "website", "saas"]),
   Games: (project) => categoryIncludes(project, ["game", "games"]),
-  Tools: (project) => categoryIncludes(project, ["tool", "utility", "productivity"]),
-  "Creative / Custom3D": (project) =>
-    categoryIncludes(project, ["creative", "custom3d", "custom 3d", "3d", "art"]),
+  Tools: (project) => categoryIncludes(project, ["tool", "utility", "productivity", "operations"]),
+  "Creative / Commerce": (project) =>
+    categoryIncludes(project, ["creative", "custom3d", "custom 3d", "3d", "art", "commerce", "fabrication"]),
   "Recently Launched": (project) => isRecentlyLaunched(project),
 };
 const FILTERS_BY_SLUG = Object.fromEntries(Object.keys(FILTERS).map((filter) => [categorySlug(filter), filter]));
@@ -40,7 +44,9 @@ const FALLBACK_PROJECTS = [
     name: "DoorCodes",
     tagline: "Access codes, ready on arrival with privacy-safe reminders and Secure Reveal.",
     category: "iOS App",
-    status: "Live",
+    status: "Shipped / Available",
+    productStatus: "Shipped / Available",
+    websiteStatus: "Public website and App Store available",
     website: "https://doorcodesapp.com/",
     supportUrl: "https://doorcodesapp.com/support.html",
     privacyUrl: "https://doorcodesapp.com/privacy.html",
@@ -48,8 +54,8 @@ const FALLBACK_PROJECTS = [
     icon: "https://doorcodesapp.com/assets/doorcodes-favicon-512.png",
     previewImage: "https://doorcodesapp.com/assets/doorcodes-social-preview.png",
     previewImageAlt: "DoorCodes website preview for the upgraded access-code app site.",
-    launchedAt: "2026-04-30T00:00:00Z",
-    version: "Live",
+    launchedAt: "2026-04-13T00:00:00Z",
+    version: "1.0.3",
     launchNotes: "DoorCodes is live with a polished project site, App Store link, support, privacy, and launch artwork.",
     versionHighlights: [
       "App Store listing connected",
@@ -64,15 +70,17 @@ const FALLBACK_PROJECTS = [
     name: "SwiftTerm",
     tagline: "A polished terminal companion for fast command notes and workflows.",
     category: "Tool",
-    status: "Live",
+    status: "Near Release / Release Candidate",
+    productStatus: "Near Release / Release Candidate",
+    websiteStatus: "Public project site available",
     website: "https://swiftterm.app",
     supportUrl: "",
     privacyUrl: "",
     appStoreUrl: "",
     icon: "",
-    launchedAt: "2026-04-30T00:00:00Z",
-    version: "Preview",
-    launchNotes: "SwiftTerm has a live project site and technical preview material ready for the hub.",
+    launchedAt: "",
+    version: "Release preview",
+    launchNotes: "SwiftTerm has a public project site and release-preparation material; a public App Store listing is not verified.",
     versionHighlights: ["Project site indexed", "Technical preview artwork available"],
     accent: "#59F2C7",
     featured: true,
@@ -82,14 +90,16 @@ const FALLBACK_PROJECTS = [
     name: "Zen Wisdom",
     tagline: "Quiet daily reflections designed for calmer routines.",
     category: "iOS App",
-    status: "Live",
+    status: "Released but actively maintained",
+    productStatus: "Released but actively maintained",
+    websiteStatus: "Public website and App Store available",
     website: "https://zenwisdom.app",
     supportUrl: "",
     privacyUrl: "",
-    appStoreUrl: "",
+    appStoreUrl: "https://apps.apple.com/us/app/zen-wisdom/id414329570",
     icon: "",
-    launchedAt: "2026-04-30T00:00:00Z",
-    version: "Live",
+    launchedAt: "2011-01-15T00:00:00Z",
+    version: "2.07",
     launchNotes: "Zen Wisdom is indexed as a calm reflection app with launch artwork and support links.",
     versionHighlights: ["Daily reflections positioned", "Screenshot gallery available"],
     accent: "#A78BFA",
@@ -124,6 +134,7 @@ const elements = {
   discoveryCount: document.querySelector("#discovery-count"),
   discoveryManifests: document.querySelector("#discovery-manifests"),
   discoveryGenerated: document.querySelector("#discovery-generated"),
+  portfolioSummary: document.querySelector("#portfolio-summary"),
   drawer: document.querySelector("#project-drawer"),
   drawerContent: document.querySelector("#drawer-content"),
   commandPalette: document.querySelector("#command-palette"),
@@ -143,6 +154,7 @@ async function init() {
     const payload = await loadProjects();
     state.projects = payload.projects.map((project) => normalizeProject(project, payload));
     renderHeroShowcase(state.projects);
+    renderPortfolioSummary(state.projects);
     renderLatestUpdates(state.projects);
     renderStudioNotes(state.projects);
     renderProjects();
@@ -156,6 +168,7 @@ async function init() {
     console.warn("Falling back to sample project data.", error);
     state.projects = FALLBACK_PROJECTS.map((project) => normalizeProject(project, { sample: true }));
     renderHeroShowcase(state.projects);
+    renderPortfolioSummary(state.projects);
     renderLatestUpdates(state.projects);
     renderStudioNotes(state.projects);
     renderProjects();
@@ -264,10 +277,6 @@ async function loadProjects() {
     return mergeOrgRepositoryData(primaryResult.value, orgIndex);
   }
 
-  if (orgIndex) {
-    return orgIndexToProjectPayload(orgIndex);
-  }
-
   throw primaryResult.reason || new Error("Unable to load project data.");
 }
 
@@ -321,19 +330,8 @@ function mergeOrgRepositoryData(payload, orgIndex) {
       return {
         ...project,
         repoIndex: repoIndexFromRepository(repo),
-        fullName: project.fullName || repo.full_name,
         repositoryUrl: project.repositoryUrl || repo.html_url,
-        description: project.description || repo.description,
         website: project.website || repo.homepage,
-        topics: Array.isArray(repo.topics) && repo.topics.length ? repo.topics : project.topics,
-        language: project.language || repo.language,
-        archived: project.archived ?? repo.archived,
-        updatedAt: project.updatedAt || repo.pushed_at,
-        stargazersCount: project.stargazersCount ?? repo.stargazers_count,
-        license: project.license || repo.license,
-        defaultBranch: project.defaultBranch || repo.default_branch,
-        openIssuesCount: project.openIssuesCount ?? repo.open_issues_count,
-        latestRelease: project.latestRelease || repo.latest_release,
       };
     }),
   };
@@ -359,7 +357,9 @@ function repoToProject(repo, index) {
     name,
     tagline: stringOr(repo.description, `Public ${language || "GitHub"} project from NinjaTomOnline.`),
     category: categoryFromRepository(repo),
-    status: archived ? "Archived" : "Live",
+    status: archived ? "Archived / Superseded" : "Active Development",
+    productStatus: archived ? "Archived / Superseded" : "Active Development",
+    websiteStatus: homepage ? "Public repository homepage available" : "Website unavailable",
     website: homepage,
     repositoryUrl: validUrl(repo.html_url),
     topics: Array.isArray(repo.topics) ? repo.topics : [],
@@ -406,7 +406,9 @@ function humanizeRepoName(value) {
 function normalizeProject(project, context = {}) {
   const name = stringOr(project.name, "Untitled Project");
   const category = stringOr(project.category, "Project");
-  const status = stringOr(project.status, "Live");
+  const productStatus = stringOr(project.productStatus || project.status, "Active Development");
+  const status = productStatus;
+  const websiteStatus = stringOr(project.websiteStatus, project.website ? "Public project site available" : "Website unavailable");
   const repoName = stringOr(project.repoName, "");
   const website = validUrl(project.website);
   const supportUrl = validUrl(project.supportUrl);
@@ -445,10 +447,6 @@ function normalizeProject(project, context = {}) {
     previewImageAlt,
   });
   const resolvedPreviewImage = previewImage || screenshots[0]?.src || "";
-  const projectionContext = {
-    generatedAt: context.generatedAt || context.orgIndexGeneratedAt,
-    sample: context.sample,
-  };
   const releaseProjection = createReleaseProjection(
     {
       name,
@@ -480,11 +478,14 @@ function normalizeProject(project, context = {}) {
       progressPercent: project.progressPercent ?? project.progress ?? project.completionPercent,
       releaseProjectionNote: stringOr(project.releaseProjectionNote || project.progressNote, ""),
     },
-    projectionContext,
   );
   const versionHighlights = normalizeTextList(project.versionHighlights, [
-    `${status} ${category} project website`,
-    project.manifestFound ? "Curated by site-manifest.json" : "Auto-discovered from public GitHub Pages",
+    `${status} ${category}`,
+    project.curationFound
+      ? "Verified by the curated NinjaTom Apps portfolio source"
+      : project.manifestFound
+        ? "Curated by site-manifest.json"
+        : "Auto-discovered from public GitHub Pages",
     screenshots.length
       ? `${screenshots.length} gallery image${screenshots.length === 1 ? "" : "s"} available`
       : "Project preview available",
@@ -496,6 +497,8 @@ function normalizeProject(project, context = {}) {
     tagline: stringOr(project.tagline || project.description, "A public NinjaTomOnline project website."),
     category,
     status,
+    productStatus,
+    websiteStatus,
     website,
     supportUrl,
     privacyUrl,
@@ -511,8 +514,9 @@ function normalizeProject(project, context = {}) {
     repoName,
     fullName: stringOr(project.fullName || project.full_name, ""),
     repoIndex,
-    slug: categorySlug(repoName || name),
+    slug: categorySlug(project.slug || repoName || name),
     manifestFound: Boolean(project.manifestFound),
+    curationFound: Boolean(project.curationFound),
     stargazersCount: numberOr(project.stargazersCount ?? project.stars, 0),
     forksCount: numberOr(project.forksCount ?? project.forks, 0),
     license: stringOr(project.license || repoIndex.license, ""),
@@ -537,6 +541,7 @@ function normalizeProject(project, context = {}) {
       versionHighlights.join(" "),
       category,
       status,
+      websiteStatus,
       language,
       archived ? "archived" : "",
       project.repoName,
@@ -546,9 +551,9 @@ function normalizeProject(project, context = {}) {
       project.defaultBranch,
       latestRelease?.name,
       latestRelease?.tag_name,
-      releaseProjection.label,
-      releaseProjection.dateLabel,
-      releaseProjection.badge,
+      releaseProjection?.label,
+      releaseProjection?.dateLabel,
+      releaseProjection?.badge,
       topics.join(" "),
     ]
       .filter(Boolean)
@@ -632,7 +637,7 @@ function heroShowcaseImage(project) {
 function selectHeroProjects(projects) {
   const sorted = sortProjects([...projects], "studio");
   const withPreview = sorted.filter((project) => project.previewImage);
-  const creative = sorted.find((project) => FILTERS["Creative / Custom3D"](project));
+  const creative = sorted.find((project) => FILTERS["Creative / Commerce"](project));
   const game = sorted.find((project) => FILTERS.Games(project));
   const picks = [sorted[0], withPreview[1], creative, game, sorted[1], withPreview[0]].filter(Boolean);
   const unique = [];
@@ -648,6 +653,23 @@ function selectHeroProjects(projects) {
   }
 
   return unique;
+}
+
+function renderPortfolioSummary(projects) {
+  if (!elements.portfolioSummary) return;
+
+  const counts = {
+    available: projects.filter((project) => /shipped|released but actively maintained/i.test(project.productStatus)).length,
+    near: projects.filter((project) => /near release/i.test(project.productStatus)).length,
+    active: projects.filter((project) => /active development/i.test(project.productStatus)).length,
+    labs: projects.filter((project) => /prototype|internal developer tool|planned/i.test(project.productStatus)).length,
+  };
+
+  for (const [key, value] of Object.entries(counts)) {
+    const target = elements.portfolioSummary.querySelector(`[data-summary-count="${key}"]`);
+    if (target) target.textContent = String(value);
+  }
+  elements.portfolioSummary.hidden = false;
 }
 
 function renderLatestUpdates(projects) {
@@ -772,7 +794,7 @@ function renderProjects() {
 
   if (!state.projects.length) {
     elements.resultCount.textContent = "0 projects";
-    showState("empty", "No project websites found yet.");
+    showState("empty", "No portfolio projects found yet.");
     updateLoadMore(0);
     return;
   }
@@ -852,8 +874,8 @@ function sortProjects(projects, mode = "studio") {
       return a.name.localeCompare(b.name);
     }
 
-    if (a.featured !== b.featured) return a.featured ? -1 : 1;
     if (a.sortOrder !== b.sortOrder) return a.sortOrder - b.sortOrder;
+    if (a.featured !== b.featured) return a.featured ? -1 : 1;
     return a.name.localeCompare(b.name);
   });
 }
@@ -864,11 +886,11 @@ function createProjectCard(project, index = 0) {
   card.style.setProperty("--accent", project.accent);
   card.style.setProperty("--reveal-delay", `${Math.min(index, 8) * 35}ms`);
   attachTilt(card);
-  enableProjectCardLink(card, project.website || project.repositoryUrl);
+  enableProjectCardLink(card, project.website);
 
   const preview = document.createElement("a");
   preview.className = "project-preview";
-  preview.href = project.website || project.repositoryUrl || "#";
+  preview.href = project.website || "#";
   preview.target = "_blank";
   preview.rel = "noopener noreferrer";
   const cardMedia = selectCardPreview(project);
@@ -892,7 +914,8 @@ function createProjectCard(project, index = 0) {
     preview.appendChild(createDefaultPreview(project));
   }
   preview.appendChild(createStatusBadge(project.status));
-  preview.appendChild(createReleaseBadge(project));
+  const releaseBadge = createReleaseBadge(project);
+  if (releaseBadge) preview.appendChild(releaseBadge);
   if (isRecentlyUpdated(project)) {
     preview.appendChild(createFreshBadge());
   }
@@ -919,26 +942,20 @@ function createProjectCard(project, index = 0) {
   tagline.textContent = project.tagline;
 
   const releaseMeta = createReleaseMeta(project);
-  const repoMeta = createRepoMeta(project);
-
   const links = document.createElement("div");
   links.className = "card-links";
   links.appendChild(createDetailButton(project, true));
   appendLink(links, "App Store", project.appStoreUrl);
   appendLink(links, "Support", project.supportUrl);
   appendLink(links, "Privacy", project.privacyUrl);
-  appendLink(links, "Repo", project.repositoryUrl);
 
   const footer = document.createElement("div");
   footer.className = "card-footer";
-  appendFooterLink(footer, "Live Site", project.website, "globe");
-  appendFooterMetric(footer, project.stargazersCount, "star", "stars");
-  appendFooterMetric(footer, project.forksCount, "fork", "forks");
-  appendFooterMeta(footer, formatRelative(project.updatedAt), "clock");
+  appendFooterLink(footer, "Project Site", project.website, "globe");
+  appendFooterMeta(footer, project.websiteStatus, "globe");
 
   body.append(titleRow, tagline);
   if (releaseMeta) body.appendChild(releaseMeta);
-  if (repoMeta) body.appendChild(repoMeta);
   if (links.children.length) body.appendChild(links);
   body.appendChild(footer);
   card.append(preview, icon, body);
@@ -1077,6 +1094,7 @@ function createStatusBadge(label) {
 
 function createReleaseBadge(project) {
   const projection = project.releaseProjection;
+  if (!projection) return null;
   const badge = document.createElement("span");
   badge.className = `release-badge ${projection.kind}`;
   badge.textContent = projection.badge;
@@ -1119,28 +1137,7 @@ function createGalleryBadge(count) {
   return badge;
 }
 
-function createRepoMeta(project) {
-  const items = [];
-  if (project.language) items.push({ label: project.language, tone: "language" });
-  for (const topic of project.topics.slice(0, 2)) {
-    items.push({ label: topic, tone: "topic" });
-  }
-  if (project.archived) items.push({ label: "Archived", tone: "archived" });
-  if (!items.length) return null;
 
-  const meta = document.createElement("div");
-  meta.className = "repo-meta";
-  meta.setAttribute("aria-label", `${project.name} repository metadata`);
-
-  for (const item of items.slice(0, 4)) {
-    const chip = document.createElement("span");
-    chip.className = `repo-chip ${item.tone}`;
-    chip.textContent = item.label;
-    meta.appendChild(chip);
-  }
-
-  return meta;
-}
 
 function createDetailButton(project, compact = false) {
   const button = document.createElement("button");
@@ -1575,7 +1572,9 @@ function renderProjectDrawer(project) {
   const titleCopy = document.createElement("div");
   const eyebrow = document.createElement("p");
   eyebrow.className = "drawer-eyebrow";
-  eyebrow.textContent = project.manifestFound ? "Manifest-powered project" : "Auto-discovered project";
+  eyebrow.textContent = project.curationFound
+    ? "Verified NinjaTom Apps portfolio entry"
+    : "NinjaTom Apps portfolio entry";
 
   const title = document.createElement("h2");
   title.id = "drawer-title";
@@ -1605,20 +1604,12 @@ function renderProjectDrawer(project) {
     launched.textContent = "Recently launched";
     tags.appendChild(launched);
   }
-  if (project.archived) {
-    const archived = document.createElement("span");
-    archived.className = "tag archived-tag";
-    archived.textContent = "Archived";
-    tags.appendChild(archived);
-  }
-
   const actions = document.createElement("div");
   actions.className = "drawer-actions";
-  appendDrawerLink(actions, "Open Live Site", project.website, true);
+  appendDrawerLink(actions, "Open Project Site", project.website, true);
   appendDrawerLink(actions, "App Store", project.appStoreUrl);
   appendDrawerLink(actions, "Support", project.supportUrl);
   appendDrawerLink(actions, "Privacy", project.privacyUrl);
-  appendDrawerLink(actions, "GitHub Repo", project.repositoryUrl);
   appendDrawerLink(actions, "Share Page", projectShareUrl(project));
 
   const shareButton = document.createElement("button");
@@ -1637,47 +1628,25 @@ function renderProjectDrawer(project) {
   const facts = document.createElement("dl");
   facts.className = "drawer-facts";
   appendFact(facts, "Category", project.category);
-  appendFact(facts, "Status", project.status);
-  appendFact(facts, "Launched", formatDate(project.launchedAt));
+  appendFact(facts, "Product Status", project.productStatus);
+  appendFact(facts, "Website", project.websiteStatus);
+  appendFact(facts, "Released", formatDate(project.launchedAt));
   appendFact(facts, "Version", project.version);
-  appendFact(facts, "Updated", formatDate(project.updatedAt) || formatRelative(project.updatedAt));
-  appendFact(facts, "Repo", project.repoName);
-  appendFact(facts, "Full Name", project.fullName);
-  appendFact(facts, "Language", project.language);
-  appendFact(facts, "Archived", project.archived ? "Yes" : "");
-  appendFact(facts, "License", project.license);
-  appendFact(facts, "Default Branch", project.defaultBranch);
-  appendFact(facts, "Open Issues", project.openIssuesCount ? formatCompactNumber(project.openIssuesCount) : "");
   appendFact(facts, "Latest Release", project.latestRelease?.tag_name || project.latestRelease?.name || "");
-  appendFact(facts, "Store Status", project.releaseProjection.label);
-  appendFact(facts, "Projected Release", project.releaseProjection.kind === "projected" ? formatDate(project.releaseProjection.date) : "");
-  appendFact(facts, "Progress", project.releaseProjection.progress ? `${project.releaseProjection.progress}%` : "");
-  appendFact(facts, "Stars", formatCompactNumber(project.stargazersCount));
-  appendFact(facts, "Forks", formatCompactNumber(project.forksCount));
-  appendFact(facts, "Data", project.manifestFound ? "site-manifest.json" : "Inferred from GitHub Pages");
-
-  const topicWrap = document.createElement("div");
-  topicWrap.className = "drawer-topics";
-  for (const topic of project.topics.slice(0, 8)) {
-    const pill = document.createElement("span");
-    pill.textContent = topic;
-    topicWrap.appendChild(pill);
-  }
-
+  appendFact(facts, "Store Status", project.releaseProjection?.label || "");
+  appendFact(facts, "Projected Release", project.releaseProjection?.kind === "projected" ? formatDate(project.releaseProjection.date) : "");
+  appendFact(facts, "Progress", project.releaseProjection?.kind === "projected" ? `${project.releaseProjection.progress}%` : "");
   const snapshot = createDrawerSnapshot(project);
   const releaseForecast = createReleaseForecast(project);
   const gallery = createScreenshotGallery(project);
   const launchNotes = createLaunchNotes(project);
-  const repoIndex = createRepoIndexSection(project);
 
   content.append(header, tags, actions);
   if (releaseForecast) content.appendChild(releaseForecast);
   if (snapshot) content.appendChild(snapshot);
-  if (repoIndex) content.appendChild(repoIndex);
   if (launchNotes) content.appendChild(launchNotes);
   if (gallery) content.appendChild(gallery);
   content.appendChild(facts);
-  if (topicWrap.children.length) content.appendChild(topicWrap);
 }
 
 function createReleaseForecast(project) {
@@ -1732,10 +1701,10 @@ function createReleaseForecast(project) {
 function createDrawerSnapshot(project) {
   const galleryCount = project.screenshots.length || (project.previewImage ? 1 : 0);
   const items = [
-    ["Launch", formatDate(project.launchedAt) || "Indexed"],
-    ["Updated", formatDate(project.updatedAt) || formatRelative(project.updatedAt) || "Auto-refresh"],
-    ["Gallery", galleryCount ? `${galleryCount} image${galleryCount === 1 ? "" : "s"}` : "Pending"],
-    ["Source", project.manifestFound ? "Manifest" : "GitHub scan"],
+    ["Lifecycle", project.productStatus],
+    ["Website", project.websiteStatus],
+    ["Gallery", galleryCount ? `${galleryCount} image${galleryCount === 1 ? "" : "s"}` : "Code-native preview"],
+    ["Availability", project.appStoreUrl ? "App Store" : project.website ? "Public product site" : "Portfolio listing"],
   ];
 
   const section = document.createElement("section");
@@ -1793,82 +1762,11 @@ function createLaunchNotes(project) {
   return section;
 }
 
-function createRepoIndexSection(project) {
-  const repo = project.repoIndex;
-  if (!repo || !(repo.full_name || repo.html_url || repo.homepage || repo.language || repo.topics.length)) return null;
 
-  const section = document.createElement("section");
-  section.className = "drawer-repo-index";
-  section.setAttribute("aria-label", `${project.name} GitHub repository index metadata`);
 
-  const header = document.createElement("div");
-  header.className = "drawer-repo-index-heading";
 
-  const title = document.createElement("h3");
-  title.textContent = "Repo Index";
 
-  const source = document.createElement("span");
-  source.textContent = "data/projects.json";
-  header.append(title, source);
 
-  const grid = document.createElement("dl");
-  grid.className = "repo-index-grid";
-  appendRepoIndexFact(grid, "Full name", repo.full_name);
-  appendRepoIndexFact(grid, "Language", repo.language);
-  appendRepoIndexFact(grid, "License", repo.license);
-  appendRepoIndexFact(grid, "Branch", repo.default_branch);
-  appendRepoIndexFact(grid, "Pushed", formatDate(repo.pushed_at) || formatRelative(repo.pushed_at));
-  appendRepoIndexFact(grid, "Stars", formatCompactNumber(repo.stargazers_count));
-  appendRepoIndexFact(grid, "Open issues", formatCompactNumber(repo.open_issues_count));
-  appendRepoIndexFact(grid, "Latest release", repo.latest_release?.tag_name || repo.latest_release?.name);
-  appendRepoIndexFact(grid, "Archived", repo.archived ? "Yes" : "No");
-
-  const links = document.createElement("div");
-  links.className = "repo-index-links";
-  appendRepoIndexLink(links, "GitHub", repo.html_url);
-  appendRepoIndexLink(links, "Homepage", repo.homepage);
-  appendRepoIndexLink(links, "Latest Release", repo.latest_release?.html_url);
-
-  const description = document.createElement("p");
-  description.className = "repo-index-description";
-  description.textContent = repo.description || "No GitHub repo description set yet.";
-
-  const topics = document.createElement("div");
-  topics.className = "repo-index-topics";
-  for (const topic of repo.topics.slice(0, 10)) {
-    const pill = document.createElement("span");
-    pill.textContent = topic;
-    topics.appendChild(pill);
-  }
-
-  section.append(header, description, grid);
-  if (links.children.length) section.appendChild(links);
-  if (topics.children.length) section.appendChild(topics);
-  return section;
-}
-
-function appendRepoIndexFact(container, label, value) {
-  if (!value && value !== 0) return;
-
-  const item = document.createElement("div");
-  const term = document.createElement("dt");
-  term.textContent = label;
-  const description = document.createElement("dd");
-  description.textContent = value;
-  item.append(term, description);
-  container.appendChild(item);
-}
-
-function appendRepoIndexLink(container, label, url) {
-  if (!url) return;
-
-  const link = document.createElement("a");
-  link.href = url;
-  link.target = "_blank";
-  link.rel = "noopener noreferrer";
-  link.textContent = label;
-  container.appendChild(link);
-}
 
 function createScreenshotGallery(project) {
   const screenshots = Array.isArray(project.screenshots) ? project.screenshots : [];
@@ -2160,13 +2058,14 @@ function updateDiscoverySummary(payload = {}) {
   if (!elements.discoveryStrip) return;
 
   const manifestCount = state.projects.filter((project) => project.manifestFound).length;
+  const curatedCount = state.projects.filter((project) => project.curationFound).length;
   const latestProject = [...state.projects].sort((a, b) => dateValue(b.updatedAt) - dateValue(a.updatedAt))[0];
   elements.discoveryCount.textContent = payload.sample
     ? `${state.projects.length} sample projects loaded`
     : payload.orgIndexCount
-      ? `${state.projects.length} project sites / ${payload.orgIndexCount} repos indexed`
-      : `${state.projects.length} public project sites indexed`;
-  elements.discoveryManifests.textContent = `${manifestCount} manifest${manifestCount === 1 ? "" : "s"} found`;
+      ? `${state.projects.length} verified portfolio entries / ${payload.orgIndexCount} public repos indexed`
+      : `${state.projects.length} verified portfolio entries`;
+  elements.discoveryManifests.textContent = `${curatedCount} curated / ${manifestCount} source manifest${manifestCount === 1 ? "" : "s"}`;
   elements.discoveryGenerated.textContent = payload.generatedAt
     ? `Refreshed ${formatDate(payload.generatedAt)}`
     : latestProject?.updatedAt
@@ -2211,9 +2110,9 @@ function buildStructuredData(projects) {
       {
         "@type": "CollectionPage",
         "@id": `${CANONICAL_SITE_URL}#projects`,
-        name: "NinjaTom Apps Project Websites",
+        name: "NinjaTom Apps Portfolio",
         url: CANONICAL_SITE_URL,
-        description: "A curated hub for NinjaTomOnline apps, tools, games, and Custom3D.Art projects.",
+        description: "A verified studio portfolio of shipped apps, near-release games, active products, developer tools, and creative technology.",
         isPartOf: { "@id": WEBSITE_ID },
         mainEntity: {
           "@type": "ItemList",
@@ -2334,133 +2233,46 @@ function isRecentlyLaunched(project) {
   return days >= 0 && days <= 120;
 }
 
-function createReleaseProjection(project, context = {}) {
+function createReleaseProjection(project) {
   const explicitDate = cleanDateValue(project.projectedReleaseDate);
   const explicitProgress = normalizedPercent(project.progressPercent);
 
   if (project.appStoreUrl) {
-    const date = cleanDateValue(project.launchedAt) || cleanDateValue(project.updatedAt) || "";
+    const date = cleanDateValue(project.launchedAt);
     return {
       kind: "app-store",
-      label: "On the App Store",
+      label: "Available on the App Store",
       badge: "App Store",
       target: "App Store",
       date,
-      dateLabel: date ? `App Store live / ${formatDate(date)}` : "App Store live",
+      dateLabel: date ? `Released ${formatDate(date)}` : "Verified App Store listing",
       progress: 100,
-      note: `${project.name} has a verified App Store link in the catalog.`,
-      signals: [{ label: "App Store URL connected", weight: 100 }],
+      note: `${project.name} has a verified public App Store listing.`,
+      signals: [{ label: "Public App Store listing verified", weight: 100 }],
     };
   }
 
-  if (project.archived || /archived/i.test(project.status)) {
+  if (explicitDate && explicitProgress !== null) {
+    const target = releaseProjectionTarget(project);
     return {
-      kind: "archived",
-      label: "Archived",
-      badge: "Archived",
-      target: "release",
-      date: "",
-      dateLabel: "No active release projection",
-      progress: explicitProgress ?? 0,
-      note: `${project.name} is archived, so the hub does not project a release date.`,
-      signals: [{ label: "Repository or manifest is archived", weight: 0 }],
+      kind: "projected",
+      label: `Owner-set projected ${target}`,
+      badge: `Target ${formatShortDate(explicitDate)}`,
+      target,
+      date: explicitDate,
+      dateLabel: `Target ${formatDate(explicitDate)}`,
+      progress: explicitProgress,
+      note: project.releaseProjectionNote || "Owner-curated target and progress.",
+      signals: [{ label: "Owner-curated target", weight: explicitProgress }],
     };
   }
 
-  const signals = releaseProgressSignals(project);
-  const inferredProgress = signals.reduce((total, signal) => total + signal.weight, 0);
-  const progress = explicitProgress ?? clampNumber(inferredProgress, 12, 95);
-  const date = explicitDate || projectedReleaseDate(project, progress, context);
-  const target = releaseProjectionTarget(project);
-  const targetPhrase = target === "App Store" ? "App Store" : "release";
-
-  return {
-    kind: "projected",
-    label: `Projected ${target}`,
-    badge: `Projected ${formatShortDate(date) || "TBD"}`,
-    target,
-    date,
-    dateLabel: formatDate(date) ? `Projected ${formatDate(date)}` : "Projected date TBD",
-    progress,
-    note:
-      project.releaseProjectionNote ||
-      `Estimated ${targetPhrase} timing from public project progress: ${signals.slice(0, 3).map((signal) => signal.label).join(", ").toLowerCase()}.`,
-    signals,
-  };
+  return null;
 }
 
 function releaseProjectionTarget(project) {
   const searchable = `${project.category} ${project.status} ${project.topics.join(" ")}`;
   return /ios|iphone|ipad|app store|testflight/i.test(searchable) ? "App Store" : "release";
-}
-
-function releaseProgressSignals(project) {
-  const signals = [];
-  const status = project.status.toLowerCase();
-
-  if (/release candidate/.test(status)) signals.push({ label: "Release candidate status", weight: 28 });
-  else if (/testflight|beta/.test(status)) signals.push({ label: "Beta/TestFlight status", weight: 22 });
-  else if (/private staging|staging/.test(status)) signals.push({ label: "Private staging status", weight: 16 });
-  else if (/coming soon|planned/.test(status)) signals.push({ label: "Coming soon status", weight: 10 });
-  else if (/live/.test(status)) signals.push({ label: "Public site is live", weight: 18 });
-
-  if (project.website) signals.push({ label: "Public website connected", weight: 14 });
-  if (project.manifestFound) signals.push({ label: "Curated site manifest", weight: 14 });
-  if (project.supportUrl) signals.push({ label: "Support URL ready", weight: 5 });
-  if (project.privacyUrl) signals.push({ label: "Privacy URL ready", weight: 5 });
-  if (project.icon) signals.push({ label: "App icon discovered", weight: 4 });
-  if (project.previewImage) signals.push({ label: "Preview artwork ready", weight: 5 });
-  if (project.screenshots.length >= 5) signals.push({ label: "Full screenshot gallery", weight: 14 });
-  else if (project.screenshots.length >= 3) signals.push({ label: "Screenshot gallery started", weight: 10 });
-  else if (project.screenshots.length >= 1) signals.push({ label: "Project screenshot available", weight: 5 });
-  if (project.version) signals.push({ label: "Version metadata set", weight: 5 });
-  if (project.latestRelease) signals.push({ label: "GitHub release exists", weight: 8 });
-  if (project.repositoryUrl) signals.push({ label: "GitHub repo indexed", weight: 3 });
-
-  const daysSinceUpdate = daysSince(project.updatedAt);
-  if (daysSinceUpdate <= 30) signals.push({ label: "Updated in the last 30 days", weight: 8 });
-  else if (daysSinceUpdate <= 90) signals.push({ label: "Updated in the last 90 days", weight: 5 });
-  else if (daysSinceUpdate <= 180) signals.push({ label: "Updated in the last 180 days", weight: 2 });
-
-  return signals.length ? signals : [{ label: "Catalog entry exists", weight: 12 }];
-}
-
-function projectedReleaseDate(project, progress, context = {}) {
-  const anchor = projectionAnchorDate(project, context);
-  const days =
-    progress >= 88 ? 14 :
-      progress >= 76 ? 28 :
-        progress >= 62 ? 49 :
-          progress >= 46 ? 77 :
-            112;
-  const jitter = stableNumber(project.repoName || project.name) % 10;
-  const date = new Date(anchor);
-  date.setUTCDate(date.getUTCDate() + days + jitter);
-
-  while (date.getUTCDay() !== 2) {
-    date.setUTCDate(date.getUTCDate() + 1);
-  }
-
-  date.setUTCHours(12, 0, 0, 0);
-  return date.toISOString();
-}
-
-function projectionAnchorDate(project, context = {}) {
-  if (visualTestMode) return new Date("2026-05-06T12:00:00Z");
-
-  const candidates = [
-    context.generatedAt,
-    project.updatedAt,
-    project.launchedAt,
-    new Date().toISOString(),
-  ];
-
-  for (const candidate of candidates) {
-    const date = new Date(candidate);
-    if (!Number.isNaN(date.getTime())) return date;
-  }
-
-  return new Date();
 }
 
 function cleanDateValue(value) {
@@ -2485,12 +2297,6 @@ function daysSince(value) {
   if (!timestamp) return Infinity;
   const now = visualTestMode ? dateValue("2026-05-06T12:00:00Z") : Date.now();
   return Math.max(0, (now - timestamp) / (24 * 60 * 60 * 1000));
-}
-
-function stableNumber(value) {
-  return String(value || "")
-    .split("")
-    .reduce((total, character) => total + character.charCodeAt(0), 0);
 }
 
 function normalizeScreenshots(value, fallback = {}) {
@@ -2595,9 +2401,9 @@ function normalizeLatestRelease(value) {
 
 function defaultLaunchNotes(project) {
   const name = stringOr(project.name, "This project");
-  const status = stringOr(project.status, "Live");
+  const status = stringOr(project.productStatus || project.status, "Active Development");
   const category = stringOr(project.category, "project");
-  return `${name} is listed as ${status} in the ${category} catalog, refreshed automatically from public project metadata.`;
+  return `${name} is listed as ${status} in the ${category} portfolio.`;
 }
 
 function compactObject(value) {

@@ -1,12 +1,12 @@
-# NinjaTom Apps Project Hub
+# NinjaTom Apps Portfolio
 
 [![Auto index and deploy](https://github.com/NinjaTomOnline/ninjatom-projects-site/actions/workflows/auto-index-deploy.yml/badge.svg)](https://github.com/NinjaTomOnline/ninjatom-projects-site/actions/workflows/auto-index-deploy.yml)
 
-Master public website for NinjaTomOnline app, tool, game, and Custom3D.Art project websites.
+Master public portfolio for NinjaTom Apps software, games, tools, web platforms, and creative technology.
 
 The site is static and GitHub Pages-friendly: `index.html`, `styles.css`, and `app.js` render a polished project grid from `projects.json`, enriched by the broader GitHub org index at `data/projects.json`. GitHub Actions refresh both data sources by discovering public repos under `NinjaTomOnline`.
 
-The public UI is designed as a dark, cyberpunk-adjacent indie studio portfolio: a large NinjaTom Apps hero, layered project mockups, a compact icon-led filter/search/sort deck with an App Store filter, a grid-first project browser, iPhone-optimized card and drawer layouts, a keyboard quick-find palette, Latest Updates folded into Studio Notes, image-first project cards that prefer real screenshots over generic previews, GitHub metadata, App Store live badges, progress-based release projections, tasteful motion, and neon cursor spotlights, shareable project detail drawers with snapshot stats, screenshot galleries, launch notes, and release forecasts, per-project Open Graph share pages, category hash routes, responsive mobile navigation, JSON-LD project structured data, a branded 404 page, RSS project updates, a public changelog, a public status page, and a footer with deploy freshness, Custom3D.Art, GitHub, and support links.
+The public UI preserves the dark, cyberpunk-adjacent visual system while presenting a studio-level track record, explicit product lifecycle states, website availability as a separate fact, a grid-first project browser, responsive cards and drawers, keyboard quick-find, real screenshots where available, verified App Store badges, tasteful motion, share pages, category routes, structured data, RSS, status, changelog, and accessible reduced-motion behavior.
 
 Live site: `https://ninjatomapps.com/`
 
@@ -28,7 +28,9 @@ Repos are included when at least one rule matches:
 
 The master repo, `ninjatom-projects-site`, is excluded.
 
-For each included repo, the script tries to read `site-manifest.json` from the repo default branch. If the manifest exists, its data powers the project card. If it does not exist, the script infers a basic card from the repo name, repo topics, the default GitHub Pages URL, and any `CNAME` file.
+For each included repo, the script tries to read `site-manifest.json` from the repo default branch. It then applies `scripts/portfolio-curation.json`, the public-safe owner-controlled portfolio layer. Curation corrects canonical names and product truth, separates `productStatus` from `websiteStatus`, suppresses unverified discovered sites, and adds verified projects that do not have a public `-site` repository. Stable `repoName` values preserve existing drawer/share routes.
+
+Source precedence is deterministic: inferred repository/site hints, code fallback metadata, `site-manifest.json`, then explicit central curation. Duplicate names, duplicate stable identifiers, invalid status values, missing matched repositories, and missing safe website/detail URLs stop generation.
 
 The script also discovers real project icons automatically. It checks, in order:
 
@@ -40,7 +42,7 @@ The script also discovers real project icons automatically. It checks, in order:
 
 The script also picks up App Store links from each project site's `index.html` when a manifest does not specify `appStoreUrl`. This keeps launched app cards current as long as the public site links to the App Store.
 
-Projects with a valid `appStoreUrl` are marked `On the App Store` on cards and in the detail drawer. Projects without an App Store URL get a projected release date and progress score estimated from public signals such as manifest status, website availability, support/privacy pages, screenshots, GitHub releases, and recent repo updates. You can override the estimate with manifest fields when you know the real target.
+Projects with a verified `appStoreUrl` are marked `On the App Store` on cards and in the detail drawer. The site does not invent release dates or completion percentages from repository, screenshot, or website signals. A projection appears only when both an explicit owner-curated target date and progress value are present.
 
 The script also builds each drawer gallery. It prefers `site-manifest.json` `screenshots`, then `site.webmanifest` screenshots, then screenshot-like images from the project homepage, then screenshot/preview files found by scanning the repo tree, then known common screenshot paths. If no explicit gallery exists, the project preview image is still used as a one-image fallback. If a repo has screenshots but no explicit preview image, the first screenshot becomes the card preview so the grid stays visual.
 
@@ -68,13 +70,14 @@ The public status page at `https://ninjatomapps.com/status.html` reads `data/dep
 
 ## Add A New Project
 
-1. Create a public project site repo under `NinjaTomOnline`.
-2. Name it with the `-site` suffix, or add one of these GitHub topics:
+1. Add or update the project in `scripts/portfolio-curation.json` with an evidence-backed product status and separate website status.
+2. When a public project site exists, name its repo with the `-site` suffix, or add one of these GitHub topics:
    - `ninjatom-project-site`
    - `app-website`
 3. Add a `site-manifest.json` file to the root of that repo, or at minimum expose normal web app icon metadata through `site.webmanifest` or `<link rel="apple-touch-icon">`.
-4. Add screenshots to a normal repo path such as `screenshots/`, `screenshots/web/`, `screenshots/6.9-inch/`, or `assets/screenshots/`. The hub scans public repo trees and can build a drawer gallery without editing this master repo.
-5. Wait for the daily refresh, push to this repo, or manually run the workflow.
+4. Add screenshots to a normal repo path such as `screenshots/`, `screenshots/web/`, `screenshots/6.9-inch/`, or `assets/screenshots/`.
+5. For a verified project with no public site, use its generated NinjaTomApps detail route; never create a fake repo or publish a private repository URL.
+6. Run `node scripts/validate-portfolio.mjs`, regenerate locally, review the diff, and use the production workflow only after owner approval.
 
 Minimum useful manifest:
 
@@ -83,21 +86,22 @@ Minimum useful manifest:
   "name": "DoorCodes",
   "tagline": "Access codes, ready on arrival with privacy-safe reminders and Secure Reveal.",
   "category": "iOS App",
-  "status": "Live",
+  "productStatus": "Shipped / Available",
+  "websiteStatus": "Public website and App Store available",
+  "status": "Shipped / Available",
   "website": "https://doorcodesapp.com/",
   "supportUrl": "https://doorcodesapp.com/support.html",
   "privacyUrl": "https://doorcodesapp.com/privacy.html",
   "appStoreUrl": "https://apps.apple.com/us/app/doorcodes-vault/id6761863570",
   "icon": "",
-  "launchedAt": "2026-04-30T00:00:00Z",
-  "version": "Live",
+  "launchedAt": "2026-04-13T00:00:00Z",
+  "version": "1.0.3",
   "launchNotes": "DoorCodes is live with App Store, support, privacy, and launch artwork connected.",
   "versionHighlights": [
     "App Store listing connected",
     "Support and privacy pages available",
     "Premium screenshot gallery ready"
   ],
-  "progressPercent": 100,
   "screenshots": [
     {
       "src": "https://doorcodesapp.com/assets/doorcodes-social-preview.png",
@@ -117,9 +121,11 @@ Example manifests live in `examples/site-manifests/`.
 
 - `name`: public project name
 - `tagline`: one-sentence card description
-- `category`: `iOS App`, `Web App`, `Game`, `Tool`, `Creative / Custom3D`, or another display label
-- `status`: `Live`, `Beta`, `TestFlight`, `Coming Soon`, `Archived`, etc.
-- `website`: primary public site
+- `category`: `Mobile App`, `Game`, `Developer Tool`, `Web Platform`, `Creative Commerce`, or another precise display label
+- `productStatus`: actual lifecycle classification from the status taxonomy in `scripts/portfolio-curation.json`
+- `websiteStatus`: separate public-site availability statement; it never proves product release
+- `status`: legacy alias for `productStatus`; new sources should use `productStatus`
+- `website`: primary public site or a safe NinjaTomApps detail route
 - `supportUrl`: optional support page
 - `privacyUrl`: optional privacy page
 - `appStoreUrl`: optional App Store link. If this is blank, the hub attempts to discover an `apps.apple.com` link from the project homepage.
@@ -132,7 +138,7 @@ Example manifests live in `examples/site-manifests/`.
 - `launchNotes`: optional release note shown in the drawer and RSS feed
 - `versionHighlights`: optional short bullet list shown under launch notes in the drawer
 - `projectedReleaseDate`: optional ISO date-time used as the manual projected release date when `appStoreUrl` is blank. `estimatedReleaseDate` and `targetReleaseDate` are accepted aliases.
-- `progressPercent`: optional manual release-progress override from 0 to 100. `progress` and `completionPercent` are accepted aliases. If omitted, the hub estimates progress from public project signals.
+- `progressPercent`: optional owner-curated release-progress value from 0 to 100. No progress is inferred when omitted.
 - `releaseProjectionNote`: optional note shown in the release projection drawer section. `progressNote` is accepted as an alias.
 - `accent`: six-digit hex color
 - `featured`: featured projects appear first
@@ -198,7 +204,7 @@ Canonical host files are committed in this repo:
 - `404.html`: branded GitHub Pages not-found page that links visitors back to the project hub, press kit, and GitHub profile
 - `changelog.html`: public hub release notes
 - `status.html`: public automation, feed, deploy, and repo-index freshness page
-- `feed.xml`: generated RSS feed of new and updated project websites
+- `feed.xml`: generated RSS feed of new and updated portfolio projects
 - `data/deploy-status.json`: generated deploy timestamp and workflow metadata shown in the footer and status page
 - `data/projects.json`: generated public GitHub org repository index
 - `projects/*.html`: generated per-project share pages with Open Graph/Twitter metadata that redirect into the matching project drawer
@@ -247,6 +253,16 @@ node scripts/visual-smoke.mjs
 
 The smoke check starts a temporary static server, waits for the JavaScript-rendered project UI, captures desktop, mobile, category-route, project-detail, command palette, changelog, status, and 404 Chrome screenshots, verifies PNG dimensions and file size, and writes screenshots to `artifacts/visual-smoke/`.
 
+Run the portfolio truth/link validator and rendered functional smoke check:
+
+```bash
+node scripts/validate-portfolio.mjs --links
+node scripts/validate-project-share-assets.mjs
+node scripts/functional-smoke.mjs
+```
+
+These checks validate the curated taxonomy, verified App Store count, required MealBot positioning, alt text, external links, generated social-image counts and boundaries, rendered JSON-LD, RSS, search, filters, customer-safe project drawers, keyboard command palette, canonical URL, and representative share pages.
+
 Run the stricter pixel-baseline visual regression check:
 
 ```bash
@@ -291,13 +307,19 @@ The Lighthouse config starts a local static server and audits the homepage, pres
 - `app.js`: project loading, hero showcase rendering, keyboard quick-find palette, compact latest updates inside Studio Notes, discovery status, Recently Launched filtering, category hash routes, shareable project drawers with screenshot galleries and launch notes, JSON-LD structured data, search, filters, sorting, load-more behavior, scroll-reveal and pointer-follow card motion, and fallback sample data
 - `status.js`: public status page loader for deploy metadata, latest workflow run, repo-index freshness, RSS freshness, and JSON copy actions
 - Project cards: `app.js` uses real preview images when available, prefers screenshot-like project media over generic social/preview artwork, makes non-button card areas open the project site, shows gallery-count badges for media-rich projects, and falls back to generated code-native preview panels when a project does not expose a screenshot yet.
-- Project drawers: use hash routes such as `#project/doorcodes-site`, and generated pages such as `projects/doorcodes-site.html` provide Open Graph metadata before redirecting into the matching drawer. Category filters use routes such as `#category/ios-apps` and `#category/games`. Drawer galleries are powered by each project's `screenshots` array, with `previewImage` as the fallback, and now include quick snapshot stats, GitHub repo-index metadata, plus a larger featured screenshot.
+- Project drawers: use hash routes such as `#project/doorcodes-site`, and generated pages such as `projects/doorcodes-site.html` provide Open Graph metadata before redirecting into the matching drawer. Category filters use routes such as `#category/ios-apps` and `#category/games`. Drawer galleries are powered by each project's `screenshots` array, with `previewImage` as the fallback, and present product lifecycle, availability, release evidence, launch notes, and media without customer-facing repository diagnostics.
 - `projects.json`: generated project index consumed by the frontend
 - `data/projects.json`: generated GitHub org repository index consumed as an enrichment and fallback data source
 - `scripts/discover-projects.js`: GitHub API discovery script
 - `scripts/fetch-repos.mjs`: Node 20 GitHub REST repo indexer for `.github/workflows/auto-index-deploy.yml`
 - `scripts/write-deploy-status.mjs`: writes workflow/deploy metadata to `data/deploy-status.json`
 - `scripts/generate-project-share-assets.mjs`: generates `projects/*.html` share pages and `assets/project-og/*` images
+- `scripts/validate-project-share-assets.mjs`: validates generated share-image counts, footer language, chip spacing, text boundaries, and 1200x630 PNG dimensions
+- `scripts/generate-project-share-contact-sheet.mjs`: captures all generated project-share PNGs into one owner-review contact sheet
+- `scripts/portfolio-curation.json`: public-safe inclusion, exclusion, naming, status, and positioning authority
+- `scripts/validate-portfolio.mjs`: deterministic catalog, taxonomy, evidence-field, alt-text, and optional external-link validator
+- `scripts/chrome-capture.mjs`: exact-viewport Chrome DevTools Protocol capture helper used by local visual checks
+- `scripts/functional-smoke.mjs`: rendered JSON-LD, RSS, search/filter, drawer, keyboard, canonical, and share-page validation
 - `scripts/visual-regression.mjs`: pixel-baseline regression check with no npm dependencies
 - `scripts/visual-smoke.mjs`: screenshot smoke check for homepage, project grid, project drawer, and 404 states
 - `lighthouserc.json`: Lighthouse CI audit thresholds and local static-server config

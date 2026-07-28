@@ -81,7 +81,7 @@ For the existing curated app cards, keep using at least one of:
 - `ninjatom-project-site`
 - `app-website`
 
-The new org index includes all public, non-fork repositories by default and records each repo's topics into `data/projects.json`. Topics still matter because the frontend displays them on cards and uses them in search/filter matching.
+The org index includes all public, non-fork repositories by default and records each repo's topics in `data/projects.json` for technical status, automation, and internal matching. Repository topics and diagnostics are not presented on customer-facing project cards or detail drawers.
 
 Useful topic examples:
 
@@ -112,17 +112,17 @@ Examples:
 
 The hub shows the homepage as the live site link when available and the GitHub repo link separately.
 
-## Store Status And Release Projections
+## Product Status, Website Status, And Release Projections
 
-The curated catalog marks projects with a valid `appStoreUrl` as `On the App Store`. If `appStoreUrl` is blank, the frontend shows a projected release date and progress score instead.
+The curated catalog keeps product lifecycle status separate from website availability. `productStatus` must use the approved taxonomy in `scripts/portfolio-curation.json`; `websiteStatus` states whether the linked website is public, staging, internal, unavailable, or not applicable.
 
-The projection is automatic by default. It uses public project signals such as status text, homepage availability, manifest presence, support/privacy links, screenshots, GitHub releases, and recent updates. For known launch plans, add these optional fields to `site-manifest.json`:
+A valid `appStoreUrl` is the only automatic proof for an `On the App Store` link. The frontend does not infer progress or release dates from repository metadata, website availability, or commit recency. A projection is shown only when both of these owner-reviewed fields are present:
 
-- `projectedReleaseDate`: manual projected release date. `estimatedReleaseDate` and `targetReleaseDate` are aliases.
-- `progressPercent`: manual progress from 0 to 100. `progress` and `completionPercent` are aliases.
-- `releaseProjectionNote`: note shown in the project drawer. `progressNote` is an alias.
+- `projectedReleaseDate`: explicit target date. `estimatedReleaseDate` and `targetReleaseDate` remain supported aliases.
+- `progressPercent`: explicit progress from 0 to 100. `progress` and `completionPercent` remain supported aliases.
+- `releaseProjectionNote`: optional owner-reviewed context. `progressNote` remains a supported alias.
 
-Once an app launches, add the real `appStoreUrl` to the project homepage or manifest. The hub will switch that card from projected release to App Store live on the next refresh.
+Once an app launches, add its verified `appStoreUrl` and update the curated product status. The next refresh will present the App Store link without inventing a launch date.
 
 ## Pages Source Setting
 

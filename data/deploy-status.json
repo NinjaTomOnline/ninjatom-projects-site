@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-06T09:45:28.087Z",
+  "generatedAt": "2026-07-27T05:03:48.453Z",
   "site": "https://ninjatomapps.com/",
   "workflow": "Auto index and deploy",
   "eventName": "local",
   "repository": "NinjaTomOnline/ninjatom-projects-site",
-  "refName": "main",
+  "refName": "codex/nta-web-001-complete-portfolio-update",
   "runId": "",
   "runNumber": "",
   "runAttempt": "",

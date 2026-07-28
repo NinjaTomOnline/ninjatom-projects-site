@@ -4,72 +4,72 @@
     <title>NinjaTom Apps Project Updates</title>
     <link>https://ninjatomapps.com/</link>
     <atom:link href="https://ninjatomapps.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <description>New and updated NinjaTom Apps, tools, games, and Custom3D.Art project websites.</description>
+    <description>New and updated apps, games, tools, and creative technology from NinjaTom Apps.</description>
     <language>en-us</language>
     <lastBuildDate>Wed, 24 Jun 2026 02:08:41 GMT</lastBuildDate>
     <item>
-      <title>Minddeck</title>
+      <title>Mind Deck</title>
       <link>https://ninjatomonline.github.io/minddeck-site/</link>
       <guid isPermaLink="false">https://ninjatomapps.com/#project/minddeck-site</guid>
       <pubDate>Wed, 24 Jun 2026 02:08:41 GMT</pubDate>
-      <category>Project</category>
-      <description>MindDeck public marketing support and privacy site Minddeck is listed as Live in the Project catalog, refreshed automatically from public GitHub Pages metadata.</description>
+      <category>Mobile App</category>
+      <description>A focused thought-card app for prompts, reflection, and deliberate mental resets. Mind Deck has a public product preview and current mobile/tablet interfaces while its App Store listing remains in preparation.</description>
     </item>
     <item>
-      <title>Dreamspell</title>
+      <title>DreamSpell</title>
       <link>https://dreamspell.app/</link>
       <guid isPermaLink="false">https://ninjatomapps.com/#project/dreamspell-site</guid>
       <pubDate>Fri, 12 Jun 2026 00:48:54 GMT</pubDate>
-      <category>Creative / Custom3D</category>
-      <description>A creative project site with a reflective, imaginative tone. Dreamspell is listed as Live in the Creative / Custom3D catalog, refreshed automatically from public GitHub Pages metadata.</description>
+      <category>Mobile App</category>
+      <description>A modern companion for the Dreamspell calendar, daily kin, oracle, and reflective practice. DreamSpell is a long-running App Store product modernized and maintained with a current 2026 release and canonical dreamspell.app destination.</description>
     </item>
     <item>
       <title>QuitGentle</title>
       <link>https://quitgentle.com/</link>
       <guid isPermaLink="false">https://ninjatomapps.com/#project/ashtag-site</guid>
       <pubDate>Thu, 11 Jun 2026 00:20:58 GMT</pubDate>
-      <category>iOS App</category>
-      <description>Shame-free smoking tracking with fast logs, craving rescue, pattern awareness, and optional Premium insight. QuitGentle is listed as Live on App Store with optional Premium in the iOS App catalog, refreshed automatically from its site manifest.</description>
+      <category>Mobile App</category>
+      <description>A calm smoking-cessation tracker with progress cues, check-ins, and optional Premium tools. QuitGentle is publicly available on the App Store. AshTag remains an internal source alias and is not a separate public product.</description>
     </item>
     <item>
-      <title>Wearethewatchers</title>
+      <title>CUSTOS / We Are the Watchers</title>
       <link>https://wearethewatchers.com/</link>
       <guid isPermaLink="false">https://ninjatomapps.com/#project/wearethewatchers-site</guid>
       <pubDate>Sun, 07 Jun 2026 18:15:40 GMT</pubDate>
-      <category>Project</category>
-      <description>CUSTOS static launch site for wearethewatchers.com Wearethewatchers is listed as Live in the Project catalog, refreshed automatically from public GitHub Pages metadata.</description>
+      <category>Creative Commerce</category>
+      <description>A watchful creative brand and product-world concept exploring identity, artifacts, and a first public collection. The public brand site is available, but checkout and a public product launch are not claimed. CUSTOS and We Are the Watchers are presented as one identity, not duplicate projects.</description>
     </item>
     <item>
       <title>Zen Wisdom</title>
       <link>https://zenwisdom.app/</link>
       <guid isPermaLink="false">https://ninjatomapps.com/#project/zenwisdom-site</guid>
       <pubDate>Sat, 06 Jun 2026 15:01:01 GMT</pubDate>
-      <category>iOS App</category>
-      <description>Quiet daily reflections designed for calmer routines. Zen Wisdom is listed as Live in the iOS App catalog, refreshed automatically from public GitHub Pages metadata.</description>
+      <category>Mobile App</category>
+      <description>Quiet daily reflections and timeless teachings, modernized for today’s Apple devices. Zen Wisdom is a long-running App Store product modernized and maintained with a current 2026 update.</description>
     </item>
     <item>
       <title>DoorCodes</title>
       <link>https://doorcodesapp.com/</link>
       <guid isPermaLink="false">https://ninjatomapps.com/#project/doorcodes-site</guid>
       <pubDate>Sat, 16 May 2026 09:14:26 GMT</pubDate>
-      <category>iOS App</category>
-      <description>Access codes, ready on arrival with privacy-safe reminders and Secure Reveal. DoorCodes is listed as Live in the iOS App catalog, refreshed automatically from its site manifest.</description>
+      <category>Mobile App</category>
+      <description>Access codes, ready on arrival with privacy-safe reminders and Secure Reveal. DoorCodes is publicly available on the App Store with a dedicated product site, support path, privacy policy, and release artwork.</description>
     </item>
     <item>
-      <title>Mealbot Express</title>
+      <title>MealBot Express</title>
       <link>https://ninjatomonline.github.io/mealbot-express-site/</link>
       <guid isPermaLink="false">https://ninjatomapps.com/#project/mealbot-express-site</guid>
       <pubDate>Tue, 12 May 2026 21:27:59 GMT</pubDate>
-      <category>Project</category>
-      <description>MealBot Express marketing support privacy site Mealbot Express is listed as Live in the Project catalog, refreshed automatically from public GitHub Pages metadata.</description>
+      <category>Game</category>
+      <description>A four-world, free-roam competitive arcade delivery game built for couch and online multiplayer. The University Campus build is the playable foundation for a larger game with Night City, Jersey Shore / Boardwalk, a player-voted fourth world, upgradeable MealBots, power-ups, progression, leaderboards, cosmetics, and short-session replay loops.</description>
     </item>
     <item>
-      <title>Rooftop Rush</title>
+      <title>Ninja Tom’s Rooftop Rush</title>
       <link>https://ninjatomonline.github.io/rooftoprush-site/</link>
       <guid isPermaLink="false">https://ninjatomapps.com/#project/rooftoprush-site</guid>
       <pubDate>Fri, 01 May 2026 14:27:25 GMT</pubDate>
       <category>Game</category>
-      <description>A fast arcade project site with skyline energy. Rooftop Rush is listed as Live in the Game catalog, refreshed automatically from public GitHub Pages metadata.</description>
+      <description>A fast chapter-driven rooftop arcade game built around movement, gadgets, evidence, and style. The game has a complete multi-chapter release-candidate path and current gameplay media. Human playability, final media approval, and release authorization remain open.</description>
     </item>
     <item>
       <title>MasterSpaces</title>
@@ -77,63 +77,119 @@
       <guid isPermaLink="false">https://ninjatomapps.com/#project/masterspaces-site</guid>
       <pubDate>Fri, 01 May 2026 11:04:38 GMT</pubDate>
       <category>macOS Utility</category>
-      <description>Window layouts that remember the room. MasterSpaces is listed as Release Candidate in the macOS Utility catalog, refreshed automatically from its site manifest.</description>
+      <description>A macOS workspace utility for organizing spaces, ideas, and repeatable project workflows. MasterSpaces is a direct-download release candidate. Public download follows notarization and clean-machine QA.</description>
     </item>
     <item>
       <title>FlowGuru</title>
       <link>https://ninjatomonline.github.io/flowguru-site/</link>
       <guid isPermaLink="false">https://ninjatomapps.com/#project/flowguru-site</guid>
       <pubDate>Fri, 01 May 2026 11:01:02 GMT</pubDate>
-      <category>Community</category>
-      <description>A flow arts home base for profiles, practice prompts, and the first release circle. FlowGuru is listed as Private staging in the Community catalog, refreshed automatically from its site manifest.</description>
+      <category>Web Platform</category>
+      <description>A community and focus platform exploring practical tools for creative momentum and getting unstuck. A staged foundation and public preview exist while product scope, release, domain, and commercial decisions remain in development.</description>
     </item>
     <item>
       <title>Shramana</title>
       <link>https://ninjatomonline.github.io/shramana-site/</link>
       <guid isPermaLink="false">https://ninjatomapps.com/#project/shramana-site</guid>
       <pubDate>Fri, 01 May 2026 10:40:12 GMT</pubDate>
-      <category>Creative / Custom3D</category>
-      <description>A contemplative creative project site. Shramana is listed as Live in the Creative / Custom3D catalog, refreshed automatically from its site manifest.</description>
+      <category>Game</category>
+      <description>A contemplative iPad puzzle game with twenty authored levels, monk abilities, and accessible play systems. The app target, campaign, release tooling, and extensive validation exist; physical-device and final release gates remain.</description>
     </item>
     <item>
       <title>SwiftTerm</title>
       <link>https://swiftterm.app/</link>
       <guid isPermaLink="false">https://ninjatomapps.com/#project/swiftterm-site</guid>
       <pubDate>Fri, 01 May 2026 10:38:41 GMT</pubDate>
-      <category>Tool</category>
-      <description>A polished terminal companion for fast command notes and workflows. SwiftTerm is listed as Live in the Tool catalog, refreshed automatically from public GitHub Pages metadata.</description>
+      <category>Developer Tool</category>
+      <description>A polished terminal companion for command notes, remote sessions, and fast developer workflows. SwiftTerm has a public product preview and release-preparation materials; a public App Store listing is not yet verified.</description>
     </item>
     <item>
-      <title>DontSpeed</title>
+      <title>Don’t Speed</title>
       <link>https://dontspeed.app/</link>
       <guid isPermaLink="false">https://ninjatomapps.com/#project/dontspeed-site</guid>
       <pubDate>Fri, 01 May 2026 03:35:49 GMT</pubDate>
-      <category>iOS App</category>
-      <description>A speed-awareness app website built for simple, focused driving safety. DontSpeed is listed as Live in the iOS App catalog, refreshed automatically from public GitHub Pages metadata.</description>
+      <category>Mobile App</category>
+      <description>A route-aware speed companion designed for clear alerts, safer pacing, and trip review. A release-candidate build is active in TestFlight. Physical route, locked-screen, audio, and final release approval remain before public launch.</description>
     </item>
     <item>
       <title>CushionOps</title>
-      <link>https://ninjatomonline.github.io/cushionops-site/</link>
+      <link>https://ninjatomapps.com/#project/cushionops-site</link>
       <guid isPermaLink="false">https://ninjatomapps.com/#project/cushionops-site</guid>
       <pubDate>Thu, 30 Apr 2026 19:50:53 GMT</pubDate>
-      <category>Tool</category>
-      <description>A focused operations tool project site. CushionOps is listed as Live in the Tool catalog, refreshed automatically from its site manifest.</description>
+      <category>Operations Platform</category>
+      <description>A focused operations system for repeatable work, readiness tracking, and practical team execution. CushionOps remains active development. The former public Pages URL is unavailable, so this portfolio detail replaces the broken external link without claiming launch.</description>
     </item>
     <item>
-      <title>Deadhead Detective</title>
+      <title>DeadHead Detective</title>
       <link>https://ninjatomonline.github.io/deadheaddetective-site/</link>
       <guid isPermaLink="false">https://ninjatomapps.com/#project/deadheaddetective-site</guid>
       <pubDate>Thu, 30 Apr 2026 19:50:52 GMT</pubDate>
-      <category>Game</category>
-      <description>A mystery-driven game project site. Deadhead Detective is listed as Live in the Game catalog, refreshed automatically from its site manifest.</description>
+      <category>Mobile App</category>
+      <description>A gig-driving profitability utility that separates paid miles from deadhead miles and turns trips into useful insight. Current interfaces cover the dashboard, active trips, history, and profitability insights. No public App Store release is claimed.</description>
     </item>
     <item>
-      <title>Retrocopter</title>
+      <title>RetroCopter</title>
       <link>https://ninjatomonline.github.io/retrocopter-site/</link>
       <guid isPermaLink="false">https://ninjatomapps.com/#project/retrocopter-site</guid>
       <pubDate>Thu, 23 Apr 2026 13:38:26 GMT</pubDate>
       <category>Game</category>
-      <description>A retro arcade flight project site. Retrocopter is listed as Live in the Game catalog, refreshed automatically from public GitHub Pages metadata.</description>
+      <description>A compact retro arcade flight game built around responsive controls and quick replay loops. A playable product and public gameplay preview exist; App Store availability remains pending final review.</description>
+    </item>
+    <item>
+      <title>Custom3D.Art</title>
+      <link>https://custom3d.art/</link>
+      <guid isPermaLink="false">https://ninjatomapps.com/#project/custom3d-art</guid>
+      <pubDate>Wed, 24 Jun 2026 02:08:41 GMT</pubDate>
+      <category>Founder-Operated Fabrication Business</category>
+      <description>A founder-operated fabrication business for laser engraving, 3D printing, prototyping, custom products, fabrication, and related venue and customer work. Custom3D.Art is the active public identity for Tom’s related founder-operated fabrication business. It is presented as a fabrication business, not a software application.</description>
+    </item>
+    <item>
+      <title>NinjaTom Arcade: Pinball Dojo</title>
+      <link>https://ninjatomapps.com/#project/pinball-dojo</link>
+      <guid isPermaLink="false">https://ninjatomapps.com/#project/pinball-dojo</guid>
+      <pubDate>Wed, 24 Jun 2026 02:08:41 GMT</pubDate>
+      <category>Game</category>
+      <description>A watchOS-first pinball game with SpriteKit physics, Digital Crown controls, and belt-rank progression. The Master Dojo table is playable, simulator builds and logic tests pass, and a signed release archive exists. Distribution signing and final watch captures remain.</description>
+    </item>
+    <item>
+      <title>WristMaze</title>
+      <link>https://ninjatomapps.com/#project/wristmaze</link>
+      <guid isPermaLink="false">https://ninjatomapps.com/#project/wristmaze</guid>
+      <pubDate>Wed, 24 Jun 2026 02:08:41 GMT</pubDate>
+      <category>Game</category>
+      <description>A twenty-level Apple Watch maze adventure with tilt controls, hazards, progression, and Game Center systems. The campaign, complication, progression, accessibility, audio, and Game Center code paths are implemented. Real-watch tuning and App Store Connect completion remain.</description>
+    </item>
+    <item>
+      <title>LumaFlow</title>
+      <link>https://ninjatomapps.com/#project/lumaflow</link>
+      <guid isPermaLink="false">https://ninjatomapps.com/#project/lumaflow</guid>
+      <pubDate>Wed, 24 Jun 2026 02:08:41 GMT</pubDate>
+      <category>Mobile App</category>
+      <description>An active Apple-platform product build progressing through runtime QA and provisioning gates. LumaFlow is represented without an external link because similarly named public domains belong to unrelated products. Runtime QA and release setup remain active work.</description>
+    </item>
+    <item>
+      <title>Grateful Dicks</title>
+      <link>https://gratefuldicks.com/</link>
+      <guid isPermaLink="false">https://ninjatomapps.com/#project/grateful-dicks</guid>
+      <pubDate>Wed, 24 Jun 2026 02:08:41 GMT</pubDate>
+      <category>Creative Concept Lab</category>
+      <description>An adult-humor character and merchandise concept lab developing an original visual identity and public-interest test. The project remains a concept lab with a public teaser. Nothing is represented here as manufactured, for sale, affiliated, or officially launched.</description>
+    </item>
+    <item>
+      <title>Watcher.One</title>
+      <link>https://ninjatomapps.com/#project/watcher-one</link>
+      <guid isPermaLink="false">https://ninjatomapps.com/#project/watcher-one</guid>
+      <pubDate>Wed, 24 Jun 2026 02:08:41 GMT</pubDate>
+      <category>Creative Technology</category>
+      <description>A local-first AI cohost and live-production system connecting overlays, recaps, chat, memory, and avatar workflows. A locally testable MVP exists. Public streaming remains gated by external accounts, production direction, operator validation, and cost approval.</description>
+    </item>
+    <item>
+      <title>Custom3D.Art — Fabrication &amp; Venue Vending</title>
+      <link>https://ninjatomapps.com/#project/fabrication-venue-vending</link>
+      <guid isPermaLink="false">https://ninjatomapps.com/#project/fabrication-venue-vending</guid>
+      <pubDate>Wed, 24 Jun 2026 02:08:41 GMT</pubDate>
+      <category>Planned Fabrication Initiative</category>
+      <description>A planned Custom3D.Art initiative exploring venue vending, inventory, QR ordering, displays, and customer-work workflows. This planned initiative sits under Custom3D.Art and is not a standalone business identity, launched storefront, or operating vending network.</description>
     </item>
   </channel>
 </rss>

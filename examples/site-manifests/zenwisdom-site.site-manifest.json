@@ -2,11 +2,11 @@
   "name": "Zen Wisdom",
   "tagline": "Quiet daily reflections designed for calmer routines.",
   "category": "iOS App",
-  "status": "Live",
+  "status": "Released but actively maintained",
   "website": "https://zenwisdom.app/",
   "supportUrl": "https://zenwisdom.app/support.html",
   "privacyUrl": "https://zenwisdom.app/privacy.html",
-  "appStoreUrl": "",
+  "appStoreUrl": "https://apps.apple.com/us/app/zen-wisdom/id414329570",
   "icon": "https://zenwisdom.app/assets/icon-512.png",
   "previewImage": "https://zenwisdom.app/screenshots/zenwisdom-social-card.png",
   "previewImageAlt": "Zen Wisdom social preview with the app icon, feature highlights, and an iPhone home screenshot.",
@@ -17,16 +17,15 @@
       "caption": "Launch preview"
     }
   ],
-  "launchedAt": "2026-04-30T00:00:00Z",
-  "version": "Live",
-  "launchNotes": "Zen Wisdom is indexed as a calm reflection app with launch artwork and support links.",
+  "version": "2.07",
+  "launchNotes": "Zen Wisdom is a released and maintained reflection app with a verified App Store listing.",
   "versionHighlights": [
     "Daily reflections positioned",
     "Screenshot gallery available"
   ],
-  "progressPercent": 78,
-  "releaseProjectionNote": "Projected from the live public site, gallery artwork, and complete support/privacy links.",
   "accent": "#A78BFA",
   "featured": false,
-  "sortOrder": 30
+  "sortOrder": 30,
+  "productStatus": "Released but actively maintained",
+  "websiteStatus": "Public product site available"
 }

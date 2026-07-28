@@ -4,14 +4,13 @@ import { createServer } from "node:http";
 import { createReadStream } from "node:fs";
 import { access, copyFile, mkdir, readFile, stat } from "node:fs/promises";
 import { extname, join, normalize, resolve } from "node:path";
-import { spawn } from "node:child_process";
 import { inflateSync } from "node:zlib";
+import { capturePage } from "./chrome-capture.mjs";
 
 const root = resolve(new URL("..", import.meta.url).pathname);
 const outDir = resolve(root, "artifacts", "visual-regression");
 const baselineDir = resolve(root, "tests", "visual-baselines");
 const updateBaselines = process.argv.includes("--update-baselines");
-const chromePath = await findChrome();
 const changedPixelThreshold = Number(process.env.VISUAL_CHANGED_THRESHOLD || 0.18);
 const averageChannelThreshold = Number(process.env.VISUAL_AVG_THRESHOLD || 16);
 
@@ -87,7 +86,21 @@ const shots = [
     height: 1000,
   },
   {
-    name: "desktop-projected-project-detail",
+    name: "desktop-mealbot-detail",
+    path: "./?visual-test=1#project/mealbot-express-site",
+    windowSize: "1440,1000",
+    width: 1440,
+    height: 1000,
+  },
+  {
+    name: "desktop-custom3d-detail",
+    path: "./?visual-test=1#project/custom3d-art",
+    windowSize: "1440,1000",
+    width: 1440,
+    height: 1000,
+  },
+  {
+    name: "desktop-maintained-project-detail",
     path: "./?visual-test=1#project/zenwisdom-site",
     windowSize: "1440,1000",
     width: 1440,
@@ -106,6 +119,13 @@ const shots = [
     windowSize: "1440,900",
     width: 1440,
     height: 900,
+  },
+  {
+    name: "press",
+    path: "./press.html?visual-test=1",
+    windowSize: "1440,1000",
+    width: 1440,
+    height: 1000,
   },
   {
     name: "status",
@@ -156,19 +176,7 @@ try {
 }
 
 async function capture(name, url, windowSize, expectedWidth, expectedHeight, screenshotPath) {
-  await runChrome([
-    "--headless=new",
-    "--disable-gpu",
-    "--no-sandbox",
-    "--hide-scrollbars",
-    "--run-all-compositor-stages-before-draw",
-    "--timeout=15000",
-    "--virtual-time-budget=5000",
-    "--force-device-scale-factor=1",
-    `--window-size=${windowSize}`,
-    `--screenshot=${screenshotPath}`,
-    url,
-  ]);
+  await capturePage({ url, outputPath: screenshotPath, width: expectedWidth, height: expectedHeight });
 
   const info = await readPng(screenshotPath);
   if (info.width !== expectedWidth || info.height !== expectedHeight) {
@@ -221,28 +229,6 @@ async function compareToBaseline(name, screenshotPath, baselinePath) {
   console.log(
     `${name} matched baseline (${(changedRatio * 100).toFixed(3)}% changed, avg channel delta ${averageChannelDelta.toFixed(3)}).`,
   );
-}
-
-function runChrome(args) {
-  return new Promise((resolveRun, rejectRun) => {
-    const child = spawn(chromePath, args, {
-      stdio: ["ignore", "pipe", "pipe"],
-    });
-
-    let stderr = "";
-    child.stderr.on("data", (chunk) => {
-      stderr += chunk;
-    });
-
-    child.on("error", rejectRun);
-    child.on("close", (code) => {
-      if (code === 0) {
-        resolveRun();
-      } else {
-        rejectRun(new Error(`Chrome exited with code ${code}: ${stderr}`));
-      }
-    });
-  });
 }
 
 async function readPng(filePath) {
@@ -441,28 +427,6 @@ function contentType(filePath) {
   }
 }
 
-async function findChrome() {
-  const candidates = [
-    process.env.CHROME_PATH,
-    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
-    "/Applications/Chromium.app/Contents/MacOS/Chromium",
-    "/usr/bin/google-chrome",
-    "/usr/bin/google-chrome-stable",
-    "/usr/bin/chromium",
-    "/usr/bin/chromium-browser",
-  ].filter(Boolean);
-
-  for (const candidate of candidates) {
-    try {
-      await access(candidate);
-      return candidate;
-    } catch {
-      // Try the next candidate.
-    }
-  }
-
-  throw new Error("Chrome or Chromium was not found. Set CHROME_PATH to run the visual regression check.");
-}
 
 function relativePath(filePath) {
   return filePath.replace(`${root}/`, "");

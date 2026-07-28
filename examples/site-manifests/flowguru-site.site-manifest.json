@@ -2,7 +2,7 @@
   "name": "FlowGuru",
   "tagline": "Creative flow tools and focus systems for getting unstuck.",
   "category": "Tool",
-  "status": "Live",
+  "status": "Active Development",
   "website": "https://ninjatomonline.github.io/flowguru-site/",
   "supportUrl": "https://ninjatomonline.github.io/flowguru-site/support.html",
   "privacyUrl": "https://ninjatomonline.github.io/flowguru-site/privacy.html",
@@ -15,16 +15,15 @@
       "caption": "Project preview"
     }
   ],
-  "launchedAt": "2026-04-30T00:00:00Z",
   "version": "Preview",
-  "launchNotes": "FlowGuru is indexed as a creative flow and focus tool project site.",
+  "launchNotes": "FlowGuru is in active development with a public staging site.",
   "versionHighlights": [
     "Project preview connected",
     "Support and privacy URLs documented"
   ],
-  "progressPercent": 58,
-  "releaseProjectionNote": "Projected from the live project site, preview artwork, and documented support/privacy URLs.",
   "accent": "#FFCF70",
   "featured": false,
-  "sortOrder": 50
+  "sortOrder": 50,
+  "productStatus": "Active Development",
+  "websiteStatus": "Public staging site available"
 }

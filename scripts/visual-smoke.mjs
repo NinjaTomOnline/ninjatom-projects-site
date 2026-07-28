@@ -4,11 +4,10 @@ import { createServer } from "node:http";
 import { createReadStream } from "node:fs";
 import { access, mkdir, readFile, stat } from "node:fs/promises";
 import { extname, join, normalize, resolve } from "node:path";
-import { spawn } from "node:child_process";
+import { capturePage } from "./chrome-capture.mjs";
 
 const root = resolve(new URL("..", import.meta.url).pathname);
 const outDir = resolve(root, "artifacts", "visual-smoke");
-const chromePath = await findChrome();
 
 await mkdir(outDir, { recursive: true });
 const server = createServer(serveStatic);
@@ -23,13 +22,16 @@ try {
   await capture("mobile-projects", `${baseUrl}?visual-test=1&view=projects`, "390,1000", 390, 1000);
   await capture("mobile-app-store-filter", `${baseUrl}?visual-test=1&view=projects#category/app-store`, "390,1000", 390, 1000);
   await capture("mobile-project-detail", `${baseUrl}#project/doorcodes-site`, "390,1000", 390, 1000);
-  await capture("desktop-projects", `${baseUrl}#projects`, "1440,1200", 1440, 1200);
-  await capture("desktop-app-store-filter", `${baseUrl}#category/app-store`, "1440,1000", 1440, 1000);
-  await capture("desktop-category-games", `${baseUrl}#category/games`, "1440,1000", 1440, 1000);
-  await capture("desktop-project-detail", `${baseUrl}#project/doorcodes-site`, "1440,1000", 1440, 1000);
-  await capture("desktop-projected-project-detail", `${baseUrl}#project/zenwisdom-site`, "1440,1000", 1440, 1000);
+  await capture("desktop-projects", `${baseUrl}?visual-test=1&view=projects`, "1440,1200", 1440, 1200);
+  await capture("desktop-app-store-filter", `${baseUrl}?visual-test=1#category/app-store`, "1440,1000", 1440, 1000);
+  await capture("desktop-category-games", `${baseUrl}?visual-test=1#category/games`, "1440,1000", 1440, 1000);
+  await capture("desktop-project-detail", `${baseUrl}?visual-test=1#project/doorcodes-site`, "1440,1000", 1440, 1000);
+  await capture("desktop-mealbot-detail", `${baseUrl}?visual-test=1#project/mealbot-express-site`, "1440,1000", 1440, 1000);
+  await capture("desktop-custom3d-detail", `${baseUrl}?visual-test=1#project/custom3d-art`, "1440,1000", 1440, 1000);
+  await capture("desktop-maintained-project-detail", `${baseUrl}?visual-test=1#project/zenwisdom-site`, "1440,1000", 1440, 1000);
   await capture("desktop-command-palette", `${baseUrl}?visual-test=1&command=1`, "1440,1000", 1440, 1000);
   await capture("changelog", `${baseUrl}changelog.html`, "1440,900", 1440, 900);
+  await capture("press", `${baseUrl}press.html`, "1440,1000", 1440, 1000);
   await capture("status", `${baseUrl}status.html`, "1440,900", 1440, 900);
   await capture("not-found", `${baseUrl}404.html`, "1440,900", 1440, 900);
 
@@ -52,19 +54,7 @@ async function assertProjectData() {
 
 async function capture(name, url, windowSize, expectedWidth, expectedHeight) {
   const screenshotPath = join(outDir, `${name}.png`);
-  await runChrome([
-    "--headless=new",
-    "--disable-gpu",
-    "--no-sandbox",
-    "--hide-scrollbars",
-    "--run-all-compositor-stages-before-draw",
-    "--timeout=15000",
-    "--virtual-time-budget=5000",
-    "--force-device-scale-factor=1",
-    `--window-size=${windowSize}`,
-    `--screenshot=${screenshotPath}`,
-    url,
-  ]);
+  await capturePage({ url, outputPath: screenshotPath, width: expectedWidth, height: expectedHeight });
 
   const info = await readPngInfo(screenshotPath);
   if (info.width !== expectedWidth || info.height !== expectedHeight) {
@@ -75,28 +65,6 @@ async function capture(name, url, windowSize, expectedWidth, expectedHeight) {
   if (fileInfo.size < 25_000) {
     throw new Error(`${name} screenshot is suspiciously small (${fileInfo.size} bytes).`);
   }
-}
-
-function runChrome(args) {
-  return new Promise((resolveRun, rejectRun) => {
-    const child = spawn(chromePath, args, {
-      stdio: ["ignore", "pipe", "pipe"],
-    });
-
-    let stderr = "";
-    child.stderr.on("data", (chunk) => {
-      stderr += chunk;
-    });
-
-    child.on("error", rejectRun);
-    child.on("close", (code) => {
-      if (code === 0) {
-        resolveRun();
-      } else {
-        rejectRun(new Error(`Chrome exited with code ${code}: ${stderr}`));
-      }
-    });
-  });
 }
 
 async function readPngInfo(filePath) {
@@ -169,27 +137,4 @@ function contentType(filePath) {
     default:
       return "application/octet-stream";
   }
-}
-
-async function findChrome() {
-  const candidates = [
-    process.env.CHROME_PATH,
-    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
-    "/Applications/Chromium.app/Contents/MacOS/Chromium",
-    "/usr/bin/google-chrome",
-    "/usr/bin/google-chrome-stable",
-    "/usr/bin/chromium",
-    "/usr/bin/chromium-browser",
-  ].filter(Boolean);
-
-  for (const candidate of candidates) {
-    try {
-      await access(candidate);
-      return candidate;
-    } catch {
-      // Try the next candidate.
-    }
-  }
-
-  throw new Error("Chrome or Chromium was not found. Set CHROME_PATH to run the visual smoke check.");
 }
