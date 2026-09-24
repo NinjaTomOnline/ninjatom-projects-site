@@ -1,7 +1,7 @@
 {
   "schemaVersion": 4,
   "owner": "NinjaTomOnline",
-  "generatedAt": "2026-07-27T05:03:41.165Z",
+  "generatedAt": "2026-09-24T12:17:21.472Z",
   "includeRules": {
     "repoNameSuffix": "-site",
     "topics": [
@@ -386,21 +386,26 @@
       "privacyUrl": "https://ninjatomonline.github.io/rooftoprush-site/privacy.html",
       "appStoreUrl": "",
       "icon": "https://ninjatomonline.github.io/rooftoprush-site/favicon.svg",
-      "previewImage": "https://ninjatomonline.github.io/rooftoprush-site/screenshots/03-wardrobe-restored.jpg",
+      "previewImage": "https://ninjatomonline.github.io/rooftoprush-site/assets/gameplay-phone.png",
       "previewImageAlt": "Ninja Tom’s Rooftop Rush gameplay and character wardrobe preview.",
       "screenshots": [
         {
-          "src": "https://ninjatomonline.github.io/rooftoprush-site/screenshots/03-wardrobe-restored.jpg",
+          "src": "https://ninjatomonline.github.io/rooftoprush-site/assets/gameplay-phone.png",
           "alt": "Ninja Tom’s Rooftop Rush gameplay and character wardrobe preview.",
           "caption": ""
         },
         {
-          "src": "https://ninjatomonline.github.io/rooftoprush-site/screenshots/02-warehouse-evidence.jpg",
+          "src": "https://ninjatomonline.github.io/rooftoprush-site/press-kit/screenshots/elite-encounter.jpg",
           "alt": "Ninja Tom’s Rooftop Rush gameplay and character wardrobe preview.",
           "caption": ""
         },
         {
-          "src": "https://ninjatomonline.github.io/rooftoprush-site/screenshots/05-elite-encounter.jpg",
+          "src": "https://ninjatomonline.github.io/rooftoprush-site/press-kit/screenshots/wardrobe-restored.jpg",
+          "alt": "Ninja Tom’s Rooftop Rush gameplay and character wardrobe preview.",
+          "caption": ""
+        },
+        {
+          "src": "https://ninjatomonline.github.io/rooftoprush-site/press-kit/screenshots/warehouse-evidence.jpg",
           "alt": "Ninja Tom’s Rooftop Rush gameplay and character wardrobe preview.",
           "caption": ""
         },
@@ -410,12 +415,7 @@
           "caption": ""
         },
         {
-          "src": "https://ninjatomonline.github.io/rooftoprush-site/screenshots/04-hook-vault.jpg",
-          "alt": "Ninja Tom’s Rooftop Rush gameplay and character wardrobe preview.",
-          "caption": ""
-        },
-        {
-          "src": "https://ninjatomonline.github.io/rooftoprush-site/screenshots/06-game-over.jpg",
+          "src": "https://ninjatomonline.github.io/rooftoprush-site/screenshots/02-warehouse-evidence.jpg",
           "alt": "Ninja Tom’s Rooftop Rush gameplay and character wardrobe preview.",
           "caption": ""
         }
@@ -440,7 +440,7 @@
       "manifestFound": false,
       "stargazersCount": 0,
       "forksCount": 0,
-      "updatedAt": "2026-05-01T14:27:25Z",
+      "updatedAt": "2026-09-23T22:49:54Z",
       "curationFound": true
     },
     {
