@@ -68,6 +68,10 @@ Full setup and troubleshooting notes are in `docs/auto-index-deploy.md`.
 
 The public status page at `https://ninjatomapps.com/status.html` reads `data/deploy-status.json`, `data/projects.json`, `feed.xml`, and the latest public GitHub Actions run to show deploy, workflow, repo-index, and feed freshness. It also exposes download/copy actions for the generated JSON catalogs.
 
+## Support directory
+
+`support.html` provides product support, privacy, and verified App Store links for DoorCodes, QuitGentle, Zen Wisdom, and DreamSpell. Maintain its destinations alongside the corresponding entries in `scripts/portfolio-curation.json`; the directory is hand-authored and is not overwritten by discovery. It links to the existing public support channels without claiming mailbox delivery has been tested. `support.css` scopes the page layout, and the shared navigation collapses at 1240px to keep all destinations usable.
+
 ## Add A New Project
 
 1. Add or update the project in `scripts/portfolio-curation.json` with an evidence-backed product status and separate website status.

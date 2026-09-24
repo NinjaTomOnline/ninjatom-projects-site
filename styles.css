@@ -194,7 +194,7 @@ select {
   box-shadow: 0 0 24px rgba(164, 92, 255, 0.1);
 }
 
-@media (min-width: 721px) {
+@media (min-width: 1241px) {
   .nav-menu-toggle {
     display: none;
   }
@@ -3938,32 +3938,8 @@ body[data-visual-view="projects"] .projects-section {
   }
 }
 
-@media (max-width: 720px) {
-  .conversion-panel {
-    width: min(var(--max), calc(100% - 32px));
-    padding: 1.3rem;
-  }
-
-
-  .nav-shell,
-  .hero-section,
-  .projects-section,
-  .not-found-main,
-  .press-main,
-  .footer-grid,
-  .footer-bottom {
-    width: min(100% - 28px, var(--max));
-  }
-
-  .brand-mark {
-    width: 48px;
-    height: 38px;
-  }
-
-  .brand-wordmark strong {
-    font-size: 1.14rem;
-  }
-
+/* Keep the full navigation usable before its links crowd the brand. */
+@media (max-width: 1240px) {
   .nav-shell {
     position: relative;
     min-height: 66px;
@@ -3998,6 +3974,7 @@ body[data-visual-view="projects"] .projects-section {
       0 28px 72px rgba(0, 0, 0, 0.48),
       0 0 38px rgba(164, 92, 255, 0.14);
     opacity: 0;
+    visibility: hidden;
     pointer-events: none;
     transform: translateY(-0.4rem) scale(0.98);
     transform-origin: top center;
@@ -4009,6 +3986,7 @@ body[data-visual-view="projects"] .projects-section {
 
   .nav-open .nav-links {
     opacity: 1;
+    visibility: visible;
     pointer-events: auto;
     transform: none;
   }
@@ -4036,6 +4014,34 @@ body[data-visual-view="projects"] .projects-section {
   .nav-links a:focus-visible,
   .nav-links a.active {
     background: rgba(164, 92, 255, 0.12);
+  }
+
+}
+
+@media (max-width: 720px) {
+  .conversion-panel {
+    width: min(var(--max), calc(100% - 32px));
+    padding: 1.3rem;
+  }
+
+
+  .nav-shell,
+  .hero-section,
+  .projects-section,
+  .not-found-main,
+  .press-main,
+  .footer-grid,
+  .footer-bottom {
+    width: min(100% - 28px, var(--max));
+  }
+
+  .brand-mark {
+    width: 48px;
+    height: 38px;
+  }
+
+  .brand-wordmark strong {
+    font-size: 1.14rem;
   }
 
   .hero-section {

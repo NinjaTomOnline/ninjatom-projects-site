@@ -2,7 +2,7 @@
   const toggle = document.querySelector("[data-nav-toggle]");
   const menu = document.querySelector("#primary-nav");
 
-  const smallViewport = window.matchMedia("(max-width: 720px)");
+  const smallViewport = window.matchMedia("(max-width: 1240px)");
 
   function setOpen(isOpen) {
     toggle.setAttribute("aria-expanded", String(isOpen));
