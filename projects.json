@@ -1,7 +1,7 @@
 {
   "schemaVersion": 4,
   "owner": "NinjaTomOnline",
-  "generatedAt": "2026-09-24T12:17:21.472Z",
+  "generatedAt": "2026-10-12T19:10:21.714Z",
   "includeRules": {
     "repoNameSuffix": "-site",
     "topics": [
@@ -286,7 +286,7 @@
       "manifestFound": false,
       "stargazersCount": 0,
       "forksCount": 0,
-      "updatedAt": "2026-06-12T00:48:54Z",
+      "updatedAt": "2026-10-12T18:01:40Z",
       "curationFound": true
     },
     {

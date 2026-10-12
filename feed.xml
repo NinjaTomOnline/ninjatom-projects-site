@@ -6,7 +6,15 @@
     <atom:link href="https://ninjatomapps.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>New and updated apps, games, tools, and creative technology from NinjaTom Apps.</description>
     <language>en-us</language>
-    <lastBuildDate>Wed, 23 Sep 2026 22:49:54 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 12 Oct 2026 18:01:40 GMT</lastBuildDate>
+    <item>
+      <title>DreamSpell</title>
+      <link>https://dreamspell.app/</link>
+      <guid isPermaLink="false">https://ninjatomapps.com/#project/dreamspell-site</guid>
+      <pubDate>Mon, 12 Oct 2026 18:01:40 GMT</pubDate>
+      <category>Mobile App</category>
+      <description>A modern companion for the Dreamspell calendar, daily kin, oracle, and reflective practice. DreamSpell is a long-running App Store product modernized and maintained with a current 2026 release and canonical dreamspell.app destination.</description>
+    </item>
     <item>
       <title>Ninja Tom’s Rooftop Rush</title>
       <link>https://ninjatomonline.github.io/rooftoprush-site/</link>
@@ -22,14 +30,6 @@
       <pubDate>Wed, 24 Jun 2026 02:08:41 GMT</pubDate>
       <category>Mobile App</category>
       <description>A focused thought-card app for prompts, reflection, and deliberate mental resets. Mind Deck has a public product preview and current mobile/tablet interfaces while its App Store listing remains in preparation.</description>
-    </item>
-    <item>
-      <title>DreamSpell</title>
-      <link>https://dreamspell.app/</link>
-      <guid isPermaLink="false">https://ninjatomapps.com/#project/dreamspell-site</guid>
-      <pubDate>Fri, 12 Jun 2026 00:48:54 GMT</pubDate>
-      <category>Mobile App</category>
-      <description>A modern companion for the Dreamspell calendar, daily kin, oracle, and reflective practice. DreamSpell is a long-running App Store product modernized and maintained with a current 2026 release and canonical dreamspell.app destination.</description>
     </item>
     <item>
       <title>QuitGentle</title>
@@ -139,7 +139,7 @@
       <title>Custom3D.Art</title>
       <link>https://custom3d.art/</link>
       <guid isPermaLink="false">https://ninjatomapps.com/#project/custom3d-art</guid>
-      <pubDate>Wed, 23 Sep 2026 22:49:54 GMT</pubDate>
+      <pubDate>Mon, 12 Oct 2026 18:01:40 GMT</pubDate>
       <category>Founder-Operated Fabrication Business</category>
       <description>A founder-operated fabrication business for laser engraving, 3D printing, prototyping, custom products, fabrication, and related venue and customer work. Custom3D.Art is the active public identity for Tom’s related founder-operated fabrication business. It is presented as a fabrication business, not a software application.</description>
     </item>
@@ -147,7 +147,7 @@
       <title>NinjaTom Arcade: Pinball Dojo</title>
       <link>https://ninjatomapps.com/#project/pinball-dojo</link>
       <guid isPermaLink="false">https://ninjatomapps.com/#project/pinball-dojo</guid>
-      <pubDate>Wed, 23 Sep 2026 22:49:54 GMT</pubDate>
+      <pubDate>Mon, 12 Oct 2026 18:01:40 GMT</pubDate>
       <category>Game</category>
       <description>A watchOS-first pinball game with SpriteKit physics, Digital Crown controls, and belt-rank progression. The Master Dojo table is playable, simulator builds and logic tests pass, and a signed release archive exists. Distribution signing and final watch captures remain.</description>
     </item>
@@ -155,7 +155,7 @@
       <title>WristMaze</title>
       <link>https://ninjatomapps.com/#project/wristmaze</link>
       <guid isPermaLink="false">https://ninjatomapps.com/#project/wristmaze</guid>
-      <pubDate>Wed, 23 Sep 2026 22:49:54 GMT</pubDate>
+      <pubDate>Mon, 12 Oct 2026 18:01:40 GMT</pubDate>
       <category>Game</category>
       <description>A twenty-level Apple Watch maze adventure with tilt controls, hazards, progression, and Game Center systems. The campaign, complication, progression, accessibility, audio, and Game Center code paths are implemented. Real-watch tuning and App Store Connect completion remain.</description>
     </item>
@@ -163,7 +163,7 @@
       <title>LumaFlow</title>
       <link>https://ninjatomapps.com/#project/lumaflow</link>
       <guid isPermaLink="false">https://ninjatomapps.com/#project/lumaflow</guid>
-      <pubDate>Wed, 23 Sep 2026 22:49:54 GMT</pubDate>
+      <pubDate>Mon, 12 Oct 2026 18:01:40 GMT</pubDate>
       <category>Mobile App</category>
       <description>An active Apple-platform product build progressing through runtime QA and provisioning gates. LumaFlow is represented without an external link because similarly named public domains belong to unrelated products. Runtime QA and release setup remain active work.</description>
     </item>
@@ -171,7 +171,7 @@
       <title>Grateful Dicks</title>
       <link>https://gratefuldicks.com/</link>
       <guid isPermaLink="false">https://ninjatomapps.com/#project/grateful-dicks</guid>
-      <pubDate>Wed, 23 Sep 2026 22:49:54 GMT</pubDate>
+      <pubDate>Mon, 12 Oct 2026 18:01:40 GMT</pubDate>
       <category>Creative Concept Lab</category>
       <description>An adult-humor character and merchandise concept lab developing an original visual identity and public-interest test. The project remains a concept lab with a public teaser. Nothing is represented here as manufactured, for sale, affiliated, or officially launched.</description>
     </item>
@@ -179,7 +179,7 @@
       <title>Watcher.One</title>
       <link>https://ninjatomapps.com/#project/watcher-one</link>
       <guid isPermaLink="false">https://ninjatomapps.com/#project/watcher-one</guid>
-      <pubDate>Wed, 23 Sep 2026 22:49:54 GMT</pubDate>
+      <pubDate>Mon, 12 Oct 2026 18:01:40 GMT</pubDate>
       <category>Creative Technology</category>
       <description>A local-first AI cohost and live-production system connecting overlays, recaps, chat, memory, and avatar workflows. A locally testable MVP exists. Public streaming remains gated by external accounts, production direction, operator validation, and cost approval.</description>
     </item>
@@ -187,7 +187,7 @@
       <title>Custom3D.Art — Fabrication &amp; Venue Vending</title>
       <link>https://ninjatomapps.com/#project/fabrication-venue-vending</link>
       <guid isPermaLink="false">https://ninjatomapps.com/#project/fabrication-venue-vending</guid>
-      <pubDate>Wed, 23 Sep 2026 22:49:54 GMT</pubDate>
+      <pubDate>Mon, 12 Oct 2026 18:01:40 GMT</pubDate>
       <category>Planned Fabrication Initiative</category>
       <description>A planned Custom3D.Art initiative exploring venue vending, inventory, QR ordering, displays, and customer-work workflows. This planned initiative sits under Custom3D.Art and is not a standalone business identity, launched storefront, or operating vending network.</description>
     </item>
